@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1014361474788",
+    "firebase_url": "https://myair-d8c88.firebaseio.com",
+    "project_id": "myair-d8c88",
+    "storage_bucket": "myair-d8c88.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014361474788:android:43917b9def830f70840ef1",
+        "android_client_info": {
+          "package_name": "com.example.myair"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014361474788-fi49hkgvpfnhippbab8qr9sein2uvica.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myair",
+            "certificate_hash": "88f6f86efb2427bafa8be19efc47142d8ef0cb74"
+          }
+        },
+        {
+          "client_id": "1014361474788-hhp9se3jnikv991qg0nm63d6al77hvcr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP0DEyMxNYXbUmjLYl5mwdexk6nSv5HAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014361474788-hhp9se3jnikv991qg0nm63d6al77hvcr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

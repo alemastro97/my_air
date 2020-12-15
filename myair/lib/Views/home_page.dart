@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:myair/page/profile_page.dart';
-import 'package:myair/page/search_page.dart';
-import 'package:myair/page/settings_page.dart';
-import 'package:myair/provider/google_sign_in.dart';
+import 'package:myair/Views/profile_page.dart';
+import 'package:myair/Views/search_page.dart';
+import 'package:myair/Views/settings_page.dart';
+import 'package:myair/Services/Google_Service/google_sign_in.dart';
 import 'package:myair/Widgets/Login_with_google/background_painter.dart';
 import 'package:myair/Widgets/Login_with_google/logged_in_widget.dart';
 import 'package:myair/Widgets/Login_with_google/sign_up_widget.dart';

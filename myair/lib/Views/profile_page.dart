@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:myair/provider/google_sign_in.dart';
+import 'package:myair/Services/Google_Service/google_sign_in.dart';
 import 'package:myair/Widgets/Login_with_google/background_painter.dart';
 import 'package:myair/Widgets/content_list_widget.dart';
 import 'package:flutter/material.dart';

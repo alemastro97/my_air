@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myair/provider/google_sign_in.dart';
-import 'package:myair/widget/background_painter.dart';
-import 'package:myair/widget/content_list_widget.dart';
+import 'package:myair/Widgets/Login_with_google/background_painter.dart';
+import 'package:myair/Widgets/content_list_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:myair/widget/logged_in_widget.dart';
-import 'package:myair/widget/sign_up_widget.dart';
+import 'package:myair/Widgets/Login_with_google/logged_in_widget.dart';
+import 'package:myair/Widgets/Login_with_google/sign_up_widget.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {

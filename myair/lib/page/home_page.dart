@@ -4,10 +4,10 @@ import 'package:myair/page/profile_page.dart';
 import 'package:myair/page/search_page.dart';
 import 'package:myair/page/settings_page.dart';
 import 'package:myair/provider/google_sign_in.dart';
-import 'package:myair/widget/background_painter.dart';
-import 'package:myair/widget/logged_in_widget.dart';
-import 'package:myair/widget/sign_up_widget.dart';
-import 'package:myair/widget/tabbar_material_widget.dart';
+import 'package:myair/Widgets/Login_with_google/background_painter.dart';
+import 'package:myair/Widgets/Login_with_google/logged_in_widget.dart';
+import 'package:myair/Widgets/Login_with_google/sign_up_widget.dart';
+import 'package:myair/Widgets/tabbar_material_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'email_page.dart';

@@ -1,4 +1,4 @@
-import 'package:myair/widget/content_list_widget.dart';
+import 'package:myair/Widgets/content_list_widget.dart';
 import 'package:flutter/material.dart';
 
 class EmailPage extends StatelessWidget {

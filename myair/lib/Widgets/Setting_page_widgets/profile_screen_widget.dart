@@ -26,22 +26,53 @@ class ProfileScreen extends StatelessWidget{
                           //backgroundImage: AssetImage(''),
                         ),
                     ),
-                  FractionallySizedBox(
-                    widthFactor: 63 / 100,
-                    child: Align(
-                      alignment: Alignment.bottomRight,
+                  Align(
+                      alignment: Alignment.center,
                       child:Container(
-                        decoration:
-                        BoxDecoration(color: Theme.of(context).accentColor,
-                            shape: BoxShape.circle
-                        ),
-                        child: Icon(
+                          width:( MediaQuery.of(context).size.height)/5,
+                          height: MediaQuery.of(context).size.height/5,
+
+                        child:Align(
+                          alignment: Alignment.bottomRight,
+                          child: FractionallySizedBox(
+                            widthFactor: 0.3,
+                            heightFactor:0.3,
+                            child: Container(
+                                child:  Container(
+                                  // width:( MediaQuery.of(context).size.height)/10,
+                                  decoration:
+                                  BoxDecoration(color: Theme.of(context).accentColor,
+                                      shape: BoxShape.circle
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: FittedBox(
+                                      fit: BoxFit.contain,
+                                      child: Icon(
+                                        LineAwesomeIcons.pen,
+                                        color: kDarkPrimaryColor,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            ),
+                          ),
+                        ), /*Align(
+                          alignment: Alignment.bottomRight,
+                          child: Container(
+                           // width:( MediaQuery.of(context).size.height)/10,
+                            decoration:
+                            BoxDecoration(color: Theme.of(context).accentColor,
+                                shape: BoxShape.circle
+                            ),
+                            child: Placeholder(),
+                          ),
+                        )//////Icon(
                           LineAwesomeIcons.pen,
                           color: kDarkPrimaryColor,
-                        ),
-                      ),
-                    ),
-                  ),
+                        ),*/
+                      ),),
+
                 ],
               ),
 
@@ -51,33 +82,39 @@ class ProfileScreen extends StatelessWidget{
           ),
         ),
 
-        Expanded(flex: 1,child: Text('Alessandro Mastropasqua', style: kTitleTextStyle)),
+            Expanded(flex: 1,child: Container(child: FittedBox(fit: BoxFit.contain,child: Text('Alessandro Mastropasqua', style: kTitleTextStyle)))),
+            Expanded(flex: 1,child: Container(child: FittedBox(fit: BoxFit.contain,child: Text('alessandro.mastropasqua@mail.polimi.it', style: kCaptionTextStyle),))),
 
-        Expanded(flex: 1,child: Text('alessandro.mastropasqua@mail.polimi.it', style: kCaptionTextStyle)),
-      ],
+
+          ],
     );
     var themeSwitcher = ThemeSwitcher(builder: (context){
       return Align(
         alignment: Alignment.topRight,
-        child: AnimatedCrossFade(
-          duration: Duration(milliseconds: 200),
-          crossFadeState: ThemeProvider.of(context).brightness == Brightness.dark
-              ? CrossFadeState.showFirst
-              : CrossFadeState.showSecond,
-          firstChild: GestureDetector(
-            onTap: () =>
-                ThemeSwitcher.of(context).changeTheme(theme: kLightTheme),
-            child: Icon(
-              LineAwesomeIcons.sun,
-            ),
-          ),
-          secondChild: GestureDetector(
-            onTap: () =>
-                ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme),
-            child: Icon(
-              LineAwesomeIcons.moon,
-            ),
-          ),
+        child: ThemeSwitcher(
+          builder: (context){
+            return AnimatedCrossFade(
+              duration: Duration(milliseconds: 200),
+              crossFadeState:
+              ThemeProvider.of(context).brightness == Brightness.dark
+                  ? CrossFadeState.showFirst
+                  : CrossFadeState.showSecond,
+              firstChild: GestureDetector(
+                onTap: () =>
+                    ThemeSwitcher.of(context).changeTheme(theme: kLightTheme),
+                child: Icon(
+                  LineAwesomeIcons.sun,
+                ),
+              ),
+              secondChild: GestureDetector(
+                onTap: () =>
+                    ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme),
+                child: Icon(
+                  LineAwesomeIcons.moon,
+                ),
+              ),
+            );
+          }
         ),
       );
     });
@@ -91,16 +128,22 @@ class ProfileScreen extends StatelessWidget{
         themeSwitcher,
       ],
     ));
-    return ThemeSwitchingArea(
+      return ThemeSwitchingArea(
       child: Builder(builder: (context){
         return  Scaffold(
           //Profile Info
           body: Column(
             children: <Widget>[
 
-              Expanded(flex:1 ,child: header),
+              Expanded(flex:4 ,child: header),
+              Expanded(flex:1 ,child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Divider(
+                    color: Theme.of(context).accentColor
+                ),
+              )),
               Expanded(
-                flex: 3,
+                flex: 7,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 15.0,bottom: 90.0),
                   child: Column(
@@ -148,3 +191,27 @@ class ProfileScreen extends StatelessWidget{
 }
 
 
+/*
+* return AnimatedCrossFade(
+            duration: Duration(milliseconds: 200),
+            crossFadeState:
+                ThemeProvider.of(context).brightness == Brightness.dark
+                    ? CrossFadeState.showFirst
+                    : CrossFadeState.showSecond,
+            firstChild: GestureDetector(
+              onTap: () =>
+                  ThemeSwitcher.of(context).changeTheme(theme: kLightTheme),
+              child: Icon(
+                LineAwesomeIcons.sun,
+              ),
+            ),
+            secondChild: GestureDetector(
+              onTap: () =>
+                  ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme),
+              child: Icon(
+                LineAwesomeIcons.moon,
+              ),
+            ),
+          );
+*
+* */

@@ -7,7 +7,7 @@ class EmailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text('Mail'),
+      title: Text('Our Stations'),
     ),
     body:Stack(
       children: <Widget>[

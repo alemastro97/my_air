@@ -21,8 +21,12 @@ class _SearchableDropdownWidget extends State<SearchableDropdownWidget> {
     stationIdList.map((Station) =>{
       items.add(
         DropdownMenuItem(
-          child: Text(Station.unit),
+          child: Text(
+              Station.unit,
+
+          ),
           value: Station.unit//new LatLng(double.parse(Station.lat),double.parse(Station.lng)),
+
         ),
       )
     }).toList();
@@ -43,7 +47,7 @@ class _SearchableDropdownWidget extends State<SearchableDropdownWidget> {
                 height: 5,
               ),
               SearchableDropdown.single(
-                menuBackgroundColor: Colors.white,
+                menuBackgroundColor: Theme.of(context).backgroundColor,
                 items: items,
                 value: selectedValue,
                 hint: "Search a station",

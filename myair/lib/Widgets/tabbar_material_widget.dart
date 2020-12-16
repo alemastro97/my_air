@@ -19,7 +19,7 @@ class _TabBarMaterialWidgetState extends State<TabBarMaterialWidget> {
   Widget build(BuildContext context) {
     final placeholder = Opacity(
       opacity: 0,
-      child: IconButton(icon: Icon(Icons.no_cell), onPressed: null),
+      child: IconButton(icon: Icon(Icons.home_outlined), onPressed: null),
     );
 
     return BottomAppBar(
@@ -30,11 +30,11 @@ class _TabBarMaterialWidgetState extends State<TabBarMaterialWidget> {
         children: [
           buildTabItem(
             index: 0,
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.stacked_bar_chart),
           ),
           buildTabItem(
             index: 1,
-            icon: Icon(Icons.mail_outline),
+            icon: Icon(Icons.map_outlined),
           ),
           placeholder,
           buildTabItem(

@@ -81,9 +81,17 @@ class ProfileScreen extends StatelessWidget{
             ),
           ),
         ),
-
-            Expanded(flex: 1,child: Container(child: FittedBox(fit: BoxFit.contain,child: Text('Alessandro Mastropasqua', style: kTitleTextStyle)))),
-            Expanded(flex: 1,child: Container(child: FittedBox(fit: BoxFit.contain,child: Text('alessandro.mastropasqua@mail.polimi.it', style: kCaptionTextStyle),))),
+        Expanded(
+          flex:2,
+          child: Column(
+            children: <Widget>[
+              Expanded(flex: 1,child: FractionallySizedBox(widthFactor: 0.7,child:FittedBox(fit: BoxFit.contain,child: Text('Alessandro Mastropasqua', style: kTitleTextStyle)),),),
+              Expanded(flex: 1,child: FractionallySizedBox(widthFactor: 0.7,child: FittedBox(fit: BoxFit.contain,child: Text('alessandro.mastropasqua@mail.polimi.it', style: kCaptionTextStyle)),),),
+            ],
+          ),
+        ),
+           // Expanded(flex: 1,child: Container(child: FittedBox(fit: BoxFit.contain,child: Text('Alessandro Mastropasqua', style: kTitleTextStyle)))),
+           // Expanded(flex: 1,child: Container(child: FittedBox(fit: BoxFit.contain,child: Text('alessandro.mastropasqua@mail.polimi.it', style: kCaptionTextStyle),))),
 
 
           ],
@@ -139,7 +147,7 @@ class ProfileScreen extends StatelessWidget{
               Expanded(flex:1 ,child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Divider(
-                    color: Theme.of(context).accentColor
+                    color: Theme.of(context).dividerColor
                 ),
               )),
               Expanded(

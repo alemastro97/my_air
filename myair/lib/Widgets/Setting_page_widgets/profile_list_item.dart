@@ -31,22 +31,19 @@ class ProfileListItem  extends StatelessWidget{
         ),
         child: Row(
           children: <Widget>[
-            Icon(
-              this.icon,
+          //  Icon(this.icon,),
 
-            ),
+            //Text(this.text,style: kTitleTextStyle.copyWith(fontWeight: FontWeight.w500),),
+            Expanded(flex: 2,child:  Icon(this.icon,),),
+            Expanded(flex: 7,child:Center(child: FractionallySizedBox(heightFactor:0.4, child: FittedBox(fit: BoxFit.fitHeight,child: Text(this.text,style: kTitleTextStyle.copyWith(fontWeight: FontWeight.w500),), ),))),
 
-            Text(
-              this.text,
-              style: kTitleTextStyle.copyWith(
-                  fontWeight: FontWeight.w500
-              ),
-            ),
-            Spacer(),
-            if (this.hasNavigation)
-              Icon(
+            Expanded(
+              flex: 1,
+
+              child:Icon(
                 LineAwesomeIcons.angle_right,
-              ),
+              ),)
+
           ],
         ),
       ),

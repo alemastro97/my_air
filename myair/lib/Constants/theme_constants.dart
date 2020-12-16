@@ -8,6 +8,8 @@ const kDarkSecondaryColor = Color(0xFF373737);
 const kLightPrimaryColor = Color(0xFFFFFFFF);
 const kLightSecondaryColor = Color(0xFFF3F7FB);
 const kAccentColor = Color(0xFFFFC107);
+const kLightDividerColor = Color(0xF0000000);
+
 
 final kTitleTextStyle = TextStyle(
   //fontSize: ScreenUtil().setSp(kSpacingUnit.w*1.7),
@@ -25,6 +27,9 @@ final kButtonTextStyle = TextStyle(
     color: kDarkPrimaryColor,
 );
 
+
+
+
 final kDarkTheme = ThemeData(
   brightness: Brightness.dark,
   fontFamily: 'SFProText',
@@ -32,6 +37,7 @@ final kDarkTheme = ThemeData(
   canvasColor: kDarkPrimaryColor,
   backgroundColor: kDarkSecondaryColor,
   accentColor: kAccentColor,
+  dividerColor: kAccentColor,
   iconTheme: ThemeData.dark().iconTheme.copyWith(
     color: kLightSecondaryColor,
   ),
@@ -50,6 +56,7 @@ final kLightTheme = ThemeData(
   canvasColor: kLightPrimaryColor,
   backgroundColor: kLightSecondaryColor,
   accentColor: kAccentColor,
+  dividerColor: kLightDividerColor,
   iconTheme: ThemeData.light().iconTheme.copyWith(
     color: kDarkSecondaryColor,
   ),

@@ -12,11 +12,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   DatabaseHelper databaseHelper = DatabaseHelper();
-  await GeolocationView().getCurrentLocation();
-  await fetchSensorsFromAPI();
   sensorList = await databaseHelper.getSensorList();
+  if(sensorList.length == 0){
+    await fetchSensorsFromAPI();
+    sensorList = await databaseHelper.getSensorList();
+    print("Entrato");
+  }
+  await GeolocationView().getCurrentLocation();
   print("Upload all sensors: " + sensorList.length.toString());
-
   runApp(MyApp());
 }
 

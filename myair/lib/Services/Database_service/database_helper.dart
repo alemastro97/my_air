@@ -39,14 +39,12 @@ class DatabaseHelper {
     if (_databaseHelper == null) {
       _databaseHelper = DatabaseHelper._createInstance(); // this is execute only once, singleton object
     }
-  /*  else {
-      _databaseHelper.deleteSensor();
-      _databaseHelper.deleteUnit();
-    }
-*/
     return _databaseHelper;
   }
-
+  deleteDB(){
+    _databaseHelper.deleteSensor();
+    _databaseHelper.deleteUnit();
+  }
   Future<Database> get database async {
     if (_database == null) {
       _database = await initializeDatabase();

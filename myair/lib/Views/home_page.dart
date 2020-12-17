@@ -11,6 +11,7 @@ import 'package:myair/Widgets/tabbar_material_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'email_page.dart';
+import 'home_statistics_page.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -31,6 +32,7 @@ class _HomePageState extends State<HomePage> {
     EmailPage(),
     ProfilePage(),
     SettingsPage(),
+    HomeStatisticsPage(),
   ];
 
   @override
@@ -42,8 +44,8 @@ class _HomePageState extends State<HomePage> {
       onChangedTab: onChangedTab,
     ),
     floatingActionButton: FloatingActionButton(
-      child: Icon(Icons.add),
-      onPressed: () => print('Hello World'),
+      child: Icon(Icons.home_outlined),
+      onPressed: () => onChangedTab(4),
     ),
     floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
   );

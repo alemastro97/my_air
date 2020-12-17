@@ -27,8 +27,12 @@ final kButtonTextStyle = TextStyle(
     color: kDarkPrimaryColor,
 );
 
+final kDarkCard = CardTheme(
 
+);
+final kLightCard = CardTheme(
 
+);
 
 final kDarkTheme = ThemeData(
   brightness: Brightness.dark,
@@ -37,6 +41,7 @@ final kDarkTheme = ThemeData(
   canvasColor: kDarkPrimaryColor,
   backgroundColor: kDarkSecondaryColor,
   accentColor: kAccentColor,
+  //cardTheme: ,
   dividerColor: kAccentColor,
   iconTheme: ThemeData.dark().iconTheme.copyWith(
     color: kLightSecondaryColor,
@@ -56,6 +61,7 @@ final kLightTheme = ThemeData(
   canvasColor: kLightPrimaryColor,
   backgroundColor: kLightSecondaryColor,
   accentColor: kAccentColor,
+ // cardTheme: ,
   dividerColor: kLightDividerColor,
   iconTheme: ThemeData.light().iconTheme.copyWith(
     color: kDarkSecondaryColor,

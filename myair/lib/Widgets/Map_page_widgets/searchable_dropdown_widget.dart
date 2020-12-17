@@ -38,7 +38,7 @@ class _SearchableDropdownWidget extends State<SearchableDropdownWidget> {
    return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child:Container(
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         child:SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(

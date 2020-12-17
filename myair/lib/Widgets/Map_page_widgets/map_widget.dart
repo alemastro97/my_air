@@ -30,7 +30,6 @@ class MapWidgetState extends State <MapWidget>{
   bool displayCaps;
   bool infoWindowVisible = false;
   GlobalKey<State> key = new GlobalKey();
-
   ///Ends of Local variables
   ///override functions: initState and build
   @override
@@ -98,50 +97,34 @@ class MapWidgetState extends State <MapWidget>{
       }
     });
   }
-  ///-_builfCustomMarker: used to return all the markers in a list of widgets
-  Stack _buildCustomMarker() {
-    return Stack(
-      children: <Widget>[
-        marker()
-      ],
-    );
-  }
-  ///-marker: defines the actual properties of the marker
-  Opacity marker() {
-    return Opacity(
-      child: Row(
-        children: <Widget>[
-          Icon(
-            Icons.location_pin,
-            size: 24,
-          ),
-        ],
-      ),
-      opacity: infoWindowVisible ? 0.0 : 1.0,
-    );
-  }
+
+  //TODO ingrandimento del marker quando viene selezionato e omnbre
   ///-_buildMarkersOnMap: used by MarkerLayerOptions's FlutterMap, it takes the station list and builds all the markers
   ///with their onTap function
   List<Marker> _buildMarkersOnMap() {
-
-
     markers = stationIdList.map((Station) {
-      return Marker(
+      return  Marker(
         width: 80.0,
         height: 80.0,
-        point: new LatLng(Station.lat ,Station.lng),
-        builder: (context) => GestureDetector(
-            onTap: () {
-              setState(() {
-                //TODO insert station values
-                displayCaps = true;
-                currentlySelectedPin.locationName=Station.unit;
-                currentlySelectedPin.location =  new LatLng(Station.lat,Station.lng);
-
-              });
-            },
-            child: _buildCustomMarker()
-        ),
+        point: LatLng(Station.lat ,Station.lng),
+        //anchorPos: anchorPos,
+        builder: (ctx) => GestureDetector(
+          onTap: () {
+            setState(() {
+              //TODO insert station values
+              displayCaps = true;
+              currentlySelectedPin.locationName=Station.unit;
+              currentlySelectedPin.location = LatLng(Station.lat,Station.lng);
+          });
+          },
+          child:Container(
+            child:  Icon(
+              Icons.location_pin,
+              color: Colors.red,
+              size: 30,
+            ),
+          ),
+        )
       );
     }).toList();
     return markers;

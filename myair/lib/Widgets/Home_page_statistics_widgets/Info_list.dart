@@ -13,41 +13,31 @@ class InfoList extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-  return Expanded(
-    flex: 1,
-    child:Padding(
-      padding: const EdgeInsets.only(left: 8.0,bottom: 8.0),
-      child: Container(
-        child: Row(
-          children: <Widget>[
-            Expanded(flex: 3,
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: FractionallySizedBox(
-                  heightFactor: 0.5,widthFactor: 0.5,
-                  child: Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: kNeumorphicColors.elementAt(index % kNeumorphicColors.length),
-                      ),),
-                  ),
-                ),
-              ),
+  return  Flexible(
+    child:Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Flexible(
+          child:Container(
+            width: MediaQuery.of(context).size.width/30,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: kNeumorphicColors.elementAt( index % kNeumorphicColors.length),
             ),
-            Expanded(flex: 8,
-              child: Container(
-                child: FittedBox(
-                    fit: BoxFit.fitHeight,
-                    child: Text(
-                    text.capitalize()  ,
-                ),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
+        Expanded(
+            child:
+            Container(
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width/100),
+              child: FittedBox(
+                fit: BoxFit.fitHeight,
+                child: Text(
+                  text.capitalize() ,
+                ),
+              ),
+            )),
+      ],
     ),
   );
   }

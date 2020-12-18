@@ -9,39 +9,61 @@ import 'Agent_information_box.dart';
 class GridAgentWidget extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Card(
-            color: Theme.of(context).brightness == Brightness.light ? Colors.white60 : Colors.grey,
-            elevation: 1.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-            child: Column(
+    return Column(
+      children: <Widget>[
+        for(var column = 0; column < kInfo.length/2; column ++)
+          Expanded(
+            flex: 1,
+            child: Row(
               children: <Widget>[
-                for(var column = 0; column < kInfo.length/2; column ++)
-                Expanded(
-                  flex: 1,
-                  child: Row(
-                   children: <Widget>[
-                     for(var row = 0; row < 2; row ++)
-                     Expanded(
-                         flex:1,
-                         child: AgentInfoWidget(index: (column*2 + row),),
-                     ),
-                   ],
+                for(var row = 0; row < 2; row ++)
+                  Flexible(
+                    child: AgentInfoWidget(index: (column*2 + row),),
                   ),
-                ),
-
-
               ],
             ),
           ),
-        ),
+
+
       ],
     );
   }
 
 }
+
+/* Stack(
+      children: [
+        AspectRatio(
+          aspectRatio: 150/130,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              color: Theme.of(context).brightness == Brightness.light ? Colors.white60 : Colors.grey,
+              elevation: 1.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              child: Column(
+                children: <Widget>[
+                  for(var column = 0; column < kInfo.length/2; column ++)
+                  Expanded(
+                    flex: 1,
+                    child: Row(
+                     children: <Widget>[
+                       for(var row = 0; row < 2; row ++)
+                       Expanded(
+                           flex:1,
+                           child: AgentInfoWidget(index: (column*2 + row),),
+                       ),
+                     ],
+                    ),
+                  ),
+
+
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    )*/

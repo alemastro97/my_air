@@ -144,12 +144,12 @@ class ProfileScreen extends StatelessWidget{
             children: <Widget>[
 
               Expanded(flex:4 ,child: header),
-              Expanded(flex:1 ,child: Padding(
+             /* Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Divider(
                     color: Theme.of(context).dividerColor
                 ),
-              )),
+              ),*/
               Expanded(
                 flex: 7,
                 child: Padding(

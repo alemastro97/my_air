@@ -20,12 +20,12 @@ class SensorDetail extends StatefulWidget {
 
 class SensorDetailState extends State<SensorDetail> {
 
-    DatabaseHelper helper = DatabaseHelper();
+  DatabaseHelper helper = DatabaseHelper();
 
-    final String appBarTitle;
-    final Sensor sensor;
+  final String appBarTitle;
+  final Sensor sensor;
 
-    SensorDetailState(this.sensor, this.appBarTitle);
+  SensorDetailState(this.sensor, this.appBarTitle);
 
   @override
   Widget build(BuildContext context) {
@@ -33,59 +33,59 @@ class SensorDetailState extends State<SensorDetail> {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle1;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(sensor.name),
-      ),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Column(
-                children: [
-                  Text(sensor.sensor),
-                  Text(sensor.idunit),
-                  Text(sensor.unit),
-                  Text(sensor.lat.toString()),
-                  Text(sensor.lng.toString()),
-                  Text(sensor.name),
-                  Text(sensor.uom),
-                  Text(sensor.start),
-                  //Text(sensor.stop),
-                ],
-              )
-            ],
-          ),
-          SizedBox(),
-          Row(
-            children: [
-              FlatButton(
-                color: Colors.blue,
-                textColor: Colors.white,
-                disabledColor: Colors.grey,
-                disabledTextColor: Colors.black,
-                padding: EdgeInsets.all(8.0),
-                splashColor: Colors.blueAccent,
-                onPressed: () {
-                  navigateToDetail(sensor, "Sensor data");
-                },
-                child: Text(
-                  'Sensor data',
-                  style: TextStyle(fontSize: 20.0),
-                ),
-              )
-            ],
-          )
-        ],
-      )
+        appBar: AppBar(
+          title: Text(sensor.name),
+        ),
+        body: Column(
+          children: [
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Text(sensor.sensor),
+                    Text(sensor.idunit),
+                    Text(sensor.unit),
+                    Text(sensor.lat),
+                    Text(sensor.lng),
+                    Text(sensor.name),
+                    Text(sensor.uom),
+                    Text(sensor.start),
+                    //Text(sensor.stop),
+                  ],
+                )
+              ],
+            ),
+            SizedBox(),
+            Row(
+              children: [
+                FlatButton(
+                  color: Colors.blue,
+                  textColor: Colors.white,
+                  disabledColor: Colors.grey,
+                  disabledTextColor: Colors.black,
+                  padding: EdgeInsets.all(8.0),
+                  splashColor: Colors.blueAccent,
+                  onPressed: () {
+                    navigateToDetail(sensor, "Sensor data");
+                  },
+                  child: Text(
+                    'Sensor data',
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                )
+              ],
+            )
+          ],
+        )
     );
 
   }
 
-    void navigateToDetail(Sensor sensor, String title) async {
-      bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return SensorDataList(sensor.sensor, title);
-      }));
-    }
+  void navigateToDetail(Sensor sensor, String title) async {
+    bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return SensorDataList(sensor.sensor, title);
+    }));
+  }
 
   void moveToLastScreen() {
     Navigator.pop(context, true);

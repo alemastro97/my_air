@@ -96,7 +96,7 @@ class AgentInfoWidget extends StatelessWidget{
                                 ),
                                 child: Center(
                                   child: FractionallySizedBox(
-                                    widthFactor: 0.4, heightFactor: 0.4,
+                                    widthFactor: 0.3, heightFactor: 0.3,
                                     child: FittedBox(
                                       fit: BoxFit.fitWidth,
                                       child: Text(

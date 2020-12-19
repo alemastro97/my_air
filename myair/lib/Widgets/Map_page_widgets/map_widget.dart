@@ -1,5 +1,5 @@
 
-
+//TODO there is a problem when tou left the map widget and it give us an error, not a problem but for some reason it is bettr to remove it
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myair/Modules/unit.dart';
@@ -54,6 +54,7 @@ class MapWidgetState extends State <MapWidget>{
       context: context,
       mapController: mapController,
       markers: markers,
+
     );
     return Stack(
       children: [

@@ -46,6 +46,8 @@ dependencies:
   line_awesome_flutter: ^1.0.1
   flutter_screenutil: ^1.0.2
   animated_theme_switcher: ^1.0.5
+  charts_flutter: ^0.8.1
+  auto_size_text: ^2.1.0
   # icon of google
   font_awesome_flutter: ^8.10.0
 dev_dependencies:

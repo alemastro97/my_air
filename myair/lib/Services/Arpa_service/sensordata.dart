@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:myair/Modules/sensordata.dart';
 import 'dart:convert'; // parsing json files
 import 'package:http/http.dart' as http;
+import 'package:myair/Modules/sensordata.dart';
 
 Future<List<SensorData>> fetchSensorDataFromAPI(String idsensore) async {
 
@@ -11,7 +11,7 @@ Future<List<SensorData>> fetchSensorDataFromAPI(String idsensore) async {
   // The part after the wait is asynchronous
   //final endpoint = 'https://www.dati.lombardia.it/resource/nicp-bhqi.json?idsensore=';
   //final endpoint = 'https://www.dati.lombardia.it/resource/nicp-bhqi.json?';
-
+  print(idsensore);
   final endpoint = 'https://www.dati.lombardia.it/resource/nicp-bhqi.json?';
   // The control is release from the function and other thread can be run
   // When we have the response function can be resumed

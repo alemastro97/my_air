@@ -1,13 +1,16 @@
 import 'dart:async';
+import 'dart:convert'; // parsing json files
+import 'package:http/http.dart' as http;
 import 'package:myair/Modules/sensor.dart';
 import 'package:myair/Modules/unit.dart';
 import 'package:myair/Services/Database_service/database_helper.dart';
-import 'dart:convert'; // parsing json files
-import 'package:http/http.dart' as http;
 
-Future<void> fetchSensorsFromAPI() async {
+Future<List<Sensor>> fetchSensorsFromAPI() async {
+
   DatabaseHelper databaseHelper = DatabaseHelper();
+
   List<Sensor> sensorList = List<Sensor>();
+
   // Main thread dedicated to UI
   // We run this function in background using another thread
   // The part after the async is synchronous
@@ -35,12 +38,19 @@ Future<void> fetchSensorsFromAPI() async {
     for (var sensorJson in sensorsJson) {
 
       sensor = Sensor.fromJson(sensorJson);
-      print("" + sensor.toString());
       result = await databaseHelper.insertSensor(sensor);
 
-     // sensorList.add(Sensor.fromJson(sensorJson));
+/*      if (idunit != sensor.idunit) {
+        unit = Unit(sensor.unit, sensor.idunit, sensor.lat, sensor.lng);
+        result = await databaseHelper.insertUnit(unit);
+        idunit = sensor.idunit;
+      }
+
+      sensorList.add(Sensor.fromJson(sensorJson)); */
     }
 
     print("Sensors API finished ...");
   }
+
+  return [];
 }

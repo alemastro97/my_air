@@ -87,10 +87,10 @@ class SensorDataListState extends State<SensorDataList> {
 
     Future<List<SensorData>> sensorDataList = fetchSensorDataFromAPI(idSensore);
     sensorDataList.then((sensorDataList) {
-       setState(() {
-       this.sensorDataList = sensorDataList;
-       this.count = sensorDataList.length;
-       print("------------------------ Number of data sensor: " + this.count.toString());
+      setState(() {
+        this.sensorDataList = sensorDataList;
+        this.count = sensorDataList.length;
+        print("------------------------ Number of data sensor: " + this.count.toString());
       });
     });
   }

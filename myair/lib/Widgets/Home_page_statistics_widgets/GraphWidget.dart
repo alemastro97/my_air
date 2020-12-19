@@ -56,12 +56,15 @@ class GraphWidget extends StatelessWidget{
                                     ),
                                   ),
                                   ///Info Icon
-                                  Flexible(flex: 1,child: IconButton(
-                                    icon: Icon(Icons.info_outline),
-                                    color: Colors.black,
-                                    onPressed: (){
-                                      Navigator.of(context).push(_createRoute());
-                                    },
+                                  Flexible(flex: 1,child: FittedBox(
+                                    fit: BoxFit.contain,
+                                    child: IconButton(
+                                      icon: Icon(Icons.info_outline),
+                                      color: Colors.black,
+                                      onPressed: (){
+                                        Navigator.of(context).push(_createRoute());
+                                      },
+                                    ),
                                   ),),
                                 ],
                               ),
@@ -181,7 +184,7 @@ class GraphWidget extends StatelessWidget{
               ],
             ),
           ),
-          Padding(
+        /*  Padding(
             padding: EdgeInsets.all(_mediaQuery.size.width/23),
             child: Align(
               alignment: Alignment.bottomCenter,
@@ -195,7 +198,7 @@ class GraphWidget extends StatelessWidget{
                     shape: BoxShape.circle,
                     boxShadow:[
                       BoxShadow(
-                        spreadRadius: -2,
+                          spreadRadius: -2,
                         blurRadius: 0,
                         offset: Offset(0,-4),
                         color: Theme.of(context).brightness == Brightness.light ?Colors.grey : Colors.black,
@@ -204,7 +207,7 @@ class GraphWidget extends StatelessWidget{
                 ),
               ),
             ),
-          ),
+          ),*/
         ],
       ),
     );

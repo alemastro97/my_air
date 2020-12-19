@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Modules/sensor.dart';
-import 'package:myair/Widgets/Map_page_widgets/unit_list.dart';
+import 'package:myair/Services/Arpa_service/sensors.dart';
 import 'package:myair/Services/Database_service/database_helper.dart';
 import 'package:myair/Widgets/Map_page_widgets/sensor_detail.dart';
-import 'package:myair/Services/Arpa_service/sensors.dart';
-
+import 'package:myair/Widgets/Map_page_widgets/unit_list.dart';
 class SensorList extends StatefulWidget {
 
   @override
@@ -27,6 +27,7 @@ class SensorListState extends State<SensorList> {
 
   @override
   Widget build(BuildContext context) {
+
     if (sensorList == null) {
       //sensorList = List<Sensor>();
       Future<List<Sensor>> sensorList = fetchSensorsFromAPI();
@@ -34,40 +35,42 @@ class SensorListState extends State<SensorList> {
         updateListView(databaseHelper);
       });
     }
+
     return Scaffold(
+
       appBar: AppBar(
         title: Text('Sensors'),
       ),
 
       body: Column (
-        children: <Widget>[
-          TextField(
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.all(15.0),
-              hintText: 'Enter sensor name',
-            ),
-            onChanged: (string) {
-              setState(() {
-                filteredSensors = sensorList
-                    .where((u) => u.unit
+          children: <Widget>[
+            TextField(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(15.0),
+                hintText: 'Enter sensor name',
+              ),
+              onChanged: (string) {
+                setState(() {
+                  filteredSensors = sensorList
+                      .where((u) => u.unit
                       .toLowerCase()
                       .contains(string.toLowerCase()))
-                    .toList();
-              });
-            },
-          ),
-          Expanded(
-              child: getSensorListView(),
-          ),
-        ]
+                      .toList();
+                });
+              },
+            ),
+            Expanded(
+                child: getSensorListView()
+            ),
+          ]
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => UnitList(filteredSensors, "Unit list"),
-            )
+              context,
+              MaterialPageRoute(
+                builder: (context) => UnitList(filteredSensors, "Unit list"),
+              )
           );
         },
 
@@ -118,7 +121,7 @@ class SensorListState extends State<SensorList> {
         return Colors.grey;
     }
   }
-  
+
   // Returns the enabled station color
   Icon getEnabledIcon(int enabled) {
     switch (enabled) {
@@ -135,7 +138,7 @@ class SensorListState extends State<SensorList> {
     final snackBar = SnackBar(content: Text(message));
     Scaffold.of(context).showSnackBar(snackBar);
   }
-  
+
   void navigateToDetail(Sensor sensor, String title) async {
     bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
       return SensorDetail(sensor, title);
@@ -147,17 +150,21 @@ class SensorListState extends State<SensorList> {
   }
 
   void updateListView(DatabaseHelper db) {
-      //Future<List<Sensor>> sensorList = db.getSensorListClosedtoUser(45.5712059, 9.022589, 2000);
-      Future<List<Sensor>> sensorList = db.getSensorList();
-      sensorList.then((sensorList) {
-        setState(() {
-          this.sensorList = sensorList;
-          this.count = sensorList.length;
-          this.filteredSensors = sensorList;
-          print("------------------------ Number of sensors: " + this.count.toString());
-        });
+    //Future<List<Sensor>> sensorList = db.getSensorListClosedtoUser(45.5712059, 9.022589, 2000);
+    //Future<List<Sensor>> sensorList = db.getSensorList();
+
+    DailyUnitData dud = DailyUnitData();
+
+    Future<List<Sensor>> sensorList = dud.setSensorsDataAverage(db, 45.8150428, 9.0669, 2000);
+    sensorList.then((sensorList) {
+      setState(() {
+        this.sensorList = sensorList;
+        this.count = sensorList.length;
+        this.filteredSensors = sensorList;
+        print("------------------------ Number of sensors: " + this.count.toString());
       });
-    }
+    });
   }
+}
 
 

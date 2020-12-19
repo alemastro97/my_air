@@ -195,8 +195,8 @@ class DatabaseHelper {
       sensor = Sensor.fromMapObject(sensorMapList[i]);
       lat = sensor.lat;
       lng =sensor.lng;
-      distanceMeters = Geolocator.distanceBetween(ulatitude, ulongitude, lat, lng);
-      distanceMeters2 = getDistance(ulatitude, ulongitude, lat, lng);
+      distanceMeters = Geolocator.distanceBetween(ulatitude, ulongitude, double.parse(lat), double.parse(lng));
+      distanceMeters2 = getDistance(ulatitude, ulongitude, double.parse(lat), double.parse(lng));
 
 
       if (distanceMeters < utolerance) {

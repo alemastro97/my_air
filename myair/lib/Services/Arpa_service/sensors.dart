@@ -15,7 +15,7 @@ Future<List<Sensor>> fetchSensorsFromAPI() async {
   // We run this function in background using another thread
   // The part after the async is synchronous
   // The part after the wait is asynchronous
-  final endpoint = 'https://www.dati.lombardia.it/resource/ib47-atvt.json';
+  final endpoint = 'https://www.dati.lombardia.it/resource/ib47-atvt.json?\$where=datastop%20is%20NULL';
 
   // The control is release from the function and other thread can be run
   // When we have the response function can be resumed

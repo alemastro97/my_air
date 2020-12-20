@@ -35,7 +35,7 @@ class DailySensorData {
     var hourfromapi;
     var day;
 
-    sensorDataList = await fetchSensorDataFromAPI(idSensore);
+    sensorDataList = await fetchSensorDataFromAPI(idSensore,24);
     sensorDataList.sort((a, b) => a.timestamp.compareTo(b.timestamp));
 
     for (var i = 0; i < sensorDataList.length; i++) {

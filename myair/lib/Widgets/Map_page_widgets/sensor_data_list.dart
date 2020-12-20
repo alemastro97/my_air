@@ -85,7 +85,7 @@ class SensorDataListState extends State<SensorDataList> {
 
   void updateListView(String idSensore) {
 
-    Future<List<SensorData>> sensorDataList = fetchSensorDataFromAPI(idSensore);
+    Future<List<SensorData>> sensorDataList = fetchSensorDataFromAPI(idSensore,24);
     sensorDataList.then((sensorDataList) {
       setState(() {
         this.sensorDataList = sensorDataList;

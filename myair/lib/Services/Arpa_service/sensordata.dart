@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:convert'; // parsing json files
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:myair/Modules/sensordata.dart';
 
-Future<List<SensorData>> fetchSensorDataFromAPI(String idsensore) async {
-
+Future<List<SensorData>> fetchSensorDataFromAPI(String idsensore,int duration) async {
+  if(duration > 168) return [];
   // Main thread dedicated to UI
   // We run this function in background using another thread
   // The part after the async is synchronous
@@ -18,14 +19,15 @@ Future<List<SensorData>> fetchSensorDataFromAPI(String idsensore) async {
   // response is a json object
 
   var DateTimeFin = DateTime.now();
-  var DateTimeIni = DateTime.now().subtract(Duration(hours: 24));
+  var DateTimeIni = DateTime.now().subtract(Duration(hours: duration));
 
   String DateIni = DateTimeIni.year.toString() + '-' + DateTimeIni.month.toString() + '-' + DateTimeIni.day.toString();
   String DateEnd = DateTimeFin.year.toString() + '-' + DateTimeFin.month.toString() + '-'  + DateTimeFin.day.toString();
 
   var whereclause = '\$where=%20data%20%3E=%20%27' + DateIni + '%27%20AND%20data%20%3C=%20%27' + DateEnd + '%27%20';
   var sensorclause = '&idsensore=' + idsensore;
-  var connectionString = endpoint + whereclause + sensorclause;
+  var validationclause = '&stato=%27VA%27';
+  var connectionString = endpoint + whereclause + sensorclause + validationclause;
   print ('Connection string for data:' + connectionString);
 
   var response =  await http.get(connectionString);
@@ -39,7 +41,7 @@ Future<List<SensorData>> fetchSensorDataFromAPI(String idsensore) async {
 
       sensorDataList.add(SensorData.fromJson(sensorJson));
     }
-
+    if (sensorDataList.length == 0)  sensorDataList =   await fetchSensorDataFromAPI(idsensore,duration + 24);
     return sensorDataList;
   }
 

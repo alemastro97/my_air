@@ -39,10 +39,11 @@ class GeolocationView{
     var sensor = await d.setSensorsDataAverage(DatabaseHelper(), geoposition.latitude, geoposition.longitude,10000);
     print("lsllsslsllslslsll" + sensor.length.toString());
     for( var item in sensor) {
-      var x = await fetchSensorDataFromAPI(item.sensor);
+      var x = await fetchSensorDataFromAPI(item.sensor,24);
       print(x.length);
       print(" -------------------------------------------"+ item.name +"------------------------------------------------------");
        x.length > 0 ? print (x.elementAt(x.length-1).value): print(null);
+       print(item.sensor);
       print("_________________________________________________________________________________________________________________");
     }
   }

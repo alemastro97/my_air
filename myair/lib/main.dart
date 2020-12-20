@@ -14,6 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   DatabaseHelper databaseHelper = DatabaseHelper();
+  databaseHelper.deleteDB();
   sensorList = await databaseHelper.getSensorList();
   if(sensorList.length == 0){
     await fetchSensorsFromAPI();

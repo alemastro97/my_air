@@ -5,6 +5,7 @@ import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Services/Arpa_service/sensordata.dart';
 import 'package:myair/Services/Database_service/database_helper.dart';
 
+import 'package:myair/Widgets/Home_page_statistics_widgets/pie_chart.dart';
 
 
 Timer timer;
@@ -36,14 +37,15 @@ class GeolocationView{
     user_position = new LatLng(geoposition.latitude, geoposition.longitude);
     print(geoposition.latitude.toString() + " " + geoposition.longitude.toString());
     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    var sensor = await d.setSensorsDataAverage(DatabaseHelper(), geoposition.latitude, geoposition.longitude,10000);
-    print("lsllsslsllslslsll" + sensor.length.toString());
+    var sensor = await d.setSensorsDataAverage(DatabaseHelper(), geoposition.latitude, geoposition.longitude,50000);
+    //print("lsllsslsllslslsll" + sensor.length.toString());
     for( var item in sensor) {
       var x = await fetchSensorDataFromAPI(item.sensor,24);
       print(x.length);
-      print(" -------------------------------------------"+ item.name +"------------------------------------------------------");
+
+      print(" -------------------------------------------"+ item.sensor +"------------------------------------------------------");
        x.length > 0 ? print (x.elementAt(x.length-1).value): print(null);
-       print(item.sensor);
+       print(item.value);
       print("_________________________________________________________________________________________________________________");
     }
   }

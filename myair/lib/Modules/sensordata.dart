@@ -1,7 +1,7 @@
 class SensorData {
 
-  int _id;
-  String _sensor;
+  int _id; ///ID in the internal database
+  String _sensor; ///ID of the sensor in the ARPA DB
   String _timestamp;
   String _value;
   String _state;

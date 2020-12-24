@@ -61,7 +61,7 @@ class DailySensorData {
     }
 
     this._values[DateTime.now().hour] = (this._values[DateTime.now().hour] + average) / 2;
-    print("Calcolo media: " +  _values[DateTime.now().day].toString());
+   // print("Calcolo media: " +  _values[DateTime.now().day].toString());
 
     return average;
   }

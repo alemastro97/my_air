@@ -32,7 +32,7 @@ class SensorListState extends State<SensorList> {
       //sensorList = List<Sensor>();
       Future<List<Sensor>> sensorList = fetchSensorsFromAPI();
       sensorList.then((sensorList) {
-        updateListView(databaseHelper);
+    //    updateListView(databaseHelper);
       });
     }
 
@@ -149,13 +149,13 @@ class SensorListState extends State<SensorList> {
     } */
   }
 
-  void updateListView(DatabaseHelper db) {
+  /*void updateListView(DatabaseHelper db) {
     //Future<List<Sensor>> sensorList = db.getSensorListClosedtoUser(45.5712059, 9.022589, 2000);
     //Future<List<Sensor>> sensorList = db.getSensorList();
 
     DailyUnitData dud = DailyUnitData();
 
-    Future<List<Sensor>> sensorList = dud.setSensorsDataAverage(db, 45.8150428, 9.0669, 2000);
+   //Future<List<Sensor>> sensorList = dud.setSensorsDataAverage(db, 45.8150428, 9.0669, 2000);
     sensorList.then((sensorList) {
       setState(() {
         this.sensorList = sensorList;
@@ -164,7 +164,7 @@ class SensorListState extends State<SensorList> {
         print("------------------------ Number of sensors: " + this.count.toString());
       });
     });
-  }
+  }*/
 }
 
 

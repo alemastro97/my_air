@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myair/Widgets/Login_with_google/background_painter.dart';
 import 'package:myair/Widgets/Login_with_google/google_signup_button_widget.dart';
 
@@ -8,36 +10,54 @@ class SignUpWidget extends StatelessWidget {
     fit: StackFit.expand,
     children: [
       CustomPaint(painter: BackgroundPainter()),
-      buildSignUp(),
+      Column(
+        children: [
+          Spacer(),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              width: 175,
+              child: Text(
+                'Welcome Back To MyApp',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          Spacer(),
+          GoogleSignupButtonWidget(),
+          Container(
+            width: MediaQuery.of(context).size.width/2,
+            padding: EdgeInsets.all(4),
+            child: OutlineButton.icon(
+              label: Text(
+                'Login',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              shape: StadiumBorder(),
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              highlightedBorderColor: Colors.black,
+              borderSide: BorderSide(color: Colors.black),
+              textColor: Colors.black,
+              icon: FaIcon(FontAwesomeIcons.user, color: Colors.red),
+              onPressed: () {
+              },
+            ),
+          ),
+          SizedBox(height: 12),
+          Text(
+            'Login to continue',
+            style: TextStyle(fontSize: 16),
+          ),
+          Spacer(),
+        ],
+      ),
     ],
   );
 
-  Widget buildSignUp() => Column(
-    children: [
-      Spacer(),
-      Align(
-        alignment: Alignment.centerLeft,
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          width: 175,
-          child: Text(
-            'Welcome Back To MyApp',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ),
-      Spacer(),
-      GoogleSignupButtonWidget(),
-      SizedBox(height: 12),
-      Text(
-        'Login to continue',
-        style: TextStyle(fontSize: 16),
-      ),
-      Spacer(),
-    ],
-  );
 }
+TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);

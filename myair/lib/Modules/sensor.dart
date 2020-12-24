@@ -10,7 +10,7 @@ class Sensor {
   String _uom;
   String _start;
   String _stop;
-
+//TODO delete the stop parameter
   Sensor(this._id, this._sensor, this._unit, this._idunit, this._lat, this._lng, this._name, this._uom, this._start, this._stop);
 
   int get id => _id;

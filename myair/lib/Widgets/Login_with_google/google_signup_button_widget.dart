@@ -6,11 +6,17 @@ import 'package:provider/provider.dart';
 class GoogleSignupButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
+    width: MediaQuery.of(context).size.width/2,
     padding: EdgeInsets.all(4),
     child: OutlineButton.icon(
-      label: Text(
-        'Sign In With Google',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+      label: Flexible(
+        child: FittedBox(
+          fit: BoxFit.fitWidth,
+          child: Text(
+            'Sign In With Google',
+            style: TextStyle(fontWeight: FontWeight.bold,),
+          ),
+        ),
       ),
       shape: StadiumBorder(),
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),

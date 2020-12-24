@@ -4,7 +4,7 @@ import 'package:myair/Constants/pollution_graph_constants.dart';
 import 'package:myair/Modules/info_pollution.dart';
 import 'package:flutter/cupertino.dart';
 
-final kInfo = [
+var kInfo = [
   InfoPollution('PM10', amount: 23.0),
   InfoPollution('PM2.5', amount: 23.0),
   InfoPollution('NO2', amount: 37.0),

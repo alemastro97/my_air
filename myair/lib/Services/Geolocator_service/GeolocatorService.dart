@@ -37,15 +37,12 @@ class GeolocationView{
     user_position = new LatLng(geoposition.latitude, geoposition.longitude);
     print(geoposition.latitude.toString() + " " + geoposition.longitude.toString());
     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    var sensor = await d.setSensorsDataAverage(DatabaseHelper(), geoposition.latitude, geoposition.longitude,50000);
+    var instantData = await d.setSensorsDataAverage(DatabaseHelper(), geoposition.latitude, geoposition.longitude,50000);
     //print("lsllsslsllslslsll" + sensor.length.toString());
-    for( var item in sensor) {
-      var x = await fetchSensorDataFromAPI(item.sensor,24);
-      print(x.length);
-
-      print(" -------------------------------------------"+ item.sensor +"------------------------------------------------------");
-       x.length > 0 ? print (x.elementAt(x.length-1).value): print(null);
+    for( var item in instantData) {
+      print(" -------------------------------------------"+ item.pollutantName +"------------------------------------------------------");
        print(item.value);
+       print(item.timestamp);
       print("_________________________________________________________________________________________________________________");
     }
   }

@@ -10,7 +10,7 @@ class AgentPieChart extends CustomPainter{
   final List<InfoPollution> info;
   final double width;
   final int index;
-  final Limits = [50.0,25.0,200.0,350.0,180.0,180.0];
+  final Limits = [50.0,50.0,400.0,500.0,240.0,240.0];
   @override
   void paint(Canvas canvas, Size size) {
     Offset center = Offset(size.width / 2, size.height / 2);

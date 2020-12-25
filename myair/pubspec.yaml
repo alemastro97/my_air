@@ -35,6 +35,7 @@ dependencies:
   user_location: any
   geolocator: ^6.1.8+1
   searchable_dropdown: ^1.1.3
+  flutter_local_notifications: ^3.0.0
   sqflite: any
   path_provider: any
   google_fonts: ^1.1.1

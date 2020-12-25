@@ -6,6 +6,8 @@ import 'package:myair/Services/Arpa_service/sensordata.dart';
 import 'package:myair/Services/Database_service/database_helper.dart';
 
 import 'package:myair/Widgets/Home_page_statistics_widgets/pie_chart.dart';
+import 'package:myair/Widgets/Home_page_statistics_widgets/single_agent_chart.dart';
+import 'package:myair/Widgets/Pop_Up_Notification/notification.dart';
 
 
 Timer timer;
@@ -14,7 +16,7 @@ class GeolocationView{
   LatLng user_position;
   DailyUnitData d =  new DailyUnitData();
   static final GeolocationView _geolocationView = GeolocationView._internal();
-
+  final Notifications _notifications =  Notifications();
   factory GeolocationView() {
     // TODO: implement initState
 
@@ -26,7 +28,7 @@ class GeolocationView{
     return user_position;
   }
 
-  GeolocationView._internal(){timer = Timer.periodic(Duration(seconds: 30), (Timer t) => getCurrentLocation());}
+  GeolocationView._internal(){ this._notifications.initNotifications();timer = Timer.periodic(Duration(seconds: 30), (Timer t) => getCurrentLocation());}
 
   void dispose(){
     timer?.cancel();
@@ -39,12 +41,16 @@ class GeolocationView{
     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     var instantData = await d.setSensorsDataAverage(DatabaseHelper(), geoposition.latitude, geoposition.longitude,50000);
     //print("lsllsslsllslslsll" + sensor.length.toString());
+    for(var i = 0; i < kInfo.length; i++)
+      kInfo.elementAt(i).amount > Limits.elementAt(i) ? this._notifications.pushNotification()  : null;
+
     for( var item in instantData) {
       print(" -------------------------------------------"+ item.pollutantName +"------------------------------------------------------");
        print(item.value);
        print(item.timestamp);
       print("_________________________________________________________________________________________________________________");
     }
+
   }
 
 }

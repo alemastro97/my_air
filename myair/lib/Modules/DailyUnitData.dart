@@ -51,10 +51,9 @@ class DailyUnitData {
     bool bno2 = false;
     bool bso2 = false;
     bool bo3 = false;
-
+  //TODO make a weighted value
     Sensor sensor;
     double average;
-
     List<Sensor> sensorList = await db.getSensorListClosedtoUser(ulat, ulong, utol);
     List<InstantData> sensorData = [];
 
@@ -65,8 +64,9 @@ class DailyUnitData {
         if (data_sensor.length > 0){
           average = await this._pm10.setDataAverage(sensor.sensor);
           bpm10 = true;
-          kInfo.elementAt(0).amount = double.parse(data_sensor.elementAt(data_sensor.length-1).value);
-          InstantData d = new InstantData(sensor.sensor, "PM10", data_sensor.elementAt(data_sensor.length-1).value, data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
+          var value = refineValue(data_sensor);
+          kInfo.elementAt(0).amount = value;
+          InstantData d = new InstantData(sensor.sensor, "PM10", value.toString(), data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
           sensorData.add(d);
         }
 
@@ -78,8 +78,9 @@ class DailyUnitData {
         if (data_sensor.length > 0){
           average = await this._pm25.setDataAverage(sensor.sensor);
           bpm25 = true;
-          kInfo.elementAt(1).amount = double.parse(data_sensor.elementAt(data_sensor.length-1).value);
-          InstantData d = new InstantData(sensor.sensor, "PM2.5", data_sensor.elementAt(data_sensor.length-1).value, data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
+          var value = refineValue(data_sensor);
+          kInfo.elementAt(1).amount = value;
+          InstantData d = new InstantData(sensor.sensor, "PM2.5", value.toString(), data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
           sensorData.add(d);
         }
       }
@@ -89,9 +90,9 @@ class DailyUnitData {
         var data_sensor = await fetchSensorDataFromAPI(sensor.sensor,24);
         if (data_sensor.length > 0){
           average = await this._no2.setDataAverage(sensor.sensor);
-          bno2 = true;
-          kInfo.elementAt(2).amount = double.parse(data_sensor.elementAt(data_sensor.length-1).value);
-          InstantData d = new InstantData(sensor.sensor, "NO2", data_sensor.elementAt(data_sensor.length-1).value, data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
+          bno2 = true;  var value = refineValue(data_sensor);
+          kInfo.elementAt(2).amount = value;
+          InstantData d = new InstantData(sensor.sensor, "NO2", value.toString(), data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
           sensorData.add(d);
         }
       }
@@ -102,8 +103,9 @@ class DailyUnitData {
         if (data_sensor.length > 0){
           average = await this._so2.setDataAverage(sensor.sensor);
           bso2 = true;
-          kInfo.elementAt(3).amount = double.parse(data_sensor.elementAt(data_sensor.length-1).value);
-          InstantData d = new InstantData(sensor.sensor, "SO2", data_sensor.elementAt(data_sensor.length-1).value, data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
+          var value = refineValue(data_sensor);
+          kInfo.elementAt(3).amount = value;
+          InstantData d = new InstantData(sensor.sensor, "SO2", value.toString(), data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
           sensorData.add(d);
         }
 
@@ -114,9 +116,10 @@ class DailyUnitData {
         var data_sensor = await fetchSensorDataFromAPI(sensor.sensor,24);
         if (data_sensor.length > 0){
           average = await this._o3.setDataAverage(sensor.sensor);
-          kInfo.elementAt(4).amount = double.parse(data_sensor.elementAt(data_sensor.length-1).value);
-          kInfo.elementAt(5).amount = double.parse(data_sensor.elementAt(data_sensor.length-1).value);
-          InstantData d = new InstantData(sensor.sensor, "O3", data_sensor.elementAt(data_sensor.length-1).value, data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
+          var value = refineValue(data_sensor);
+          kInfo.elementAt(4).amount = value;
+          kInfo.elementAt(5).amount = value;
+          InstantData d = new InstantData(sensor.sensor, "O3", value.toString(), data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
           sensorData.add(d);
           bo3 = true;
         }
@@ -134,3 +137,21 @@ class DailyUnitData {
   }
 }
 
+double refineValue(List<SensorData> data_sensor){
+  print("DATA SENSORRRRRRRRRRRRR: "  + data_sensor.length.toString());
+  var refined_value = 0.0;
+  bool hour = false;
+  for(var index = 0; index < data_sensor.length; index ++){
+    if (index == 24) break;
+    print(data_sensor.elementAt(index).value.toString() + " " + data_sensor.elementAt(index).timestamp.toString());
+    print(refined_value);
+    if (DateTime.now().hour == DateTime.parse(data_sensor.elementAt(index).timestamp).hour){refined_value += (double.parse(data_sensor.elementAt(index).value) ); hour = false;}
+    else if (index == 0){refined_value += (double.parse(data_sensor.elementAt(index).value) *3.0 );}
+    else{refined_value += double.parse(data_sensor.elementAt(index).value);}
+
+  }
+  print (hour);
+  refined_value = double.parse((!hour) ? (refined_value/(data_sensor.length + 2)).toStringAsFixed(1) : (refined_value/(data_sensor.length + 4)).toStringAsFixed(1));
+  return refined_value;
+}
+//TODO sistemare tutti i string nei giusti tipi

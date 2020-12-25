@@ -26,7 +26,7 @@ Future<List<SensorData>> fetchSensorDataFromAPI(String idsensore,int duration) a
 
   var whereclause = '\$where=%20data%20%3E=%20%27' + DateIni + '%27%20AND%20data%20%3C=%20%27' + DateEnd + '%27%20';
   var sensorclause = '&idsensore=' + idsensore;
-  var validationclause = '&stato=%27VA%27';
+  var validationclause = '&stato=%27VA%27&\$order=data%20DESC';
   var connectionString = endpoint + whereclause + sensorclause + validationclause;
   print ('Connection string for data:' + connectionString);
 
@@ -41,9 +41,12 @@ Future<List<SensorData>> fetchSensorDataFromAPI(String idsensore,int duration) a
 
       sensorDataList.add(SensorData.fromJson(sensorJson));
     }
-    if (sensorDataList.length == 0)  sensorDataList =   await fetchSensorDataFromAPI(idsensore,duration + 24);
+    //if (sensorDataList.length == 0)  sensorDataList =   await fetchSensorDataFromAPI(idsensore,duration + 24);
+    if (sensorDataList.length < 24) {
+      var x = await fetchSensorDataFromAPI(idsensore, duration + 24);
+      x.length != 0 ? sensorDataList = x : null;
+    }
     return sensorDataList;
   }
-
   return [];
 }

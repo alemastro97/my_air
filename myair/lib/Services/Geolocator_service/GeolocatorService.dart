@@ -28,7 +28,7 @@ class GeolocationView{
     return user_position;
   }
 
-  GeolocationView._internal(){ this._notifications.initNotifications();timer = Timer.periodic(Duration(seconds: 30), (Timer t) => getCurrentLocation());}
+  GeolocationView._internal(){ this._notifications.initNotifications();timer = Timer.periodic(Duration(seconds: 120), (Timer t) => getCurrentLocation());}
 
   void dispose(){
     timer?.cancel();
@@ -48,6 +48,7 @@ class GeolocationView{
       print(" -------------------------------------------"+ item.pollutantName +"------------------------------------------------------");
        print(item.value);
        print(item.timestamp);
+       print(item.sensor);
       print("_________________________________________________________________________________________________________________");
     }
 

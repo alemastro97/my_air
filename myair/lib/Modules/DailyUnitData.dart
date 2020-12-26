@@ -62,9 +62,10 @@ class DailyUnitData {
       if ((sensor.name.contains("PM10")) && (bpm10 == false)) {
         var data_sensor = await fetchSensorDataFromAPI(sensor.sensor,24);
         if (data_sensor.length > 0){
-          average = await this._pm10.setDataAverage(sensor.sensor);
+         // average = await this._pm10.setDataAverage(sensor.sensor);
+          var value = actualAverage(data_sensor);
+          print("----------------------------------------------------------Average: " + average.toString() + " Value: " + value.toString());
           bpm10 = true;
-          var value = refineValue(data_sensor);
           kInfo.elementAt(0).amount = value;
           InstantData d = new InstantData(sensor.sensor, "PM10", value.toString(), data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
           sensorData.add(d);
@@ -78,7 +79,7 @@ class DailyUnitData {
         if (data_sensor.length > 0){
           average = await this._pm25.setDataAverage(sensor.sensor);
           bpm25 = true;
-          var value = refineValue(data_sensor);
+          var value = actualAverage(data_sensor);
           kInfo.elementAt(1).amount = value;
           InstantData d = new InstantData(sensor.sensor, "PM2.5", value.toString(), data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
           sensorData.add(d);
@@ -90,7 +91,7 @@ class DailyUnitData {
         var data_sensor = await fetchSensorDataFromAPI(sensor.sensor,24);
         if (data_sensor.length > 0){
           average = await this._no2.setDataAverage(sensor.sensor);
-          bno2 = true;  var value = refineValue(data_sensor);
+          bno2 = true;  var value = actualAverage(data_sensor);
           kInfo.elementAt(2).amount = value;
           InstantData d = new InstantData(sensor.sensor, "NO2", value.toString(), data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
           sensorData.add(d);
@@ -103,7 +104,7 @@ class DailyUnitData {
         if (data_sensor.length > 0){
           average = await this._so2.setDataAverage(sensor.sensor);
           bso2 = true;
-          var value = refineValue(data_sensor);
+          var value = actualAverage(data_sensor);
           kInfo.elementAt(3).amount = value;
           InstantData d = new InstantData(sensor.sensor, "SO2", value.toString(), data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
           sensorData.add(d);
@@ -116,7 +117,7 @@ class DailyUnitData {
         var data_sensor = await fetchSensorDataFromAPI(sensor.sensor,24);
         if (data_sensor.length > 0){
           average = await this._o3.setDataAverage(sensor.sensor);
-          var value = refineValue(data_sensor);
+          var value = actualAverage(data_sensor);
           kInfo.elementAt(4).amount = value;
           kInfo.elementAt(5).amount = value;
           InstantData d = new InstantData(sensor.sensor, "O3", value.toString(), data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
@@ -137,7 +138,7 @@ class DailyUnitData {
   }
 }
 
-double refineValue(List<SensorData> data_sensor){
+double actualAverage(List<SensorData> data_sensor){
   print("DATA SENSORRRRRRRRRRRRR: "  + data_sensor.length.toString());
   var refined_value = 0.0;
   bool hour = false;

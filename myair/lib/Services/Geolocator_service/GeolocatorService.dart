@@ -40,18 +40,23 @@ class GeolocationView{
     print(geoposition.latitude.toString() + " " + geoposition.longitude.toString());
     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     var instantData = await d.setSensorsDataAverage(DatabaseHelper(), geoposition.latitude, geoposition.longitude,50000);
-    //print("lsllsslsllslslsll" + sensor.length.toString());
-    for(var i = 0; i < kInfo.length; i++)
-      kInfo.elementAt(i).amount > Limits.elementAt(i) ? this._notifications.pushNotification()  : null;
+
+
+
 
     for( var item in instantData) {
       print(" -------------------------------------------"+ item.pollutantName +"------------------------------------------------------");
-       print(item.value);
-       print(item.timestamp);
-       print(item.sensor);
+      print(item.value);
+      print(item.timestamp);
+      print(item.sensor);
       print("_________________________________________________________________________________________________________________");
     }
 
+
+
+
+    for(var i = 0; i < kInfo.length; i++)
+      kInfo.elementAt(i).amount > Limits.elementAt(i) ? this._notifications.pushNotification()  : null;
   }
 
 }

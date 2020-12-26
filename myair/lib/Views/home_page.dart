@@ -10,6 +10,7 @@ import 'package:myair/Widgets/Login_with_google/sign_up_widget.dart';
 import 'package:myair/Widgets/tabbar_material_widget.dart';
 import 'package:provider/provider.dart';
 
+import 'Reward_page/Reward_view.dart';
 import 'email_page.dart';
 import 'home_statistics_page.dart';
 
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   final pages = <Widget>[
     SearchPage(),
     EmailPage(),
-    ProfilePage(),
+    RewardView(),
     SettingsPage(),
     HomeStatisticsPage(),
   ];
@@ -39,6 +40,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) => Scaffold(
     extendBody: true,
     body: pages[index],
+    appBar: AppBar(
+      title: Text("MyAir"),
+      automaticallyImplyLeading: false,
+    ),
     bottomNavigationBar: TabBarMaterialWidget(
       index: index,
       onChangedTab: onChangedTab,

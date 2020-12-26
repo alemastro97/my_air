@@ -40,6 +40,9 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: title,
           theme: ThemeProvider.of(context),
+          routes: {
+            "/HomePage": (_) => new HomePage(),
+          },
           home: ProfilePage(),
         );
       }),

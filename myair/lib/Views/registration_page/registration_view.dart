@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myair/Views/home_page.dart';
+
+import 'package:myair/main.dart';
 //TODO make registration page
 class RegistrationPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
   return Scaffold(
-
+      resizeToAvoidBottomInset: false,
     body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -106,35 +108,29 @@ class RegistrationPage extends StatelessWidget{
                                 child: FractionallySizedBox(
                                   heightFactor: 2 / 3,
                                   widthFactor: 2 / 3,
-                                  child: Container(
-                                    padding: EdgeInsets.all(MediaQuery.of(context).size.width/30),
-                                    //  margin: EdgeInsets.symmetric( ).copyWith(),
-                                    // padding: EdgeInsets.symmetric( ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 3),
-                                      color: Theme.of(context).backgroundColor,
-                                    ),
-                                    
-                                    child:OutlineButton.icon(
-                                      label: Text(
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      //TODO create control of the profile
+                                      logged = true;
+                                      print("Fatto");
+                                      Navigator.pushReplacementNamed(context, '/HomePage');
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(MediaQuery.of(context).size.width/30),
+                                      //  margin: EdgeInsets.symmetric( ).copyWith(),
+                                      // padding: EdgeInsets.symmetric( ),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 3),
+                                        color: Theme.of(context).backgroundColor,
+                                      ),
+
+                                      child: Text(
                                         'SignUp',
                                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                                       ),
-                                      shape: StadiumBorder(),
-                                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                                      highlightedBorderColor: Colors.black,
-                                      borderSide: BorderSide(color: Colors.black),
-                                      textColor: Colors.black,
-                                      icon: FaIcon(FontAwesomeIcons.user, color: Colors.red),
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => HomePage(title: "null")),
-                                        );
-                                      },
+                                          //Center(child: FittedBox(fit: BoxFit.fitHeight,child: Text("Sign up"), )),
+
                                     ),
-                                        //Center(child: FittedBox(fit: BoxFit.fitHeight,child: Text("Sign up"), )),
-                                    
                                   ),
                                 ),
                               ),

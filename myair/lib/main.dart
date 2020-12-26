@@ -14,7 +14,6 @@ import 'package:myair/Modules/sensor.dart';
 List<Sensor> sensorList = [];
 bool logged = false ;
 void main() async {
-  // test
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   DatabaseHelper databaseHelper = DatabaseHelper();

@@ -66,7 +66,7 @@ class AgentInfoWidget extends StatelessWidget{
                                 child: CustomPaint(
                                   child: Center(),
                                   foregroundPainter: AgentPieChart(
-                                    width: constraint.maxWidth*0.5,
+                                    width: constraint.maxWidth*0.4,
                                     info: kInfo,
                                     index: index,
                                   ),

@@ -1,7 +1,9 @@
+import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myair/Views/home_page.dart';
+import 'package:myair/Widgets/Opening_page_widgets/logo_widget.dart';
 
 import 'package:myair/main.dart';
 //TODO make registration page
@@ -30,20 +32,7 @@ class RegistrationPage extends StatelessWidget{
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      child: Center(
-                        child: FractionallySizedBox(
-                          heightFactor: 2 / 3,
-                          widthFactor: 2 / 3,
-                          child: Image(
-                              image: AssetImage('assets/images/app_icon.png')
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  LogoImport(),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Divider(),
@@ -93,6 +82,9 @@ class RegistrationPage extends StatelessWidget{
                             flex: 1,
                             child: TextField(
                               keyboardType: TextInputType.text,
+                              enableSuggestions: false,
+                              autocorrect: false,
+                              obscureText: true,
                               decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white,
@@ -124,9 +116,11 @@ class RegistrationPage extends StatelessWidget{
                                         color: Theme.of(context).backgroundColor,
                                       ),
 
-                                      child: Text(
-                                        'SignUp',
-                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                      child: Center(
+                                        child: Text(
+                                          'SignUp',
+                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                        ),
                                       ),
                                           //Center(child: FittedBox(fit: BoxFit.fitHeight,child: Text("Sign up"), )),
 

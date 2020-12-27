@@ -27,7 +27,7 @@ void main() async {
   print("Upload all sensors: " + sensorList.length.toString());
   runApp(MyApp());
 }
-
+//TODO HOME WIDGET
 class MyApp extends StatelessWidget {
   static final String title = 'Google SignIn';
 

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myair/Views/profile_page.dart';
-import 'package:myair/Views/search_page.dart';
+import 'package:myair/Views/Graph_view/bar_charts_view.dart';
 import 'package:myair/Views/settings_page.dart';
 import 'package:myair/Services/Google_Service/google_sign_in.dart';
 import 'package:myair/Widgets/Login_with_google/background_painter.dart';
@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   int index = 0;
 
   final pages = <Widget>[
-    SearchPage(),
+    ChartPreview(),
     EmailPage(),
     RewardView(),
     SettingsPage(),

@@ -1,4 +1,5 @@
 
+import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myair/Views/login_view/login_view.dart';
@@ -28,24 +29,28 @@ class SignUpWidget extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 20),
                 width: 175,
-                child: Text(
-                  'Welcome Back To MyAir',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child:
+                BorderedText(
+                  strokeWidth: 1.0,
+                  strokeColor: Colors.black,
+                  child: Text(
+                    'Welcome Back To MyAir',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),),
               ),
             ),
             Spacer(),
             GoogleSignupButtonWidget(),
             Container(
-              width: MediaQuery.of(context).size.width/2,
+              width: MediaQuery.of(context).size.width/1.5,
               padding: EdgeInsets.all(4),
               child: OutlineButton.icon(
                 label: Text(
-                  'Login',
+                  'Sign Up',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 shape: StadiumBorder(),
@@ -57,25 +62,31 @@ class SignUpWidget extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    MaterialPageRoute(builder: (context) => RegistrationPage()),
                   );
                 },
               ),
             ),
-            Spacer(),
-            SizedBox(height: 12),
+
+            //SizedBox(height: 10),
             TextButton(
-              child: Text(
-                'Not registered yet?',
-                style: TextStyle(fontSize: 16),
+              child: RichText(
+                text: TextSpan(
+                style: TextStyle(color:Colors.black,fontSize: 16),
+                  children: <TextSpan>[
+                    new TextSpan(  text: 'Are you already registered? Go to the '),
+                    new TextSpan(  text: 'Login', style: new TextStyle(color: Colors.blue)),
+
+                  ]
+              ),
               ),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => RegistrationPage()),
+                    MaterialPageRoute(builder: (context) => LoginPage()),
                   );
                 }
-            ),
+           ),
             Spacer(),
           ],
         ),

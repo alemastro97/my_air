@@ -1,6 +1,4 @@
-
-import 'package:myair/Modules/sensordata.dart';
-import 'package:myair/Services/Arpa_service/sensordata.dart';
+import "package:myair/Modules/sensordata.dart";
 
 class DailySensorData {
 

@@ -1,17 +1,47 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:myair/Modules/sensordata.dart';
+import 'package:myair/Modules/DailyUnitData.dart';
+
 
 void main() {
-  group('Calcula testing -', () {
+  group('Average related to a sensor -', () {
 
-    test('Actual value calculation', () {
-
+    // 24 equal values, no hour = actual hour
+    test('24 equals values, no hour = actual hour ', () {
+      List<SensorData> data_sensor = [];
       SensorData sensordata;
 
-      sensordata = SensorData('01','test1','test2','test3','test4', 'test5')
+      sensordata = new SensorData(1,'sensor01','2020-12-26T00:00:00,000','0.84','state1', 'operator1');
+      for (int i = 0; i < 24; i++) {
+        data_sensor.add(sensordata);
+      }
 
-      List<SensorData> data_sensor;
-      data_sensor.add(1, )
+      double result = actualAverage(data_sensor);
+      print('Result: ' + result.toString());
 
-    })
+      expect(result, 0.84);
+    });
+
+    // 24 equal values, one hour = actual hour
+    test('24 equals values, no hour = actual hour ', () {
+      List<SensorData> data_sensor = [];
+      SensorData sensordata1, sensordata2;
+      sensordata1 = new SensorData(1,'sensor01','2020-12-26T01:00:00,000','0.84','state1', 'operator1');
+      sensordata2 = new SensorData(1,'sensor01','2020-12-26T06:00:00,000','1','state1', 'operator1');
+
+      for (int i = 0; i < 24; i++) {
+        if (i == 4) {
+          data_sensor.add(sensordata2);
+        }
+        else {
+          data_sensor.add(sensordata1);
+        }
+      }
+
+      double result = actualAverage(data_sensor);
+
+      expect(result, 0.923077);
+    });
+
   });
 }

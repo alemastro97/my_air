@@ -16,6 +16,10 @@ class DailyUnitData {
   DailySensorData _so2;
   DailySensorData _o3;
 
+  double weight_last;
+  double weight_day;
+  double weight_norm;
+
   DailyUnitData() {
     _pm10 = DailySensorData();
     _pm25 = DailySensorData();
@@ -23,6 +27,9 @@ class DailyUnitData {
     _so2 = DailySensorData();
     _o3 = DailySensorData();
 
+    weight_last = 3;
+    weight_day = 3;
+    weight_norm = 1;
   }
 
   List<double> getPM10Values() {
@@ -138,21 +145,39 @@ class DailyUnitData {
   }
 }
 
+// Average calculation for the data retrieved for a sensor
 double actualAverage(List<SensorData> data_sensor){
-  print("DATA SENSORRRRRRRRRRRRR: "  + data_sensor.length.toString());
-  var refined_value = 0.0;
-  bool hour = false;
-  for(var index = 0; index < data_sensor.length; index ++){
-    if (index == 24) break;
-    print(data_sensor.elementAt(index).value.toString() + " " + data_sensor.elementAt(index).timestamp.toString());
-    print(refined_value);
-    if (DateTime.now().hour == DateTime.parse(data_sensor.elementAt(index).timestamp).hour){refined_value += (double.parse(data_sensor.elementAt(index).value) ); hour = false;}
-    else if (index == 0){refined_value += (double.parse(data_sensor.elementAt(index).value) *3.0 );}
-    else{refined_value += double.parse(data_sensor.elementAt(index).value);}
+  print("Number of data from sensor: "  + data_sensor.length.toString());
 
+  double actualvalue = 0.0;
+  int weight = 0;
+  var hourfromapi;
+
+  // Cycle on the data related to the selected sensor
+  for(var index = 0; index < data_sensor.length; index ++) {
+    if (index == 24) break;
+
+    // The timestamp hour is the same of the current hour
+    hourfromapi = DateTime.parse(data_sensor.elementAt(index).timestamp).hour;
+    print('Actual hour: ' + DateTime.now().hour.toString() + ' - ' + hourfromapi.toString());
+    if (DateTime.now().hour == hourfromapi) {
+      actualvalue += (double.parse(data_sensor.elementAt(index).value) * 3.0);
+      weight += 2;
+      print(double.parse(data_sensor.elementAt(index).value));
+    }
+    // Most recent value
+    else if (index == 0) {
+      actualvalue += (double.parse(data_sensor.elementAt(index).value) * 3.0 );
+      print(double.parse(data_sensor.elementAt(index).value));
+    }
+    else {
+      actualvalue += double.parse(data_sensor.elementAt(index).value);
+      print(double.parse(data_sensor.elementAt(index).value));
+    }
   }
-  print (hour);
-  refined_value = double.parse((!hour) ? (refined_value/(data_sensor.length + 2)).toStringAsFixed(1) : (refined_value/(data_sensor.length + 4)).toStringAsFixed(1));
-  return refined_value;
+
+  // Average of the data related to a sensor
+  actualvalue = actualvalue/(data_sensor.length + weight + 2);
+
+  return actualvalue;
 }
-//TODO sistemare tutti i string nei giusti tipi

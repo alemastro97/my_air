@@ -159,20 +159,16 @@ double actualAverage(List<SensorData> data_sensor){
 
     // The timestamp hour is the same of the current hour
     hourfromapi = DateTime.parse(data_sensor.elementAt(index).timestamp).hour;
-    print('Actual hour: ' + DateTime.now().hour.toString() + ' - ' + hourfromapi.toString());
     if (DateTime.now().hour == hourfromapi) {
       actualvalue += (double.parse(data_sensor.elementAt(index).value) * 3.0);
       weight += 2;
-      print(double.parse(data_sensor.elementAt(index).value));
     }
     // Most recent value
     else if (index == 0) {
       actualvalue += (double.parse(data_sensor.elementAt(index).value) * 3.0 );
-      print(double.parse(data_sensor.elementAt(index).value));
     }
     else {
       actualvalue += double.parse(data_sensor.elementAt(index).value);
-      print(double.parse(data_sensor.elementAt(index).value));
     }
   }
 

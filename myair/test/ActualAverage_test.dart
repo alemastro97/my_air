@@ -23,11 +23,12 @@ void main() {
     });
 
     // 24 equal values, one hour = actual hour
+    // Set sensordata2 hour to the actual hour in order to run correctly the test
     test('24 equals values, no hour = actual hour ', () {
       List<SensorData> data_sensor = [];
       SensorData sensordata1, sensordata2;
       sensordata1 = new SensorData(1,'sensor01','2020-12-26T01:00:00,000','0.84','state1', 'operator1');
-      sensordata2 = new SensorData(1,'sensor01','2020-12-26T06:00:00,000','1','state1', 'operator1');
+      sensordata2 = new SensorData(1,'sensor01','2020-12-26T19:00:00,000','0.78','state1', 'operator1');
 
       for (int i = 0; i < 24; i++) {
         if (i == 4) {
@@ -40,7 +41,7 @@ void main() {
 
       double result = actualAverage(data_sensor);
 
-      expect(result, 0.923077);
+      expect(result, 0.8335714285714285);
     });
 
   });

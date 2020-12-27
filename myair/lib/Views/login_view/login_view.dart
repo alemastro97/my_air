@@ -18,7 +18,7 @@ class LoginPage extends StatelessWidget{
             fit: BoxFit.cover,
           ),
         ),
-
+//TODO sistemare widgets
        child:Padding(
          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 10, right: MediaQuery.of(context).size.width / 10,bottom: MediaQuery.of(context).size.width / 4, top: MediaQuery.of(context).size.width / 4),
           child: Center(

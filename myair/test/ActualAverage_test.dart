@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:myair/Modules/DailySensorData.dart';
 import 'package:myair/Modules/sensordata.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
 
@@ -42,6 +43,23 @@ void main() {
       double result = actualAverage(data_sensor);
 
       expect(result, 0.8335714285714285);
+    });
+
+    // Save the average in the right position of the Sensor data array
+    test('Average in the right position', () {
+      double average = 0.5;
+
+      DailySensorData st = DailySensorData();
+
+      for (int i=0; i<24; i++) {
+        st.setDataAverage(average, i);
+
+        average = average + 0.1;
+
+        print(st.getValues());
+      }
+
+      expect((st.getSum() * 10).round() / 10, 19.8);
     });
 
   });

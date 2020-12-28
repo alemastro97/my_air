@@ -39,10 +39,8 @@ class GeolocationView{
     user_position = new LatLng(geoposition.latitude, geoposition.longitude);
     print(geoposition.latitude.toString() + " " + geoposition.longitude.toString());
     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    var instantData = await d.setSensorsDataAverage(DatabaseHelper(), geoposition.latitude, geoposition.longitude,50000);
 
-
-
+    var instantData = await d.setSensorsDataAverage(DatabaseHelper(), DateTime.now().hour, geoposition.latitude, geoposition.longitude,50000);
 
     for( var item in instantData) {
       print(" -------------------------------------------"+ item.pollutantName +"------------------------------------------------------");

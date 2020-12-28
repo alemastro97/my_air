@@ -10,6 +10,8 @@ import 'Services/Database_service/database_helper.dart';
 import 'Services/Geolocator_service/GeolocatorService.dart';
 import 'package:myair/Modules/sensor.dart';
 
+import 'Views/Graph_view/bar_charts_view.dart';
+
 //TODO insert in the db a user
 List<Sensor> sensorList = [];
 bool logged = false ;
@@ -43,7 +45,7 @@ class MyApp extends StatelessWidget {
           routes: {
             "/HomePage": (_) => new HomePage(),
           },
-          home: ProfilePage(),
+          home: HomePage(),//ProfilePage(),
         );
       }),
     );

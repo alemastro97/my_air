@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import 'package:myair/Widgets/Graph_page_widgets/bar_chart_preview.dart';
+
 class ChartCardWidget extends StatelessWidget{
   final String element;
 
@@ -42,8 +44,9 @@ class ChartCardWidget extends StatelessWidget{
                 Text("6,500"),/// TODO Medium Value
               ],
             ),
-            Flexible(
-              child:SfCartesianChart(
+            Expanded(
+              child:barChartPreview(),
+            ),/*SfCartesianChart(
                   primaryXAxis: NumericAxis(
                     // X axis is hidden now
                       isVisible: false
@@ -52,7 +55,7 @@ class ChartCardWidget extends StatelessWidget{
                   // X axis is hidden now
                   isVisible: false
               )
-              ),),///Insert chart
+              ),),*////Insert chart
           ],
         ),
       ),

@@ -71,78 +71,76 @@ class barChartPreview extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
 
-
+    var barColor = Theme.of(context).brightness == Brightness.light ? Colors.blueAccent : Color(0xFFFFC107);
     // _generateData();
-    return  Container(
-        child: Center(
-            child: Column(
-                children: <Widget>[
-                  Center(
-                    child: Container(
-                      child: SfChartTheme(
-                        data: SfChartThemeData(
-                            brightness: Theme.of(context).brightness,
-                            backgroundColor: Colors.white
-                        ),
-                        child: SfCartesianChart(
-                          // borderColor: Colors.red,
-                          //        borderWidth: 2,
-                          // Sets 15 logical pixels as margin for all the 4 sides.
-                            margin: EdgeInsets.all(15),
-                            enableAxisAnimation: true,
-                            primaryXAxis: NumericAxis(
-                              isVisible: false,
-                              // Additional range padding is applied to y axis
-                              //rangePadding: ChartRangePadding.round,
-                                minimum: 0,
-                                maximum: 25,
-                                interval: 4,
-                                plotOffset: 0
-                            ),
-                            primaryYAxis: NumericAxis(
-                              isVisible: false,
-                            ),
-                            series: <ChartSeries>[
-                              ColumnSeries<Pollution, int>(
-                                  dataSource: [
+    return  SafeArea(
+      child: Container(
+       // color: Theme.of(context).brightness == Brightness.light ? Colors.white60 : Color(0xFF373737),
+        child: SfChartTheme(
+          data: SfChartThemeData(
+            //  brightness: Theme.of(context).brightness,
+         //     backgroundColor: Theme.of(context).brightness == Brightness.light ? Colors.white60 : Color(0xFF373737)
+          ),
+          child: SfCartesianChart(
+              plotAreaBorderColor: Colors.transparent,
+          //  plotAreaBackgroundColor: Theme.of(context).brightness == Brightness.light ? Colors.white60 : Color(0xFF373737),
+//            backgroundColor:  Theme.of(context).brightness == Brightness.light ? Colors.white60 : Color(0xFF373737),
+            // borderColor: Colors.red,
+            //        borderWidth: 2,
+            // Sets 15 logical pixels as margin for all the 4 sides.
+            //  margin: EdgeInsets.all(15),
+              //enableAxisAnimation: true,
+              primaryXAxis: NumericAxis(
+                isVisible: false,
+                // Additional range padding is applied to y axis
+                //rangePadding: ChartRangePadding.round,
+                  minimum: 0,
+                  maximum: 25,
+                  interval: 4,
+                  plotOffset: 0
+              ),
+              primaryYAxis: NumericAxis(
+                isVisible:false,
+                minimum: 0,
+              ),
+            //  primaryYAxis.isVisible = false,
+              series: <ChartSeries>[
+                ColumnSeries<Pollution, int>(
+                    dataSource: [
 
-                                    Pollution(01, 30,Colors.teal),
-                                    Pollution(02, 40,Colors.orange),
-                                    Pollution(03, 10,Colors.brown),
-                                    Pollution(04, 30,Colors.teal),
-                                    Pollution(05, 40,Colors.orange),
-                                    Pollution(06, 10,Colors.brown),
-                                    Pollution(07, 30,Colors.teal),
-                                    Pollution(08, 40,Colors.orange),
-                                    Pollution(09, 10,Colors.brown),
-                                    Pollution(10, 30,Colors.teal),
-                                    Pollution(11, 40,Colors.orange),
-                                    Pollution(12, 10,Colors.brown),
-                                    Pollution(13, 30,Colors.teal),
-                                    Pollution(14, 40,Colors.orange),
-                                    Pollution(15, 10,Colors.brown),
-                                    Pollution(16, 30,Colors.teal),
-                                    Pollution(17, 40,Colors.orange),
-                                    Pollution(18, 10,Colors.brown),
-                                    Pollution(19, 30,Colors.teal),
-                                    Pollution(20, 40,Colors.orange),
-                                    Pollution(21, 10,Colors.brown),
-                                    Pollution(22, 30,Colors.teal),
-                                    Pollution(23, 40,Colors.orange),
-                                    Pollution(24, 10,Colors.brown),
-                                  ],
-                                  xValueMapper: (Pollution sales, _) => sales.place,
-                                  yValueMapper: (Pollution sales, _) => sales.quantity,
-                                  pointColorMapper: (Pollution data, _) => data.color
-                              )
-                            ]
-                        ),
-                      ),
-                    ),
-                  )
-                ]
-            )
-        )
+                      Pollution(01, 30,barColor),
+                      Pollution(02, 40,barColor),
+                      Pollution(03, 10,barColor),
+                      Pollution(04, 30,barColor),
+                      Pollution(05, 40,barColor),
+                      Pollution(06, 10,barColor),
+                      Pollution(07, 30,barColor),
+                      Pollution(08, 40,barColor),
+                      Pollution(09, 10,barColor),
+                      Pollution(10, 30,barColor),
+                      Pollution(11, 40,barColor),
+                      Pollution(12, 10,barColor),
+                      Pollution(13, 30,barColor),
+                      Pollution(14, 40,barColor),
+                      Pollution(15, 10,barColor),
+                      Pollution(16, 30,barColor),
+                      Pollution(17, 40,barColor),
+                      Pollution(18, 10,barColor),
+                      Pollution(19, 30,barColor),
+                      Pollution(20, 40,barColor),
+                      Pollution(21, 10,barColor),
+                      Pollution(22, 30,barColor),
+                      Pollution(23, 40,barColor),
+                      Pollution(24, 10,barColor),
+                    ],
+                    xValueMapper: (Pollution sales, _) => sales.place,
+                    yValueMapper: (Pollution sales, _) => sales.quantity,
+                    pointColorMapper: (Pollution data, _) => data.color
+                )
+              ]
+          ),
+        ),
+      ),
     );
   }
 

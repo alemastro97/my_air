@@ -11,7 +11,7 @@ import 'package:myair/Widgets/tabbar_material_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'Reward_page/Reward_view.dart';
-import 'email_page.dart';
+import 'map_page.dart';
 import 'home_statistics_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,7 +26,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int index = 0;
+  int index = 4;
 
   final pages = <Widget>[
     ChartPreview(),

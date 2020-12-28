@@ -8,6 +8,7 @@ class ChartPreview extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
    return Scaffold(
+     backgroundColor: Theme.of(context).brightness == Brightness.light ? Color.fromRGBO(193, 214, 233, 1) :  Color(0xFF212121),
      body: SafeArea(
        child:ListView(
          children: [

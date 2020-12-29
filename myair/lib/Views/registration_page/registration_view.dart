@@ -4,13 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myair/Views/home_page.dart';
 import 'package:myair/Widgets/Opening_page_widgets/logo_widget.dart';
-
+import 'package:myair/Services/Database_service/firebase_database_user.dart';
 import 'package:myair/main.dart';
+import 'package:myair/Modules/UserAccount.dart';
 //TODO make registration page
-class RegistrationPage extends StatelessWidget{
+class RegistrationPage extends StatefulWidget{
+  _RegistrationPage createState() =>  _RegistrationPage();
+
+}
+class _RegistrationPage extends State<RegistrationPage>{
   @override
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController firstController = new TextEditingController();
+  TextEditingController lastController = new TextEditingController();
+  TextEditingController passController = new TextEditingController();
   Widget build(BuildContext context) {
-  return Scaffold(
+
+
+    return Scaffold(
       resizeToAvoidBottomInset: false,
     body: Container(
         decoration: BoxDecoration(
@@ -46,6 +57,7 @@ class RegistrationPage extends StatelessWidget{
                             flex: 1,
                             child: TextField(
                               keyboardType: TextInputType.text,
+                              controller: firstController,
                               decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white,
@@ -57,6 +69,7 @@ class RegistrationPage extends StatelessWidget{
                           Expanded(
                             flex: 1,
                             child: TextField(
+                              controller: lastController,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                   filled: true,
@@ -69,6 +82,7 @@ class RegistrationPage extends StatelessWidget{
                           Expanded(
                             flex: 1,
                             child: TextField(
+                              controller: emailController,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                   filled: true,
@@ -81,6 +95,7 @@ class RegistrationPage extends StatelessWidget{
                           Expanded(
                             flex: 1,
                             child: TextField(
+                              controller: passController,
                               keyboardType: TextInputType.text,
                               enableSuggestions: false,
                               autocorrect: false,
@@ -101,10 +116,11 @@ class RegistrationPage extends StatelessWidget{
                                   heightFactor: 2 / 3,
                                   widthFactor: 2 / 3,
                                   child: GestureDetector(
-                                    onTap: (){
+                                    onTap: () async {
                                       //TODO create control of the profile
                                       logged = true;
-                                      print("Fatto");
+                                      FirebaseDb_gesture d = FirebaseDb_gesture();
+                                      await d.saveUser(new userAccount(firstController.text,lastController.text,emailController.text,passController.text,''));
                                       Navigator.pushReplacementNamed(context, '/HomePage');
                                     },
                                     child: Container(

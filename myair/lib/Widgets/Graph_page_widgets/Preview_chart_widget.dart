@@ -11,9 +11,8 @@ import 'package:myair/Widgets/Graph_page_widgets/bar_chart_preview.dart';
 import 'bar_chart.dart';
 
 class ChartCardWidget extends StatefulWidget{
-  final String element;
-
-  const ChartCardWidget({Key key, this.element}) : super(key: key);
+  final int index;
+  const ChartCardWidget({Key key,  this.index}) : super(key: key);
 
   _ChartCardWidgetState createState() => _ChartCardWidgetState();
 
@@ -26,7 +25,7 @@ class _ChartCardWidgetState extends State<ChartCardWidget>{
   @override
   Widget build(BuildContext context) {
     _height == 0 ? _height =  MediaQuery.of(context).size.height/7 : null;
-    _myAnimatedWidget == null ? _myAnimatedWidget = minimizePreview(title:widget.element): null;
+    _myAnimatedWidget == null ? _myAnimatedWidget = minimizePreview(index: widget.index): null;
     return  AnimatedContainer(
       height: _height,
       duration: Duration(milliseconds: 200),
@@ -47,7 +46,7 @@ class _ChartCardWidgetState extends State<ChartCardWidget>{
         onTap: (){
           setState(() {
             _height == MediaQuery.of(context).size.height/7 ?  _height =  MediaQuery.of(context).size.width : _height = MediaQuery.of(context).size.height/7;
-            _height == MediaQuery.of(context).size.height/7 ?  _myAnimatedWidget = minimizePreview(title:widget.element) : _myAnimatedWidget = expandedPreview(title:widget.element);
+            _height == MediaQuery.of(context).size.height/7 ?  _myAnimatedWidget = minimizePreview(index: widget.index) : _myAnimatedWidget = expandedPreview(index: widget.index);
 
           });
         },
@@ -58,9 +57,8 @@ class _ChartCardWidgetState extends State<ChartCardWidget>{
 }
 
 class minimizePreview extends StatelessWidget{
-  final String title;
-
-  const minimizePreview({Key key, this.title}) : super(key: key);
+  final int index;
+  const minimizePreview({Key key, this.index}) : super(key: key);
   @override
   Widget build(BuildContext context) {
    return Row(
@@ -77,7 +75,7 @@ class minimizePreview extends StatelessWidget{
                FittedBox(
                  fit: BoxFit.fitHeight,
                  child: Text(
-                   title,
+                   kInfo.elementAt(index).name,
                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                  ),
                ),
@@ -91,7 +89,7 @@ class minimizePreview extends StatelessWidget{
                ),
 
                Text(
-                 kInfo.elementAt(0).amount.toString(),
+                 kInfo.elementAt(index).amount.toString(),
                ),/// TODO Medium Value
              ],
            ),
@@ -108,9 +106,9 @@ class minimizePreview extends StatelessWidget{
 }
 
 class expandedPreview extends StatelessWidget{
-  final String title;
 
-  const expandedPreview({Key key, this.title}) : super(key: key);
+  final int index;
+  const expandedPreview({Key key, this.index}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -126,7 +124,7 @@ class expandedPreview extends StatelessWidget{
                 child: FittedBox(
                   fit: BoxFit.fitHeight,
                   child: Text(
-                    title,
+                    kInfo.elementAt(index).name,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                 ),

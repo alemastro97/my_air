@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 class LoggedInWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    userAccount user = userAccount();
+  //  userAccount user = userAccount();
 
     return Container(
       alignment: Alignment.center,
@@ -23,16 +23,16 @@ class LoggedInWidget extends StatelessWidget {
           SizedBox(height: 8),
           CircleAvatar(
             maxRadius: 25,
-            backgroundImage: NetworkImage(user.user.photoURL),
+          //  backgroundImage: NetworkImage(user.user.photoURL),
           ),
           SizedBox(height: 8),
           Text(
-            'Name: ' + user.user.displayName,
+            'Name: ',// + user.user.displayName,
             style: TextStyle(color: Colors.white),
           ),
           SizedBox(height: 8),
           Text(
-            'Email: ' + user.user.email,
+            'Email: ' ,//+ user.user.email,
             style: TextStyle(color: Colors.white),
           ),
           SizedBox(height: 8),

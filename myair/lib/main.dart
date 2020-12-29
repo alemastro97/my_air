@@ -5,8 +5,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:myair/Views/profile_page.dart';
 
 import 'Constants/theme_constants.dart';
+import 'Modules/UserAccount.dart';
 import 'Services/Arpa_service/sensors.dart';
 import 'Services/Database_service/database_helper.dart';
+import 'Services/Database_service/firebase_database_user.dart';
 import 'Services/Geolocator_service/GeolocatorService.dart';
 import 'package:myair/Modules/sensor.dart';
 
@@ -20,6 +22,8 @@ void main() async {
   await Firebase.initializeApp();
   DatabaseHelper databaseHelper = DatabaseHelper();
   //databaseHelper.deleteDB();
+  //FirebaseDb_gesture db = FirebaseDb_gesture();
+
   sensorList = await databaseHelper.getSensorList();
   if(sensorList.length == 0){
     await fetchSensorsFromAPI();
@@ -27,6 +31,7 @@ void main() async {
   }
   await GeolocationView().getCurrentLocation();
   print("Upload all sensors: " + sensorList.length.toString());
+
   runApp(MyApp());
 }
 //TODO HOME WIDGET
@@ -45,7 +50,7 @@ class MyApp extends StatelessWidget {
           routes: {
             "/HomePage": (_) => new HomePage(),
           },
-          home: HomePage(),//ProfilePage(),
+       home: ProfilePage(),
         );
       }),
     );

@@ -11,7 +11,7 @@ class DatabaseHelper {
 
   static DatabaseHelper _databaseHelper; //Singleton DatabaseHelper
   static Database _database;
-
+///DATABASE TABLES
   String sensorTable = 'sensor_table';
   String colId = 'id';
   String colSensor = 'sensor';
@@ -31,6 +31,13 @@ class DatabaseHelper {
   String uLat= 'unit_lat';
   String uLng = 'unit_lng';
 
+  String userTable = 'User';
+  String userId = 'userId';
+  String firstName = 'firstName';
+  String lastName = 'lastName';
+  String email = 'email';
+  String password = 'password';
+  String image = 'image';
 
   DatabaseHelper._createInstance(); // Named constructor to create instance of DatabaseHelper;
 
@@ -41,10 +48,12 @@ class DatabaseHelper {
     }
     return _databaseHelper;
   }
+
   deleteDB(){
     _databaseHelper.deleteSensor();
     _databaseHelper.deleteUnit();
   }
+
   Future<Database> get database async {
     if (_database == null) {
       _database = await initializeDatabase();
@@ -69,6 +78,8 @@ class DatabaseHelper {
         '$colidUnit TEXT, $colLat TEXT, $colLng TEXT, $colName TEXT, $colUOM TEXT, $colStart TEXT, $colStop TEXT)');
     await db.execute('CREATE TABLE $unitTable($uId INTEGER PRIMARY KEY AUTOINCREMENT, $uUnit TEXT, '
         '$uidUnit TEXT, $uLat TEXT, $uLng TEXT)');
+    await db.execute('CREATE TABLE $userTable($userId INTEGER PRIMARY KEY AUTOINCREMENT, $firstName TEXT, '
+        '$lastName TEXT, $email TEXT, $password TEXT, $image TEXT)');
 
   }
 

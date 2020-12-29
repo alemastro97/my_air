@@ -97,34 +97,33 @@ class ProfileScreen extends StatelessWidget{
           ],
     );
     var themeSwitcher = ThemeSwitcher(builder: (context){
-      return Align(
-        alignment: Alignment.topRight,
-        child: ThemeSwitcher(
-          builder: (context){
-            return AnimatedCrossFade(
-              duration: Duration(milliseconds: 200),
-              crossFadeState:
-              ThemeProvider.of(context).brightness == Brightness.dark
-                  ? CrossFadeState.showFirst
-                  : CrossFadeState.showSecond,
-              firstChild: GestureDetector(
-                onTap: () =>
-                    ThemeSwitcher.of(context).changeTheme(theme: kLightTheme),
-                child: Icon(
-                  LineAwesomeIcons.sun,
-                ),
+
+          return AnimatedCrossFade(
+            duration: const Duration(milliseconds: 200),
+            crossFadeState:
+            ThemeProvider.of(context).brightness == Brightness.dark
+                ? CrossFadeState.showFirst
+                : CrossFadeState.showSecond,
+            firstChild: GestureDetector(
+              onTap: () =>
+                  ThemeSwitcher.of(context).changeTheme(theme: kLightTheme),
+              child: Icon(
+                LineAwesomeIcons.sun,
               ),
-              secondChild: GestureDetector(
-                onTap: () =>
-                    ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme),
-                child: Icon(
-                  LineAwesomeIcons.moon,
-                ),
+            ),
+            secondChild: GestureDetector(
+              onTap: () =>
+                  ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme),
+              child: Icon(
+                LineAwesomeIcons.moon,
               ),
-            );
-          }
-        ),
-      );
+            ),
+        //    firstCurve: Curves.easeOut,
+        //    secondCurve: Curves.easeIn,
+        //    sizeCurve: Curves.bounceOut,
+          );
+
+
     });
     var header = Padding(
         padding: const EdgeInsets.all(8.0),
@@ -133,23 +132,22 @@ class ProfileScreen extends StatelessWidget{
 
 
         profileInfo,
-        themeSwitcher,
+        Align(alignment: Alignment.topRight,child: themeSwitcher),
       ],
     ));
-      return ThemeSwitchingArea(
-      child: Builder(builder: (context){
+
         return  Scaffold(
           //Profile Info
           body: Column(
             children: <Widget>[
 
               Expanded(flex:4 ,child: header),
-             /* Padding(
+             Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Divider(
                     color: Theme.of(context).dividerColor
                 ),
-              ),*/
+              ),
               Expanded(
                 flex: 7,
                 child: Padding(
@@ -193,8 +191,7 @@ class ProfileScreen extends StatelessWidget{
             ],
           ),
         );
-      }),
-    );
+
   }
 }
 

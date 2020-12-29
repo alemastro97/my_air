@@ -1,3 +1,4 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myair/Views/profile_page.dart';
@@ -37,22 +38,24 @@ class _HomePageState extends State<HomePage> {
   ];
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-    extendBody: true,
-    body: pages[index],
-    appBar: AppBar(
-      title: Text("MyAir"),
-      automaticallyImplyLeading: false,
-    ),
-    bottomNavigationBar: TabBarMaterialWidget(
-      index: index,
-      onChangedTab: onChangedTab,
-    ),
-    floatingActionButton: FloatingActionButton(
-      child: Icon(Icons.home_outlined),
-      onPressed: () => onChangedTab(4),
-    ),
-    floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+  Widget build(BuildContext context) => ThemeSwitchingArea(
+    child:Builder(builder: (context) {return Scaffold(
+      extendBody: true,
+      body: pages[index],
+      appBar: AppBar(
+        title: Text("MyAir"),
+        automaticallyImplyLeading: false,
+      ),
+      bottomNavigationBar: TabBarMaterialWidget(
+        index: index,
+        onChangedTab: onChangedTab,
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.home_outlined),
+        onPressed: () => onChangedTab(4),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );},)
   );
   void onChangedTab(int index) {
     setState(() {

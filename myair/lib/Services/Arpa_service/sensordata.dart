@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert'; // parsing json files
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:myair/Modules/sensordata.dart';
 
@@ -48,5 +47,6 @@ Future<List<SensorData>> fetchSensorDataFromAPI(String idsensore,int duration) a
     }
     return sensorDataList;
   }
+
   return [];
 }

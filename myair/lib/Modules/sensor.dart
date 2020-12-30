@@ -1,3 +1,4 @@
+// Sensor class
 class Sensor {
 
   int _id;
@@ -107,4 +108,5 @@ class Sensor {
     _stop = json['datastop'];
 
   }
+
 }

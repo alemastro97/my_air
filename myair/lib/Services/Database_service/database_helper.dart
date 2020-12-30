@@ -188,7 +188,6 @@ class DatabaseHelper {
     return unit;
   }
 
-
 // Get the sensor list closed to the user
   Future<List<Sensor>> getSensorListClosedtoUser(double ulatitude, double ulongitude, int utolerance) async {
     var sensorMapList = await getSensorMapList(); // Get 'Map List' from database

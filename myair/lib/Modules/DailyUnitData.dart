@@ -6,6 +6,7 @@ import 'package:myair/Widgets/Home_page_statistics_widgets/pie_chart.dart';
 import 'DailySensorData.dart';
 import 'package:myair/Modules/sensor.dart';
 import 'InstantData.dart';
+import 'package:myair/Modules/SensorListData.dart';
 
 class DailyUnitData {
 
@@ -60,7 +61,9 @@ class DailyUnitData {
     Sensor sensor;
     double average;
 
-    List<Sensor> sensorList = await db.getSensorListClosedtoUser(ulat, ulong, utol);
+    List<Sensor> slAll = await db.getSensorList();
+    List<Sensor> sensorList = await getSensorListClosedtoUser(slAll, ulat, ulong, utol);
+//    List<Sensor> sensorList = await db.getSensorListClosedtoUser(ulat, ulong, utol);
     List<InstantData> sensorData = [];
 
     for (sensor in sensorList) {

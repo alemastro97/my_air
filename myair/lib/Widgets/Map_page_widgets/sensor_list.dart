@@ -30,10 +30,10 @@ class SensorListState extends State<SensorList> {
 
     if (sensorList == null) {
       //sensorList = List<Sensor>();
-      Future<List<Sensor>> sensorList = fetchSensorsFromAPI();
+/*      Future<List<Sensor>> sensorList = fetchSensorsFromAPI();
       sensorList.then((sensorList) {
     //    updateListView(databaseHelper);
-      });
+      }); */
     }
 
     return Scaffold(

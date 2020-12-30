@@ -30,6 +30,7 @@ dependencies:
   syncfusion_flutter_charts: ^18.3.53
   #cupertino_icons: ^1.0.1
   # google sign in
+  image_picker: ^0.6.7+17
   firebase_auth: ^0.18.3
   google_sign_in: ^4.5.6
   firebase_database: ^4.4.0

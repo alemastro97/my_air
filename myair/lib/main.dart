@@ -17,13 +17,15 @@ import 'Views/Graph_view/bar_charts_view.dart';
 //TODO insert in the db a user
 List<Sensor> sensorList = [];
 bool logged = false ;
+userAccount actualUser;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   DatabaseHelper databaseHelper = DatabaseHelper();
-  //databaseHelper.deleteDB();
+  actualUser = await databaseHelper.getUserAccount();
+  //print(actualUser.firebaseId + " " + actualUser.email );
   //FirebaseDb_gesture db = FirebaseDb_gesture();
-
+//  databaseHelper.deleteDB();
   sensorList = await databaseHelper.getSensorList();
   if(sensorList.length == 0){
     await fetchSensorsFromAPI();
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
           routes: {
             "/HomePage": (_) => new HomePage(),
           },
-       home: ProfilePage(),
+       home: actualUser == null ?  ProfilePage() : HomePage(),
         );
       }),
     );

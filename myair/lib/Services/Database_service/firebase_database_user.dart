@@ -2,6 +2,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myair/Modules/UserAccount.dart';
+import 'package:myair/Services/Database_service/database_helper.dart';
+import 'package:myair/main.dart';
 //import 'post.dart';
 
 final FirebaseDatabase db = new FirebaseDatabase();//.child('users');
@@ -19,45 +21,49 @@ class FirebaseDb_gesture{
     }
     return _FirebaseDb_gesture;
   }
-  DatabaseReference saveUser(userAccount u)  {
-    var dbRef = databaseReference.child('users/').push();
-    dbRef.set(u.toJson());
-
-    return dbRef;
+  Future<bool> saveUser(userAccount u)  async {
+    bool present = false;
+    var dbRefCheck = databaseReference.child('users/');
+    DataSnapshot us = await dbRefCheck.once();
+    Map<dynamic,dynamic> values = us.value;
+    values.forEach((key, value) {
+      if(value["email"] == u.email)
+        present = true;
+    });
+    if (!present) {
+      var dbRef =  dbRefCheck.push();
+     await dbRef.set(u.toJson());
+     DataSnapshot snapshot =  await dbRefCheck.orderByChild("email").equalTo(u.email).once();
+      Map<dynamic, dynamic> values=snapshot.value;
+      values.forEach((key, value) {
+        u.setFId(key);
+      });
+      DatabaseHelper d = DatabaseHelper();
+      d.insertUser(u);
+      actualUser = u;
+      return true;
+    }
+    return false;
   }
-}
+  //TODO con logout cancellare user da database
+  Future<bool> logUser(String email, String pwd) async {
+    bool present = false;
+    var dbRefCheck = databaseReference.child('users/');
+    DataSnapshot us = await dbRefCheck.once();
+    Map<dynamic,dynamic> values = us.value;
+    values.forEach((key, value) {
+      if(value["email"] == email && value["password"] == pwd) {
+        present = true;
+        userAccount u = new userAccount(value['firstname'],value['lastname'] , value['email'],value['password'],value['img']);
+        u.setFId(key.toString());
+        DatabaseHelper d = DatabaseHelper();
+        d.insertUser(u);
+        actualUser = u;
+      }
+    });
 
-var lists = [];
-class UserWidget extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: databaseReference.once(),
-        builder: (context, AsyncSnapshot<DataSnapshot> snapshot) {
-          if (snapshot.hasData) {
-            lists.clear();
-            Map<dynamic, dynamic> values = snapshot.data.value;
-            values.forEach((key, values) {
-              lists.add(values);
-            });
-            return new ListView.builder(
-                shrinkWrap: true,
-                itemCount: lists.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Name: " + lists[index]["firstname"]),
-                        Text("Age: "+ lists[index]["lastname"]),
-                        Text("Type: " +lists[index]["email"]),
-                      ],
-                    ),
-                  );
-                });
-          }
-          return CircularProgressIndicator();
-        });
+    return present;
   }
+
 
 }

@@ -1,3 +1,4 @@
+import 'package:myair/Modules/UserAccount.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'dart:io';
@@ -33,6 +34,7 @@ class DatabaseHelper {
 
   String userTable = 'User';
   String userId = 'userId';
+  String userIdFirebase = 'firebaseId';
   String firstName = 'firstName';
   String lastName = 'lastName';
   String email = 'email';
@@ -52,6 +54,7 @@ class DatabaseHelper {
   deleteDB(){
     _databaseHelper.deleteSensor();
     _databaseHelper.deleteUnit();
+    _databaseHelper.deleteUser();
   }
 
   Future<Database> get database async {
@@ -73,12 +76,12 @@ class DatabaseHelper {
   }
 
   void _createDb(Database db, int newVersion) async {
-
+    print("create");
     await db.execute('CREATE TABLE $sensorTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colSensor TEXT, $colUnit TEXT, '
         '$colidUnit TEXT, $colLat TEXT, $colLng TEXT, $colName TEXT, $colUOM TEXT, $colStart TEXT, $colStop TEXT)');
     await db.execute('CREATE TABLE $unitTable($uId INTEGER PRIMARY KEY AUTOINCREMENT, $uUnit TEXT, '
         '$uidUnit TEXT, $uLat TEXT, $uLng TEXT)');
-    await db.execute('CREATE TABLE $userTable($userId INTEGER PRIMARY KEY AUTOINCREMENT, $firstName TEXT, '
+    await db.execute('CREATE TABLE $userTable($userId INTEGER PRIMARY KEY AUTOINCREMENT, $userIdFirebase TEXT,$firstName TEXT, '
         '$lastName TEXT, $email TEXT, $password TEXT, $image TEXT)');
 
   }
@@ -98,6 +101,13 @@ class DatabaseHelper {
     return result;
   }
 
+  Future<List<Map<String, dynamic>>> getUser() async {
+    Database db = await this.database;
+
+    var result = await db.rawQuery('SELECT * FROM $userTable order by $userId');
+    return result;
+  }
+
   // Insert operation
   Future<int> insertSensor(Sensor sensor) async {
     Database db = await this.database;
@@ -110,6 +120,13 @@ class DatabaseHelper {
     Database db = await this.database;
 
     var result = await db.insert(unitTable, unit.toMap());
+    return result;
+  }
+
+  Future<int> insertUser(userAccount user) async {
+    Database db = await this.database;
+
+    var result = await db.insert(userTable, user.toMap());
     return result;
   }
 
@@ -127,7 +144,12 @@ class DatabaseHelper {
     int result = await db.rawDelete('DELETE FROM $unitTable');
     return result;
   }
+  Future<int> deleteUser() async {
+    var db = await this.database;
 
+    int result = await db.rawDelete('DELETE FROM $userTable');
+    return result;
+  }
   // Get number of objects in database
   Future<int> getCountSensor() async{
     Database db = await this.database;
@@ -170,6 +192,13 @@ class DatabaseHelper {
     }
 
     return unitList;
+  }
+  Future<userAccount> getUserAccount() async {
+    var user = await getUser(); // Get 'Map List' from database
+    userAccount account = userAccount("firstName", "lastName", "email", "password", "") ;
+    if(user.length > 0)
+    account.fromMapObject(user.elementAt(0));
+    return account;
   }
 
   Future<Unit> getUnit(String idunit) async {

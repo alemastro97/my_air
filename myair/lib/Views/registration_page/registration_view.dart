@@ -18,6 +18,7 @@ class _RegistrationPage extends State<RegistrationPage>{
   TextEditingController firstController = new TextEditingController();
   TextEditingController lastController = new TextEditingController();
   TextEditingController passController = new TextEditingController();
+  var error = false;
   Widget build(BuildContext context) {
 
 
@@ -81,15 +82,45 @@ class _RegistrationPage extends State<RegistrationPage>{
                           ),
                           Expanded(
                             flex: 1,
-                            child: TextField(
-                              controller: emailController,
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintText: "Email",
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+                            child: Stack(
+                              children: [
+                            /*    TextField(
+                                  controller: emailController,
+                                  keyboardType: TextInputType.text,
+                                  decoration: InputDecoration(
+
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintText: "Email",
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                          borderSide: new BorderSide(color: Colors.red) )),
+                                ),*/
+                                new TextField(
+                                  controller: emailController,
+                                  keyboardType: TextInputType.text,
+                                  enableSuggestions: false,
+                                  autocorrect: false,
+                                  decoration:error ? new InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      border: new OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                                      hintText: 'Email',
+                                      errorText: 'Email already exists',
+                                      //labelText: 'Email',
+
+                                ): new InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    border: new OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                                    hintText: 'Email',
+                                   // labelText: 'Email',
+
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           Expanded(
@@ -117,11 +148,16 @@ class _RegistrationPage extends State<RegistrationPage>{
                                   widthFactor: 2 / 3,
                                   child: GestureDetector(
                                     onTap: () async {
-                                      //TODO create control of the profile
                                       logged = true;
                                       FirebaseDb_gesture d = FirebaseDb_gesture();
-                                      await d.saveUser(new userAccount(firstController.text,lastController.text,emailController.text,passController.text,''));
-                                      Navigator.pushReplacementNamed(context, '/HomePage');
+                                      var b = await d.saveUser(new userAccount(firstController.text,lastController.text,emailController.text,passController.text,''));
+                                      b ?
+                                      Navigator.pushReplacementNamed(context, '/HomePage')
+                                      :
+                                      setState(() {
+                                        error = true;
+                                      });
+
                                     },
                                     child: Container(
                                       padding: EdgeInsets.all(MediaQuery.of(context).size.width/30),

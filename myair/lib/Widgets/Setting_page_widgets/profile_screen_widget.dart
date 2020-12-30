@@ -5,6 +5,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:myair/Constants/theme_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myair/Widgets/Setting_page_widgets/Change_image_widget.dart';
 import 'package:myair/Widgets/Setting_page_widgets/profile_list_item.dart';
 
 class ProfileScreen extends StatelessWidget{
@@ -16,69 +17,7 @@ class ProfileScreen extends StatelessWidget{
           flex: 6,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Container(
-
-              child: Stack(
-                children: [
-                  Center(
-                    child:  CircleAvatar(
-                          radius: MediaQuery.of(context).size.height,
-                          //backgroundImage: AssetImage(''),
-                        ),
-                    ),
-                  Align(
-                      alignment: Alignment.center,
-                      child:Container(
-                          width:( MediaQuery.of(context).size.height)/5,
-                          height: MediaQuery.of(context).size.height/5,
-
-                        child:Align(
-                          alignment: Alignment.bottomRight,
-                          child: FractionallySizedBox(
-                            widthFactor: 0.3,
-                            heightFactor:0.3,
-                            child: Container(
-                                child:  Container(
-                                  // width:( MediaQuery.of(context).size.height)/10,
-                                  decoration:
-                                  BoxDecoration(color: Theme.of(context).accentColor,
-                                      shape: BoxShape.circle
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: FittedBox(
-                                      fit: BoxFit.contain,
-                                      child: Icon(
-                                        LineAwesomeIcons.pen,
-                                        color: kDarkPrimaryColor,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                            ),
-                          ),
-                        ), /*Align(
-                          alignment: Alignment.bottomRight,
-                          child: Container(
-                           // width:( MediaQuery.of(context).size.height)/10,
-                            decoration:
-                            BoxDecoration(color: Theme.of(context).accentColor,
-                                shape: BoxShape.circle
-                            ),
-                            child: Placeholder(),
-                          ),
-                        )//////Icon(
-                          LineAwesomeIcons.pen,
-                          color: kDarkPrimaryColor,
-                        ),*/
-                      ),),
-
-                ],
-              ),
-
-
-
-            ),
+            child: changeImage(),
           ),
         ),
         Expanded(

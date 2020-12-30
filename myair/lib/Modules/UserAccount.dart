@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class userAccount {
   //final user = FirebaseAuth.instance.currentUser;
-
+  String firebaseId;
   String firstName;
   String lastName;
   String email;
@@ -28,6 +28,33 @@ class userAccount {
     this.password = password;
     this.img = img;
   }
+
+  setFId(String id){firebaseId = id;}
+  Map<String, dynamic> toMap() {
+
+
+      var map = Map<String, dynamic>();
+
+      map['firstname'] = firstName;
+      map['lastname'] = lastName;
+      map['email'] = email;
+      map['password'] = password;
+      map['image'] = img;
+      map['firebaseId'] = firebaseId;
+
+      return map;
+
+  }
+  fromMapObject(Map<String, dynamic> map) {
+    firebaseId = map['firebaseId'];
+    firstName = map['firstname'];
+    lastName = map['lastname'];
+    email = map['email'];
+    password = map['password'];
+    img = map['image'];
+
+  }
+
 
 }
 

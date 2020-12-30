@@ -3,7 +3,9 @@
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="myair"
-        android:icon="@mipmap/app_icon">
+        android:icon="@mipmap/app_icon"
+        android:requestLegacyExternalStorage="true">
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -49,6 +51,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
 
 </manifest>

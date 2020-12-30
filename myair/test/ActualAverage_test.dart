@@ -4,6 +4,7 @@ import 'package:myair/Modules/InstantData.dart';
 import 'package:myair/Modules/sensor.dart';
 import 'package:myair/Modules/sensordata.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
+import 'package:myair/Services/Arpa_service/sensors.dart';
 import 'package:myair/Services/Database_service/database_helper.dart';
 
 
@@ -93,15 +94,23 @@ void main() {
 
     // Save the average in the right position of the Sensor data array
     test('Sensors close to the user', () async {
+
       double ulat = 45.81504286011291;
       double ulong = 9.06697137484454;
       int utol = 10;
 
-      DatabaseHelper db = new DatabaseHelper();
+      DatabaseHelper db = DatabaseHelper();
 
       Sensor sensor;
+      List<Sensor> sensorList;
 
-      List<Sensor> sensorList = await db.getSensorListClosedtoUser(ulat, ulong, utol);
+      sensorList = await db.getSensorList();
+      if(sensorList.length == 0){
+        await fetchSensorsFromAPI();
+        sensorList = await db.getSensorList();
+      }
+
+      sensorList = await db.getSensorListClosedtoUser(ulat, ulong, utol);
 
     });
 

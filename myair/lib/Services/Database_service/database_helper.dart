@@ -105,6 +105,7 @@ class DatabaseHelper {
     Database db = await this.database;
 
     var result = await db.rawQuery('SELECT * FROM $userTable order by $userId');
+    print(result.length);
     return result;
   }
 
@@ -127,6 +128,7 @@ class DatabaseHelper {
     Database db = await this.database;
 
     var result = await db.insert(userTable, user.toMap());
+    print(result);
     return result;
   }
 
@@ -148,6 +150,19 @@ class DatabaseHelper {
     var db = await this.database;
 
     int result = await db.rawDelete('DELETE FROM $userTable');
+    return result;
+  }
+
+  Future<int> setImg(String e,String img)async{
+    var db = await this.database;
+
+    int result = await db.rawUpdate('UPDATE $userTable SET $image =' + '\'' +
+    img +
+    '\'' + 'WHERE $email = ' + '\'' +
+        e +
+        '\'');
+    print(img);
+    print(result.toString());
     return result;
   }
   // Get number of objects in database
@@ -195,10 +210,13 @@ class DatabaseHelper {
   }
   Future<userAccount> getUserAccount() async {
     var user = await getUser(); // Get 'Map List' from database
-    userAccount account = userAccount("firstName", "lastName", "email", "password", "") ;
-    if(user.length > 0)
-    account.fromMapObject(user.elementAt(0));
-    return account;
+    if(user.length > 0) {
+      userAccount account = userAccount("firstName", "lastName", "email", "password", "") ;
+
+      account.fromMapObject(user.elementAt(0));
+      return account;
+    }
+    return null;
   }
 
   Future<Unit> getUnit(String idunit) async {

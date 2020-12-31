@@ -1,0 +1,53 @@
+Flutter crash report.
+Please report a bug at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter --no-color attach --machine --device-id=emulator-5554 lib\main.dart
+
+## exception
+
+StateError: Bad state: Future already completed
+
+```
+#0      _AsyncCompleter.complete (dart:async/future_impl.dart:43:31)
+#1      DartDevelopmentService.startDartDevelopmentService (package:flutter_tools/src/base/dds.dart:56:18)
+<asynchronous suspension>
+#2      FlutterDevice.connect.<anonymous closure> (package:flutter_tools/src/resident_runner.dart:263:11)
+<asynchronous suspension>
+```
+
+## flutter doctor
+
+```
+[✓] Flutter (Channel dev, 1.24.0-10.2.pre, on Microsoft Windows [Versione 10.0.19042.685], locale it-IT)
+    • Flutter version 1.24.0-10.2.pre at C:\flutter
+    • Framework revision 022b333a08 (6 weeks ago), 2020-11-18 11:35:09 -0800
+    • Engine revision 07c1eed46b
+    • Dart version 2.12.0 (build 2.12.0-29.10.beta)
+
+[✓] Android toolchain - develop for Android devices (Android SDK version 30.0.2)
+    • Android SDK at C:\Users\Luca\AppData\Local\Android\Sdk
+    • Platform android-30, build-tools 30.0.2
+    • ANDROID_HOME = C:\Users\Luca\AppData\Local\Android\Sdk;C:\Program Files\Android\Android Studio\jre;C:\flutter\bin;
+    • Java binary at: C:\Program Files\Android\Android Studio\jre\bin\java
+    • Java version OpenJDK Runtime Environment (build 1.8.0_242-release-1644-b01)
+    • All Android licenses accepted.
+
+[✓] Android Studio (version 4.1.0)
+    • Android Studio at C:\Program Files\Android\Android Studio
+    • Flutter plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/9212-flutter
+    • Dart plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/6351-dart
+    • Java version OpenJDK Runtime Environment (build 1.8.0_242-release-1644-b01)
+
+[✓] VS Code (version 1.51.1)
+    • VS Code at C:\Users\Luca\AppData\Local\Programs\Microsoft VS Code
+    • Flutter extension version 3.16.0
+
+[✓] Connected device (1 available)
+    • sdk gphone x86 arm (mobile) • emulator-5554 • android-x86 • Android 11 (API 30) (emulator)
+
+• No issues found!
+```

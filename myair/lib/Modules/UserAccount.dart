@@ -34,7 +34,7 @@ class userAccount {
 
 
       var map = Map<String, dynamic>();
-
+      map['userId'] = 1;
       map['firstname'] = firstName;
       map['lastname'] = lastName;
       map['email'] = email;
@@ -46,12 +46,19 @@ class userAccount {
 
   }
   fromMapObject(Map<String, dynamic> map) {
+
     firebaseId = map['firebaseId'];
+    print(firebaseId);
     firstName = map['firstname'];
+    print(firstName);
     lastName = map['lastname'];
+    print(lastName);
     email = map['email'];
+    print(email);
     password = map['password'];
+    print(password);
     img = map['image'];
+    print(img);
 
   }
 

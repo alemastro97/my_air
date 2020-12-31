@@ -23,6 +23,7 @@ void main() async {
   await Firebase.initializeApp();
   DatabaseHelper databaseHelper = DatabaseHelper();
   actualUser = await databaseHelper.getUserAccount();
+
   //print(actualUser.firebaseId + " " + actualUser.email );
   //FirebaseDb_gesture db = FirebaseDb_gesture();
 //  databaseHelper.deleteDB();

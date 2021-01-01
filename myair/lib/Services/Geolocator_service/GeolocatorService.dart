@@ -41,7 +41,7 @@ class GeolocationView{
     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
     var instantData = await d.setSensorsDataAverage(DatabaseHelper(), DateTime.now().hour, geoposition.latitude, geoposition.longitude,50000);
-
+    print(instantData.length.toString() + "ddddddddddddddddddd");
     for( var item in instantData) {
       print(" -------------------------------------------"+ item.pollutantName +"------------------------------------------------------");
       print(item.value);

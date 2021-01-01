@@ -63,7 +63,7 @@ class DailyUnitData {
 
     List<Sensor> slAll = await db.getSensorList();
     List<Sensor> sensorList = await getSensorListClosedtoUser(slAll, ulat, ulong, utol);
-//    List<Sensor> sensorList = await db.getSensorListClosedtoUser(ulat, ulong, utol);
+    //List<Sensor> sensorList = await db.getSensorListClosedtoUser(ulat, ulong, utol);
     List<InstantData> sensorData = [];
 
     for (sensor in sensorList) {

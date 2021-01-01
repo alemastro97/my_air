@@ -58,12 +58,20 @@ class FirebaseDb_gesture{
         u.setFId(key.toString());
         DatabaseHelper d = DatabaseHelper();
         d.insertUser(u);
+        print(u.email);
+        print(u.firstName);
         actualUser = u;
+        print(actualUser.firstName);
       }
     });
 
     return present;
   }
 
+  Future<bool> updateImage() async{
+    var dbRefCheck = databaseReference.child('users/');
+    await dbRefCheck.child(actualUser.firebaseId).set(actualUser.toJson());
+
+  }
 
 }

@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myair/Views/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:myair/Views/profile_page.dart';
-
+import 'package:http/http.dart' as http;
 import 'Constants/theme_constants.dart';
 import 'Modules/UserAccount.dart';
 import 'Services/Arpa_service/sensors.dart';
@@ -22,17 +25,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   DatabaseHelper databaseHelper = DatabaseHelper();
-  actualUser = await databaseHelper.getUserAccount();
+
 
   //print(actualUser.firebaseId + " " + actualUser.email );
   //FirebaseDb_gesture db = FirebaseDb_gesture();
-//  databaseHelper.deleteDB();
+ //databaseHelper.deleteDB();
+  actualUser = await databaseHelper.getUserAccount();
   sensorList = await databaseHelper.getSensorList();
+
   if(sensorList.length == 0){
     await fetchSensorsFromAPI();
     sensorList = await databaseHelper.getSensorList();
   }
-  await GeolocationView().getCurrentLocation();
+  //await GeolocationView().getCurrentLocation();
   print("Upload all sensors: " + sensorList.length.toString());
 
   runApp(MyApp());

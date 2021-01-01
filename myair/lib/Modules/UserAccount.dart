@@ -14,7 +14,7 @@ class userAccount {
   Map<String, dynamic> toJson(){
     return{
       "firstname" : this.firstName,
-      "lastName" : this.lastName,
+      "lastname" : this.lastName,
       "email" : this.email,
       "password" : this.password,
       "img" : this.img,

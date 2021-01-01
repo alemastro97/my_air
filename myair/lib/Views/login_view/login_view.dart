@@ -27,7 +27,6 @@ class _LoginPage extends State<LoginPage>{
             fit: BoxFit.cover,
           ),
         ),
-//TODO sistemare widgets
        child:Padding(
          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 10, right: MediaQuery.of(context).size.width / 10,bottom: MediaQuery.of(context).size.width / 4, top: MediaQuery.of(context).size.width / 4),
           child: Center(
@@ -116,7 +115,6 @@ class _LoginPage extends State<LoginPage>{
                                   widthFactor: 2 / 3,
                                   child: GestureDetector(
                                     onTap: () async {
-                                      //TODO create control of the profile
                                       logged = true;
                                       FirebaseDb_gesture d = FirebaseDb_gesture();
                                       var b = await d.logUser(emailController.text,passController.text);
@@ -127,6 +125,7 @@ class _LoginPage extends State<LoginPage>{
                                         error = true;
                                       });
                                     },
+                                    //TODO problem with error
                                     child: Container(
                                       padding: EdgeInsets.all(MediaQuery.of(context).size.width/30),
                                       //  margin: EdgeInsets.symmetric( ).copyWith(),

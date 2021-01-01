@@ -35,8 +35,8 @@ class DatabaseHelper {
   String userTable = 'User';
   String userId = 'userId';
   String userIdFirebase = 'firebaseId';
-  String firstName = 'firstName';
-  String lastName = 'lastName';
+  String firstName = 'firstname';
+  String lastName = 'lastname';
   String email = 'email';
   String password = 'password';
   String image = 'image';
@@ -258,6 +258,7 @@ class DatabaseHelper {
 
       if (distanceMeters < utolerance) {
         sensorList.add(Sensor.fromMapObject(sensorMapList[i]));
+        print("NeareSensnen" + Sensor.fromMapObject(sensorMapList[i]).sensor.toString());
       }
     }
 

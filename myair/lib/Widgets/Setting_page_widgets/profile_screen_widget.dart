@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myair/Widgets/Setting_page_widgets/Change_image_widget.dart';
 import 'package:myair/Widgets/Setting_page_widgets/profile_list_item.dart';
+import 'package:myair/main.dart';
 
 class ProfileScreen extends StatelessWidget{
   @override
@@ -24,8 +25,8 @@ class ProfileScreen extends StatelessWidget{
           flex:2,
           child: Column(
             children: <Widget>[
-              Expanded(flex: 1,child: FractionallySizedBox(widthFactor: 0.7,child:FittedBox(fit: BoxFit.contain,child: Text('Alessandro Mastropasqua', style: kTitleTextStyle)),),),
-              Expanded(flex: 1,child: FractionallySizedBox(widthFactor: 0.7,child: FittedBox(fit: BoxFit.contain,child: Text('alessandro.mastropasqua@mail.polimi.it', style: kCaptionTextStyle)),),),
+              Expanded(flex: 1,child: FractionallySizedBox(widthFactor: 0.7,child:FittedBox(fit: BoxFit.contain,child: Text(actualUser.firstName.toString() + " " + actualUser.lastName.toString() , style: kTitleTextStyle)),),),
+              Expanded(flex: 1,child: FractionallySizedBox(widthFactor: 0.7,child: FittedBox(fit: BoxFit.contain,child: Text(actualUser.email.toString(), style: kCaptionTextStyle)),),),
             ],
           ),
         ),

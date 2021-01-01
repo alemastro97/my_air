@@ -7,13 +7,17 @@ import 'package:image_picker/image_picker.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:myair/Constants/theme_constants.dart';
 import 'package:myair/Services/Database_service/database_helper.dart';
+import 'package:myair/Services/Database_service/firebase_database_user.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
+
 
 import '../../main.dart';
 class changeImage extends StatefulWidget {
   _changeImageState createState() => _changeImageState();
 }
 class  _changeImageState extends State<changeImage>{
-  Io.File _image = new Io.File('');
+  Io.File _image = null;
   //Todo CreareImmagine
   final picker = ImagePicker();
 
@@ -29,27 +33,11 @@ class  _changeImageState extends State<changeImage>{
         child: Stack(
           children: [
             Center(
-              child: _image != null
-                    ?
-              CircleAvatar(backgroundImage: new FileImage(_image), radius: 200.0,)/* ClipRRect(
-                borderRadius: BorderRadius.circular(300.0),
-
-                  child: Image.file(
-                    _image,
-                    fit: BoxFit.fitHeight,
-                  ),
-                )*/
-                    : Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50)),
-
-                  child: Icon(
-                    Icons.camera_alt,
-                    color: Colors.grey[800],
-                  ),
-                ),),
-
-
+              child: _image != null ?
+              CircleAvatar(backgroundImage: new FileImage(_image), radius: 200.0,)
+              :
+               CircleAvatar(backgroundImage: new AssetImage('assets/images/blank_profile.png'), radius: 200.0,),
+        ),
             Align(
               alignment: Alignment.center,
               child:Container(
@@ -110,10 +98,18 @@ class  _changeImageState extends State<changeImage>{
       );},
     );
   }
-  _getImage() async {
-      await _image.writeAsBytes(base64Decode(actualUser.img));
-      print(_image.toString());
+   _getImage() async {
+
+    if(actualUser.img != '') {
+      print("--------------------"+actualUser.img.toString());
+       _image = await writeImageTemp(actualUser.img, 'image');
+    }
+
+
+    //await _image.writeAsBytes(base64Decode(actualUser.img));
+      //print(_image.toString());
   }
+//Todo capire come fare update senza ricaricare tutto
 
   _imgFromCamera() async {
      final image =  (await picker.getImage(source: ImageSource.camera));
@@ -121,7 +117,7 @@ class  _changeImageState extends State<changeImage>{
      await DatabaseHelper().setImg(actualUser.email,base64Encode(Io.File(image.path).readAsBytesSync()).toString());
     setState(()  {
       _image = Io.File(image.path);
-
+      FirebaseDb_gesture().updateImage();
     });
   }
 
@@ -131,8 +127,15 @@ class  _changeImageState extends State<changeImage>{
     await DatabaseHelper().setImg(actualUser.email,base64Encode(Io.File(image.path).readAsBytesSync()).toString());
     setState(()  {
       _image = Io.File(image.path) ;
-
+      FirebaseDb_gesture().updateImage();
     });
+  }
+  Future<Io.File> writeImageTemp(String base64Image, String imageName) async {
+    final dir = await getTemporaryDirectory();
+    await dir.create(recursive: true);
+    final tempFile = Io.File(path.join(dir.path, imageName));
+    await tempFile.writeAsBytes(base64.decode(base64Image));
+    return tempFile;
   }
   void _showPicker(context) {
     showModalBottomSheet(

@@ -1,0 +1,90 @@
+Index: .idea/my_air.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/my_air.iml	(date 1609531014674)
++++ .idea/my_air.iml	(date 1609531014674)
+@@ -0,0 +1,29 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="JAVA_MODULE" version="4">
++  <component name="FacetManager">
++    <facet type="android" name="Android">
++      <configuration>
++        <option name="GEN_FOLDER_RELATIVE_PATH_APT" value="/../../my_air/gen" />
++        <option name="GEN_FOLDER_RELATIVE_PATH_AIDL" value="/../../my_air/gen" />
++        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/../../my_air/AndroidManifest.xml" />
++        <option name="RES_FOLDER_RELATIVE_PATH" value="/../../my_air/res" />
++        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/../../my_air/assets" />
++        <option name="LIBS_FOLDER_RELATIVE_PATH" value="/../../my_air/libs" />
++        <option name="PROGUARD_LOGS_FOLDER_RELATIVE_PATH" value="/../../my_air/proguard_logs" />
++      </configuration>
++    </facet>
++  </component>
++  <component name="NewModuleRootManager" inherit-compiler-output="true">
++    <exclude-output />
++    <content url="file://$MODULE_DIR$">
++      <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" generated="true" />
++      <excludeFolder url="file://$MODULE_DIR$/myair/.dart_tool" />
++      <excludeFolder url="file://$MODULE_DIR$/myair/.pub" />
++      <excludeFolder url="file://$MODULE_DIR$/myair/build" />
++    </content>
++    <orderEntry type="jdk" jdkName="Android API 28 Platform" jdkType="Android SDK" />
++    <orderEntry type="sourceFolder" forTests="false" />
++    <orderEntry type="library" name="Dart SDK" level="project" />
++    <orderEntry type="library" name="Dart Packages" level="project" />
++  </component>
++</module>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/vcs.xml	(date 1609530458207)
++++ .idea/vcs.xml	(date 1609530458207)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/modules.xml	(date 1609530458226)
++++ .idea/modules.xml	(date 1609530458226)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/my_air.iml" filepath="$PROJECT_DIR$/.idea/my_air.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: myair/android/local.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>sdk.dir=C:\\\\Users\\\\Luca\\\\AppData\\\\Local\\\\Android\\\\Sdk\r\nflutter.sdk=C:\\\\flutter\r\nflutter.buildMode=debug\r\nflutter.versionName=1.0.0\r\nflutter.versionCode=1
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- myair/android/local.properties	(revision f82790d754b3a7c5a200bdf706618ca9d9aedb8d)
++++ myair/android/local.properties	(date 1609531576928)
+@@ -1,5 +1,5 @@
+ sdk.dir=C:\\Users\\Luca\\AppData\\Local\\Android\\Sdk
+ flutter.sdk=C:\\flutter
+-flutter.buildMode=debug
++flutter.buildMode=release
+ flutter.versionName=1.0.0
+ flutter.versionCode=1
+\ No newline at end of file
+diff --git myair/ios/Runner/GeneratedPluginRegistrant.m myair/ios/Runner/GeneratedPluginRegistrant.m
+diff --git myair/ios/Runner/GeneratedPluginRegistrant.h myair/ios/Runner/GeneratedPluginRegistrant.h
+diff --git myair/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java myair/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java

@@ -18,7 +18,6 @@ class changeImage extends StatefulWidget {
 }
 class  _changeImageState extends State<changeImage>{
   Io.File _image = null;
-  //Todo CreareImmagine
   final picker = ImagePicker();
 
   @override
@@ -29,12 +28,11 @@ class  _changeImageState extends State<changeImage>{
       future: _getImage(),
       builder:(BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         return Container(
-//TODO inserire immaginer nel database e su fireb
         child: Stack(
           children: [
             Center(
               child: _image != null ?
-              CircleAvatar(backgroundImage: new FileImage(_image), radius: 200.0,)
+              Container(height:MediaQuery.of(context).size.height,decoration:BoxDecoration(color: Colors.red,borderRadius: BorderRadius.circular(200.0)),child: FittedBox(fit:BoxFit.fill,child: CircleAvatar(backgroundImage: new FileImage(_image), )))
               :
                CircleAvatar(backgroundImage: new AssetImage('assets/images/blank_profile.png'), radius: 200.0,),
         ),
@@ -110,7 +108,7 @@ class  _changeImageState extends State<changeImage>{
       //print(_image.toString());
   }
 //Todo capire come fare update senza ricaricare tutto
-
+//TODO cambiare anche top image
   _imgFromCamera() async {
      final image =  (await picker.getImage(source: ImageSource.camera));
      actualUser.img = base64Encode(Io.File(image.path).readAsBytesSync()).toString();
@@ -118,6 +116,7 @@ class  _changeImageState extends State<changeImage>{
     setState(()  {
       _image = Io.File(image.path);
       FirebaseDb_gesture().updateImage();
+
     });
   }
 

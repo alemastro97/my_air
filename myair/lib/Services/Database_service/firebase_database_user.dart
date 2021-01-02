@@ -26,10 +26,12 @@ class FirebaseDb_gesture{
     var dbRefCheck = databaseReference.child('users/');
     DataSnapshot us = await dbRefCheck.once();
     Map<dynamic,dynamic> values = us.value;
-    values.forEach((key, value) {
-      if(value["email"] == u.email)
-        present = true;
-    });
+    if(values != null)
+    {
+      values.forEach((key, value) {
+        if (value["email"] == u.email) present = true;
+      });
+    }
     if (!present) {
       var dbRef =  dbRefCheck.push();
      await dbRef.set(u.toJson());
@@ -39,13 +41,16 @@ class FirebaseDb_gesture{
         u.setFId(key);
       });
       DatabaseHelper d = DatabaseHelper();
+      print("Sta per salvarlo");
       d.insertUser(u);
+      print("Salvato");
+      d.getUser();
+
       actualUser = u;
       return true;
     }
     return false;
   }
-  //TODO con logout cancellare user da database
   Future<bool> logUser(String email, String pwd) async {
     bool present = false;
     var dbRefCheck = databaseReference.child('users/');

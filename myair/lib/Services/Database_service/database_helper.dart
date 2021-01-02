@@ -76,7 +76,7 @@ class DatabaseHelper {
   }
 
   void _createDb(Database db, int newVersion) async {
-    print("create");
+
     await db.execute('CREATE TABLE $sensorTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colSensor TEXT, $colUnit TEXT, '
         '$colidUnit TEXT, $colLat TEXT, $colLng TEXT, $colName TEXT, $colUOM TEXT, $colStart TEXT, $colStop TEXT)');
     await db.execute('CREATE TABLE $unitTable($uId INTEGER PRIMARY KEY AUTOINCREMENT, $uUnit TEXT, '
@@ -173,6 +173,13 @@ class DatabaseHelper {
     int result = Sqflite.firstIntValue(x);
     return result;
   }
+  Future<int> getCountUser() async{
+    Database db = await this.database;
+
+    List<Map<String, dynamic>> x = await db.rawQuery('SELECT COUNT (*) FROM $userTable');
+    int result = Sqflite.firstIntValue(x);
+    return result;
+  }
 
   Future<int> getCountUnit() async{
     Database db = await this.database;
@@ -210,13 +217,15 @@ class DatabaseHelper {
   }
   Future<userAccount> getUserAccount() async {
     var user = await getUser(); // Get 'Map List' from database
+    print("------" + user.length.toString());
     if(user.length > 0) {
       userAccount account = userAccount("firstName", "lastName", "email", "password", "") ;
-
+      print(user.length);
       account.fromMapObject(user.elementAt(0));
       return account;
     }
-    return null;
+    print("Return null");
+    return userAccount(" ", null, " ",null, null);
   }
 
   Future<Unit> getUnit(String idunit) async {

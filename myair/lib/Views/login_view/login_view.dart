@@ -115,7 +115,7 @@ class _LoginPage extends State<LoginPage>{
                                   widthFactor: 2 / 3,
                                   child: GestureDetector(
                                     onTap: () async {
-                                      logged = true;
+                                    //  logged = true;
                                       FirebaseDb_gesture d = FirebaseDb_gesture();
                                       var b = await d.logUser(emailController.text,passController.text);
                                       b ?
@@ -125,7 +125,6 @@ class _LoginPage extends State<LoginPage>{
                                         error = true;
                                       });
                                     },
-                                    //TODO problem with error
                                     child: Container(
                                       padding: EdgeInsets.all(MediaQuery.of(context).size.width/30),
                                       //  margin: EdgeInsets.symmetric( ).copyWith(),

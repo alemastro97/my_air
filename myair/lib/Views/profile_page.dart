@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:myair/Modules/UserAccount.dart';
+import 'package:myair/Services/Database_service/firebase_database_user.dart';
 import 'package:myair/Services/Google_Service/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:myair/Widgets/Login_with_google/sign_up_widget.dart';
 import 'package:provider/provider.dart';
-
+import 'package:http/http.dart' as http;
 import '../main.dart';
 import 'home_page.dart';
 
@@ -20,9 +24,9 @@ class ProfilePage extends StatelessWidget {
           if (provider.isSigningIn) {
             return buildLoading();
           } else if (snapshot.hasData) {
+            setUser();
             return HomePage();
-          } else if( logged == true){
-            return HomePage();
+
           }else{
             print('Arrivo');
             return SignUpWidget();
@@ -48,4 +52,14 @@ class ProfilePage extends StatelessWidget {
       Center(child: CircularProgressIndicator()),
     ],
   );
+//TODO sistemare
+  Future<void> setUser() async {
+    var x =  FirebaseAuth.instance.currentUser;
+    var namesur = x.displayName.split(" ");
+    var b = ( await http.get(x.photoURL)).bodyBytes;
+    var image   = b!= null ?  base64Encode(b):"";
+    print("£sdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+    actualUser = new userAccount(namesur.elementAt(0), namesur.elementAt(1), x.email, "",image);
+    FirebaseDb_gesture().saveUser(actualUser);
+  }
 }

@@ -18,7 +18,6 @@ class GeolocationView{
   static final GeolocationView _geolocationView = GeolocationView._internal();
   final Notifications _notifications =  Notifications();
   factory GeolocationView() {
-    // TODO: implement initState
 
     return _geolocationView;
 

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +13,11 @@ import 'package:myair/Widgets/Login_with_google/sign_up_widget.dart';
 import 'package:myair/Widgets/tabbar_material_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import 'Reward_page/Reward_view.dart';
 import 'map_page.dart';
 import 'home_statistics_page.dart';
+
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -38,33 +42,43 @@ class _HomePageState extends State<HomePage> {
   ];
 
   @override
-  Widget build(BuildContext context) => ThemeSwitchingArea(
-    child:Builder(builder: (context) {return Scaffold(
-      extendBody: true,
-      body: pages[index],
-      appBar: AppBar(
-        title: Text("MyAir"),
-        automaticallyImplyLeading: false,
-      ),
-      bottomNavigationBar: TabBarMaterialWidget(
-        index: index,
-        onChangedTab: onChangedTab,
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.home_outlined),
-        onPressed: () => onChangedTab(4),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-    );},)
-  );
+  Widget build(BuildContext context) {
+    return  ThemeSwitchingArea(child: Builder(
+        builder: (context) {
+          return Scaffold(
+            extendBody: true,
+            body: pages[index],
+            appBar: AppBar(
+              title: Text("MyAir"),
+              automaticallyImplyLeading: false,
+              actions:[Padding(
+                padding: const EdgeInsets.all(8.0),
+                child:top_image != null ? CircleAvatar(backgroundImage:   new FileImage(top_image)) : CircleAvatar(backgroundImage: new AssetImage('assets/images/blank_profile.png'), ),
+              ),]
+            ),
+            bottomNavigationBar: TabBarMaterialWidget(
+              index: index,
+              onChangedTab: onChangedTab,
+            ),
+            floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.home_outlined),
+              onPressed: () => onChangedTab(4),
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.miniCenterDocked,
+          );
+        },
+      ));
+
+}
   void onChangedTab(int index) {
     setState(() {
       this.index = index;
     });
   }
+  //TODO insert a class that makes all of the image gestior
 
 }
-
 
 /*class MainPage extends StatefulWidget {
   @override

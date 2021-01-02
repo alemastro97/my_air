@@ -14,13 +14,17 @@ import 'Services/Database_service/database_helper.dart';
 import 'Services/Database_service/firebase_database_user.dart';
 import 'Services/Geolocator_service/GeolocatorService.dart';
 import 'package:myair/Modules/sensor.dart';
+import 'dart:io' as Io;
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
 
 import 'Views/Graph_view/bar_charts_view.dart';
 
-//TODO insert in the db a user
 List<Sensor> sensorList = [];
-bool logged = false ;
-userAccount actualUser;
+//bool logged = false ;
+userAccount actualUser = null;
+Io.File top_image = null;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -29,18 +33,32 @@ void main() async {
 
   //print(actualUser.firebaseId + " " + actualUser.email );
   //FirebaseDb_gesture db = FirebaseDb_gesture();
- //databaseHelper.deleteDB();
+  //databaseHelper.deleteDB();
   actualUser = await databaseHelper.getUserAccount();
+  if(actualUser!= null){_getImage();}
   sensorList = await databaseHelper.getSensorList();
 
   if(sensorList.length == 0){
     await fetchSensorsFromAPI();
     sensorList = await databaseHelper.getSensorList();
   }
+  //TODO remember to reactuivate geolocator
   //await GeolocationView().getCurrentLocation();
   print("Upload all sensors: " + sensorList.length.toString());
 
   runApp(MyApp());
+}
+_getImage() async {
+  if (actualUser.img != '') {
+    top_image = await writeImageTemp(actualUser.img, 'image_2');
+  }
+}
+Future<Io.File> writeImageTemp(String base64Image, String imageName) async {
+  final dir = await getTemporaryDirectory();
+  await dir.create(recursive: true);
+  final tempFile = Io.File(path.join(dir.path, imageName));
+  await tempFile.writeAsBytes(base64.decode(base64Image));
+  return tempFile;
 }
 //TODO HOME WIDGET
 class MyApp extends StatelessWidget {
@@ -56,11 +74,17 @@ class MyApp extends StatelessWidget {
           title: title,
           theme: ThemeProvider.of(context),
           routes: {
-            "/HomePage": (_) => new HomePage(),
+            "/HomePage": (_) =>  HomePage(),
+            "/Login": (_) =>ProfilePage(),
+
           },
-       home: actualUser == null ?  ProfilePage() : HomePage(),
+        home: (actualUser==null) ?
+         ProfilePage()
+            :
+          HomePage(),
         );
       }),
     );
   }
 }
+

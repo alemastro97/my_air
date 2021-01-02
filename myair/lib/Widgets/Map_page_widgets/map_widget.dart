@@ -87,7 +87,6 @@ class MapWidgetState extends State <MapWidget>{
   ///-recenterMap: used by searchable_dropdown_widget to set the pin information and recenter the map
   recenterMap(Unit station){
     setState(() {
-      //TODO change location with currently selected pin values
       if(station != null) {
         displayCaps = true;
         currentlySelectedPin.locationName = station.unit;

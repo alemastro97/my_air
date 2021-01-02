@@ -198,7 +198,7 @@ class PollutantAgent {
   double set_o3(double sensorvalue) {
     double index;
 
-    // Index calculation
+    // Index calculation test
     if ((sensorvalue>=0) && (sensorvalue <=80)) {
       index = 1.0; // Very good
     } else if ((sensorvalue>80) && (sensorvalue <=120)) {

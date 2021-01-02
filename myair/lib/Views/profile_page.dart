@@ -24,7 +24,8 @@ class ProfilePage extends StatelessWidget {
           if (provider.isSigningIn) {
             return buildLoading();
           } else if (snapshot.hasData) {
-            setUser();
+            //TODO insert await
+             setUser();
             return HomePage();
 
           }else{

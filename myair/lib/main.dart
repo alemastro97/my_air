@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
             "/Login": (_) =>ProfilePage(),
 
           },
-        home: (actualUser==null) ?
+          home: (actualUser==null) ?
          ProfilePage()
             :
           HomePage(),

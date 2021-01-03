@@ -1,5 +1,6 @@
 
-//TODO there is a problem when tou left the map widget and it give us an error, not a problem but for some reason it is bettr to remove it
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myair/Modules/unit.dart';
@@ -7,10 +8,12 @@ import 'package:myair/Modules/unit.dart';
 import 'package:latlong/latlong.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
+import 'package:myair/Widgets/Map_page_widgets/search_back_widget.dart';
+import 'package:myair/Widgets/Map_page_widgets/search_widget.dart';
+import 'package:myair/helper/ui_helper.dart';
 import 'package:user_location/user_location.dart';
 import 'package:myair/Modules/PinModule.dart';
 import 'package:myair/Services/Geolocator_service/GeolocatorService.dart';
-import 'package:myair/Widgets/Map_page_widgets/searchable_dropdown_widget.dart';
 import 'package:myair/Widgets/Map_page_widgets/Information_capsule_widget.dart';
 import 'package:myair/Modules/sensor.dart';
 import 'package:myair/main.dart';
@@ -20,8 +23,9 @@ class MapWidget extends StatefulWidget{
   MapWidgetState createState() => MapWidgetState();
 }
 
-class MapWidgetState extends State <MapWidget>{
+class MapWidgetState extends State <MapWidget> with TickerProviderStateMixin {
   ///Local variables
+  AnimationController animationControllerSearch;
   MapController mapController = MapController();
   UserLocationOptions userLocationOptions;
   List<Marker> markers = [];
@@ -30,7 +34,43 @@ class MapWidgetState extends State <MapWidget>{
   bool displayCaps;
   bool infoWindowVisible = false;
   GlobalKey<State> key = new GlobalKey();
+  var offsetSearch = 0.0;
+  var offsetExplore = 0.0;
+  CurvedAnimation curve;
+  Animation<double> animation;
+  bool isSearchOpen = false;
   ///Ends of Local variables
+  get currentSearchPercent => max(0.0, min(1.0, offsetSearch / (347 - 68.0)));
+  get currentExplorePercent => max(0.0, min(1.0, offsetExplore / (760.0 - 122.0)));
+  void animateSearch(bool open) {
+    animationControllerSearch = AnimationController(
+        duration: Duration(
+            milliseconds: 1 + (800 * (isSearchOpen ? currentSearchPercent : (1 - currentSearchPercent))).toInt()),
+        vsync: this);
+    curve = CurvedAnimation(parent: animationControllerSearch, curve: Curves.ease);
+    animation = Tween(begin: offsetSearch, end: open ? 347.0 - 68.0 : 0.0).animate(curve)
+      ..addListener(() {
+        setState(() {
+          offsetSearch = animation.value;
+        });
+      })
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          isSearchOpen = open;
+        }
+      });
+    animationControllerSearch.forward();
+  }
+  /// search drag callback
+  void onSearchHorizontalDragUpdate(details) {
+    offsetSearch -= details.delta.dx;
+    if (offsetSearch < 0) {
+      offsetSearch = 0;
+    } else if (offsetSearch > (347 - 68.0)) {
+      offsetSearch = 347 - 68.0;
+    }
+    setState(() {});
+  }
   ///override functions: initState and build
   @override
   initState() {
@@ -48,6 +88,8 @@ class MapWidgetState extends State <MapWidget>{
   }
   @override
   Widget build(BuildContext context) {
+    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
    userLocationOptions = UserLocationOptions(
      updateMapLocationOnPositionChange: false,
      showMoveToCurrentLocationFloatingActionButton: false,
@@ -77,7 +119,27 @@ class MapWidgetState extends State <MapWidget>{
           mapController: mapController,
         ),
         if(displayCaps)StationInfoWidget(actualStation: currentlySelectedPin),
-        SearchableDropdownWidget (stationIdList: stationIdList, recenter : recenterMap),
+       // SearchableDropdownWidget (stationIdList: stationIdList, recenter : recenterMap),
+
+        //search menu background
+
+
+        //search
+        SearchWidget(
+          currentSearchPercent: currentSearchPercent,
+          currentExplorePercent: currentExplorePercent,
+          isSearchOpen: isSearchOpen,
+          animateSearch: animateSearch,
+          onHorizontalDragUpdate: onSearchHorizontalDragUpdate,
+          onPanDown: () => animationControllerSearch?.stop(),
+        ),
+        //search back
+        SearchBackWidget(
+          stationIdList: stationIdList,
+          recenter:recenterMap ,
+          currentSearchPercent: currentSearchPercent,
+          animateSearch: animateSearch,
+        ),
       ],
 
     );
@@ -91,13 +153,16 @@ class MapWidgetState extends State <MapWidget>{
         displayCaps = true;
         currentlySelectedPin.locationName = station.unit;
         currentlySelectedPin.location = new LatLng(station.lat,station.lng);
-        mapController.move(new LatLng(station.lat,station.lng) , 10);
+        mapController.move(new LatLng(station.lat,station.lng) , 17.0);
       }else{
-        mapController.move(GeolocationView().getLastUserposition(), 10);
+        mapController.move(GeolocationView().getLastUserposition(), 10.0);
       }
     });
   }
-
+  @override
+  void dispose() {
+    super.dispose();
+  }
   //TODO ingrandimento del marker quando viene selezionato e omnbre
   ///-_buildMarkersOnMap: used by MarkerLayerOptions's FlutterMap, it takes the station list and builds all the markers
   ///with their onTap function

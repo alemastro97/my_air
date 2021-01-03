@@ -12,7 +12,7 @@ class StationInfoWidget extends StatelessWidget{
     return  AnimatedPositioned(
       duration: Duration(milliseconds: 200),
       child: Align(
-          alignment: Alignment.bottomCenter,
+          alignment: Alignment.topCenter,
           child: Padding(
             padding: const EdgeInsets.only(bottom:45.0),
             child: Container(

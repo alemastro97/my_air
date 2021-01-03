@@ -32,6 +32,15 @@ class PollutantAgent {
     this._so2_limit = so2_limit;
     this._o3_limit = o3_limit;
     this._co_limit = co_limit;
+
+    this.hour=0;
+    this.day=0;
+    this._pm10_value=0.0;
+    this._pm25_value=0.0;
+    this._no2_value=0.0;
+    this._so2_value=0.0;
+    this._o3_value=0.0;
+    this._co_value=0.0;
   }
 
   double get_pm10_value() {
@@ -82,12 +91,7 @@ class PollutantAgent {
     return _co_bck;
   }
 
-  void set_values(double pm10, double pm25, double no2, double so2, double o3, double co) {
-    int hour;
-    int day;
-
-    hour = DateTime.now().hour;
-    day = DateTime.now().day;
+  void set_values(int hour, int day, double pm10, double pm25, double no2, double so2, double o3, double co) {
 
     if (day != this.day) {
       _pm10_bck = _pm10_value;
@@ -112,22 +116,46 @@ class PollutantAgent {
       double value;
 
       value = set_pm25(pm25);
-      _pm25_value = (_pm25_value + value) / 2;
+      if(_pm25_value == 0) {
+        _pm25_value = value;
+      } else {
+        _pm25_value = (_pm25_value + value) / 2;
+      }
 
       value = set_pm10(pm10);
-      _pm10_value = (_pm10_value + value) / 2;
+      if(_pm10_value == 0) {
+        _pm10_value = value;
+      } else {
+        _pm10_value = (_pm10_value + value) / 2;
+      }
 
       value = set_no2(no2);
-      _no2_value = (_no2_value + value) / 2;
+      if(_no2_value == 0) {
+        _no2_value = value;
+      } else {
+        _no2_value = (_no2_value + value) / 2;
+      }
 
       value = set_so2(so2);
-      _so2_value = (_so2_value + value) / 2;
+      if(_so2_value == 0) {
+        _so2_value = value;
+      } else {
+        _so2_value = (_so2_value + value) / 2;
+      }
 
       value = set_o3(o3);
-      _o3_value = (_o3_value + value) / 2;
+      if(_o3_value == 0) {
+        _o3_value = value;
+      } else {
+        _o3_value = (_o3_value + value) / 2;
+      }
 
       value = set_co(co);
-      _co_value = (_co_value + value) / 2;
+      if(_co_value == 0) {
+        _co_value = value;
+      } else {
+        _co_value = (_co_value + value) / 2;
+      }
 
       this.hour = hour;
     }

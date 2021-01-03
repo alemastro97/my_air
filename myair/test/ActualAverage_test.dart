@@ -1,20 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:myair/Modules/DailySensorData.dart';
-import 'package:myair/Modules/InstantData.dart';
+import 'package:myair/Modules/PollutantAgent.dart';
 import 'package:myair/Modules/SensorListData.dart';
 import 'package:myair/Modules/sensor.dart';
 import 'package:myair/Modules/sensordata.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
-import 'package:myair/Services/Arpa_service/sensors.dart';
 import 'package:myair/Services/Database_service/database_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
-DatabaseHelper _databaseHelper;
-Database _database;
-
 void main() {
 
-  group('Average related to a sensor -', () {
+  group('Sensor data checking -', () {
     // 24 equal values, no hour = actual hour
     test('24 equals values, no hour = actual hour ', () {
       List<SensorData> data_sensor = [];
@@ -125,6 +121,127 @@ void main() {
         print(sensor.sensor);
       }
 
+    });
+  });
+
+  group('Quality air index group -', ()
+  {
+    // One one value received for each sensor
+    test('One value received for each sensor ', () {
+
+      PollutantAgent pa = new PollutantAgent(1,2,3,4,5,6);
+
+      pa.set_values(1,2,15, 18, 150, 370, 250, 29);
+      print("PM10 index: " + pa.get_pm10_value().toString());
+      print("PM10 index bck: " + pa.get_pm10_bck().toString());
+      print("PM25 index: " + pa.get_pm25_value().toString());
+      print("PM25 index bck: " + pa.get_pm25_bck().toString());
+      print("NO2 index: " + pa.get_no2_value().toString());
+      print("NO2 index bck: " + pa.get_no2_bck().toString());
+      print("O3 index: " + pa.get_o3_value().toString());
+      print("O3 index bck: " + pa.get_o3_bck().toString());
+      print("SO2 index: " + pa.get_so2_value().toString());
+      print("SO2 index bck: " + pa.get_so2_bck().toString());
+      print("CO index: " + pa.get_co_value().toString());
+      print("CO index bck: " + pa.get_co_bck().toString());
+
+      expect(pa.get_pm10_value(), 1.00);
+      expect(pa.get_pm25_value(), 0.8);
+      expect(pa.get_no2_value(), 0.6);
+      expect(pa.get_so2_value(), 0.4);
+      expect(pa.get_o3_value(), 0.2);
+      expect(pa.get_co_value(), 0.6);
+    });
+
+    // Two values received for each sensor
+    test('Two values received for each sensor and the hour,day dont change', () {
+
+      PollutantAgent pa = PollutantAgent(1,2,3,4,5,6);
+
+      pa.set_values(1,2,15, 18, 150, 370, 250, 29);
+      pa.set_values(1,2,150, 20, 50, 400, 90, 28);
+      print("PM10 index: " + pa.get_pm10_value().toString());
+      print("PM10 index bck: " + pa.get_pm10_bck().toString());
+      print("PM25 index: " + pa.get_pm25_value().toString());
+      print("PM25 index bck: " + pa.get_pm25_bck().toString());
+      print("NO2 index: " + pa.get_no2_value().toString());
+      print("NO2 index bck: " + pa.get_no2_bck().toString());
+      print("O3 index: " + pa.get_o3_value().toString());
+      print("O3 index bck: " + pa.get_o3_bck().toString());
+      print("SO2 index: " + pa.get_so2_value().toString());
+      print("SO2 index bck: " + pa.get_so2_bck().toString());
+      print("CO index: " + pa.get_co_value().toString());
+      print("CO index bck: " + pa.get_co_bck().toString());
+
+      expect(pa.get_pm10_value(), 1.00);
+      expect(pa.get_pm25_value(), 0.8);
+      expect(pa.get_no2_value(), 0.6);
+      expect(pa.get_so2_value(), 0.4);
+      expect(pa.get_o3_value(), 0.2);
+      expect(pa.get_co_value(), 0.6);
+    });
+
+    // Two values received for each sensor
+    test('Two values received for each sensor and the hour changed, the day dont changed', () {
+
+      PollutantAgent pa = PollutantAgent(1,2,3,4,5,6);
+
+      pa.set_values(1,2,15, 18, 150, 370, 250, 29);
+      pa.set_values(2,2,150, 20, 50, 400, 90, 28);
+      print("PM10 index: " + pa.get_pm10_value().toString());
+      print("PM10 index bck: " + pa.get_pm10_bck().toString());
+      print("PM25 index: " + pa.get_pm25_value().toString());
+      print("PM25 index bck: " + pa.get_pm25_bck().toString());
+      print("NO2 index: " + pa.get_no2_value().toString());
+      print("NO2 index bck: " + pa.get_no2_bck().toString());
+      print("O3 index: " + pa.get_o3_value().toString());
+      print("O3 index bck: " + pa.get_o3_bck().toString());
+      print("SO2 index: " + pa.get_so2_value().toString());
+      print("SO2 index bck: " + pa.get_so2_bck().toString());
+      print("CO index: " + pa.get_co_value().toString());
+      print("CO index bck: " + pa.get_co_bck().toString());
+
+      expect(pa.get_pm10_value(), 0.6);
+      expect(pa.get_pm25_value(), 0.8);
+      expect(pa.get_no2_value(), 0.7);
+      expect(pa.get_so2_value(), 0.4);
+      expect(pa.get_o3_value(), 0.5);
+      expect(pa.get_co_value(), 0.6);
+
+    });
+
+    // One one value received for each sensor
+    test('Two values received for each sensor and the hour,day changed', () {
+
+      PollutantAgent pa = PollutantAgent(1,2,3,4,5,6);
+
+      pa.set_values(1,2,15, 18, 150, 370, 250, 29);
+      pa.set_values(2,3,150, 20, 50, 400, 90, 28);
+      print("PM10 index: " + pa.get_pm10_value().toString());
+      print("PM10 index bck: " + pa.get_pm10_bck().toString());
+      print("PM25 index: " + pa.get_pm25_value().toString());
+      print("PM25 index bck: " + pa.get_pm25_bck().toString());
+      print("NO2 index: " + pa.get_no2_value().toString());
+      print("NO2 index bck: " + pa.get_no2_bck().toString());
+      print("O3 index: " + pa.get_o3_value().toString());
+      print("O3 index bck: " + pa.get_o3_bck().toString());
+      print("SO2 index: " + pa.get_so2_value().toString());
+      print("SO2 index bck: " + pa.get_so2_bck().toString());
+      print("CO index: " + pa.get_co_value().toString());
+      print("CO index bck: " + pa.get_co_bck().toString());
+
+      expect(pa.get_pm10_bck(), 1.00);
+      expect(pa.get_pm25_bck(), 0.8);
+      expect(pa.get_no2_bck(), 0.6);
+      expect(pa.get_so2_bck(), 0.4);
+      expect(pa.get_o3_bck(), 0.2);
+      expect(pa.get_co_bck(), 0.6);
+      expect(pa.get_pm10_value(), 0.2);
+      expect(pa.get_pm25_value(), 0.8);
+      expect(pa.get_no2_value(), 0.8);
+      expect(pa.get_so2_value(), 0.4);
+      expect(pa.get_o3_value(), 0.8);
+      expect(pa.get_co_value(), 0.6);
     });
 
   });

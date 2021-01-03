@@ -244,5 +244,49 @@ void main() {
       expect(pa.get_co_value(), 0.6);
     });
 
+    // Reward: Two values received for each sensor
+    test('Reward: Two values received for each sensor and the hour,day dont change', () {
+
+      PollutantAgent pa = PollutantAgent(1,2,3,4,5,6);
+
+      pa.set_values(1,2,15, 18, 150, 370, 250, 29);
+      pa.set_values(1,2,150, 20, 50, 400, 90, 28);
+      print("PM10 index: " + pa.get_pm10_rw().toString());
+      print("PM25 index: " + pa.get_pm25_rw().toString());
+      print("NO2 index: " + pa.get_no2_rw().toString());
+      print("O3 index: " + pa.get_o3_rw().toString());
+      print("SO2 index: " + pa.get_so2_rw().toString());
+      print("CO index: " + pa.get_co_rw().toString());
+
+      expect(pa.get_pm10_rw(), 1.00);
+      expect(pa.get_pm25_rw(), 0.8);
+      expect(pa.get_no2_rw(), 0.6);
+      expect(pa.get_so2_rw(), 0.4);
+      expect(pa.get_o3_rw(), 0.2);
+      expect(pa.get_co_rw(), 0.6);
+    });
+
+    // Reward: Two vwlues received for each sensor and the hour changed
+    test('Reward: Two values received for each sensor and the hour changed, the day dont changed', () {
+
+      PollutantAgent pa = PollutantAgent(1,2,3,4,5,6);
+
+      pa.set_values(1,2,15, 18, 150, 370, 250, 29);
+      pa.set_values(2,2,150, 20, 50, 400, 90, 28);
+      print("PM10 index: " + pa.get_pm10_rw().toString());
+      print("PM25 index: " + pa.get_pm25_rw().toString());
+      print("NO2 index: " + pa.get_no2_rw().toString());
+      print("O3 index: " + pa.get_o3_rw().toString());
+      print("SO2 index: " + pa.get_so2_rw().toString());
+      print("CO index: " + pa.get_co_rw().toString());
+
+      expect(pa.get_pm10_rw(), 1.60);
+      expect(pa.get_pm25_rw(), 1.60);
+      expect(pa.get_no2_rw(), 1.30);
+      expect(pa.get_so2_rw(), 0.80);
+      expect(pa.get_o3_rw(), 0.70);
+      expect(pa.get_co_rw(), 1.20);
+    });
+
   });
 }

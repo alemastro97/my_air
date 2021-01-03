@@ -22,6 +22,13 @@ class PollutantAgent {
   double _o3_bck;
   double _co_bck;
 
+  double _pm10_rw;
+  double _pm25_rw;
+  double _no2_rw;
+  double _so2_rw;
+  double _o3_rw;
+  double _co_rw;
+
   int day;
   int hour;
 
@@ -91,6 +98,30 @@ class PollutantAgent {
     return _co_bck;
   }
 
+  double get_pm10_rw() {
+    return _pm10_rw;
+  }
+
+  double get_pm25_rw() {
+    return _pm25_rw;
+  }
+
+  double get_no2_rw() {
+    return _no2_rw;
+  }
+
+  double get_so2_rw() {
+    return _so2_rw;
+  }
+
+  double get_o3_rw() {
+    return _o3_rw;
+  }
+
+  double get_co_rw() {
+    return _co_rw;
+  }
+
   void set_values(int hour, int day, double pm10, double pm25, double no2, double so2, double o3, double co) {
 
     if (day != this.day) {
@@ -107,6 +138,13 @@ class PollutantAgent {
       _so2_value = 0;
       _o3_value = 0;
       _co_value = 0;
+
+      _pm10_rw = 0;
+      _pm25_rw = 0;
+      _no2_rw = 0;
+      _so2_rw = 0;
+      _o3_rw = 0;
+      _co_rw = 0;
 
       this.day = day;
     }
@@ -157,11 +195,25 @@ class PollutantAgent {
         _co_value = (_co_value + value) / 2;
       }
 
+      // Reward calculs done every hour
+      set_sensors_rw();
+
       this.hour = hour;
     }
 
   }
 
+  // Sensors reword calculus
+  void set_sensors_rw() {
+
+    this._pm10_rw = this._pm10_rw + this._pm10_value;
+    this._pm25_rw = this._pm25_rw + this._pm25_value;
+    this._no2_rw = this._no2_rw + this._no2_value;
+    this._so2_rw = this._so2_rw + this._so2_value;
+    this._o3_rw = this._o3_rw + this._o3_value;
+    this._co_rw = this._co_rw + this._co_value;
+
+  }
   // pm25 index update
   double set_pm25(double sensorvalue) {
     double index;

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:myair/Modules/DailySensorData.dart';
 import 'package:myair/Modules/PollutantAgent.dart';
@@ -9,7 +10,6 @@ import 'package:myair/Services/Database_service/database_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
 void main() {
-
   group('Sensor data checking -', () {
     // 24 equal values, no hour = actual hour
     test('24 equals values, no hour = actual hour ', () {
@@ -92,18 +92,77 @@ void main() {
 
     // Save the average in the right position of the Sensor data array
     test('Sensors close to the user', () async {
-
       double ulat = 45.443857653564926;
       double ulong = 9.167944501742676;
       int utol = 10000;
 
       Sensor sensor;
-      Sensor sensor1 = Sensor(121,"5718","Magenta","546","45.462415791106615","8.880210433125571","Ozono","µg/m³","1995-07-29T00:00:00.000",null);
-      Sensor sensor2 = Sensor(464,"5823","Milano - viale Liguria","539","45.443857653564926","9.167944501742676", "Monossido di Carbonio", "mg/m³", "1991-10-20T00:00:00.000",null);
-      Sensor sensor3 = Sensor(24,"6328","Milano - viale Marche","501","45.49631644365102","9.190933555313624","Ossidi di Azoto","µg/m³","1980-09-18T00:00:00.000",null);
-      Sensor sensor4 = Sensor(90,"10458","Bertonico","1266","45.23349364130374","9.666250375296032","Biossido di Azoto","µg/m³","2009-08-03T00:00:00.000",null);
-      Sensor sensor5 = Sensor(81,"10437","Sondrio - via Paribelli","1264","46.167852440665115","9.879209924469903","Ozono","µg/m³","2009-01-04T00:00:00.000",null);
-      Sensor sensor6 = Sensor(71,"12695","Sondrio - via Paribelli","1264","46.167852440665115","9.879209924469903","Piombo","ng/m³","2008-04-01T00:00:00.000",null);
+      Sensor sensor1 = Sensor(
+          121,
+          "5718",
+          "Magenta",
+          "546",
+          "45.462415791106615",
+          "8.880210433125571",
+          "Ozono",
+          "µg/m³",
+          "1995-07-29T00:00:00.000",
+          null);
+      Sensor sensor2 = Sensor(
+          464,
+          "5823",
+          "Milano - viale Liguria",
+          "539",
+          "45.443857653564926",
+          "9.167944501742676",
+          "Monossido di Carbonio",
+          "mg/m³",
+          "1991-10-20T00:00:00.000",
+          null);
+      Sensor sensor3 = Sensor(
+          24,
+          "6328",
+          "Milano - viale Marche",
+          "501",
+          "45.49631644365102",
+          "9.190933555313624",
+          "Ossidi di Azoto",
+          "µg/m³",
+          "1980-09-18T00:00:00.000",
+          null);
+      Sensor sensor4 = Sensor(
+          90,
+          "10458",
+          "Bertonico",
+          "1266",
+          "45.23349364130374",
+          "9.666250375296032",
+          "Biossido di Azoto",
+          "µg/m³",
+          "2009-08-03T00:00:00.000",
+          null);
+      Sensor sensor5 = Sensor(
+          81,
+          "10437",
+          "Sondrio - via Paribelli",
+          "1264",
+          "46.167852440665115",
+          "9.879209924469903",
+          "Ozono",
+          "µg/m³",
+          "2009-01-04T00:00:00.000",
+          null);
+      Sensor sensor6 = Sensor(
+          71,
+          "12695",
+          "Sondrio - via Paribelli",
+          "1264",
+          "46.167852440665115",
+          "9.879209924469903",
+          "Piombo",
+          "ng/m³",
+          "2008-04-01T00:00:00.000",
+          null);
 
       List<Sensor> slAll = [];
       slAll.add(sensor1);
@@ -113,25 +172,31 @@ void main() {
       slAll.add(sensor5);
       slAll.add(sensor6);
 
-      List<Sensor> sensorList = await getSensorListClosedtoUser(slAll, ulat, ulong, utol);
+      List<Sensor> sensorList = await getSensorListClosedtoUser(
+          slAll, ulat, ulong, utol);
 
       print("Numero di sensori: " + sensorList.length.toString());
 
       for (sensor in sensorList) {
         print(sensor.sensor);
       }
-
     });
   });
 
-  group('Quality air index group -', ()
-  {
+  group('Quality air index group -', () {
     // One one value received for each sensor
     test('One value received for each sensor ', () {
+      PollutantAgent pa = new PollutantAgent(1, 2, 3, 4, 5, 6);
 
-      PollutantAgent pa = new PollutantAgent(1,2,3,4,5,6);
-
-      pa.set_values(1,2,15, 18, 150, 370, 250, 29);
+      pa.set_values(
+          1,
+          2,
+          15,
+          18,
+          150,
+          370,
+          250,
+          29);
       print("PM10 index: " + pa.get_pm10_value().toString());
       print("PM10 index bck: " + pa.get_pm10_bck().toString());
       print("PM25 index: " + pa.get_pm25_value().toString());
@@ -154,12 +219,28 @@ void main() {
     });
 
     // Two values received for each sensor
-    test('Two values received for each sensor and the hour,day dont change', () {
+    test(
+        'Two values received for each sensor and the hour,day dont change', () {
+      PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
 
-      PollutantAgent pa = PollutantAgent(1,2,3,4,5,6);
-
-      pa.set_values(1,2,15, 18, 150, 370, 250, 29);
-      pa.set_values(1,2,150, 20, 50, 400, 90, 28);
+      pa.set_values(
+          1,
+          2,
+          15,
+          18,
+          150,
+          370,
+          250,
+          29);
+      pa.set_values(
+          1,
+          2,
+          150,
+          20,
+          50,
+          400,
+          90,
+          28);
       print("PM10 index: " + pa.get_pm10_value().toString());
       print("PM10 index bck: " + pa.get_pm10_bck().toString());
       print("PM25 index: " + pa.get_pm25_value().toString());
@@ -182,12 +263,28 @@ void main() {
     });
 
     // Two values received for each sensor
-    test('Two values received for each sensor and the hour changed, the day dont changed', () {
+    test(
+        'Two values received for each sensor and the hour changed, the day dont changed', () {
+      PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
 
-      PollutantAgent pa = PollutantAgent(1,2,3,4,5,6);
-
-      pa.set_values(1,2,15, 18, 150, 370, 250, 29);
-      pa.set_values(2,2,150, 20, 50, 400, 90, 28);
+      pa.set_values(
+          1,
+          2,
+          15,
+          18,
+          150,
+          370,
+          250,
+          29);
+      pa.set_values(
+          2,
+          2,
+          150,
+          20,
+          50,
+          400,
+          90,
+          28);
       print("PM10 index: " + pa.get_pm10_value().toString());
       print("PM10 index bck: " + pa.get_pm10_bck().toString());
       print("PM25 index: " + pa.get_pm25_value().toString());
@@ -207,16 +304,30 @@ void main() {
       expect(pa.get_so2_value(), 0.4);
       expect(pa.get_o3_value(), 0.5);
       expect(pa.get_co_value(), 0.6);
-
     });
 
     // One one value received for each sensor
     test('Two values received for each sensor and the hour,day changed', () {
+      PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
 
-      PollutantAgent pa = PollutantAgent(1,2,3,4,5,6);
-
-      pa.set_values(1,2,15, 18, 150, 370, 250, 29);
-      pa.set_values(2,3,150, 20, 50, 400, 90, 28);
+      pa.set_values(
+          1,
+          2,
+          15,
+          18,
+          150,
+          370,
+          250,
+          29);
+      pa.set_values(
+          2,
+          3,
+          150,
+          20,
+          50,
+          400,
+          90,
+          28);
       print("PM10 index: " + pa.get_pm10_value().toString());
       print("PM10 index bck: " + pa.get_pm10_bck().toString());
       print("PM25 index: " + pa.get_pm25_value().toString());
@@ -245,12 +356,28 @@ void main() {
     });
 
     // Reward: Two values received for each sensor
-    test('Reward: Two values received for each sensor and the hour,day dont change', () {
+    test(
+        'Reward: Two values received for each sensor and the hour,day dont change', () {
+      PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
 
-      PollutantAgent pa = PollutantAgent(1,2,3,4,5,6);
-
-      pa.set_values(1,2,15, 18, 150, 370, 250, 29);
-      pa.set_values(1,2,150, 20, 50, 400, 90, 28);
+      pa.set_values(
+          1,
+          2,
+          15,
+          18,
+          150,
+          370,
+          250,
+          29);
+      pa.set_values(
+          1,
+          2,
+          150,
+          20,
+          50,
+          400,
+          90,
+          28);
       print("PM10 index: " + pa.get_pm10_rw().toString());
       print("PM25 index: " + pa.get_pm25_rw().toString());
       print("NO2 index: " + pa.get_no2_rw().toString());
@@ -267,12 +394,28 @@ void main() {
     });
 
     // Reward: Two vwlues received for each sensor and the hour changed
-    test('Reward: Two values received for each sensor and the hour changed, the day dont changed', () {
+    test(
+        'Reward: Two values received for each sensor and the hour changed, the day dont changed', () {
+      PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
 
-      PollutantAgent pa = PollutantAgent(1,2,3,4,5,6);
-
-      pa.set_values(1,2,15, 18, 150, 370, 250, 29);
-      pa.set_values(2,2,150, 20, 50, 400, 90, 28);
+      pa.set_values(
+          1,
+          2,
+          15,
+          18,
+          150,
+          370,
+          250,
+          29);
+      pa.set_values(
+          2,
+          2,
+          150,
+          20,
+          50,
+          400,
+          90,
+          28);
       print("PM10 index: " + pa.get_pm10_rw().toString());
       print("PM25 index: " + pa.get_pm25_rw().toString());
       print("NO2 index: " + pa.get_no2_rw().toString());
@@ -287,6 +430,25 @@ void main() {
       expect(pa.get_o3_rw(), 0.70);
       expect(pa.get_co_rw(), 1.20);
     });
+  });
 
+  group('Widget test -', () {
+    // logged_in_widget test
+    testWidgets('Logged_in_widget test ', (WidgetTester tester) async {
+
+      // Find all the widget needed
+      final addField = find.byKey(ValueKey("Test"));
+      final addButton = find.byKey(ValueKey("Test"));
+
+      //execute the actual test
+      //await tester.pumpWidget(MaterialApp(home: Home()));
+      await tester.enterText(addField, "Testing ....");
+      await tester.tap(addButton);
+      await tester.pump();
+
+      // Cehck outputs
+      expect(find.text("Make widget testing"), findsOneWidget);
+
+    });
   });
 }

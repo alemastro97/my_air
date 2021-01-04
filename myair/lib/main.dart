@@ -43,7 +43,7 @@ void main() async {
     sensorList = await databaseHelper.getSensorList();
   }
   //TODO remember to reactuivate geolocator
-  //await GeolocationView().getCurrentLocation();
+  await GeolocationView().getCurrentLocation();
   print("Upload all sensors: " + sensorList.length.toString());
 
   runApp(MyApp());

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_widget"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView style="@style/WidgetButtonVerticalSpace" />
+
+    <TextView
+        android:id="@+id/appwidget_text"
+        style="@style/WidgetTextView.Big" />
+
+    <TextView
+        style="@style/WidgetTextView"
+        android:text="Something" />
+
+    <TextView style="@style/WidgetButtonVerticalSpace" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView style="@style/WidgetButtonHorizontalSpace" />
+
+        <LinearLayout
+            android:id="@+id/ristretto_button"
+            style="@style/WidgetBeverageButton" >
+            <TextView
+                style="@style/WidgetButtonText"
+                android:text="PM10" />
+            <ProgressBar
+                android:id="@+id/PM10progressBar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                android:background="@drawable/circle_shape"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:max="100"
+                android:progress="65" />
+
+
+
+        </LinearLayout>
+
+        <TextView style="@style/WidgetButtonHorizontalSpace" />
+
+        <LinearLayout
+            android:id="@+id/espresso_button"
+            android:gravity="center"
+            style="@style/WidgetBeverageButton">
+            <TextView
+                style="@style/WidgetButtonText"
+                android:text="PM2.5" />
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                android:background="@drawable/circle_shape"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:max="100"
+                android:progress="65"
+                tools:ignore="DuplicateIds" />
+
+
+        </LinearLayout>
+
+        <TextView style="@style/WidgetButtonHorizontalSpace" />
+
+        <LinearLayout
+            android:id="@+id/long_button"
+            android:gravity="center"
+            style="@style/WidgetBeverageButton"
+            >
+
+            <TextView
+                style="@style/WidgetButtonText"
+
+                android:text="AQI" />
+
+            <ProgressBar
+                android:id="@+id/AQIprogressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/circle_shape"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="65"
+                android:progressDrawable="@drawable/circular_progress_bar" />
+
+
+        </LinearLayout>
+
+        <TextView style="@style/WidgetButtonHorizontalSpace" />
+
+    </LinearLayout>
+
+    <TextView style="@style/WidgetButtonVerticalSpace" />
+
+    <TextView
+        android:id="@+id/coffee_quote"
+        style="@style/WidgetQuote" />
+
+</LinearLayout>

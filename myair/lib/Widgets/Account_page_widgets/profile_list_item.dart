@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myair/Services/Database_service/database_helper.dart';
 import 'package:myair/Services/Google_Service/google_sign_in.dart';
+import 'package:myair/Views/Privacy_view/PrivacyView.dart';
+import 'package:myair/Views/Settings_view/settings_view.dart';
 
 
 class ProfileListItem  extends StatelessWidget{
@@ -33,6 +35,10 @@ class ProfileListItem  extends StatelessWidget{
               Navigator.pushReplacementNamed(context, '/Login');
             }
             break;
+            case 'Privacy':{Navigator.of(context).push(createRoute(privacyView()));}
+            break;
+            case 'Settings' : {Navigator.of(context).push(createRoute(SettingsView()));}
+            break;//SettingsView
             default:{}
           }
         },
@@ -68,5 +74,22 @@ class ProfileListItem  extends StatelessWidget{
       ),
     );
   }
+//todo create a router class
+  Route createRoute(Widget endPage) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => endPage,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = Offset(0.0, 1.0);
+        var end = Offset.zero;
+        var curve = Curves.ease;
 
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
 }

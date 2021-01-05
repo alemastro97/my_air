@@ -5,8 +5,8 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:myair/Constants/theme_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myair/Widgets/Setting_page_widgets/Change_image_widget.dart';
-import 'package:myair/Widgets/Setting_page_widgets/profile_list_item.dart';
+import 'package:myair/Widgets/Account_page_widgets/Change_image_widget.dart';
+import 'package:myair/Widgets/Account_page_widgets/profile_list_item.dart';
 import 'package:myair/main.dart';
 
 class ProfileScreen extends StatelessWidget{

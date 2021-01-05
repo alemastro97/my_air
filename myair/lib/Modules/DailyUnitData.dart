@@ -16,8 +16,18 @@ class DailyUnitData {
   DailySensorData _so2;
   DailySensorData _o3;
   DailySensorData _co;
+  static DailyUnitData _dailyUnitData;
+  DailyUnitData._createInstance() ;
 
-  DailyUnitData() {
+  factory DailyUnitData() {
+
+    if (_dailyUnitData == null) {
+      _dailyUnitData = DailyUnitData._createInstance();
+      // this is execute only once, singleton object
+    }
+    return _dailyUnitData;
+  }
+  void initializeValues() {
     _pm10 = DailySensorData();
     _pm25 = DailySensorData();
     _no2 = DailySensorData();
@@ -162,6 +172,8 @@ class DailyUnitData {
 
     return sensorData;
   }
+
+
 }
 
 // Average calculation for the data retrieved for a sensor

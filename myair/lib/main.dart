@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Views/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:myair/Views/profile_page.dart';
@@ -29,7 +30,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   DatabaseHelper databaseHelper = DatabaseHelper();
-
+  DailyUnitData d = DailyUnitData();
+  d.initializeValues();
   //databaseHelper.deleteDB();
   actualUser = await databaseHelper.getUserAccount();
   sensorList = await databaseHelper.getSensorList();

@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 class barChart extends StatelessWidget{
-  var chartData;
+ // var chartData;
+  final data;
+
+  const barChart({Key key, this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-
-
     // _generateData();
     return  SafeArea(
       child: Container(

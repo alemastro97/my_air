@@ -22,10 +22,13 @@ class ProfilePage extends StatelessWidget {
           final provider = Provider.of<GoogleSignInProvider>(context);
 
           if (provider.isSigningIn) {
+            print("BuildLoadinf");
             return buildLoading();
           } else if (snapshot.hasData) {
             //TODO insert await
-             setUser();
+            print(snapshot.toString());
+            print("----------------------------------------------------------------------------------------------------------------------------------------------------------");
+            ///setUser();
             return HomePage();
 
           }else{
@@ -57,10 +60,11 @@ class ProfilePage extends StatelessWidget {
   Future<void> setUser() async {
     var x =  FirebaseAuth.instance.currentUser;
     var namesur = x.displayName.split(" ");
+    print("SetUser: " + namesur.elementAt(0) + " " + namesur.elementAt(1));
     var b = ( await http.get(x.photoURL)).bodyBytes;
-    var image   = b!= null ?  base64Encode(b):"";
+    var image   = b!= null ?  base64Encode(b) : "";
     print("£sdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
     actualUser = new userAccount(namesur.elementAt(0), namesur.elementAt(1), x.email, "",image);
-    FirebaseDb_gesture().saveUser(actualUser);
+    FirebaseDb_gesture().saveGoogleUser(actualUser);
   }
 }

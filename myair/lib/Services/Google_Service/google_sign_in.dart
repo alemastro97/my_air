@@ -45,9 +45,8 @@ class GoogleSignInProvider extends ChangeNotifier {
       var namesur = x.displayName.split(" ");
       var b = ( await http.get(x.photoURL)).bodyBytes;
       var image   = b!= null ?  base64Encode(b):"";
-      print("£sdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
       actualUser = new userAccount(namesur.elementAt(0), namesur.elementAt(1), x.email, "",image);
-      FirebaseDb_gesture().saveUser(actualUser);
+      FirebaseDb_gesture().saveGoogleUser(actualUser);
     }
   }
 

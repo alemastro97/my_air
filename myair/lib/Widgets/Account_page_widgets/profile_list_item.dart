@@ -8,6 +8,7 @@ import 'package:myair/Services/Database_service/database_helper.dart';
 import 'package:myair/Services/Google_Service/google_sign_in.dart';
 import 'package:myair/Views/Privacy_view/PrivacyView.dart';
 import 'package:myair/Views/Settings_view/settings_view.dart';
+import 'package:provider/provider.dart';
 
 
 class ProfileListItem  extends StatelessWidget{
@@ -29,6 +30,7 @@ class ProfileListItem  extends StatelessWidget{
         onTap: (){
           switch(text){
             case 'Logout':{
+              final provider =
               GoogleSignInProvider().logout();
               DatabaseHelper().deleteUser();
               print("ss");

@@ -24,7 +24,7 @@ List<Sensor> sensorList = [];
 //bool logged = false ;
 userAccount actualUser = null;
 Io.File top_image = null;
-
+var x;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -35,17 +35,19 @@ void main() async {
   //FirebaseDb_gesture db = FirebaseDb_gesture();
   //databaseHelper.deleteDB();
   actualUser = await databaseHelper.getUserAccount();
-  if(actualUser!= null){_getImage();}
+  if(actualUser != null){_getImage();}
+  // x = await databaseHelper.getCountUser();
+  //print("number of users " + x.toString());
   sensorList = await databaseHelper.getSensorList();
 
   if(sensorList.length == 0){
     await fetchSensorsFromAPI();
     sensorList = await databaseHelper.getSensorList();
   }
-  //TODO remember to reactuivate geolocator
+
   await GeolocationView().getCurrentLocation();
   print("Upload all sensors: " + sensorList.length.toString());
-
+  print(actualUser.toString());
   runApp(MyApp());
 }
 _getImage() async {
@@ -74,11 +76,11 @@ class MyApp extends StatelessWidget {
           title: title,
           theme: ThemeProvider.of(context),
           routes: {
-            "/HomePage": (_) =>  HomePage(),
-            "/Login": (_) =>ProfilePage(),
+            "/HomePage": (_) => new HomePage(),
+            "/Login": (_) => new ProfilePage(),
 
           },
-          home: (actualUser==null) ?
+          home: (actualUser == null) ?
          ProfilePage()
             :
           HomePage(),

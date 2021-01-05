@@ -6,6 +6,8 @@
              Flutter draws its first frame -->
         <item name="android:windowBackground">@drawable/launch_background</item>
     </style>
+
+
     <style name="BeverageButton" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

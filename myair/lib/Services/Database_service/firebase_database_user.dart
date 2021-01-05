@@ -42,9 +42,6 @@ class FirebaseDb_gesture{
       });
       DatabaseHelper d = DatabaseHelper();
       var x = await d.getCountUser();
-      print("numore " + x.toString());
-      print("Sta per salvarlo");
-
       if(x == 0 ) {
         print("entered in the saver user");
         d.insertUser(u);

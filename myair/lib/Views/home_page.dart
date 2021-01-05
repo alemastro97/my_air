@@ -11,13 +11,14 @@ import 'package:myair/Widgets/Login_with_google/background_painter.dart';
 import 'package:myair/Widgets/Login_with_google/logged_in_widget.dart';
 import 'package:myair/Widgets/Login_with_google/sign_up_widget.dart';
 import 'package:myair/Widgets/tabbar_material_widget.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-
+import 'dart:io' as Io;
 import '../main.dart';
 import 'Reward_page/Reward_view.dart';
 import 'map_page.dart';
 import 'home_statistics_page.dart';
-
+import 'package:path/path.dart' as path;
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -27,24 +28,27 @@ class HomePage extends StatefulWidget {
   });
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
+
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   int index = 4;
+  Io.File top_image = null;
 
-  final pages = <Widget>[
-    ChartPreview(),
-    EmailPage(),
-    RewardView(),
-    SettingsPage(),
-    HomeStatisticsPage(),
-  ];
 
   @override
   Widget build(BuildContext context) {
-    return  ThemeSwitchingArea(child: Builder(
-        builder: (context) {
+    final pages = <Widget>[
+      ChartPreview(),
+      EmailPage(),
+      RewardView(),
+      SettingsPage(changeTopImage: changeTopImage),
+      HomeStatisticsPage(),
+    ];
+    return  ThemeSwitchingArea(child: FutureBuilder(
+      future: changeTopImage(),
+      builder:(BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           return Scaffold(
             extendBody: true,
             body: pages[index],
@@ -59,6 +63,7 @@ class _HomePageState extends State<HomePage> {
             bottomNavigationBar: TabBarMaterialWidget(
               index: index,
               onChangedTab: onChangedTab,
+
             ),
             floatingActionButton: FloatingActionButton(
               child: Icon(Icons.home_outlined),
@@ -71,6 +76,21 @@ class _HomePageState extends State<HomePage> {
       ));
 
 }
+  Future<Io.File> writeImageTemp(String base64Image, String imageName) async {
+    final dir = await getTemporaryDirectory();
+    await dir.create(recursive: true);
+    final tempFile = Io.File(path.join(dir.path, imageName));
+    await tempFile.writeAsBytes(base64.decode(base64Image));
+    return tempFile;
+  }
+  Future<void> changeTopImage() async {
+
+  //  setState(() async {
+      imageCache.clear();
+      imageCache.clearLiveImages();
+      top_image = await writeImageTemp(actualUser.img, 'image2');
+  //  });
+  }
   void onChangedTab(int index) {
     setState(() {
       this.index = index;

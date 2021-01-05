@@ -23,45 +23,25 @@ import 'Views/Graph_view/bar_charts_view.dart';
 List<Sensor> sensorList = [];
 //bool logged = false ;
 userAccount actualUser = null;
-Io.File top_image = null;
+
 var x;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   DatabaseHelper databaseHelper = DatabaseHelper();
 
-
-  //print(actualUser.firebaseId + " " + actualUser.email );
-  //FirebaseDb_gesture db = FirebaseDb_gesture();
   //databaseHelper.deleteDB();
   actualUser = await databaseHelper.getUserAccount();
-  if(actualUser != null){_getImage();}
-  // x = await databaseHelper.getCountUser();
-  //print("number of users " + x.toString());
   sensorList = await databaseHelper.getSensorList();
 
   if(sensorList.length == 0){
     await fetchSensorsFromAPI();
     sensorList = await databaseHelper.getSensorList();
   }
-
   await GeolocationView().getCurrentLocation();
-  print("Upload all sensors: " + sensorList.length.toString());
-  print(actualUser.toString());
   runApp(MyApp());
 }
-_getImage() async {
-  if (actualUser.img != '') {
-    top_image = await writeImageTemp(actualUser.img, 'image_2');
-  }
-}
-Future<Io.File> writeImageTemp(String base64Image, String imageName) async {
-  final dir = await getTemporaryDirectory();
-  await dir.create(recursive: true);
-  final tempFile = Io.File(path.join(dir.path, imageName));
-  await tempFile.writeAsBytes(base64.decode(base64Image));
-  return tempFile;
-}
+
 //TODO HOME WIDGET
 class MyApp extends StatelessWidget {
   static final String title = 'Google SignIn';

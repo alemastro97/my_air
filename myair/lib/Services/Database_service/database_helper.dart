@@ -225,7 +225,7 @@ class DatabaseHelper {
       return account;
     }
     print("Return null");
-    return userAccount(" ", null, " ",null, null);
+    return null;
   }
 
   Future<Unit> getUnit(String idunit) async {

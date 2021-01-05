@@ -5,11 +5,18 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:myair/Constants/theme_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myair/Widgets/Setting_page_widgets/Change_image_widget.dart';
-import 'package:myair/Widgets/Setting_page_widgets/profile_list_item.dart';
+import 'package:myair/Widgets/Account_page_widgets/Change_image_widget.dart';
+import 'package:myair/Widgets/Account_page_widgets/profile_list_item.dart';
 import 'package:myair/main.dart';
 
 class ProfileScreen extends StatelessWidget{
+  final Function  changeTopImage;
+
+  ProfileScreen( {
+    Key key,
+    this.changeTopImage,
+  }) : super (key: key);
+
   @override
   Widget build(BuildContext context){
     var profileInfo = Column(
@@ -18,7 +25,7 @@ class ProfileScreen extends StatelessWidget{
           flex: 6,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: changeImage(),
+            child: changeImage(changeTopImage: changeTopImage),
           ),
         ),
         Expanded(

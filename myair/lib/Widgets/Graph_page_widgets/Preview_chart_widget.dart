@@ -11,8 +11,9 @@ import 'package:myair/Widgets/Graph_page_widgets/bar_chart_preview.dart';
 import 'bar_chart.dart';
 
 class ChartCardWidget extends StatefulWidget{
+  final data;
   final int index;
-  const ChartCardWidget({Key key,  this.index}) : super(key: key);
+  const ChartCardWidget({Key key,  this.index, this.data}) : super(key: key);
 
   _ChartCardWidgetState createState() => _ChartCardWidgetState();
 

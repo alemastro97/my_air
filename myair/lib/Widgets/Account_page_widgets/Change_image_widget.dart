@@ -8,12 +8,22 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:myair/Constants/theme_constants.dart';
 import 'package:myair/Services/Database_service/database_helper.dart';
 import 'package:myair/Services/Database_service/firebase_database_user.dart';
+import 'package:myair/Views/home_page.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
-
+import 'package:image/image.dart' as br;
 
 import '../../main.dart';
 class changeImage extends StatefulWidget {
+  final Function changeTopImage;
+
+
+  changeImage({
+    Key key,
+    this.changeTopImage,
+  }) : super (key: key);
+
+
   _changeImageState createState() => _changeImageState();
 }
 class  _changeImageState extends State<changeImage>{
@@ -32,7 +42,7 @@ class  _changeImageState extends State<changeImage>{
           children: [
             Center(
               child: _image != null ?
-              Container(height:MediaQuery.of(context).size.height,decoration:BoxDecoration(color: Colors.red,borderRadius: BorderRadius.circular(200.0)),child: FittedBox(fit:BoxFit.fill,child: CircleAvatar(backgroundImage: new FileImage(_image), )))
+              Container(height:MediaQuery.of(context).size.height,decoration:BoxDecoration(color: Colors.red,borderRadius: BorderRadius.circular(200.0)),child: FittedBox(fit:BoxFit.fill,child: CircleAvatar(backgroundImage: FileImage(_image), )))
               :
                CircleAvatar(backgroundImage: new AssetImage('assets/images/blank_profile.png'), radius: 200.0,),
         ),
@@ -97,16 +107,24 @@ class  _changeImageState extends State<changeImage>{
     );
   }
    _getImage() async {
-
+    print("Entro in get Omage");
+    widget.changeTopImage();
     if(actualUser.img != '') {
       print("--------------------"+actualUser.img.toString());
+      imageCache.clear();
+      imageCache.clearLiveImages();
        _image = await writeImageTemp(actualUser.img, 'image');
     }
-
-
-    //await _image.writeAsBytes(base64Decode(actualUser.img));
-      //print(_image.toString());
   }
+
+  /*Future<void> adjustImage() async{
+    Io.File toAdjustFile = _image;
+    br.Image toAdjust = br.decodeImage(toAdjustFile.readAsBytesSync());
+    toAdjust = br.adjustColor(toAdjust, contrast: _contrast, brightness: _brightness, exposure: _exposure);
+    setState(() {
+      _imageWidget = Image.memory(br.encodeJpg(toAdjust));
+    });
+  }*/
 //Todo capire come fare update senza ricaricare tutto
 //TODO cambiare anche top image
   _imgFromCamera() async {
@@ -122,6 +140,7 @@ class  _changeImageState extends State<changeImage>{
 
   _imgFromGallery() async {
     final image = await  picker.getImage( source: ImageSource.gallery);
+    if(image!=null){}
     actualUser.img = base64Encode(Io.File(image.path).readAsBytesSync()).toString();
     await DatabaseHelper().setImg(actualUser.email,base64Encode(Io.File(image.path).readAsBytesSync()).toString());
     setState(()  {

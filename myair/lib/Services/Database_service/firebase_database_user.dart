@@ -41,15 +41,54 @@ class FirebaseDb_gesture{
         u.setFId(key);
       });
       DatabaseHelper d = DatabaseHelper();
-      print("Sta per salvarlo");
-      d.insertUser(u);
+      var x = await d.getCountUser();
+      if(x == 0 ) {
+        print("entered in the saver user");
+        d.insertUser(u);
+      }
       print("Salvato");
       d.getUser();
 
       actualUser = u;
+
       return true;
     }
     return false;
+  }
+  Future<void> saveGoogleUser(userAccount u)async{
+    bool present = false;
+    var dbRefCheck = databaseReference.child('users/');
+    DataSnapshot us = await dbRefCheck.once();
+    Map<dynamic,dynamic> values = us.value;
+    if(values != null)
+    {
+      values.forEach((key, value) {
+        if (value["email"] == u.email) present = true;
+      });
+    }
+    if (!present) {
+      var dbRef =  dbRefCheck.push();
+      await dbRef.set(u.toJson());
+      DataSnapshot snapshot =  await dbRefCheck.orderByChild("email").equalTo(u.email).once();
+      Map<dynamic, dynamic> values=snapshot.value;
+      values.forEach((key, value) {
+        u.setFId(key);
+      });}
+
+    DatabaseHelper d = DatabaseHelper();
+    var x = await d.getCountUser();
+    print("numore " + x.toString());
+    print("Sta per salvarlo");
+
+    if(x == 0 ) {
+      print("entered in the saver user");
+      d.insertUser(u);
+    }
+    print("Salvato");
+    d.getUser();
+
+    actualUser = u;
+
   }
   Future<bool> logUser(String email, String pwd) async {
     bool present = false;

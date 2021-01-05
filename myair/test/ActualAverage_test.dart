@@ -436,7 +436,7 @@ void main() {
     // logged_in_widget test
     testWidgets('Logged_in_widget test ', (WidgetTester tester) async {
 
-      // Find all the widget  needed
+      // Find all the widget needed
       final addField = find.byKey(ValueKey("Test"));
       final addButton = find.byKey(ValueKey("Test"));
 

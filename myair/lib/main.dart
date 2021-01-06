@@ -10,9 +10,9 @@ import 'package:myair/Views/profile_page.dart';
 import 'package:http/http.dart' as http;
 import 'Constants/theme_constants.dart';
 import 'Modules/UserAccount.dart';
-import 'Services/Arpa_service/sensors.dart';
-import 'Services/Database_service/database_helper.dart';
-import 'Services/Database_service/firebase_database_user.dart';
+import 'Services/Arpa_service/SensorRetriever.dart';
+import 'Services/Database_service/DatabaseHelper.dart';
+import 'Services/Database_service/FirebaseDatabaseHelper.dart';
 import 'Services/Geolocator_service/GeolocatorService.dart';
 import 'package:myair/Modules/sensor.dart';
 import 'dart:io' as Io;
@@ -23,7 +23,7 @@ import 'Views/Graph_view/bar_charts_view.dart';
 
 List<Sensor> sensorList = [];
 //bool logged = false ;
-userAccount actualUser = null;
+UserAccount actualUser = null;
 
 var x;
 void main() async {

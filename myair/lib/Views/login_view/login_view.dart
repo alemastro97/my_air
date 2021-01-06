@@ -3,7 +3,7 @@ import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myair/Modules/UserAccount.dart';
-import 'package:myair/Services/Database_service/firebase_database_user.dart';
+import 'package:myair/Services/Database_service/FirebaseDatabaseHelper.dart';
 import 'package:myair/Widgets/Opening_page_widgets/logo_widget.dart';
 
 import 'package:myair/main.dart';
@@ -116,7 +116,7 @@ class _LoginPage extends State<LoginPage>{
                                   child: GestureDetector(
                                     onTap: () async {
                                     //  logged = true;
-                                      FirebaseDb_gesture d = FirebaseDb_gesture();
+                                      FirebaseDatabaseHelper d = FirebaseDatabaseHelper();
                                       var b = await d.logUser(emailController.text,passController.text);
                                       b ?
                                       Navigator.pushReplacementNamed(context, '/HomePage')

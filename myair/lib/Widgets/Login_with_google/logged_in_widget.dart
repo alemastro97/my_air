@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myair/Modules/UserAccount.dart';
-import 'package:myair/Services/Google_Service/google_sign_in.dart';
+import 'package:myair/Services/Google_Service/GoogleSignIn.dart';
 import 'package:provider/provider.dart';
 
 class LoggedInWidget extends StatelessWidget {

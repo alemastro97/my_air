@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:myair/Services/Google_Service/google_sign_in.dart';
+import 'package:myair/Services/Google_Service/GoogleSignIn.dart';
 import 'package:provider/provider.dart';
 /*Button of google login in the login page*/
 class GoogleSignupButtonWidget extends StatelessWidget {

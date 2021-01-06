@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myair/Modules/UserAccount.dart';
-import 'package:myair/Services/Database_service/firebase_database_user.dart';
-import 'package:myair/Services/Google_Service/google_sign_in.dart';
+import 'package:myair/Services/Database_service/FirebaseDatabaseHelper.dart';
+import 'package:myair/Services/Google_Service/GoogleSignIn.dart';
 import 'package:flutter/material.dart';
 import 'package:myair/Widgets/Login_with_google/sign_up_widget.dart';
 import 'package:provider/provider.dart';
@@ -64,7 +64,7 @@ class ProfilePage extends StatelessWidget {
     var b = ( await http.get(x.photoURL)).bodyBytes;
     var image   = b!= null ?  base64Encode(b) : "";
     print("£sdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-    actualUser = new userAccount(namesur.elementAt(0), namesur.elementAt(1), x.email, "",image);
-    FirebaseDb_gesture().saveGoogleUser(actualUser);
+    actualUser = new UserAccount(namesur.elementAt(0), namesur.elementAt(1), x.email, "",image);
+    FirebaseDatabaseHelper().saveGoogleUser(actualUser);
   }
 }

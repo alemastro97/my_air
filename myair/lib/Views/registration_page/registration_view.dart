@@ -2,10 +2,10 @@ import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:myair/Services/Database_service/database_helper.dart';
+import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/Views/home_page.dart';
 import 'package:myair/Widgets/Opening_page_widgets/logo_widget.dart';
-import 'package:myair/Services/Database_service/firebase_database_user.dart';
+import 'package:myair/Services/Database_service/FirebaseDatabaseHelper.dart';
 import 'package:myair/main.dart';
 import 'package:myair/Modules/UserAccount.dart';
 
@@ -150,8 +150,8 @@ class _RegistrationPage extends State<RegistrationPage>{
                                   child: GestureDetector(
                                     onTap: () async {
                                     //  logged = true;
-                                      FirebaseDb_gesture d = FirebaseDb_gesture();
-                                      var b = await d.saveUser(new userAccount(firstController.text,lastController.text,emailController.text,passController.text,''));
+                                      FirebaseDatabaseHelper d = FirebaseDatabaseHelper();
+                                      var b = await d.saveUser(new UserAccount(firstController.text,lastController.text,emailController.text,passController.text,''));
                                       DatabaseHelper().getUser();
                                       b ?
                                       Navigator.pushReplacementNamed(context, '/HomePage')

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-class userAccount {
+class UserAccount {
   //final user = FirebaseAuth.instance.currentUser;
   String firebaseId;
   String firstName;
@@ -21,7 +21,7 @@ class userAccount {
     };
   }
 
-  userAccount(String firstName,String lastName,String email, String password,String img){
+  UserAccount(String firstName,String lastName,String email, String password,String img){
     this.firstName = firstName;
     this.lastName = lastName;
     this. email = email;
@@ -45,6 +45,7 @@ class userAccount {
       return map;
 
   }
+
   fromMapObject(Map<String, dynamic> map) {
 
     firebaseId = map['firebaseId'];

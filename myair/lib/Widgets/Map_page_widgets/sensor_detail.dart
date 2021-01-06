@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myair/Modules/sensor.dart';
-import 'package:myair/Services/Database_service/database_helper.dart';
+import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/Widgets/Map_page_widgets/sensor_data_list.dart';
 
 class SensorDetail extends StatefulWidget {

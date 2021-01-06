@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:myair/Modules/sensor.dart';
-import 'package:myair/Modules/unit.dart';
+import 'package:myair/Modules/Sensor.dart';
+import 'package:myair/Modules/Unit.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:myair/Services/Database_service/database_helper.dart';
+import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 
 class UnitList extends StatefulWidget {
 

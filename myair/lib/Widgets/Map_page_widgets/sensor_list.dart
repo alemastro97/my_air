@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Modules/sensor.dart';
-import 'package:myair/Services/Arpa_service/sensors.dart';
-import 'package:myair/Services/Database_service/database_helper.dart';
+import 'package:myair/Services/Arpa_service/SensorRetriever.dart';
+import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/Widgets/Map_page_widgets/sensor_detail.dart';
 import 'package:myair/Widgets/Map_page_widgets/unit_list.dart';
 class SensorList extends StatefulWidget {

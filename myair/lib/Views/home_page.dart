@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:myair/Views/profile_page.dart';
 import 'package:myair/Views/Graph_view/bar_charts_view.dart';
 import 'package:myair/Views/settings_page.dart';
-import 'package:myair/Services/Google_Service/google_sign_in.dart';
+import 'package:myair/Services/Google_Service/GoogleSignIn.dart';
 import 'package:myair/Widgets/Login_with_google/background_painter.dart';
 import 'package:myair/Widgets/Login_with_google/logged_in_widget.dart';
 import 'package:myair/Widgets/Login_with_google/sign_up_widget.dart';
@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 import 'dart:io' as Io;
 import '../main.dart';
 import 'Reward_page/Reward_view.dart';
-import 'map_page.dart';
+import 'MapPage.dart';
 import 'home_statistics_page.dart';
 import 'package:path/path.dart' as path;
 
@@ -41,7 +41,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final pages = <Widget>[
       ChartPreview(),
-      EmailPage(),
+      MapPage(),
       RewardView(),
       SettingsPage(changeTopImage: changeTopImage),
       HomeStatisticsPage(),

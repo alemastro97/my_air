@@ -124,6 +124,7 @@ class PollutantAgent {
 
   void set_values(int hour, int day, double pm10, double pm25, double no2, double so2, double o3, double co) {
 
+    //
     if (day != this.day) {
       _pm10_bck = _pm10_value;
       _pm25_bck = _pm25_value;
@@ -213,7 +214,13 @@ class PollutantAgent {
     this._o3_rw = this._o3_rw + this._o3_value;
     this._co_rw = this._co_rw + this._co_value;
 
+    if (this._pm10_rw  >= _pm10_limit) {
+      this._pm10_rw = 0;
+      // pm10_nf = 1
+    }
+
   }
+
   // pm25 index update
   double set_pm25(double sensorvalue) {
     double index;

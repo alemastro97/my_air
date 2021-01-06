@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:myair/Modules/sensordata.dart';
-import 'package:myair/Services/Arpa_service/sensordata.dart';
+import 'package:myair/Modules/SensorData.dart';
+import 'package:myair/Services/Arpa_service/SensorDataRetriever.dart';
 
 class SensorDataList extends StatefulWidget {
 

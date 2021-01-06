@@ -3,10 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:myair/Modules/DailySensorData.dart';
 import 'package:myair/Modules/PollutantAgent.dart';
 import 'package:myair/Modules/SensorListData.dart';
-import 'package:myair/Modules/sensor.dart';
-import 'package:myair/Modules/sensordata.dart';
+import 'package:myair/Modules/Sensor.dart';
+import 'package:myair/Modules/SensorData.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
-import 'package:myair/Services/Database_service/database_helper.dart';
+import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:sqflite/sqflite.dart';
 
 void main() {

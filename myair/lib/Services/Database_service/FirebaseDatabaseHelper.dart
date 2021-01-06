@@ -1,41 +1,41 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:myair/Modules/UserAccount.dart';
-import 'package:myair/Services/Database_service/database_helper.dart';
+import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/main.dart';
-//import 'post.dart';
 
-final FirebaseDatabase db = new FirebaseDatabase();//.child('users');
+final FirebaseDatabase db = new FirebaseDatabase(); //.child('users');
 final databaseReference = db.reference();
 
-class FirebaseDb_gesture{
-  static FirebaseDb_gesture _FirebaseDb_gesture; //Singleton DatabaseHelper
+class FirebaseDatabaseHelper{
+  static FirebaseDatabaseHelper _FirebaseDb_gesture; //Singleton DatabaseHelper
 
-  FirebaseDb_gesture._createInstance(); // Named constructor to create instance of DatabaseHelper;
+  FirebaseDatabaseHelper._createInstance(); // Named constructor to create instance of DatabaseHelper;
 
-  factory FirebaseDb_gesture() {
+  factory FirebaseDatabaseHelper() {
 
     if (_FirebaseDb_gesture == null) {
-      _FirebaseDb_gesture = FirebaseDb_gesture._createInstance(); // this is execute only once, singleton object
+      _FirebaseDb_gesture = FirebaseDatabaseHelper._createInstance(); // this is execute only once, singleton object
     }
     return _FirebaseDb_gesture;
   }
-  Future<bool> saveUser(userAccount u)  async {
+
+  Future<bool> saveUser(UserAccount u)  async {
     bool present = false;
     var dbRefCheck = databaseReference.child('users/');
     DataSnapshot us = await dbRefCheck.once();
     Map<dynamic,dynamic> values = us.value;
+
     if(values != null)
     {
       values.forEach((key, value) {
         if (value["email"] == u.email) present = true;
       });
     }
+
     if (!present) {
       var dbRef =  dbRefCheck.push();
-     await dbRef.set(u.toJson());
-     DataSnapshot snapshot =  await dbRefCheck.orderByChild("email").equalTo(u.email).once();
+      await dbRef.set(u.toJson());
+      DataSnapshot snapshot =  await dbRefCheck.orderByChild("email").equalTo(u.email).once();
       Map<dynamic, dynamic> values=snapshot.value;
       values.forEach((key, value) {
         u.setFId(key);
@@ -43,10 +43,8 @@ class FirebaseDb_gesture{
       DatabaseHelper d = DatabaseHelper();
       var x = await d.getCountUser();
       if(x == 0 ) {
-        print("entered in the saver user");
         d.insertUser(u);
       }
-      print("Salvato");
       d.getUser();
 
       actualUser = u;
@@ -55,7 +53,9 @@ class FirebaseDb_gesture{
     }
     return false;
   }
-  Future<void> saveGoogleUser(userAccount u)async{
+
+  // Save the google account of the user
+  Future<void> saveGoogleUser(UserAccount u)async{
     bool present = false;
     var dbRefCheck = databaseReference.child('users/');
     DataSnapshot us = await dbRefCheck.once();
@@ -90,6 +90,8 @@ class FirebaseDb_gesture{
     actualUser = u;
 
   }
+
+  // Login of the user checking the existance of the account in the db
   Future<bool> logUser(String email, String pwd) async {
     bool present = false;
     var dbRefCheck = databaseReference.child('users/');
@@ -98,7 +100,7 @@ class FirebaseDb_gesture{
     values.forEach((key, value) {
       if(value["email"] == email && value["password"] == pwd) {
         present = true;
-        userAccount u = new userAccount(value['firstname'],value['lastname'] , value['email'],value['password'],value['img']);
+        UserAccount u = new UserAccount(value['firstname'],value['lastname'] , value['email'],value['password'],value['img']);
         u.setFId(key.toString());
         DatabaseHelper d = DatabaseHelper();
         d.insertUser(u);
@@ -115,7 +117,6 @@ class FirebaseDb_gesture{
   Future<bool> updateImage() async{
     var dbRefCheck = databaseReference.child('users/');
     await dbRefCheck.child(actualUser.firebaseId).set(actualUser.toJson());
-
   }
 
 }

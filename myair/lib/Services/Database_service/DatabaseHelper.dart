@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:myair/Modules/sensor.dart';
-import 'package:myair/Modules/unit.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:math' as Math;
 
@@ -24,13 +23,6 @@ class DatabaseHelper {
   String colUOM = 'uom';
   String colStart = 'start';
   String colStop = 'stop';
-
-  String unitTable = 'unit_table';
-  String uId = 'unit_id';
-  String uUnit = 'unit_name';
-  String uidUnit = 'unit_identifier';
-  String uLat= 'unit_lat';
-  String uLng = 'unit_lng';
 
   String userTable = 'User';
   String userId = 'userId';
@@ -53,7 +45,6 @@ class DatabaseHelper {
 
   deleteDB(){
     _databaseHelper.deleteSensor();
-    _databaseHelper.deleteUnit();
     _databaseHelper.deleteUser();
   }
 
@@ -79,8 +70,6 @@ class DatabaseHelper {
 
     await db.execute('CREATE TABLE $sensorTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colSensor TEXT, $colUnit TEXT, '
         '$colidUnit TEXT, $colLat TEXT, $colLng TEXT, $colName TEXT, $colUOM TEXT, $colStart TEXT, $colStop TEXT)');
-    await db.execute('CREATE TABLE $unitTable($uId INTEGER PRIMARY KEY AUTOINCREMENT, $uUnit TEXT, '
-        '$uidUnit TEXT, $uLat TEXT, $uLng TEXT)');
     await db.execute('CREATE TABLE $userTable($userId INTEGER PRIMARY KEY AUTOINCREMENT, $userIdFirebase TEXT,$firstName TEXT, '
         '$lastName TEXT, $email TEXT, $password TEXT, $image TEXT)');
 
@@ -91,13 +80,6 @@ class DatabaseHelper {
     Database db = await this.database;
 
     var result = await db.rawQuery('SELECT * FROM $sensorTable order by $colidUnit');
-    return result;
-  }
-
-  Future<List<Map<String, dynamic>>> getUnitMapList() async {
-    Database db = await this.database;
-
-    var result = await db.rawQuery('SELECT * FROM $unitTable order by $uidUnit');
     return result;
   }
 
@@ -117,14 +99,7 @@ class DatabaseHelper {
     return result;
   }
 
-  Future<int> insertUnit(Unit unit) async {
-    Database db = await this.database;
-
-    var result = await db.insert(unitTable, unit.toMap());
-    return result;
-  }
-
-  Future<int> insertUser(userAccount user) async {
+  Future<int> insertUser(UserAccount user) async {
     Database db = await this.database;
 
     var result = await db.insert(userTable, user.toMap());
@@ -140,12 +115,6 @@ class DatabaseHelper {
     return result;
   }
 
-  Future<int> deleteUnit() async {
-    var db = await this.database;
-
-    int result = await db.rawDelete('DELETE FROM $unitTable');
-    return result;
-  }
   Future<int> deleteUser() async {
     var db = await this.database;
 
@@ -173,21 +142,12 @@ class DatabaseHelper {
     int result = Sqflite.firstIntValue(x);
     return result;
   }
+
   Future<int> getCountUser() async{
     Database db = await this.database;
 
     List<Map<String, dynamic>> x = await db.rawQuery('SELECT COUNT (*) FROM $userTable');
     int result = Sqflite.firstIntValue(x);
-    return result;
-  }
-
-  Future<int> getCountUnit() async{
-    Database db = await this.database;
-
-    List<Map<String, dynamic>> x = await db.rawQuery('SELECT COUNT (*) FROM $unitTable');
-    int result = Sqflite.firstIntValue(x);
-
-    print("Number of unit:" + result.toString());
     return result;
   }
 
@@ -204,44 +164,17 @@ class DatabaseHelper {
     return sensorList;
   }
 
-  Future<List<Unit>> getUnitList() async {
-    var unitMapList = await getUnitMapList(); // Get 'Map List' from database
-    int count = unitMapList.length; // Count the number of map entries in the db
-
-    List<Unit> unitList = List<Unit>();
-    for (int i = 0; i < count; i++) {
-      unitList.add(Unit.fromMapObject(unitMapList[i]));
-    }
-
-    return unitList;
-  }
-  Future<userAccount> getUserAccount() async {
+  Future<UserAccount> getUserAccount() async {
     var user = await getUser(); // Get 'Map List' from database
     print("------" + user.length.toString());
     if(user.length > 0) {
-      userAccount account = userAccount("firstName", "lastName", "email", "password", "") ;
+      UserAccount account = UserAccount("firstName", "lastName", "email", "password", "") ;
       print(user.length);
       account.fromMapObject(user.elementAt(0));
       return account;
     }
     print("Return null");
     return null;
-  }
-
-  Future<Unit> getUnit(String idunit) async {
-    var unitMapList = await getUnitMapList(); // Get 'Map List' from database
-    Unit unit;
-
-    int count = unitMapList.length; // Count the number of map entries in the db
-
-    for (int i = 0; i < count; i++) {
-      unit = Unit.fromMapObject(unitMapList[i]);
-
-      if (unit.idunit == idunit)
-        return unit;
-    }
-
-    return unit;
   }
 
 // Get the sensor list closed to the user

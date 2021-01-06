@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert'; // parsing json files
 import 'package:http/http.dart' as http;
-import 'package:myair/Modules/sensordata.dart';
+import 'package:myair/Modules/SensorData.dart';
 
 Future<List<SensorData>> fetchSensorDataFromAPI(String idsensore,int duration) async {
   if(duration > 168) return [];

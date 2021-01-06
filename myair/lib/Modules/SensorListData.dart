@@ -1,7 +1,7 @@
 
 // Get the sensor list closed to the user
 import 'package:geolocator/geolocator.dart';
-import 'package:myair/Modules/sensor.dart';
+import 'package:myair/Modules/Sensor.dart';
 import 'dart:math' as Math;
 
 Future<List<Sensor>> getSensorListClosedtoUser(List<Sensor> sl, double ulatitude, double ulongitude, int utolerance) async {

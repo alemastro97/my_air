@@ -1,10 +1,10 @@
 
-import 'package:myair/Modules/sensordata.dart';
-import 'package:myair/Services/Arpa_service/sensordata.dart';
-import 'package:myair/Services/Database_service/database_helper.dart';
+import 'package:myair/Modules/SensorData.dart';
+import 'package:myair/Services/Arpa_service/SensorDataRetriever.dart';
+import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/Widgets/Home_page_statistics_widgets/pie_chart.dart';
 import 'DailySensorData.dart';
-import 'package:myair/Modules/sensor.dart';
+import 'package:myair/Modules/Sensor.dart';
 import 'InstantData.dart';
 import 'package:myair/Modules/SensorListData.dart';
 

@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:myair/Constants/theme_constants.dart';
-import 'package:myair/Services/Database_service/database_helper.dart';
-import 'package:myair/Services/Database_service/firebase_database_user.dart';
+import 'package:myair/Services/Database_service/DatabaseHelper.dart';
+import 'package:myair/Services/Database_service/FirebaseDatabaseHelper.dart';
 import 'package:myair/Views/home_page.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
@@ -133,7 +133,7 @@ class  _changeImageState extends State<changeImage>{
      await DatabaseHelper().setImg(actualUser.email,base64Encode(Io.File(image.path).readAsBytesSync()).toString());
     setState(()  {
       _image = Io.File(image.path);
-      FirebaseDb_gesture().updateImage();
+      FirebaseDatabaseHelper().updateImage();
 
     });
   }
@@ -145,7 +145,7 @@ class  _changeImageState extends State<changeImage>{
     await DatabaseHelper().setImg(actualUser.email,base64Encode(Io.File(image.path).readAsBytesSync()).toString());
     setState(()  {
       _image = Io.File(image.path) ;
-      FirebaseDb_gesture().updateImage();
+      FirebaseDatabaseHelper().updateImage();
     });
   }
   Future<Io.File> writeImageTemp(String base64Image, String imageName) async {

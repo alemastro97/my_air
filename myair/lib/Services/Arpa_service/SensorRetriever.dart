@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert'; // parsing json files
 import 'package:http/http.dart' as http;
-import 'package:myair/Modules/sensor.dart';
-import 'package:myair/Services/Database_service/database_helper.dart';
+import 'package:myair/Modules/Sensor.dart';
+import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 
 Future<void> fetchSensorsFromAPI() async {
 

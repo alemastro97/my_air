@@ -1,4 +1,4 @@
-import "package:myair/Modules/sensordata.dart";
+import "package:myair/Modules/SensorData.dart";
 
 class DailySensorData {
 

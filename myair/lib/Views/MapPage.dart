@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../Widgets/Map_page_widgets/map_widget.dart';
+import '../Widgets/Map_page_widgets/MapPageWidget.dart';
 
 class MapPage extends StatelessWidget {
   @override
@@ -8,7 +8,7 @@ class MapPage extends StatelessWidget {
 
     body:Stack(
       children: <Widget>[
-        new MapWidget(),
+        new MapPageWidget(),
       ],
     ),
   );

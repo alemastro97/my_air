@@ -8,7 +8,7 @@ import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 
 class UnitList extends StatefulWidget {
 
-  final List<Sensor> sensorList;
+  final List<SensorModule> sensorList;
   final String title;
 
   UnitList(this.sensorList, this.title);
@@ -110,7 +110,7 @@ class UnitListState extends State<UnitList> {
   }
   DatabaseHelper databaseHelper = DatabaseHelper();
 
-  final List<Sensor> sensorList;
+  final List<SensorModule> sensorList;
   final String title;
 
   UnitListState(this.sensorList, this.title);
@@ -245,7 +245,7 @@ class UnitListState extends State<UnitList> {
     );
   }
 
-  void updateListView(List<Sensor> sensor) {
+  void updateListView(List<SensorModule> sensor) {
     Future<List<Unit>> viewList = getUnitList(sensor);
 
     viewList.then((viewList) {
@@ -259,7 +259,7 @@ class UnitListState extends State<UnitList> {
   }
 }
 
-Future<List<Unit>> getUnitList(List<Sensor> sensor) async {
+Future<List<Unit>> getUnitList(List<SensorModule> sensor) async {
   var idunit = "";
   List<Unit> unitList = List();
   Unit unit;

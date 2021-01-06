@@ -1,5 +1,5 @@
 // Sensor class
-class Sensor {
+class SensorModule {
 
   int _id;
   String _sensor;
@@ -12,7 +12,7 @@ class Sensor {
   String _start;
   String _stop;
 //TODO delete the stop parameter
-  Sensor(this._id, this._sensor, this._unit, this._idunit, this._lat, this._lng, this._name, this._uom, this._start, this._stop);
+  SensorModule(this._id, this._sensor, this._unit, this._idunit, this._lat, this._lng, this._name, this._uom, this._start, this._stop);
 
   int get id => _id;
   String get sensor => _sensor;
@@ -82,7 +82,7 @@ class Sensor {
   }
 
   // Extract a Sensor object from a Map object
-  Sensor.fromMapObject(Map<String, dynamic> map) {
+  SensorModule.fromMapObject(Map<String, dynamic> map) {
     _id = map['id'];
     _sensor = map['sensor'];
     _unit = map['unit'];
@@ -95,7 +95,7 @@ class Sensor {
     _stop = map['stop'];
   }
 
-  Sensor.fromJson(Map<String, dynamic> json) {
+  SensorModule.fromJson(Map<String, dynamic> json) {
 
     _sensor = json['idsensore'];
     _idunit = json['idstazione'];

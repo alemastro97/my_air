@@ -3,9 +3,11 @@ import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'package:myair/Modules/sensor.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:math' as Math;
+
+import '../../Modules/Sensor.dart';
+
 
 class DatabaseHelper {
 
@@ -92,7 +94,7 @@ class DatabaseHelper {
   }
 
   // Insert operation
-  Future<int> insertSensor(Sensor sensor) async {
+  Future<int> insertSensor(SensorModule sensor) async {
     Database db = await this.database;
 
     var result = await db.insert(sensorTable, sensor.toMap());
@@ -152,13 +154,13 @@ class DatabaseHelper {
   }
 
   // Get the 'Map List' and convert to 'Object List'
-  Future<List<Sensor>> getSensorList() async {
+  Future<List<SensorModule>> getSensorList() async {
     var sensorMapList = await getSensorMapList(); // Get 'Map List' from database
     int count = sensorMapList.length; // Count the number of map entries in the db
     print("xxxxxxxxxxxxxxxxxxxxxxxx" + count.toString());
-    List<Sensor> sensorList = List<Sensor>();
+    List<SensorModule> sensorList = List<SensorModule>();
     for (int i = 0; i < count; i++) {
-      sensorList.add(Sensor.fromMapObject(sensorMapList[i]));
+      sensorList.add(SensorModule.fromMapObject(sensorMapList[i]));
     }
 
     return sensorList;
@@ -178,12 +180,12 @@ class DatabaseHelper {
   }
 
 // Get the sensor list closed to the user
-  Future<List<Sensor>> getSensorListClosedtoUser(double ulatitude, double ulongitude, int utolerance) async {
+  Future<List<SensorModule>> getSensorListClosedtoUser(double ulatitude, double ulongitude, int utolerance) async {
     var sensorMapList = await getSensorMapList(); // Get 'Map List' from database
     int count = sensorMapList.length; // Count the number of map entries in the db
 
-    List<Sensor> sensorList = List<Sensor>();
-    Sensor sensor;
+    List<SensorModule> sensorList = List<SensorModule>();
+    SensorModule sensor;
     var distanceMeters, distanceMeters2;
     var lat, lng;
 
@@ -191,7 +193,7 @@ class DatabaseHelper {
 
     for (int i = 0; i < count; i++) {
 
-      sensor = Sensor.fromMapObject(sensorMapList[i]);
+      sensor = SensorModule.fromMapObject(sensorMapList[i]);
       lat = sensor.lat;
       lng =sensor.lng;
       distanceMeters = Geolocator.distanceBetween(ulatitude, ulongitude, double.parse(lat), double.parse(lng));
@@ -199,8 +201,8 @@ class DatabaseHelper {
 
 
       if (distanceMeters < utolerance) {
-        sensorList.add(Sensor.fromMapObject(sensorMapList[i]));
-        print("NeareSensnen" + Sensor.fromMapObject(sensorMapList[i]).sensor.toString());
+        sensorList.add(SensorModule.fromMapObject(sensorMapList[i]));
+        print("NeareSensnen" + SensorModule.fromMapObject(sensorMapList[i]).sensor.toString());
       }
     }
 

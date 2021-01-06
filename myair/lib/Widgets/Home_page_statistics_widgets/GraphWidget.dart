@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myair/Views/Home_page_views/InfoView.dart';
-import 'package:myair/Widgets/Home_page_statistics_widgets/pie_chart.dart';
+import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
 
 
-import 'CategoriesRow.dart';
-import 'GridAgents.dart';
+import 'AgentListWidget.dart';
+import 'GridAgentWidget.dart';
 
 class GraphWidget extends StatelessWidget{
 
@@ -77,7 +77,7 @@ class GraphWidget extends StatelessWidget{
                                   ///List of agents
                                   Flexible(
                                     flex:1,
-                                    child: CategoriesRow(),
+                                    child: AgentListWidget(),
                                   ),
                                   ///Graph
                                   Flexible(
@@ -171,43 +171,14 @@ class GraphWidget extends StatelessWidget{
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(_mediaQuery.size.width/20),
                       ),
-                      child: GridAgentWidget(),/*Column(
-                        children: <Widget>[
-                          Flexible(flex: 1,child: Row(children: <Widget>[Flexible(flex:1,child: Placeholder()),Flexible(flex:1,child: Placeholder()),],)),
-                          Flexible(flex: 1,child: Row(children: <Widget>[Flexible(flex:1,child: Placeholder()),Flexible(flex:1,child: Placeholder()),],)),
-                          Flexible(flex: 1,child: Row(children: <Widget>[Flexible(flex:1,child: Placeholder()),Flexible(flex:1,child: Placeholder()),],)),
-                        ],
-                      ),*/
+                      child: GridAgentWidget(),
                     ),
                   ),
                 ),
               ],
             ),
           ),
-        /*  Padding(
-            padding: EdgeInsets.all(_mediaQuery.size.width/23),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: FractionallySizedBox(
 
-                heightFactor: 0.093,
-                child: Container(
-
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.light ? Color.fromRGBO(193, 214, 233, 1) : Color(0xFF212121),
-                    shape: BoxShape.circle,
-                    boxShadow:[
-                      BoxShadow(
-                          spreadRadius: -2,
-                        blurRadius: 0,
-                        offset: Offset(0,-4),
-                        color: Theme.of(context).brightness == Brightness.light ?Colors.grey : Colors.black,
-                      ),],
-                  ),
-                ),
-              ),
-            ),
-          ),*/
         ],
       ),
     );
@@ -231,45 +202,3 @@ Route _createRoute() {
     },
   );
 }
-
-/*Stack(
-        children: [
-          SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: <Widget>[
-                    PieChartView(),
-                    Expanded(
-                      flex: 2,
-                        child: GridAgentWidget(),
-                      ),
-                  ],
-                ),
-              ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12.0),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: FractionallySizedBox(
-                heightFactor: 0.1,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.light ? Color.fromRGBO(193, 214, 233, 1) : Color(0xFF212121),
-                    shape: BoxShape.circle,
-                    boxShadow:[
-                      BoxShadow(
-                      spreadRadius: -2,
-                      blurRadius: 0,
-                      offset: Offset(0,-4),
-                      color: Theme.of(context).brightness == Brightness.light ?Colors.grey : Colors.black,
-                    ),],
-                  ),
-
-                ),
-              ),
-            ),
-          ),
-        ],
-      )*/

@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
-import 'package:myair/Modules/sensor.dart';
 import 'package:myair/Services/Arpa_service/SensorRetriever.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/Widgets/Map_page_widgets/sensor_detail.dart';
 import 'package:myair/Widgets/Map_page_widgets/unit_list.dart';
+
+import '../../Modules/Sensor.dart';
 class SensorList extends StatefulWidget {
 
   @override
@@ -19,8 +20,8 @@ class SensorListState extends State<SensorList> {
 
   DatabaseHelper databaseHelper = DatabaseHelper();
 
-  List<Sensor> sensorList;
-  List<Sensor> filteredSensors = List();
+  List<SensorModule> sensorList;
+  List<SensorModule> filteredSensors = List();
 
   int count = 0;
   int result;
@@ -139,7 +140,7 @@ class SensorListState extends State<SensorList> {
     Scaffold.of(context).showSnackBar(snackBar);
   }
 
-  void navigateToDetail(Sensor sensor, String title) async {
+  void navigateToDetail(SensorModule sensor, String title) async {
     bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
       return SensorDetail(sensor, title);
     }));

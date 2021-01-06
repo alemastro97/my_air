@@ -5,8 +5,8 @@ import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Services/Arpa_service/SensorDataRetriever.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 
-import 'package:myair/Widgets/Home_page_statistics_widgets/pie_chart.dart';
-import 'package:myair/Widgets/Home_page_statistics_widgets/single_agent_chart.dart';
+import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
+import 'package:myair/Widgets/Home_page_statistics_widgets/AgentPieChart.dart';
 import 'package:myair/Widgets/Pop_Up_Notification/notification.dart';
 
 Timer timer;

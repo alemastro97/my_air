@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myair/Modules/sensor.dart';
+import 'package:myair/Modules/Sensor.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/Widgets/Map_page_widgets/sensor_data_list.dart';
 
 class SensorDetail extends StatefulWidget {
 
   final String appBarTitle;
-  final Sensor sensor;
+  final SensorModule sensor;
 
   SensorDetail(this.sensor, this.appBarTitle);
 
@@ -23,7 +23,7 @@ class SensorDetailState extends State<SensorDetail> {
   DatabaseHelper helper = DatabaseHelper();
 
   final String appBarTitle;
-  final Sensor sensor;
+  final SensorModule sensor;
 
   SensorDetailState(this.sensor, this.appBarTitle);
 
@@ -81,7 +81,7 @@ class SensorDetailState extends State<SensorDetail> {
 
   }
 
-  void navigateToDetail(Sensor sensor, String title) async {
+  void navigateToDetail(SensorModule sensor, String title) async {
     bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
       return SensorDataList(sensor.sensor, title);
     }));

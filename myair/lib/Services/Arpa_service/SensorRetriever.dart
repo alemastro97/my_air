@@ -7,11 +7,11 @@ import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 Future<void> fetchSensorsFromAPI() async {
 
   DatabaseHelper databaseHelper = DatabaseHelper();
-  List<Sensor> sensorList = [];
+  List<SensorModule> sensorList = [];
 
   int result;
 
-  Sensor sensor;
+  SensorModule sensor;
 
   // Main thread dedicated to UI
   // We run this function in background using another thread
@@ -33,7 +33,7 @@ Future<void> fetchSensorsFromAPI() async {
     print("Sensors API loading ...");
 
     for (var sensorJson in sensorsJson) {
-      sensor = Sensor.fromJson(sensorJson);
+      sensor = SensorModule.fromJson(sensorJson);
 
       result = await databaseHelper.insertSensor(sensor);
     }

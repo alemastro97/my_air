@@ -2,7 +2,7 @@
 import 'package:myair/Modules/SensorData.dart';
 import 'package:myair/Services/Arpa_service/SensorDataRetriever.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
-import 'package:myair/Widgets/Home_page_statistics_widgets/pie_chart.dart';
+import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
 import 'DailySensorData.dart';
 import 'package:myair/Modules/Sensor.dart';
 import 'InstantData.dart';
@@ -68,11 +68,11 @@ class DailyUnitData {
     bool bo3 = false;
     bool co = false;
 
-    Sensor sensor;
+    SensorModule sensor;
     double average;
 
-    List<Sensor> slAll = await db.getSensorList();
-    List<Sensor> sensorList = await getSensorListClosedtoUser(slAll, ulat, ulong, utol);
+    List<SensorModule> slAll = await db.getSensorList();
+    List<SensorModule> sensorList = await getSensorListClosedtoUser(slAll, ulat, ulong, utol);
     //List<Sensor> sensorList = await db.getSensorListClosedtoUser(ulat, ulong, utol);
     List<InstantData> sensorData = [];
 

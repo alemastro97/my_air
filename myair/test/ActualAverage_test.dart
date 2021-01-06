@@ -96,8 +96,8 @@ void main() {
       double ulong = 9.167944501742676;
       int utol = 10000;
 
-      Sensor sensor;
-      Sensor sensor1 = Sensor(
+      SensorModule sensor;
+      SensorModule sensor1 = SensorModule(
           121,
           "5718",
           "Magenta",
@@ -108,7 +108,7 @@ void main() {
           "µg/m³",
           "1995-07-29T00:00:00.000",
           null);
-      Sensor sensor2 = Sensor(
+      SensorModule sensor2 = SensorModule(
           464,
           "5823",
           "Milano - viale Liguria",
@@ -119,7 +119,7 @@ void main() {
           "mg/m³",
           "1991-10-20T00:00:00.000",
           null);
-      Sensor sensor3 = Sensor(
+      SensorModule sensor3 = SensorModule(
           24,
           "6328",
           "Milano - viale Marche",
@@ -130,7 +130,7 @@ void main() {
           "µg/m³",
           "1980-09-18T00:00:00.000",
           null);
-      Sensor sensor4 = Sensor(
+      SensorModule sensor4 = SensorModule(
           90,
           "10458",
           "Bertonico",
@@ -141,7 +141,7 @@ void main() {
           "µg/m³",
           "2009-08-03T00:00:00.000",
           null);
-      Sensor sensor5 = Sensor(
+      SensorModule sensor5 = SensorModule(
           81,
           "10437",
           "Sondrio - via Paribelli",
@@ -152,7 +152,7 @@ void main() {
           "µg/m³",
           "2009-01-04T00:00:00.000",
           null);
-      Sensor sensor6 = Sensor(
+      SensorModule sensor6 = SensorModule(
           71,
           "12695",
           "Sondrio - via Paribelli",
@@ -164,7 +164,7 @@ void main() {
           "2008-04-01T00:00:00.000",
           null);
 
-      List<Sensor> slAll = [];
+      List<SensorModule> slAll = [];
       slAll.add(sensor1);
       slAll.add(sensor2);
       slAll.add(sensor3);
@@ -172,7 +172,7 @@ void main() {
       slAll.add(sensor5);
       slAll.add(sensor6);
 
-      List<Sensor> sensorList = await getSensorListClosedtoUser(
+      List<SensorModule> sensorList = await getSensorListClosedtoUser(
           slAll, ulat, ulong, utol);
 
       print("Numero di sensori: " + sensorList.length.toString());

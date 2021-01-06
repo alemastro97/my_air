@@ -4,11 +4,11 @@ import 'package:geolocator/geolocator.dart';
 import 'package:myair/Modules/Sensor.dart';
 import 'dart:math' as Math;
 
-Future<List<Sensor>> getSensorListClosedtoUser(List<Sensor> sl, double ulatitude, double ulongitude, int utolerance) async {
+Future<List<SensorModule>> getSensorListClosedtoUser(List<SensorModule> sl, double ulatitude, double ulongitude, int utolerance) async {
   int count = sl.length; // Count the number of map entries in the db
 
-  List<Sensor> sensorList = List<Sensor>();
-  Sensor sensor;
+  List<SensorModule> sensorList = List<SensorModule>();
+  SensorModule sensor;
   var distanceMeters, distanceMeters2;
   var lat, lng;
 

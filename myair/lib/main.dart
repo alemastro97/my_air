@@ -4,9 +4,9 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
-import 'package:myair/Views/home_page.dart';
+import 'package:myair/Views/HomePage.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:myair/Views/profile_page.dart';
+import 'package:myair/Views/ProfilePage.dart';
 import 'package:http/http.dart' as http;
 import 'Constants/theme_constants.dart';
 import 'Modules/UserAccount.dart';
@@ -14,14 +14,14 @@ import 'Services/Arpa_service/SensorRetriever.dart';
 import 'Services/Database_service/DatabaseHelper.dart';
 import 'Services/Database_service/FirebaseDatabaseHelper.dart';
 import 'Services/Geolocator_service/GeolocatorService.dart';
-import 'package:myair/Modules/sensor.dart';
+import 'package:myair/Modules/Sensor.dart';
 import 'dart:io' as Io;
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 
-import 'Views/Graph_view/bar_charts_view.dart';
+import 'Views/Graph_view/ChartPage.dart';
 
-List<Sensor> sensorList = [];
+List<SensorModule> sensorList = [];
 //bool logged = false ;
 UserAccount actualUser = null;
 

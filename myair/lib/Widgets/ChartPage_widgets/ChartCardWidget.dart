@@ -8,6 +8,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 import 'package:myair/Widgets/ChartPage_widgets/BarChartPreview.dart';
 
+import '../../main.dart';
 import 'BarChart.dart';
 
 class ChartCardWidget extends StatefulWidget{
@@ -76,7 +77,7 @@ class MinimizePreview extends StatelessWidget{
                FittedBox(
                  fit: BoxFit.fitHeight,
                  child: Text(
-                   kInfo.elementAt(index).name,
+                   kInfo.value.elementAt(index).value.name,
                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                  ),
                ),
@@ -90,7 +91,7 @@ class MinimizePreview extends StatelessWidget{
                ),
 
                Text(
-                 kInfo.elementAt(index).amount.toString(),
+                 kInfo.value.elementAt(index).value.amount.toString(),
                ),/// TODO Medium Value
              ],
            ),
@@ -125,7 +126,7 @@ class ExpandedPreview extends StatelessWidget{
                 child: FittedBox(
                   fit: BoxFit.fitHeight,
                   child: Text(
-                    kInfo.elementAt(index).name,
+                    kInfo.value.elementAt(index).value.name,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                 ),

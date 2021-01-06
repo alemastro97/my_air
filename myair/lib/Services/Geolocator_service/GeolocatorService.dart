@@ -9,6 +9,8 @@ import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
 import 'package:myair/Widgets/Home_page_statistics_widgets/AgentPieChart.dart';
 import 'package:myair/Widgets/Pop_Up_Notification/notification.dart';
 
+import '../../main.dart';
+
 Timer timer;
 
 class GeolocationView{
@@ -27,7 +29,7 @@ class GeolocationView{
     return user_position;
   }
 
-  GeolocationView._internal(){ this._notifications.initNotifications();timer = Timer.periodic(Duration(seconds: 120), (Timer t) => getCurrentLocation());}
+  GeolocationView._internal(){ this._notifications.initNotifications();timer = Timer.periodic(Duration(seconds: 30), (Timer t) => getCurrentLocation());}
 
 //  void dispose(){
 //    timer?.cancel();
@@ -48,8 +50,8 @@ class GeolocationView{
       print("_________________________________________________________________________________________________________________");
     }
 
-    for(var i = 0; i < kInfo.length; i++)
-      kInfo.elementAt(i).amount > Limits.elementAt(i) ? this._notifications.pushNotification()  : null;
+    for(var i = 0; i < kInfo.value.length; i++)
+      kInfo.value.elementAt(i).value.amount > Limits.elementAt(i) ? this._notifications.pushNotification()  : null;
   }
 
 }

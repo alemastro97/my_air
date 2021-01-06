@@ -6,6 +6,7 @@ import 'package:myair/Views/Home_page_views/InfoView.dart';
 import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
 
 
+import '../../main.dart';
 import 'AgentListWidget.dart';
 import 'GridAgentWidget.dart';
 
@@ -114,7 +115,7 @@ class GraphWidget extends StatelessWidget{
                                                       child: Center(),
                                                       foregroundPainter: PieChart(
                                                         width: constraint.maxWidth* 0.5,
-                                                        info: kInfo,
+                                                        info: kInfo.value,
                                                       ),
                                                     ),
                                                   ),

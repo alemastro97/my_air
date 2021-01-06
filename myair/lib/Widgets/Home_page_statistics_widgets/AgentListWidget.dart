@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
 import 'package:myair/Widgets/Home_page_statistics_widgets/InfoList.dart';
 
+import '../../main.dart';
+
 class AgentListWidget extends StatelessWidget{
   const AgentListWidget({Key key,}) : super(key:key);
 
@@ -14,8 +16,8 @@ class AgentListWidget extends StatelessWidget{
       child:Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          for(var item in kInfo)
-            InfoList(text: item.name,index: kInfo.indexOf(item),),
+          for(var item in kInfo.value)
+            InfoList(text: item.value.name,index: kInfo.value.indexOf(item),),
         ],
       ),
     );

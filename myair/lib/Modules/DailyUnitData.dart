@@ -1,8 +1,10 @@
 
 import 'package:myair/Modules/SensorData.dart';
+import 'package:myair/Modules/info_pollution.dart';
 import 'package:myair/Services/Arpa_service/SensorDataRetriever.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
+import '../main.dart';
 import 'DailySensorData.dart';
 import 'package:myair/Modules/Sensor.dart';
 import 'InstantData.dart';
@@ -86,8 +88,8 @@ class DailyUnitData {
 
           bpm10 = true;
 
-          kInfo.elementAt(0).amount = average;
-
+         //kInfo.elementAt(0).amount = average;
+          kInfo.value.elementAt(0).value= new InfoPollution("PM10", amount: average);
           // Data structure for real time data dispaly
           InstantData d = new InstantData(sensor.sensor, "PM10", average.toString(), data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
           sensorData.add(d);
@@ -102,7 +104,8 @@ class DailyUnitData {
 
           bpm25 = true;
 
-          kInfo.elementAt(1).amount = average;
+          kInfo.value.elementAt(1).value = new InfoPollution("PM2.5", amount: average);
+          print( kInfo.value.elementAt(1).value.amount);
           InstantData d = new InstantData(sensor.sensor, "PM2.5", average.toString(), data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
           sensorData.add(d);
         }
@@ -116,7 +119,7 @@ class DailyUnitData {
 
           bno2 = true;
 
-          kInfo.elementAt(2).amount = average;
+          kInfo.value.elementAt(2).value = new InfoPollution("NO2", amount: average);
           InstantData d = new InstantData(sensor.sensor, "NO2", average.toString(), data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
           sensorData.add(d);
         }
@@ -130,7 +133,7 @@ class DailyUnitData {
 
           bso2 = true;
 
-          kInfo.elementAt(3).amount = average;
+          kInfo.value.elementAt(3).value = new InfoPollution("SO2", amount: average);
           InstantData d = new InstantData(sensor.sensor, "SO2", average.toString(), data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
           sensorData.add(d);
         }
@@ -144,7 +147,7 @@ class DailyUnitData {
 
           bo3 = true;
 
-          kInfo.elementAt(4).amount = average;
+          kInfo.value.elementAt(4).value = new InfoPollution("O3", amount: average);
           InstantData d = new InstantData(sensor.sensor, "O3", average.toString(), data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
           sensorData.add(d);
         }
@@ -158,7 +161,7 @@ class DailyUnitData {
 
           co = true;
 
-          kInfo.elementAt(5).amount = average;
+          kInfo.value.elementAt(5).value = new InfoPollution("CO", amount: average);
           InstantData d = new InstantData(sensor.sensor, "CO", average.toString(), data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
           sensorData.add(d);
         }

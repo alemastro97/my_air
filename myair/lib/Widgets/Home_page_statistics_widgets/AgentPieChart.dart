@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 final Limits = [30.0,50.0,400.0,500.0,240.0,240.0];
 class AgentPieChart extends CustomPainter{
   AgentPieChart({@required this.info, @required this.width,@required this.index});
-  final List<InfoPollution> info;
+  final List<ValueNotifier<InfoPollution>> info;
   final double width;
   final int index;
 
@@ -28,11 +28,11 @@ class AgentPieChart extends CustomPainter{
       final currentAgent = info.elementAt(index);
       var sweepRadian;
 
-      if(currentAgent.amount > Limits.elementAt(index)){
+      if(currentAgent.value.amount > Limits.elementAt(index)){
          sweepRadian = 2 * pi;
          paint.color =  Color.fromRGBO(252,91,57,1);
       }else{
-         sweepRadian = currentAgent.amount / total * 2 * pi;
+         sweepRadian = currentAgent.value.amount / total * 2 * pi;
          paint.color =  Color.fromRGBO(123,201,82,1);
       }
       canvas.drawArc(

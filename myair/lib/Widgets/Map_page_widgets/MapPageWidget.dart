@@ -182,7 +182,7 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
         currentlySelectedPin.location = new LatLng(station.lat,station.lng);
         mapController.move(new LatLng(station.lat,station.lng) , 17.0);
       }else{
-        mapController.move(GeolocationView().getLastUserposition(), 10.0);
+        mapController.move(GeolocationView().getLastUserposition(), 15.0);
       }
     });
   }

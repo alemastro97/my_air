@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Views/HomePage.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,6 +22,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 
 import 'Views/Graph_view/ChartPage.dart';
+import 'Views/Permission_view/PermissionPage.dart';
+import 'Widgets/Permission_page_widgets/PermissionPageWidget.dart';
 var kInfo = ValueNotifier<List<ValueNotifier<InfoPollution>>>(
     [
       ValueNotifier(InfoPollution('PM10', amount: 23.0)),
@@ -34,11 +37,13 @@ var kInfo = ValueNotifier<List<ValueNotifier<InfoPollution>>>(
 List<SensorModule> sensorList = [];
 //bool logged = false ;
 UserAccount actualUser = null;
-
+bool permissions = false;
+int nU = 0;
 var x;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  permissions = await GeolocationView().checkPermissions();
   DatabaseHelper databaseHelper = DatabaseHelper();
   DailyUnitData d = DailyUnitData();
   d.initializeValues();
@@ -50,7 +55,10 @@ void main() async {
     await fetchSensorsFromAPI();
     sensorList = await databaseHelper.getSensorList();
   }
-  GeolocationView().getCurrentLocation(); ///Starting geolocator thread
+
+  await GeolocationView().getCurrentLocation(); ///Todo Starting geolocator thread
+  print(actualUser.toString());
+  print("Permi" + permissions.toString() );
   runApp(MyApp());
 }
 
@@ -60,7 +68,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ThemeProvider(
+
+     return ThemeProvider(
       initTheme: kLightTheme,
       child: Builder(builder: (context) {
         return MaterialApp(
@@ -72,13 +81,25 @@ class MyApp extends StatelessWidget {
             "/Login": (_) => new ProfilePage(),
 
           },
-          home: (actualUser == null) ?
-         ProfilePage()
+          home:
+          !permissions ?
+          PermissionPage()
+              :
+          (actualUser == null) ?
+          ProfilePage()
             :
           HomePage(),
+
+           //   :
+        //   PermissionPage(),
+
         );
       }),
     );
   }
+
+
+
+
 }
 

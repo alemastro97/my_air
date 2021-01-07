@@ -24,7 +24,36 @@ class GeolocationView{
     return _geolocationView;
 
   }
+  Future<bool> checkPermissions() async {
+  print("");
+    bool serviceEnabled;
+    LocationPermission permission;
 
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+
+      return false;
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.deniedForever) {
+     // permissions = false;
+      return false;
+    }
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission != LocationPermission.whileInUse &&
+          permission != LocationPermission.always) {
+  //      print("Deny");
+//        permissions = false;
+        return false;
+      }
+    }
+    //permissions = true;
+    return true;
+    //  return await Geolocator.getCurrentPosition();
+  }
   LatLng getLastUserposition(){
     return user_position;
   }
@@ -38,20 +67,33 @@ class GeolocationView{
   // Get the current location and set the actual values
   // Called every two minutes
   getCurrentLocation() async{
-    final geoposition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    user_position = new LatLng(geoposition.latitude, geoposition.longitude);
+  //  await checkPermissions();
+    if (permissions){
+      final geoposition = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      user_position = new LatLng(geoposition.latitude, geoposition.longitude);
 
-    var instantData = await d.setSensorsDataAverage(DatabaseHelper(), DateTime.now().hour, geoposition.latitude, geoposition.longitude,50000);
-    for( var item in instantData) {
-      print(" -------------------------------------------"+ item.pollutantName +"------------------------------------------------------");
-      print(item.value);
-      print(item.timestamp);
-      print(item.sensor);
-      print("_________________________________________________________________________________________________________________");
+      var instantData = await d.setSensorsDataAverage(
+          DatabaseHelper(),
+          DateTime.now().hour,
+          geoposition.latitude,
+          geoposition.longitude,
+          50000);
+      for (var item in instantData) {
+        print(" -------------------------------------------" +
+            item.pollutantName +
+            "------------------------------------------------------");
+        print(item.value);
+        print(item.timestamp);
+        print(item.sensor);
+        print(
+            "_________________________________________________________________________________________________________________");
+      }
+
+      for (var i = 0; i < kInfo.value.length; i++)
+        kInfo.value.elementAt(i).value.amount > Limits.elementAt(i)
+            ? this._notifications.pushNotification()
+            : null;
     }
-
-    for(var i = 0; i < kInfo.value.length; i++)
-      kInfo.value.elementAt(i).value.amount > Limits.elementAt(i) ? this._notifications.pushNotification()  : null;
   }
-
 }

@@ -1,5 +1,5 @@
-import 'package:latlong/latlong.dart';
 
+// Unit class realted to sensors
 class Unit {
 
   int _id;

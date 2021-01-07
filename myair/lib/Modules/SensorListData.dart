@@ -1,9 +1,9 @@
 
-// Get the sensor list closed to the user
 import 'package:geolocator/geolocator.dart';
 import 'package:myair/Modules/Sensor.dart';
 import 'dart:math' as Math;
 
+// Get the sensor list closed to the user
 Future<List<SensorModule>> getSensorListClosedtoUser(List<SensorModule> sl, double ulatitude, double ulongitude, int utolerance) async {
   int count = sl.length; // Count the number of map entries in the db
 

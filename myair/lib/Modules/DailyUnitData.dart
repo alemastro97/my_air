@@ -3,7 +3,6 @@ import 'package:myair/Modules/SensorData.dart';
 import 'package:myair/Modules/info_pollution.dart';
 import 'package:myair/Services/Arpa_service/SensorDataRetriever.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
-import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
 import '../main.dart';
 import 'DailySensorData.dart';
 import 'package:myair/Modules/Sensor.dart';

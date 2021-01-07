@@ -1,4 +1,3 @@
-import "package:myair/Modules/SensorData.dart";
 
 class DailySensorData {
 

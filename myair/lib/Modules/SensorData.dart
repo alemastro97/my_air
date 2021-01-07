@@ -1,3 +1,4 @@
+// Sensor data class
 class SensorData {
 
   int _id; ///ID in the internal database

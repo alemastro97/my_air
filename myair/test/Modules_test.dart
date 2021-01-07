@@ -430,6 +430,13 @@ void main() {
       expect(pa.get_o3_rw(), 0.70);
       expect(pa.get_co_rw(), 1.20);
     });
+
+    // Reward: Notifications of the termination of the cycle
+    test('Reward: Notifications', ()
+    {
+      PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
+    });
+
   });
 
   group('Widget test -', () {

@@ -1,13 +1,6 @@
 
 class PollutantAgent {
 
-  double _pm10_limit;
-  double _pm25_limit;
-  double _no2_limit;
-  double _so2_limit;
-  double _o3_limit;
-  double _co_limit;
-
   double _pm10_value;
   double _pm25_value;
   double _no2_value;
@@ -29,6 +22,20 @@ class PollutantAgent {
   double _o3_rw;
   double _co_rw;
 
+  double _pm10_limit;
+  double _pm25_limit;
+  double _no2_limit;
+  double _so2_limit;
+  double _o3_limit;
+  double _co_limit;
+
+  bool _pm10_notify;
+  bool _pm25_notify;
+  bool _no2_notify;
+  bool _so2_notify;
+  bool _o3_notify;
+  bool _co_notify;
+
   int day;
   int hour;
 
@@ -42,12 +49,20 @@ class PollutantAgent {
 
     this.hour=0;
     this.day=0;
+
     this._pm10_value=0.0;
     this._pm25_value=0.0;
     this._no2_value=0.0;
     this._so2_value=0.0;
     this._o3_value=0.0;
     this._co_value=0.0;
+
+    this._pm10_notify=false;
+    this._pm25_notify=false;
+    this._no2_notify=false;
+    this._so2_notify=false;
+    this._o3_notify=false;
+    this._co_notify=false;
   }
 
   double get_pm10_value() {
@@ -120,6 +135,66 @@ class PollutantAgent {
 
   double get_co_rw() {
     return _co_rw;
+  }
+
+  // Return the nofy status and reset it
+  bool get_pm10_notify() {
+    bool value;
+
+    value = this._pm10_notify;
+    this._pm10_notify = false;
+
+    return value;
+  }
+
+  // Return the nofy status and reset it
+  bool get_pm25_notify() {
+    bool value;
+
+    value = this._pm25_notify;
+    this._pm25_notify = false;
+
+    return value;
+  }
+
+  // Return the nofy status and reset it
+  bool get_no2_notify() {
+    bool value;
+
+    value = this._no2_notify;
+    this._no2_notify = false;
+
+    return value;
+  }
+
+  // Return the nofy status and reset it
+  bool get_so2_notify() {
+    bool value;
+
+    value = this._so2_notify;
+    this._so2_notify = false;
+
+    return value;
+  }
+
+  // Return the nofy status and reset it
+  bool get_o3_notify() {
+    bool value;
+
+    value = this._o3_notify;
+    this._o3_notify = false;
+
+    return value;
+  }
+
+  // Return the nofy status and reset it
+  bool get_co_notify() {
+    bool value;
+
+    value = this._co_notify;
+    this._co_notify = false;
+
+    return value;
   }
 
   void set_values(int hour, int day, double pm10, double pm25, double no2, double so2, double o3, double co) {
@@ -197,7 +272,7 @@ class PollutantAgent {
       }
 
       // Reward calculs done every hour
-      set_sensors_rw();
+      setSensorsRW();
 
       this.hour = hour;
     }
@@ -205,7 +280,7 @@ class PollutantAgent {
   }
 
   // Sensors reword calculus
-  void set_sensors_rw() {
+  void setSensorsRW() {
 
     this._pm10_rw = this._pm10_rw + this._pm10_value;
     this._pm25_rw = this._pm25_rw + this._pm25_value;
@@ -214,9 +289,40 @@ class PollutantAgent {
     this._o3_rw = this._o3_rw + this._o3_value;
     this._co_rw = this._co_rw + this._co_value;
 
+    // Notify if a cycle has been done
     if (this._pm10_rw  >= _pm10_limit) {
       this._pm10_rw = 0;
-      // pm10_nf = 1
+      _pm10_notify = true;
+    }
+
+    // Notify if a cycle has been done
+    if (this._pm25_rw  >= _pm25_limit) {
+      this._pm25_rw = 0;
+      _pm25_notify = true;
+    }
+
+    // Notify if a cycle has been done
+    if (this._no2_rw  >= _no2_limit) {
+      this._no2_rw = 0;
+      _no2_notify = true;
+    }
+
+    // Notify if a cycle has been done
+    if (this._so2_rw  >= _so2_limit) {
+      this._so2_rw = 0;
+      _so2_notify = true;
+    }
+
+    // Notify if a cycle has been done
+    if (this._o3_rw  >= _o3_limit) {
+      this._o3_rw = 0;
+      _o3_notify = true;
+    }
+
+    // Notify if a cycle has been done
+    if (this._co_rw  >= _co_limit) {
+      this._co_rw = 0;
+      _co_notify = true;
     }
 
   }

@@ -37,7 +37,7 @@ class _SearchableDropdownWidget extends State<SearchableDropdownWidget> {
    return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child:Container(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).brightness == Brightness.light ? Colors.white : Theme.of(context).backgroundColor,
         child:SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
@@ -46,7 +46,7 @@ class _SearchableDropdownWidget extends State<SearchableDropdownWidget> {
                 height: 5,
               ),
               SearchableDropdown.single(
-                menuBackgroundColor: Theme.of(context).backgroundColor,
+                menuBackgroundColor: Theme.of(context).brightness == Brightness.light ? Colors.white : Theme.of(context).backgroundColor,
                 items: items,
                 value: selectedValue,
                 hint: "Search a station",

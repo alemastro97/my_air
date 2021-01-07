@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:myair/Modules/Unit.dart';
 
 import 'package:latlong/latlong.dart';
@@ -88,11 +89,12 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
   }
   @override
   Widget build(BuildContext context) {
+
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
    userLocationOptions = UserLocationOptions(
      updateMapLocationOnPositionChange: false,
-     showMoveToCurrentLocationFloatingActionButton: false,
+     showMoveToCurrentLocationFloatingActionButton:false,
       context: context,
       mapController: mapController,
       markers: markers,
@@ -104,6 +106,8 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
           options: MapOptions(
             center: GeolocationView().getLastUserposition(),
             zoom: 15.0,
+            maxZoom: 17.0,
+            minZoom: 10.0,
             plugins: [
               UserLocationPlugin(),
             ],
@@ -115,7 +119,9 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
             ),
             MarkerLayerOptions( markers: _buildMarkersOnMap()),
             userLocationOptions,
+
           ],
+
           mapController: mapController,
         ),
         if(displayCaps)StationInfoWidget(actualStation: currentlySelectedPin),
@@ -126,6 +132,9 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
 
         //search
         SearchWidget(
+          stationIdList: stationIdList,
+          recenter:recenterMap ,
+
           currentSearchPercent: currentSearchPercent,
           currentExplorePercent: currentExplorePercent,
           isSearchOpen: isSearchOpen,
@@ -133,13 +142,31 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
           onHorizontalDragUpdate: onSearchHorizontalDragUpdate,
           onPanDown: () => animationControllerSearch?.stop(),
         ),
+
+
+        Padding(
+    padding: const EdgeInsets.only(left: 10.0,top: 10.0),
+          child: ClipOval(
+
+            child: Material(
+              color: Theme.of(context).brightness == Brightness.light ? Colors.white : Theme.of(context).backgroundColor,
+              // button color
+              child: InkWell(
+                splashColor: Colors.white, // inkwell color
+                child: SizedBox(height: realH(71),width: realH(71), child: Icon(Icons.my_location)),
+                onTap: () {recenterMap(null);},
+              ),
+            ),
+          ),
+        ),
+
         //search back
-        SearchBackWidget(
+     /*   SearchBackWidget(
           stationIdList: stationIdList,
           recenter:recenterMap ,
           currentSearchPercent: currentSearchPercent,
           animateSearch: animateSearch,
-        ),
+        ),*/
       ],
 
     );

@@ -132,7 +132,7 @@ class AgentInfoWidget extends StatelessWidget{
                                                 fit: BoxFit.fitWidth,
                                                 child: Text(
                                                   //kInfo.elementAt(index).amount.toString(),
-                                                 value.amount
+                                                 value.amount.toStringAsFixed(2)
                                                       .toString(),
                                                   style: GoogleFonts.rubik(
                                                     fontWeight: FontWeight.w400,

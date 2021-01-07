@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:myair/Modules/Unit.dart';
 import 'package:myair/helper/ui_helper.dart';
+
+import 'SearchBackWidget.dart';
 
 class SearchWidget extends StatelessWidget {
   final double currentExplorePercent;
@@ -14,7 +17,8 @@ class SearchWidget extends StatelessWidget {
   final Function(DragUpdateDetails) onHorizontalDragUpdate;
 
   final Function() onPanDown;
-
+  final  Function(Unit station) recenter;
+  final List<Unit> stationIdList;
   const SearchWidget(
       {Key key,
       this.currentExplorePercent,
@@ -22,7 +26,7 @@ class SearchWidget extends StatelessWidget {
       this.animateSearch,
       this.isSearchOpen,
       this.onHorizontalDragUpdate,
-      this.onPanDown})
+      this.onPanDown,this.stationIdList,this.recenter})
       : super(key: key);
 
   @override
@@ -44,22 +48,32 @@ class SearchWidget extends StatelessWidget {
           height: realH(71),
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.symmetric(horizontal: realW(17)),
-          child: Opacity(
-            opacity: 1.0 - currentSearchPercent,
-            child: Icon(
-              Icons.search,
-              size: realW(34),
-            ),
-          ),
+          child: currentSearchPercent != 1.0 ?
+
+         Opacity(
+           opacity: 1.0 - currentSearchPercent,
+           child: Icon(
+                  Icons.search,
+                  size: realW(34),
+                ), )
+          :
+                SearchBackWidget(
+                  stationIdList: stationIdList,
+                  recenter:recenter ,
+                  currentSearchPercent: currentSearchPercent,
+                  animateSearch: animateSearch,
+                ),
+
+
+
+
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).brightness == Brightness.light ? Colors.white : Theme.of(context).backgroundColor,
               borderRadius: BorderRadius.all(Radius.circular(realW(36))),
               boxShadow: [
                 BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.3), blurRadius: realW(36)),
-              ]),
-        ),
-      ),
-    );
+              ])),
+    ));
   }
 
   /// dispatch Search state

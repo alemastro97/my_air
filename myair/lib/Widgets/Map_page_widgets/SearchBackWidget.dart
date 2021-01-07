@@ -14,12 +14,12 @@ class SearchBackWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
+    return/*Positioned(
       bottom: realH(80),
       right: realW(27),
       child: Opacity(
         opacity: currentSearchPercent,
-        child: Container(
+        child:*/ Container(
           width: realW(320),
           height: realH(71),
           alignment: Alignment.centerLeft,
@@ -46,8 +46,8 @@ class SearchBackWidget extends StatelessWidget {
               )
             ],
           ),
-        ),
-      ),
+      //  ),
+     // ),
     );
   }
 }

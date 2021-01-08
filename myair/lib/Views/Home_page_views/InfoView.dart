@@ -30,16 +30,26 @@ class InfoView extends StatelessWidget {
             Card(elevation: 1.0,
 
                 child:Row(
+
                   children: <Widget>[
                     Expanded(
                       flex: 1,
-                      child: Container(
-                        decoration: BoxDecoration(
+                      child: new Container(
+                        height: MediaQuery.of(context).size.height/8,// padding:  EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/10),
+                          decoration: new BoxDecoration(
+                              shape: BoxShape.rectangle,
 
-                          color: Colors.red,
+                          ),
+                      child: Padding(
+                        padding:  EdgeInsets.all( MediaQuery.of(context).size.width/50),
+                        child: Image(
+
+                                fit: BoxFit.fill,
+                                image: AssetImage('assets/images/PollutionIcons/Good.png')
+
                         ),
-                      ),
-                    ),
+                      ),),),
+
                     Expanded(
                       flex: 3,
                       child: Column(
@@ -69,13 +79,21 @@ class InfoView extends StatelessWidget {
                   children: <Widget>[
                     Expanded(
                       flex: 1,
-                      child: Container(
-                        decoration: BoxDecoration(
+                      child: new Container(
+                        height: MediaQuery.of(context).size.height/8,// padding:  EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/10),
+                        decoration: new BoxDecoration(
+                          shape: BoxShape.rectangle,
 
-                          color: Colors.red,
                         ),
-                      ),
-                    ),
+                        child: Padding(
+                          padding:  EdgeInsets.all( MediaQuery.of(context).size.width/50),
+                          child: Image(
+
+                              fit: BoxFit.fill,
+                              image: AssetImage('assets/images/PollutionIcons/Moderate.png')
+
+                          ),
+                        ),),),
                     Expanded(
                       flex: 3,
                       child: Column(
@@ -106,13 +124,21 @@ class InfoView extends StatelessWidget {
                   children: <Widget>[
                     Expanded(
                       flex: 1,
-                      child: Container(
-                        decoration: BoxDecoration(
+                      child: new Container(
+                        height: MediaQuery.of(context).size.height/8,// padding:  EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/10),
+                        decoration: new BoxDecoration(
+                          shape: BoxShape.rectangle,
 
-                          color: Colors.red,
                         ),
-                      ),
-                    ),
+                        child: Padding(
+                          padding:  EdgeInsets.all( MediaQuery.of(context).size.width/50),
+                          child: Image(
+
+                              fit: BoxFit.fill,
+                              image: AssetImage('assets/images/PollutionIcons/UnhealthyForSensitiveGroups.png')
+
+                          ),
+                        ),),),
                     Expanded(
                       flex: 3,
                       child: Column(
@@ -143,13 +169,21 @@ class InfoView extends StatelessWidget {
                   children: <Widget>[
                     Expanded(
                       flex: 1,
-                      child: Container(
-                        decoration: BoxDecoration(
+                      child: new Container(
+                        height: MediaQuery.of(context).size.height/8,// padding:  EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/10),
+                        decoration: new BoxDecoration(
+                          shape: BoxShape.rectangle,
 
-                          color: Colors.red,
                         ),
-                      ),
-                    ),
+                        child: Padding(
+                          padding:  EdgeInsets.all( MediaQuery.of(context).size.width/50),
+                          child: Image(
+
+                              fit: BoxFit.fill,
+                              image: AssetImage('assets/images/PollutionIcons/Unhealthy.png')
+
+                          ),
+                        ),),),
                     Expanded(
                       flex: 3,
                       child: Column(
@@ -181,13 +215,21 @@ class InfoView extends StatelessWidget {
                   children: <Widget>[
                     Expanded(
                       flex: 1,
-                      child: Container(
-                        decoration: BoxDecoration(
+                      child: new Container(
+                        height: MediaQuery.of(context).size.height/8,// padding:  EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/10),
+                        decoration: new BoxDecoration(
+                          shape: BoxShape.rectangle,
 
-                          color: Colors.red,
                         ),
-                      ),
-                    ),
+                        child: Padding(
+                          padding:  EdgeInsets.all( MediaQuery.of(context).size.width/50),
+                          child: Image(
+
+                              fit: BoxFit.fill,
+                              image: AssetImage('assets/images/PollutionIcons/VeryUnhealthy.png')
+
+                          ),
+                        ),),),
                     Expanded(
                       flex: 3,
                       child: Column(
@@ -217,13 +259,21 @@ class InfoView extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   flex: 1,
-                  child: Container(
-                    decoration: BoxDecoration(
+                  child: new Container(
+                    height: MediaQuery.of(context).size.height/8,// padding:  EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/10),
+                    decoration: new BoxDecoration(
+                      shape: BoxShape.rectangle,
 
-                      color: Colors.red,
                     ),
-                  ),
-                ),
+                    child: Padding(
+                      padding:  EdgeInsets.all( MediaQuery.of(context).size.width/50),
+                      child: Image(
+
+                          fit: BoxFit.fill,
+                          image: AssetImage('assets/images/PollutionIcons/Hazardous.png')
+
+                      ),
+                    ),),),
                 Expanded(
                   flex: 3,
                   child: Column(

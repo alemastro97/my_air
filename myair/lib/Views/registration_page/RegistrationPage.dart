@@ -14,12 +14,13 @@ class RegistrationPage extends StatefulWidget{
 
 }
 class _RegistrationPage extends State<RegistrationPage>{
-  @override
+
   TextEditingController emailController = new TextEditingController();
   TextEditingController firstController = new TextEditingController();
   TextEditingController lastController = new TextEditingController();
   TextEditingController passController = new TextEditingController();
   var error = false;
+  @override
   Widget build(BuildContext context) {
 
 

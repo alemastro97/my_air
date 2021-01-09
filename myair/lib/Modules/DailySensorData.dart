@@ -1,30 +1,33 @@
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+
 class DailySensorData {
 
-  List<double> _values = [];
+  var _values = ValueNotifier<List<double>>([]);
 
   DailySensorData() {
     for (var i = 0; i < 24; i++) {
-      this._values.add(0.0);
+      this._values.value.add(0.0);
     }
   }
 
-  List<double> getValues() {
+  ValueListenable<List<double>> getValues() {
     return _values;
   }
 
   double getSum() {
     double sum = 0;
 
-    for(int i=0; i<24; i++) {
-      sum = sum + _values[i];
+    for(int i=0; i<_values.value.length; i++) {
+      sum = sum + _values.value[i];
     }
 
     return sum;
   }
 
-  Future<void> setDataAverage(double average, int hour) async {
-    this._values[hour] = (this._values[hour] + average) / 2;
+   setDataAverage(double average, int hour)  {
+    this._values.value[hour] = this._values.value[hour] == 0.0 ? average : (this._values.value[hour] + average) / 2;
   }
 
 }

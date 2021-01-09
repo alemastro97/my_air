@@ -1,8 +1,10 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -14,7 +16,7 @@ import 'BarChart.dart';
 class ChartCardWidget extends StatefulWidget{
   final data;
   final int index;
-  const ChartCardWidget({Key key,  this.index, this.data}) : super(key: key);
+  const ChartCardWidget({Key key,  this.index, ValueListenable<List<double>> this.data}) : super(key: key);
 
   _ChartCardWidgetState createState() => _ChartCardWidgetState();
 
@@ -24,10 +26,11 @@ class ChartCardWidget extends StatefulWidget{
 class _ChartCardWidgetState extends State<ChartCardWidget>{
   var _height = 0.0;
   var _myAnimatedWidget;
+
   @override
   Widget build(BuildContext context) {
     _height == 0 ? _height =  MediaQuery.of(context).size.height/7 : null;
-    _myAnimatedWidget == null ? _myAnimatedWidget = MinimizePreview(index: widget.index): null;
+    _myAnimatedWidget == null ? _myAnimatedWidget = MinimizePreview(index: widget.index, data: widget.data): null;
     return  AnimatedContainer(
       height: _height,
       duration: Duration(milliseconds: 200),
@@ -48,7 +51,7 @@ class _ChartCardWidgetState extends State<ChartCardWidget>{
         onTap: (){
           setState(() {
             _height == MediaQuery.of(context).size.height/7 ?  _height =  MediaQuery.of(context).size.width : _height = MediaQuery.of(context).size.height/7;
-            _height == MediaQuery.of(context).size.height/7 ?  _myAnimatedWidget = MinimizePreview(index: widget.index) : _myAnimatedWidget = ExpandedPreview(index: widget.index);
+            _height == MediaQuery.of(context).size.height/7 ?  _myAnimatedWidget = MinimizePreview(index: widget.index, data: widget.data) : _myAnimatedWidget = ExpandedPreview(index: widget.index,  data: widget.data);
 
           });
         },
@@ -60,7 +63,8 @@ class _ChartCardWidgetState extends State<ChartCardWidget>{
 
 class MinimizePreview extends StatelessWidget{
   final int index;
-  const MinimizePreview({Key key, this.index}) : super(key: key);
+  final data;
+  const MinimizePreview({Key key, this.index, this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
    return Row(
@@ -97,10 +101,14 @@ class MinimizePreview extends StatelessWidget{
            ),
          ),
        ),
-       Expanded(
+    ValueListenableBuilder(
+    builder:(BuildContext context, List<double> value, Widget child){
+    return Expanded(
          flex:1,
-         child:BarChartPreview(),
-       ),
+         child:BarChartPreview(data: value,),
+       );},
+      valueListenable: this.data,
+    ),
      ],
    );
   }
@@ -108,51 +116,52 @@ class MinimizePreview extends StatelessWidget{
 }
 
 class ExpandedPreview extends StatelessWidget{
-
+  final data;
   final int index;
-  const ExpandedPreview({Key key, this.index}) : super(key: key);
+  const ExpandedPreview({Key key, this.index, this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Expanded(
-          flex: 1,
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top:8.0),
-                child: FittedBox(
-                  fit: BoxFit.fitHeight,
-                  child: Text(
-                    kInfo.value.elementAt(index).value.name,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+    return ValueListenableBuilder(
+      builder:(BuildContext context, List<double> value, Widget child){
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: FittedBox(
+                    fit: BoxFit.fitHeight,
+                    child: Text(
+                      kInfo.value.elementAt(index).value.name,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
                   ),
                 ),
-              ),
-
-              Padding(
-               padding: const EdgeInsets.only(bottom:8.0),
-                child: FittedBox(
-                  fit: BoxFit.fitHeight,
-
-                  child: Text(
-                    "24 Hours • Exposure",
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: FittedBox(
+                    fit: BoxFit.fitHeight,
+                    child: Text(
+                      "24 Hours • Exposure",
+                    ),
                   ),
                 ),
-              ),
-
-              Expanded(
-                flex:3,
-                child:BarChart(),
-              ),
-
-            ],
+                Expanded(
+                  flex: 3,
+                  child: BarChart(data: value,),
+                ),
+              ],
+            ),
           ),
-        ),
-
-      ],
+        ],
+      );
+    },
+    valueListenable: this.data,
     );
   }
 

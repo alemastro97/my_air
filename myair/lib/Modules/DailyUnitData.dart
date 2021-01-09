@@ -1,4 +1,5 @@
 
+import 'package:flutter/foundation.dart';
 import 'package:myair/Modules/SensorData.dart';
 import 'package:myair/Modules/info_pollution.dart';
 import 'package:myair/Services/Arpa_service/SensorDataRetriever.dart';
@@ -11,7 +12,7 @@ import 'package:myair/Modules/SensorListData.dart';
 
 class DailyUnitData {
 
-  DailySensorData _pm10;
+  DailySensorData _pm10; /// array ultime 24h  di misurazione
   DailySensorData _pm25;
   DailySensorData _no2;
   DailySensorData _so2;
@@ -37,27 +38,27 @@ class DailyUnitData {
     _co = DailySensorData();
   }
 
-  List<double> getPM10Values() {
+  ValueListenable<List<double>> getPM10Values() {
     return _pm10.getValues();
   }
 
-  List<double> getPM25Values() {
+  ValueListenable<List<double>> getPM25Values() {
     return _pm25.getValues();
   }
 
-  List<double> getNO2Values() {
+  ValueListenable<List<double>> getNO2Values() {
     return _no2.getValues();
   }
 
-  List<double> getSO2Values() {
+  ValueListenable<List<double>> getSO2Values() {
     return _so2.getValues();
   }
 
-  List<double> getO3Values() {
+  ValueListenable<List<double>> getO3Values() {
     return _o3.getValues();
   }
 
-  List<double> getCOValues() {
+  ValueListenable<List<double>>getCOValues() {
     return _co.getValues();
   }
 
@@ -74,7 +75,6 @@ class DailyUnitData {
 
     List<SensorModule> slAll = await db.getSensorList();
     List<SensorModule> sensorList = await getSensorListClosedtoUser(slAll, ulat, ulong, utol);
-    //List<Sensor> sensorList = await db.getSensorListClosedtoUser(ulat, ulong, utol);
     List<InstantData> sensorData = [];
 
     for (sensor in sensorList) {
@@ -83,12 +83,12 @@ class DailyUnitData {
         var data_sensor = await fetchSensorDataFromAPI(sensor.sensor,24);
         if (data_sensor.length > 0){
           average = actualAverage(data_sensor);
-          await this._pm10.setDataAverage(average, hour);
+          this._pm10.setDataAverage(average, hour);///Media dell'ora attuale nella posizione [hour] dell'array
 
           bpm10 = true;
 
          //kInfo.elementAt(0).amount = average;
-          kInfo.value.elementAt(0).value= new InfoPollution("PM10", amount: average);
+          kInfo.value.elementAt(0).value = new InfoPollution("PM10", amount: average);
           // Data structure for real time data dispaly
           InstantData d = new InstantData(sensor.sensor, "PM10", average.toString(), data_sensor.elementAt(data_sensor.length-1).timestamp,sensor.name);
           sensorData.add(d);

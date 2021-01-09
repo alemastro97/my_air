@@ -83,7 +83,7 @@ class HomePageState extends State<HomePage> {
   //  setState(() async {
       imageCache.clear();
       imageCache.clearLiveImages();
-      top_image = await writeImageTemp(actualUser.img, 'image2');
+      top_image = await writeImageTemp(actualUser.img, 'image');
   //  });
   }
   void onChangedTab(int index) {

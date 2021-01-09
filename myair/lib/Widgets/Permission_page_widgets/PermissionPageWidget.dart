@@ -27,8 +27,7 @@ class _PermissionPageWidgetState extends State<PermissionPageWidget> with Widget
       final granted = await Permission.locationAlways.isGranted;
       if (granted) {
           actualUser == null ? Navigator.pushReplacementNamed(context, '/Login') : Navigator.pushReplacementNamed(context, '/HomePage');
-        } else {
-         // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+
         }
       }
     }

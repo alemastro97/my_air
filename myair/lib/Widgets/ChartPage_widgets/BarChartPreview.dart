@@ -1,76 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 class BarChartPreview extends StatelessWidget{
-  var chartData;
-  _generateData() {
+  final List<double> data;
 
+  BarChartPreview({Key key, this.data}) : super(key: key);
 
-
-    /*   _seriesData.add(
-      charts.Series(
-
-        domainFn: (Pollution pollution,_) => pollution.place,
-        measureFn: (Pollution pollution,_) => pollution.quantity,
-
-        id: '2017',
-        data: data1,
-        fillPatternFn: (_, __) => charts.FillPatternType.solid,
-        fillColorFn: (Pollution pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xff990099)),
-      ),
-    );*/
-
-    /*  _seriesData.add(
-      charts.Series(
-        domainFn: (Pollution pollution,_) => pollution.place,
-        measureFn: (Pollution pollution,_) => pollution.quantity,
-        id: '2018',
-        data: data2,
-        fillPatternFn: (_, __) => charts.FillPatternType.solid,
-        fillColorFn: (Pollution pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xff109618)),
-      ),
-    );
-
-    _seriesData.add(
-      charts.Series(
-        domainFn: (Pollution pollution,_) => pollution.place,
-        measureFn: (Pollution pollution,_) => pollution.quantity,
-        id: '2019',
-        data: data3,
-        fillPatternFn: (_, __) => charts.FillPatternType.solid,
-        fillColorFn: (Pollution pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xffff9900)),
-      ),
-    );
-*/
-    /*var pieData=[
-      new Task('Work', 35.8, Color(0xff3366cc)),
-      new Task('Eat', 8.3, Color(0xff3366cc)),
-      new Task('Commute', 10.8, Color(0xff3366cc)),
-      new Task('TV', 15.6, Color(0xff3366cc)),
-      new Task('Sleep', 19.2, Color(0xff3366cc)),
-      new Task('Other', 10.3, Color(0xff3366cc)),
-    ];
-
-   _seriesPieData.add(
-        charts.Series(
-          data: pieData,
-          domainFn: (Task task,_)=> task.task,
-          measureFn: (Task task,_) => task.taskvalue,
-          colorFn: (Task task,_) =>
-              charts.ColorUtil.fromDartColor(task.colorval),
-          id:'Daily Task',
-          labelAccessorFn: (Task row,_) => '${row.taskvalue}',
-        )
-    );*/
-  }
-
+  List<Pollution> dataSource = [];
   @override
   Widget build(BuildContext context) {
-
+    _generateData();
     var barColor = Theme.of(context).brightness == Brightness.light ? Colors.blueAccent : Color(0xFFFFC107);
     // _generateData();
     return  SafeArea(
@@ -90,7 +31,7 @@ class BarChartPreview extends StatelessWidget{
             // Sets 15 logical pixels as margin for all the 4 sides.
             //  margin: EdgeInsets.all(15),
               //enableAxisAnimation: true,
-              primaryXAxis: NumericAxis(
+              primaryXAxis: CategoryAxis(
                 isVisible: false,
                 // Additional range padding is applied to y axis
                 //rangePadding: ChartRangePadding.round,
@@ -105,37 +46,11 @@ class BarChartPreview extends StatelessWidget{
               ),
             //  primaryYAxis.isVisible = false,
               series: <ChartSeries>[
-                ColumnSeries<Pollution, int>(
-                    dataSource: [
-
-                      Pollution(01, 30,barColor),
-                      Pollution(02, 40,barColor),
-                      Pollution(03, 10,barColor),
-                      Pollution(04, 30,barColor),
-                      Pollution(05, 40,barColor),
-                      Pollution(06, 10,barColor),
-                      Pollution(07, 30,barColor),
-                      Pollution(08, 40,barColor),
-                      Pollution(09, 10,barColor),
-                      Pollution(10, 30,barColor),
-                      Pollution(11, 40,barColor),
-                      Pollution(12, 10,barColor),
-                      Pollution(13, 30,barColor),
-                      Pollution(14, 40,barColor),
-                      Pollution(15, 10,barColor),
-                      Pollution(16, 30,barColor),
-                      Pollution(17, 40,barColor),
-                      Pollution(18, 10,barColor),
-                      Pollution(19, 30,barColor),
-                      Pollution(20, 40,barColor),
-                      Pollution(21, 10,barColor),
-                      Pollution(22, 30,barColor),
-                      Pollution(23, 40,barColor),
-                      Pollution(24, 10,barColor),
-                    ],
-                    xValueMapper: (Pollution sales, _) => sales.place,
-                    yValueMapper: (Pollution sales, _) => sales.quantity,
-                    pointColorMapper: (Pollution data, _) => data.color
+                ColumnSeries<Pollution, String>(
+                    dataSource: dataSource,
+                    xValueMapper: (Pollution p, _) => p.hour,
+                    yValueMapper: (Pollution p, _) => p.value,
+              pointColorMapper: (Pollution data, _) => data.color
                 )
               ]
           ),
@@ -143,20 +58,41 @@ class BarChartPreview extends StatelessWidget{
       ),
     );
   }
+  _generateData (){
+    // int duration = 0;
+    var date = new DateTime.now();
+    //var hour = date.hour;
+    print( DateFormat('MM-dd  kk:00').format(   DateTime.now().subtract(Duration(hours: 24))));
+    for(var i = 0; i < data.length; i++){
+      print(i.toString() +" "+data.elementAt(i).toString());
 
+    }
+    for(var i = date.hour + 1; i < data.length; i++){
+      print(i.toString() + "   " +  DateFormat('MM-dd  kk:00').format(date.subtract(Duration(hours:  date.hour + (24 - i)))) +" "+data.elementAt(date.hour + (24 - i)).toString());
+      dataSource.add(new Pollution(DateFormat('MM-dd  kk:00').format(date.subtract(Duration(hours:  date.hour + (24 - i)))), data.elementAt(date.hour + (24 - i)), Colors.teal));
+    }
+    print("xxxx");
+    for(var i = 0; i <= date.hour; i++){
+
+      print(i.toString() + "   " + DateFormat('MM-dd  kk:00').format(date.subtract(Duration(hours:date.hour - i))) +" "+data.elementAt(i).toString());
+      dataSource.add(new Pollution(DateFormat('MM-dd  kk:00').format(date.subtract(Duration(hours: date.hour - i))), data.elementAt(i), Colors.teal));
+    }
+    print("------------------------------------------------------------------------------");
+    for(var i =  0; i < dataSource.length; i++){
+      //print(DateFormat('MM-dd  kk:00').format(date.subtract(Duration(hours:  date.hour + (24 - i)))) +" "+data.elementAt(i).toString());
+      print( dataSource.elementAt(i).value.toString());
+
+    }
+
+  }
 }
 
-class Task {
-  String task;
-  double taskvalue;
-  Color colorval;
 
-  Task(this.task, this.taskvalue, this.colorval);
-}
+
 
 class Pollution {
-  Pollution( this.place, this.quantity,this.color);
-  final int place;
-  final double quantity;
+  Pollution( this.hour, this.value,this.color);
+  final String hour;
+  final double value;
   final Color color;
 }

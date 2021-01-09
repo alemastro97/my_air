@@ -1,41 +1,41 @@
 
 class PollutantAgent {
-
+  ///Average of the daily aqi of the day until an hour
   double _pm10_value;
   double _pm25_value;
   double _no2_value;
   double _so2_value;
   double _o3_value;
   double _co_value;
-
+  ///Average of the last daily aqi of the day until an hour
   double _pm10_bck;
   double _pm25_bck;
   double _no2_bck;
   double _so2_bck;
   double _o3_bck;
   double _co_bck;
-
+  ///Summation of all misuration until this hour
   double _pm10_rw;
   double _pm25_rw;
   double _no2_rw;
   double _so2_rw;
   double _o3_rw;
   double _co_rw;
-
+  ///Notification's limit
   double _pm10_limit;
   double _pm25_limit;
   double _no2_limit;
   double _so2_limit;
   double _o3_limit;
   double _co_limit;
-
+  ///Limit reached for the reward
   bool _pm10_notify;
   bool _pm25_notify;
   bool _no2_notify;
   bool _so2_notify;
   bool _o3_notify;
   bool _co_notify;
-
+  ///Actual day and hour
   int day;
   int hour;
 
@@ -279,7 +279,7 @@ class PollutantAgent {
 
   }
 
-  // Sensors reword calculus
+  // Sensors reward calculus
   void setSensorsRW() {
 
     this._pm10_rw = this._pm10_rw + this._pm10_value;
@@ -327,26 +327,6 @@ class PollutantAgent {
 
   }
 
-  // pm25 index update
-  double set_pm25(double sensorvalue) {
-    double index;
-
-    // Index calculation
-    if ((sensorvalue>=0) && (sensorvalue <=10)) {
-      index = 1.0; // Very good
-    } else if ((sensorvalue>10) && (sensorvalue <=20)) {
-      index = 0.8; // Good
-    } else if ((sensorvalue>20) && (sensorvalue <=25)) {
-      index = 0.6; // acceptable
-    } else if ((sensorvalue>25) && (sensorvalue <=30)) {
-      index = 0.4; // Poor
-    } else if ((sensorvalue>30) && (sensorvalue <=800)) {
-      index = 0.2; // Very poor
-    } else index = 0.0;
-
-    return index;
-  }
-
   // pm10 index update
   double set_pm10(double sensorvalue) {
     double index;
@@ -361,6 +341,26 @@ class PollutantAgent {
     } else if ((sensorvalue>50) && (sensorvalue <=100)) {
       index = 0.4; // Poor
     } else if ((sensorvalue>100) && (sensorvalue <=1200)) {
+      index = 0.2; // Very poor
+    } else index = 0.0;
+
+    return index;
+  }
+
+  // pm25 index update
+  double set_pm25(double sensorvalue) {
+    double index;
+
+    // Index calculation
+    if ((sensorvalue>=0) && (sensorvalue <=10)) {
+      index = 1.0; // Very good
+    } else if ((sensorvalue>10) && (sensorvalue <=20)) {
+      index = 0.8; // Good
+    } else if ((sensorvalue>20) && (sensorvalue <=25)) {
+      index = 0.6; // acceptable
+    } else if ((sensorvalue>25) && (sensorvalue <=30)) {
+      index = 0.4; // Poor
+    } else if ((sensorvalue>30) && (sensorvalue <=800)) {
       index = 0.2; // Very poor
     } else index = 0.0;
 
@@ -446,5 +446,7 @@ class PollutantAgent {
 
     return index;
   }
+
+ /// double set_aqi();
 }
 

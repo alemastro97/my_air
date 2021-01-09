@@ -70,7 +70,7 @@ void main() {
         print(st.getValues());
       }
 
-      List<double> values = st.getValues();
+      List<double> values = st.getValues() as List<double>;
 
       expect((values[hour] * 1000).round() / 1000, 0.779);
     });

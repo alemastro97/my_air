@@ -4,7 +4,7 @@ import 'package:myair/Constants/pollution_graph_constants.dart';
 import 'package:myair/Modules/info_pollution.dart';
 import 'package:flutter/cupertino.dart';
 
-final Limits = [30.0,50.0,400.0,500.0,240.0,240.0];
+final Limits = [100.0,50.0,400.0,500.0,240.0,10.0];
 class AgentPieChart extends CustomPainter{
   AgentPieChart({@required this.info, @required this.width,@required this.index});
   final List<ValueNotifier<InfoPollution>> info;

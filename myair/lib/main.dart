@@ -3,6 +3,7 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
+import 'package:myair/Modules/PollutantAgent.dart';
 import 'package:myair/Views/HomePage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:myair/Views/ProfilePage.dart';
@@ -90,6 +91,8 @@ initialization() async {
   DatabaseHelper databaseHelper = DatabaseHelper();
   DailyUnitData d = DailyUnitData();
   d.initializeValues();
+  PollutantAgent p = PollutantAgent();
+  p.initialize(100,100,100,100,100,100);
   //databaseHelper.deleteDB();
   actualUser = await databaseHelper.getUserAccount();
   sensorList = await databaseHelper.getSensorList();

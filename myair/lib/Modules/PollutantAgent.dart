@@ -38,8 +38,18 @@ class PollutantAgent {
   ///Actual day and hour
   int day;
   int hour;
+  static PollutantAgent _pollutantAgent;
+  PollutantAgent._createInstance() ;
+  factory PollutantAgent() {
 
-  PollutantAgent(double pm10_limit, double pm25_limit, double no2_limit, double so2_limit, double o3_limit, double co_limit) {
+    if (_pollutantAgent == null) {
+      _pollutantAgent = PollutantAgent._createInstance();
+      // this is execute only once, singleton object
+    }
+    return _pollutantAgent;
+  }
+
+  initialize(double pm10_limit, double pm25_limit, double no2_limit, double so2_limit, double o3_limit, double co_limit) {
     this._pm10_limit = pm10_limit;
     this._pm25_limit = pm25_limit;
     this._no2_limit = no2_limit;
@@ -64,6 +74,32 @@ class PollutantAgent {
     this._o3_notify=false;
     this._co_notify=false;
   }
+
+  double get_pm10_limit() {
+    return _pm10_limit;
+  }
+
+  double get_pm25_limit() {
+    return _pm25_limit;
+  }
+
+  double get_no2_limit() {
+    return _no2_limit;
+  }
+
+  double get_so2_limit() {
+    return _so2_limit;
+  }
+
+  double get_o3_limit() {
+    return _o3_limit;
+  }
+
+  double get_co_limit() {
+    return _co_limit;
+  }
+
+
 
   double get_pm10_value() {
     return _pm10_value;
@@ -357,9 +393,9 @@ class PollutantAgent {
       index = 0.8; // Good
     } else if ((sensorvalue>20) && (sensorvalue <=25)) {
       index = 0.6; // acceptable
-    } else if ((sensorvalue>25) && (sensorvalue <=30)) {
+    } else if ((sensorvalue>25) && (sensorvalue <=50)) {
       index = 0.4; // Poor
-    } else if ((sensorvalue>30) && (sensorvalue <=800)) {
+    } else if ((sensorvalue>50) && (sensorvalue <=800)) {
       index = 0.2; // Very poor
     } else index = 0.0;
 
@@ -431,21 +467,24 @@ class PollutantAgent {
     double index;
 
     // Index calculation
-    if ((sensorvalue>=0) && (sensorvalue <=10)) {
+    if ((sensorvalue>=0) && (sensorvalue <=4)) {
       index = 1.0; // Very good
-    } else if ((sensorvalue>10) && (sensorvalue <=20)) {
+    } else if ((sensorvalue>4) && (sensorvalue <=8)) {
       index = 0.8; // Good
-    } else if ((sensorvalue>20) && (sensorvalue <=30)) {
+    } else if ((sensorvalue>8) && (sensorvalue <=10)) {
       index = 0.6; // acceptable
-    } else if ((sensorvalue>30) && (sensorvalue <=40)) {
+    } else if ((sensorvalue>10) && (sensorvalue <=20)) {
       index = 0.4; // Poor
-    } else if ((sensorvalue>40) && (sensorvalue <=50)) {
+    } else if ((sensorvalue>20) && (sensorvalue <=50)) {
       index = 0.2; // Very poor
     } else index = 0.0;
 
     return index;
   }
-
- /// double set_aqi();
+  int getAqi(double pm10, double pm25, double no2, double so2, double o3, double co){
+    var average = (6 - set_pm10(pm10) - set_pm25(pm25) - set_no2(no2) - set_so2(so2) -  set_o3(o3) - set_co(co))/6;
+    average = average * 500;
+    return average.round();
+  }
 }
 

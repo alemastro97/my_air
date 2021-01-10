@@ -167,6 +167,7 @@ class DailyUnitData {
       }
 
       if ( bpm10 && bpm25 && bno2 && bso2 && bo3) {
+        //TODO set 0 to value not found
         break;
       }
 

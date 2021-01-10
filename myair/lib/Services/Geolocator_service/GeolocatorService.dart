@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong/latlong.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
+import 'package:myair/Modules/PollutantAgent.dart';
 import 'package:myair/Services/Arpa_service/SensorDataRetriever.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 
@@ -79,7 +80,9 @@ class GeolocationView{
           geoposition.latitude,
           geoposition.longitude,
           50000);
+
       for (var item in instantData) {
+
         print(" -------------------------------------------" +
             item.pollutantName +
             "------------------------------------------------------");
@@ -89,6 +92,15 @@ class GeolocationView{
         print(
             "_________________________________________________________________________________________________________________");
       }
+
+      PollutantAgent().set_values(DateTime.now().hour,DateTime.now().day,
+          kInfo.value.elementAt(0).value.amount,
+        kInfo.value.elementAt(1).value.amount,
+        kInfo.value.elementAt(2).value.amount,
+        kInfo.value.elementAt(3).value.amount,
+        kInfo.value.elementAt(4).value.amount,
+        kInfo.value.elementAt(5).value.amount);
+
 
       for (var i = 0; i < kInfo.value.length; i++)
         kInfo.value.elementAt(i).value.amount > Limits.elementAt(i)

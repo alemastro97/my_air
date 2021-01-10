@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myair/Modules/PollutantAgent.dart';
 import 'package:myair/Views/Home_page_views/InfoView.dart';
 import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
 
@@ -11,10 +12,11 @@ import 'AgentListWidget.dart';
 import 'GridAgentWidget.dart';
 
 class GraphWidget extends StatelessWidget{
-
+  var _aqi = 0;
   @override
   Widget build(BuildContext context) {
     MediaQueryData _mediaQuery = MediaQuery.of(context);
+    _aqi = PollutantAgent().getAqi(kInfo.value.elementAt(0).value.amount,kInfo.value.elementAt(1).value.amount,kInfo.value.elementAt(2).value.amount, kInfo.value.elementAt(3).value.amount, kInfo.value.elementAt(4).value.amount, kInfo.value.elementAt(5).value.amount);
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.light ? Color.fromRGBO(193, 214, 233, 1) :  Color(0xFF212121),
       body:  Stack(
@@ -113,8 +115,11 @@ class GraphWidget extends StatelessWidget{
                                                   Center(
                                                     child: CustomPaint(
                                                       child: Center(),
-                                                      foregroundPainter: PieChart(
-                                                        width: constraint.maxWidth* 0.5,
+                                                      foregroundPainter:
+                                                          PieChart(
+                                                        width: constraint
+                                                                .maxWidth *
+                                                            0.5,
                                                         info: kInfo.value,
                                                       ),
                                                     ),
@@ -122,24 +127,77 @@ class GraphWidget extends StatelessWidget{
                                                   Center(
                                                     child: Container(
                                                       decoration: BoxDecoration(
-                                                        color: Theme.of(context).brightness == Brightness.light ? Color.fromRGBO(255, 255, 255, 1) : Color(0xFF373737) ,
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.light
+                                                            ? Color.fromRGBO(
+                                                                255,
+                                                                255,
+                                                                255,
+                                                                1)
+                                                            : Color(0xFF373737),
                                                         shape: BoxShape.circle,
                                                         boxShadow: [
                                                           BoxShadow(
                                                             blurRadius: 1,
-                                                            offset: Offset(-1,-1),
-                                                            color:Theme.of(context).brightness == Brightness.light ?  Colors.white : Colors.grey.shade200,
+                                                            offset:
+                                                                Offset(-1, -1),
+                                                            color: Theme.of(context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .light
+                                                                ? Colors.white
+                                                                : Colors.grey
+                                                                    .shade200,
                                                           ),
                                                           BoxShadow(
                                                             spreadRadius: -2,
                                                             blurRadius: 10,
-                                                            offset: Offset(5,5),
-                                                            color: Theme.of(context).brightness == Brightness.light ? Colors.black.withOpacity(1) : Colors.white.withOpacity(1),
+                                                            offset:
+                                                                Offset(5, 5),
+                                                            color: Theme.of(context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .light
+                                                                ? Colors.black
+                                                                    .withOpacity(
+                                                                        1)
+                                                                : Colors.white
+                                                                    .withOpacity(
+                                                                        1),
                                                           ),
                                                         ],
                                                       ),
                                                       child: Center(
-                                                        child: Text('\$1280.20'),
+                                                        child: FractionallySizedBox(
+                                                          heightFactor: 0.9,
+                                                          widthFactor: 0.9,
+                                                          child: Container(
+                                                            decoration: BoxDecoration(
+                                                              shape: BoxShape.circle,
+                                                            ),
+                                                            child: CircleAvatar(
+
+                                                              //  fit: BoxFit.fill,
+                                                                backgroundImage: _aqi >= 0 && _aqi <= 50
+                                                                    ? AssetImage(
+                                                                        'assets/images/PollutionIcons/Good.png')
+                                                                    : (_aqi >= 51 &&
+                                                                            _aqi <=
+                                                                                100
+                                                                        ? AssetImage(
+                                                                            'assets/images/PollutionIcons/Moderate.png')
+                                                                        : (_aqi >= 101 &&
+                                                                                _aqi <= 150
+                                                                            ? AssetImage('assets/images/PollutionIcons/UnhealthyForSensitiveGroups.png')
+                                                                            : (_aqi >= 151 && _aqi <= 200
+                                                                                ? AssetImage('assets/images/PollutionIcons/Unhealthy.png')
+                                                                                : (_aqi >= 201 && _aqi <= 300
+                                                                                    ? AssetImage('assets/images/PollutionIcons/VeryUnhealthy.png')
+                                                                                    : AssetImage('assets/images/PollutionIcons/Hazardous.png'))))),
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),

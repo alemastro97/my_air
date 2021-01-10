@@ -6,6 +6,7 @@ import 'package:myair/Modules/SensorListData.dart';
 import 'package:myair/Modules/Sensor.dart';
 import 'package:myair/Modules/SensorData.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
+import 'package:latlong/latlong.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -95,15 +96,13 @@ void main() {
       double ulat = 45.443857653564926;
       double ulong = 9.167944501742676;
       int utol = 10000;
-
       SensorModule sensor;
       SensorModule sensor1 = SensorModule(
           121,
           "5718",
           "Magenta",
           "546",
-          "45.462415791106615",
-          "8.880210433125571",
+          new LatLng(45.462415791106615, 8.880210433125571),
           "Ozono",
           "µg/m³",
           "1995-07-29T00:00:00.000",

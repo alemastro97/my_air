@@ -15,10 +15,10 @@ Future<List<SensorModule>> getSensorListClosedtoUser(List<SensorModule> sl, doub
   print("Checking DB sensors (" + count.toString() + ")");
 
   for (sensor in sl) {
-    lat = sensor.lat;
-    lng =sensor.lng;
-    distanceMeters = Geolocator.distanceBetween(ulatitude, ulongitude, double.parse(lat), double.parse(lng));
-    distanceMeters2 = getDistance(ulatitude, ulongitude, double.parse(lat), double.parse(lng));
+    lat = sensor.position.latitude;
+    lng =sensor.position.longitude;
+    distanceMeters = Geolocator.distanceBetween(ulatitude, ulongitude, lat, lng);
+    distanceMeters2 = getDistance(ulatitude, ulongitude, lat, lng);
 
     if (distanceMeters < utolerance) {
       sensorList.add(sensor);

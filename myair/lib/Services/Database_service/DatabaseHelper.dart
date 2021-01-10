@@ -194,8 +194,8 @@ class DatabaseHelper {
     for (int i = 0; i < count; i++) {
 
       sensor = SensorModule.fromMapObject(sensorMapList[i]);
-      lat = sensor.lat;
-      lng =sensor.lng;
+      lat = sensor.position.latitude;
+      lng =sensor.position.longitude;
       distanceMeters = Geolocator.distanceBetween(ulatitude, ulongitude, double.parse(lat), double.parse(lng));
       distanceMeters2 = getDistance(ulatitude, ulongitude, double.parse(lat), double.parse(lng));
 

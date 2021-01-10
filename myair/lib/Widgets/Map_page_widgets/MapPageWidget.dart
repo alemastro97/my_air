@@ -179,8 +179,8 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
       if(station != null) {
         displayCaps = true;
         currentlySelectedPin.locationName = station.unit;
-        currentlySelectedPin.location = new LatLng(station.lat,station.lng);
-        mapController.move(new LatLng(station.lat,station.lng) , 17.0);
+        currentlySelectedPin.location = station.position;
+        mapController.move(station.position , 17.0);
       }else{
         mapController.move(GeolocationView().getLastUserposition(), 15.0);
       }
@@ -198,7 +198,7 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
       return  Marker(
         width: 80.0,
         height: 80.0,
-        point: LatLng(Station.lat ,Station.lng),
+        point: Station.position,
         //anchorPos: anchorPos,
         builder: (ctx) => GestureDetector(
           onTap: () {
@@ -206,7 +206,7 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
               //TODO insert station values
               displayCaps = true;
               currentlySelectedPin.locationName=Station.unit;
-              currentlySelectedPin.location = LatLng(Station.lat,Station.lng);
+              currentlySelectedPin.location = Station.position;
           });
           },
           child:Container(
@@ -228,7 +228,7 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
     Unit unit;
     for (var sensoritem in sensor) {
       if (idunit != sensoritem.idunit) {
-        unit = new Unit(sensoritem.id, sensoritem.unit, sensoritem.idunit, double.parse(sensoritem.lat), double.parse(sensoritem.lng));
+        unit = new Unit(sensoritem.id, sensoritem.unit, sensoritem.idunit, new LatLng(sensoritem.position.latitude, sensoritem.position.longitude));
         unitList.add(unit);
       }
       idunit = unit.idunit;

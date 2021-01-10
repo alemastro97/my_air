@@ -5,6 +5,7 @@ import 'package:myair/Modules/Sensor.dart';
 import 'package:myair/Modules/Unit.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
+import 'package:latlong/latlong.dart';
 
 class UnitList extends StatefulWidget {
 
@@ -267,7 +268,7 @@ Future<List<Unit>> getUnitList(List<SensorModule> sensor) async {
   for (var sensoritem in sensor) {
 
     if (idunit != sensoritem.idunit) {
-      unit = new Unit(sensoritem.id, sensoritem.unit, sensoritem.idunit, double.parse(sensoritem.lat), double.parse(sensoritem.lng));
+      unit = new Unit(sensoritem.id, sensoritem.unit, sensoritem.idunit, new LatLng(sensoritem.position.latitude, sensoritem.position.longitude));
       unitList.add(unit);
     }
 

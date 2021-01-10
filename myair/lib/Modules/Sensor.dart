@@ -1,25 +1,24 @@
+import 'package:latlong/latlong.dart';
 // Sensor class
 class SensorModule {
 
-  int _id;
-  String _sensor;
-  String _unit;
-  String _idunit;
-  String _lat;
-  String _lng;
-  String _name;
-  String _uom;
+  int _id; ///Id in the local database
+  String _sensor; ///Id of the sensor
+  String _unit; ///Station name
+  String _idunit; ///station id
+  LatLng _position;
+  String _name; ///Name of the pollutant agent measured
+  String _uom; ///Unit of Measurement
   String _start;
   String _stop;
 //TODO delete the stop parameter
-  SensorModule(this._id, this._sensor, this._unit, this._idunit, this._lat, this._lng, this._name, this._uom, this._start, this._stop);
+  SensorModule(this._id, this._sensor, this._unit, this._idunit, this._position, this._name, this._uom, this._start, this._stop);
 
   int get id => _id;
   String get sensor => _sensor;
   String get unit => _unit;
   String get idunit => _idunit;
-  String get lat => _lat;
-  String get lng => _lng;
+  LatLng get position => _position;
   String get name => _name;
   String get uom => _uom;
   String get start => _start;
@@ -37,12 +36,8 @@ class SensorModule {
     this._idunit = newidUnit;
   }
 
-  set lat(String newLat) {
-    this._lat = newLat;
-  }
-
-  set lng(String newLng) {
-    this._lng = newLng;
+  set position(LatLng newPosition) {
+    this._position= newPosition;
   }
 
   set name(String newName) {
@@ -71,8 +66,8 @@ class SensorModule {
     map['sensor'] = _sensor;
     map['unit'] = _unit;
     map['idunit'] = _idunit;
-    map['lat'] = _lat;
-    map['lng'] = _lng;
+    map['lat'] = _position.latitude.toString();
+    map['lng'] = _position.longitude.toString();
     map['name'] = _name;
     map['uom'] = _uom;
     map['start'] = _start;
@@ -87,8 +82,7 @@ class SensorModule {
     _sensor = map['sensor'];
     _unit = map['unit'];
     _idunit = map['idunit'];
-    _lat = map['lat'];
-    _lng = map['lng'];
+    _position = new LatLng(double.parse(map['lat']),double.parse(map['lng']));
     _name = map['name'];
     _uom = map['uom'];
     _start = map['start'];
@@ -100,8 +94,7 @@ class SensorModule {
     _sensor = json['idsensore'];
     _idunit = json['idstazione'];
     _unit = json['nomestazione'];
-    _lat = json['lat'];
-    _lng = json['lng'];
+    _position = new LatLng(double.parse(json['lat']),double.parse(json['lng']));
     _name = json['nometiposensore'];
     _uom = json['unitamisura'];
     _start = json['datastart'];

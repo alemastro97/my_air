@@ -44,7 +44,6 @@ class MyApp extends StatefulWidget{
   _MyAppState createState() => _MyAppState();
 }
 
-
 //TODO HOME WIDGET
 class _MyAppState extends State<MyApp> {
   static final String title = 'Google SignIn';
@@ -85,8 +84,6 @@ class _MyAppState extends State<MyApp> {
       }),
     );
   }
-
-
 
 initialization() async {
   permissions = await GeolocationView().checkPermissions();

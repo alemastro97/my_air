@@ -398,24 +398,8 @@ void main() {
         'Reward: Two values received for each sensor and the hour changed, the day dont changed', () {
       PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
 
-      pa.set_values(
-          1,
-          2,
-          15,
-          18,
-          150,
-          370,
-          250,
-          29);
-      pa.set_values(
-          2,
-          2,
-          150,
-          20,
-          50,
-          400,
-          90,
-          28);
+      pa.set_values(1,2,15,18,150,370,250,29);
+      pa.set_values(2,2,150,20,50,400,90,28);
       print("PM10 index: " + pa.get_pm10_rw().toString());
       print("PM25 index: " + pa.get_pm25_rw().toString());
       print("NO2 index: " + pa.get_no2_rw().toString());
@@ -431,10 +415,34 @@ void main() {
       expect(pa.get_co_rw(), 1.20);
     });
 
-    // Reward: Notifications of the termination of the cycle
+    // Reward: No Notifications of the termination of the cycle for pm10
     test('Reward: Notifications', ()
     {
-      PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
+      PollutantAgent pa = PollutantAgent(6, 1, 2, 3, 4, 5);
+      pa.set_values(1,2,15,18,150,370,250,29);
+      pa.set_values(1,2,15,18,150,370,250,29);
+      pa.set_values(1,2,15,18,150,370,250,29);
+      pa.set_values(1,2,15,18,150,370,250,29);
+      pa.set_values(1,2,15,18,150,370,250,29);
+
+      expect(pa.get_pm10_rw(),5);
+      expect(pa.get_pm10_notify(),false);
+    });
+
+    // Reward: No Notifications of the termination of the cycle for pm10
+    test('Reward: Notifications', ()
+    {
+      PollutantAgent pa = PollutantAgent(6, 1, 2, 3, 4, 5);
+      pa.set_values(1,2,15,18,150,370,250,29);
+      pa.set_values(1,2,15,18,150,370,250,29);
+      pa.set_values(1,2,15,18,150,370,250,29);
+      pa.set_values(1,2,15,18,150,370,250,29);
+      pa.set_values(1,2,15,18,150,370,250,29);
+      pa.set_values(1,2,15,18,150,370,250,29);
+
+      expect(pa.get_pm10_rw(),0);
+      expect(pa.get_pm10_notify(),true);
+      expect(pa.get_pm10_notify(),false);
     });
 
   });

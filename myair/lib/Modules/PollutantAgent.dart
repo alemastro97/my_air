@@ -271,12 +271,11 @@ class PollutantAgent {
         _co_value = (_co_value + value) / 2;
       }
 
-      // Reward calculs done every hour
-      setSensorsRW();
-
       this.hour = hour;
     }
 
+    // Reward calculs done every hour
+    setSensorsRW();
   }
 
   // Sensors reward calculus

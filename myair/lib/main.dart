@@ -16,6 +16,7 @@ import 'Services/Database_service/DatabaseHelper.dart';
 import 'Services/Geolocator_service/GeolocatorService.dart';
 import 'package:myair/Modules/Sensor.dart';
 
+import 'Services/Google_Service/GoogleSignIn.dart';
 import 'Views/Permission_view/PermissionPage.dart';
 var kInfo = ValueNotifier<List<ValueNotifier<InfoPollution>>>(
     [
@@ -96,13 +97,13 @@ initialization() async {
   //databaseHelper.deleteDB();
   actualUser = await databaseHelper.getUserAccount();
   sensorList = await databaseHelper.getSensorList();
-
+  GoogleSignInProvider().logout();
   if(sensorList.length == 0){
     await fetchSensorsFromAPI();
     sensorList = await databaseHelper.getSensorList();
   }
 
-  await GeolocationView().getCurrentLocation(); ///Todo Starting geolocator thread
+  /*await*/ GeolocationView().getCurrentLocation(); ///Todo Starting geolocator thread
   setState(() {
     _start = true;
   });

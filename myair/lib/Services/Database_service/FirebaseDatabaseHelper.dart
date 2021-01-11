@@ -63,7 +63,18 @@ class FirebaseDatabaseHelper{
     if(values != null)
     {
       values.forEach((key, value) {
-        if (value["email"] == u.email) present = true;
+        if (value["email"] == u.email) {
+          present = true;
+          u.setFId(key);
+          u.setLimits([
+            int.parse(value['pm10']),
+            int.parse(value['pm25']),
+            int.parse(value['no2']),
+            int.parse(value['so2']),
+            int.parse(value['o3']),
+            int.parse(value['co'])
+          ]);
+        }
       });
     }
     if (!present) {
@@ -77,11 +88,8 @@ class FirebaseDatabaseHelper{
 
     DatabaseHelper d = DatabaseHelper();
     var x = await d.getCountUser();
-    print("numore " + x.toString());
-    print("Sta per salvarlo");
 
     if(x == 0 ) {
-      print("entered in the saver user");
       d.insertUser(u);
     }
     print("Salvato");
@@ -97,20 +105,29 @@ class FirebaseDatabaseHelper{
     var dbRefCheck = databaseReference.child('users/');
     DataSnapshot us = await dbRefCheck.once();
     Map<dynamic,dynamic> values = us.value;
-    values.forEach((key, value) {
-      if(value["email"] == email && value["password"] == pwd) {
-        present = true;
-        UserAccount u = new UserAccount(value['firstname'],value['lastname'] , value['email'],value['password'],value['img']);
-        u.setFId(key.toString());
-        DatabaseHelper d = DatabaseHelper();
-        d.insertUser(u);
-        print(u.email);
-        print(u.firstName);
-        actualUser = u;
-        print(actualUser.firstName);
-      }
-    });
-
+    if (values != null){
+      values.forEach((key, value) {
+        if (value["email"] == email && value["password"] == pwd) {
+          present = true;
+          UserAccount u = new UserAccount(value['firstname'], value['lastname'],
+              value['email'], value['password'], value['img'], [
+            int.parse(value['pm10']),
+            int.parse(value['pm25']),
+            int.parse(value['no2']),
+            int.parse(value['so2']),
+            int.parse(value['o3']),
+            int.parse(value['co'])
+          ]);
+          u.setFId(key.toString());
+          DatabaseHelper d = DatabaseHelper();
+          d.insertUser(u);
+          print(u.email);
+          print(u.firstName);
+          actualUser = u;
+          print(actualUser.firstName);
+        }
+      });
+    }
     return present;
   }
 

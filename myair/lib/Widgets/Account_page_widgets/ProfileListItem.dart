@@ -15,12 +15,12 @@ class ProfileListItem  extends StatelessWidget{
   final IconData icon;
   final text;
   final bool hasNavigation;
-
+  final Function setName;
   const ProfileListItem({
     Key key,
     this.icon,
     this.text,
-    this.hasNavigation = true
+    this.hasNavigation = true, this.setName
   }) : super (key: key);
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class ProfileListItem  extends StatelessWidget{
             break;
             case 'Privacy':{Navigator.of(context).push(createRoute(privacyView()));}
             break;
-            case 'Settings' : {Navigator.of(context).push(createRoute(SettingsPage()));}
+            case 'Settings' : {Navigator.of(context).push(createRoute(SettingsPage(setname: setName)));}
             break;//SettingsView
             default:{}
           }

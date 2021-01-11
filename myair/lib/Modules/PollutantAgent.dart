@@ -21,7 +21,7 @@ class PollutantAgent {
   double _so2_rw;
   double _o3_rw;
   double _co_rw;
-  ///Notification's limit
+  ///Notification's limit of the reward
   double _pm10_limit;
   double _pm25_limit;
   double _no2_limit;
@@ -66,6 +66,14 @@ class PollutantAgent {
     this._so2_value=0.0;
     this._o3_value=0.0;
     this._co_value=0.0;
+
+    this._pm10_rw=0.0;
+    this._pm25_rw=0.0;
+    this._no2_rw=0.0;
+    this._so2_rw=0.0;
+    this._o3_rw=0.0;
+    this._co_rw=0.0;
+
 
     this._pm10_notify=false;
     this._pm25_notify=false;

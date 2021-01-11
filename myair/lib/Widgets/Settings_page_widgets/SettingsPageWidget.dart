@@ -1,16 +1,36 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:myair/Services/Database_service/DatabaseHelper.dart';
+import 'package:myair/Services/Database_service/FirebaseDatabaseHelper.dart';
+import 'package:myair/Widgets/Home_page_statistics_widgets/AgentPieChart.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:myair/Modules/DailyUnitData.dart';
+import 'package:myair/Widgets/Settings_page_widgets/SliderAgent.dart';
+import '../../main.dart';
 
 class SettingsPageWidget extends StatefulWidget{
+  final setname;
+
+  const SettingsPageWidget({Key key, this.setname}) : super(key: key);
   @override
   _SettingsPageWidgetState createState() => _SettingsPageWidgetState();
 }
 
 class _SettingsPageWidgetState extends State<SettingsPageWidget>{
+  var _modified = false;
+  TextEditingController nameController = new TextEditingController();
+  @override
+  initState(){
+    super.initState();
+    nameController.text = nameController.text = actualUser.firstName + " " + actualUser.lastName;
+  }
   @override
   Widget build(BuildContext context) {
+
   return Scaffold(
     backgroundColor: Theme.of(context).brightness == Brightness.light ? Color.fromRGBO(193, 214, 233, 1) :  Color(0xFF212121),
     appBar: AppBar(
@@ -34,28 +54,75 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Card(
-                elevation: 8.0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                color: Colors.purple,
-                child: ListTile(
-                  onTap: () {
-                    //open edit profile
-                  },
-                  title: Text(
-                    "John Doe",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
+              Container(
+                height:MediaQuery.of(context).size.height/13,
+                width: MediaQuery.of(context).size.width,
+                child: Card(
+
+                  elevation: 8.0,
+                  shape: RoundedRectangleBorder(
+
+                      borderRadius: BorderRadius.circular(10.0)),
+                  color: Theme.of(context).brightness == Brightness.light ? Color(0xFF6488E4) : Theme.of(context).accentColor,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children :<Widget> [
+                      CircleAvatar(
+                        backgroundImage: new AssetImage('assets/images/blank_profile.png'),//Todo insert user image
+                      ),
+                    Flexible(
+                      child: Container(  child:!_modified ?
+                        Text(
+                          actualUser.firstName + " " + actualUser.lastName,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ):
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextField(
+                            selectionHeightStyle: BoxHeightStyle.tight,
+                            controller: nameController,
+                            keyboardType: TextInputType.text,
+
+                            decoration: new InputDecoration(
+
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: new OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(10.0))
+                              ),
+                              hintText:  "Insert new name" ,
+                              // labelText: 'Email',
+
+                            ),
+                          ),
+                        ),),
                     ),
-                  ),
-                  leading: CircleAvatar(
-                    backgroundImage: new AssetImage('assets/images/blank_profile.png'),
-                  ),
-                  trailing: Icon(
-                    Icons.edit,
-                    color: Colors.white,
+                     GestureDetector(
+                       onTap: () {
+                         setState(() {
+                           _modified = !_modified;
+                           var listnamesur = nameController.text.split(" ");
+                           actualUser.firstName = listnamesur.elementAt(0);
+                           actualUser.lastName = listnamesur.elementAt(1);
+                           DatabaseHelper().deleteUser();
+                           DatabaseHelper().insertUser(actualUser);
+                           FirebaseDatabaseHelper().updateImage();
+                           widget.setname();
+                         });
+
+                       },
+                       child: Icon(
+                         Icons.edit,
+                         color: Colors.white,
+                       ),
+                     ),
+
+                    ]),
                   ),
                 ),
               ),
@@ -78,33 +145,12 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                         //open change password
                       },
                     ),
-                    _buildDivider(),
-                    ListTile(
-                      leading: Icon(
-                        FontAwesomeIcons.language,
-                        color: Colors.purple,
-                      ),
-                      title: Text("Change Language"),
-                      trailing: Icon(Icons.keyboard_arrow_right),
-                      onTap: () {
-                        //open change language
-                      },
-                    ),
-                    _buildDivider(),
-                    ListTile(
-                      leading: Icon(
-                        Icons.location_on,
-                        color: Colors.purple,
-                      ),
-                      title: Text("Change Location"),
-                      trailing: Icon(Icons.keyboard_arrow_right),
-                      onTap: () {
-                        //open change location
-                      },
-                    ),
+
                   ],
                 ),
               ),
+
+
               const SizedBox(height: 20.0),
               Text(
                 "Notification Settings",
@@ -114,34 +160,79 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                   color: Colors.indigo,
                 ),
               ),
-              SwitchListTile(
-                activeColor: Colors.purple,
-                contentPadding: const EdgeInsets.all(0),
-                value: true,
-                title: Text("Received notification"),
-                onChanged: (val) {},
+
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SwitchListTile(
+                    activeColor: Colors.purple,
+                    contentPadding: const EdgeInsets.all(0),
+                    value: true,
+                    title: Text("Received notification"),
+                    onChanged: (val) {},
+                  ),
+                  Text(
+                    "subtitlellllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll",
+                    style: TextStyle(
+                      //fontSize: 12.0,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
               ),
-              SwitchListTile(
-                activeColor: Colors.purple,
-                contentPadding: const EdgeInsets.all(0),
-                value: false,
-                title: Text("Received newsletter"),
-                onChanged: null,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  for(var index = 0; index < actualUser.notificationLimits.length ; index++ )
+                    SliderAgent(max: Limits.elementAt(index),index: index),
+                ],
               ),
-              SwitchListTile(
-                activeColor: Colors.purple,
-                contentPadding: const EdgeInsets.all(0),
-                value: true,
-                title: Text("Received Offer Notification"),
-                onChanged: (val) {},
+
+
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SwitchListTile(
+                    activeColor: Colors.purple,
+                    contentPadding: const EdgeInsets.all(0),
+                    value: true,
+                    title: Text("Received reward's notification "),
+                    onChanged: (val) {},
+                  ),
+                  Text(
+                    "subtitlellllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll",
+                    style: TextStyle(
+                      //fontSize: 12.0,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
               ),
-              SwitchListTile(
-                activeColor: Colors.purple,
-                contentPadding: const EdgeInsets.all(0),
-                value: true,
-                title: Text("Received App Updates"),
-                onChanged: null,
+
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SwitchListTile(
+                    activeColor: Colors.purple,
+                    contentPadding: const EdgeInsets.all(0),
+                    value: true,
+                    title: Text("Received App Updates"),
+                    onChanged: null,
+                  ),
+
+                  Text(
+                    "subtitlellllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll",
+                    style: TextStyle(
+                      //fontSize: 12.0,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
               ),
+
               const SizedBox(height: 60.0),
             ],
           ),

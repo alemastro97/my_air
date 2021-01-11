@@ -34,6 +34,13 @@ class DatabaseHelper {
   String email = 'email';
   String password = 'password';
   String image = 'image';
+  String pm10 = 'pm10';
+  String pm25 = 'pm25';
+  String no2 = 'no2';
+  String so2 = 'so2';
+  String o3 = 'o3';
+  String co = 'co';
+
 
   DatabaseHelper._createInstance(); // Named constructor to create instance of DatabaseHelper;
 
@@ -73,7 +80,7 @@ class DatabaseHelper {
     await db.execute('CREATE TABLE $sensorTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colSensor TEXT, $colUnit TEXT, '
         '$colidUnit TEXT, $colLat TEXT, $colLng TEXT, $colName TEXT, $colUOM TEXT, $colStart TEXT, $colStop TEXT)');
     await db.execute('CREATE TABLE $userTable($userId INTEGER PRIMARY KEY AUTOINCREMENT, $userIdFirebase TEXT,$firstName TEXT, '
-        '$lastName TEXT, $email TEXT, $password TEXT, $image TEXT)');
+        '$lastName TEXT, $email TEXT, $password TEXT, $image TEXT, $pm10 TEXT, $pm25 TEXT, $no2 TEXT, $so2 TEXT, $o3 TEXT, $co TEXT)');
 
   }
 
@@ -170,7 +177,7 @@ class DatabaseHelper {
     var user = await getUser(); // Get 'Map List' from database
     print("------" + user.length.toString());
     if(user.length > 0) {
-      UserAccount account = UserAccount("firstName", "lastName", "email", "password", "") ;
+      UserAccount account = UserAccount("firstName", "lastName", "email", "password", "",[]) ;
       print(user.length);
       account.fromMapObject(user.elementAt(0));
       return account;

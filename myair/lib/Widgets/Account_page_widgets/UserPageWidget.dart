@@ -9,13 +9,30 @@ import 'package:myair/Widgets/Account_page_widgets/ChangeImage.dart';
 import 'package:myair/Widgets/Account_page_widgets/ProfileListItem.dart';
 import 'package:myair/main.dart';
 
-class UserPageWidget extends StatelessWidget{
+class UserPageWidget extends StatefulWidget{
   final Function  changeTopImage;
-
   UserPageWidget( {
     Key key,
     this.changeTopImage,
   }) : super (key: key);
+
+  _UserPageWidgetState createState() => _UserPageWidgetState();
+}
+class _UserPageWidgetState extends State<UserPageWidget>{
+  var first;
+  var last;
+  @override
+  initState(){
+    super.initState();
+    first = actualUser.firstName;
+    last =  actualUser.lastName;
+  }
+  changeUsername(){
+    setState(() {
+      first = actualUser.firstName;
+      last =  actualUser.lastName;
+    });
+  }
 
   @override
   Widget build(BuildContext context){
@@ -25,14 +42,14 @@ class UserPageWidget extends StatelessWidget{
           flex: 6,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ChangeImage(changeTopImage: changeTopImage),
+            child: ChangeImage(changeTopImage: widget.changeTopImage),
           ),
         ),
         Expanded(
           flex:2,
           child: Column(
             children: <Widget>[
-              Expanded(flex: 1,child: FractionallySizedBox(widthFactor: 0.7,child:FittedBox(fit: BoxFit.contain,child: Text(actualUser.firstName.toString() + " " + actualUser.lastName.toString() , style: kTitleTextStyle)),),),
+              Expanded(flex: 1,child: FractionallySizedBox(widthFactor: 0.7,child:FittedBox(fit: BoxFit.contain,child: Text(first + " " + last , style: kTitleTextStyle)),),),
               Expanded(flex: 1,child: FractionallySizedBox(widthFactor: 0.7,child: FittedBox(fit: BoxFit.contain,child: Text(actualUser.email.toString(), style: kCaptionTextStyle)),),),
             ],
           ),
@@ -116,6 +133,7 @@ class UserPageWidget extends StatelessWidget{
                         child: ProfileListItem(
                           icon: LineAwesomeIcons.cog,
                           text: 'Settings',
+                          setName: changeUsername,
                         ),
                       ),
                       Expanded(

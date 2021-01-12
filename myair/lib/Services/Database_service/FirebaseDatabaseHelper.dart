@@ -67,13 +67,14 @@ class FirebaseDatabaseHelper{
           present = true;
           u.setFId(key);
           u.setLimits([
-            int.parse(value['pm10']),
-            int.parse(value['pm25']),
-            int.parse(value['no2']),
-            int.parse(value['so2']),
-            int.parse(value['o3']),
-            int.parse(value['co'])
+            (value['pm10']),
+            (value['pm25']),
+            (value['no2']),
+            (value['so2']),
+            (value['o3']),
+            (value['co'])
           ]);
+          u.setNotification(value['notificationSend'], value['notificationReward']);
         }
       });
     }
@@ -111,13 +112,15 @@ class FirebaseDatabaseHelper{
           present = true;
           UserAccount u = new UserAccount(value['firstname'], value['lastname'],
               value['email'], value['password'], value['img'], [
-            int.parse(value['pm10']),
-            int.parse(value['pm25']),
-            int.parse(value['no2']),
-            int.parse(value['so2']),
-            int.parse(value['o3']),
-            int.parse(value['co'])
-          ]);
+            (value['pm10']),
+           (value['pm25']),
+            (value['no2']),
+            (value['so2']),
+            (value['o3']),
+            (value['co'])
+          ],
+            (value['notificationSend']),
+            (value['notificationReward']));
           u.setFId(key.toString());
           DatabaseHelper d = DatabaseHelper();
           d.insertUser(u);
@@ -131,7 +134,7 @@ class FirebaseDatabaseHelper{
     return present;
   }
 
-  Future<bool> updateImage() async{
+  Future<bool> updateUser() async{
     var dbRefCheck = databaseReference.child('users/');
     await dbRefCheck.child(actualUser.firebaseId).set(actualUser.toJson());
   }

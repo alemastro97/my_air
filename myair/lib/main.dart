@@ -91,9 +91,11 @@ initialization() async {
   permissions = await GeolocationView().checkPermissions();
   DatabaseHelper databaseHelper = DatabaseHelper();
   DailyUnitData d = DailyUnitData();
+
   d.initializeValues();
   PollutantAgent p = PollutantAgent();
-  p.initialize(100,100,100,100,100,100);
+  p.initialize(2,100,100,100,100,100);
+  databaseHelper.getDailyData();
   //databaseHelper.deleteDB();
   actualUser = await databaseHelper.getUserAccount();
   sensorList = await databaseHelper.getSensorList();

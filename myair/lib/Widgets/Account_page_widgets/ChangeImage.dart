@@ -133,7 +133,7 @@ class  _ChangeImageState extends State<ChangeImage>{
      await DatabaseHelper().setImg(actualUser.email,base64Encode(Io.File(image.path).readAsBytesSync()).toString());
     setState(()  {
       _image = Io.File(image.path);
-      FirebaseDatabaseHelper().updateImage();
+      FirebaseDatabaseHelper().updateUser();
 
     });
   }
@@ -145,7 +145,7 @@ class  _ChangeImageState extends State<ChangeImage>{
     await DatabaseHelper().setImg(actualUser.email,base64Encode(Io.File(image.path).readAsBytesSync()).toString());
     setState(()  {
       _image = Io.File(image.path) ;
-      FirebaseDatabaseHelper().updateImage();
+      FirebaseDatabaseHelper().updateUser();
     });
   }
   Future<Io.File> writeImageTemp(String base64Image, String imageName) async {

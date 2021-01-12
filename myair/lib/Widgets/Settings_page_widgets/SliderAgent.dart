@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
+import 'package:myair/Services/Database_service/FirebaseDatabaseHelper.dart';
 
 import '../../main.dart';
 class SliderAgent extends StatefulWidget{
@@ -21,6 +22,7 @@ class _SliderAgentState extends State<SliderAgent>{
   }
   @override
   Widget build(BuildContext context) {
+    print(kInfo.value.elementAt(widget.index).value.name + "" + widget.index.toString());
     return
 
       Column(
@@ -30,6 +32,8 @@ class _SliderAgentState extends State<SliderAgent>{
 
           Slider(
             value: rating,
+            max: widget.max,
+            min: 0.0,
             label: "$rating",
             divisions: widget.index == 0 ?
             10
@@ -46,7 +50,7 @@ class _SliderAgentState extends State<SliderAgent>{
             widget.index == 4 ?
             10
                 :
-            1
+            10
             ,
             onChanged: (newRating){
               setState(() {
@@ -57,6 +61,7 @@ class _SliderAgentState extends State<SliderAgent>{
               actualUser.notificationLimits[widget.index] = newRating.toInt();
               DatabaseHelper().deleteUser();
               DatabaseHelper().insertUser(actualUser);
+              FirebaseDatabaseHelper().updateUser();
             },
           )
         ],

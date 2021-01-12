@@ -111,7 +111,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                            actualUser.lastName = listnamesur.elementAt(1);
                            DatabaseHelper().deleteUser();
                            DatabaseHelper().insertUser(actualUser);
-                           FirebaseDatabaseHelper().updateImage();
+                           FirebaseDatabaseHelper().updateUser();
                            widget.setname();
                          });
 
@@ -149,7 +149,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                   ],
                 ),
               ),
-
+//TODO make change password
 
               const SizedBox(height: 20.0),
               Text(
@@ -165,14 +165,21 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SwitchListTile(
-                    activeColor: Colors.purple,
+                    activeColor: Theme.of(context).brightness == Brightness.light ? Color(0xFF6488E4) : Theme.of(context).accentColor,
                     contentPadding: const EdgeInsets.all(0),
-                    value: true,
+                    value: actualUser.notificationSend,
                     title: Text("Received notification"),
-                    onChanged: (val) {},
+                    onChanged: (val) {
+                      setState(() {
+                        actualUser.notificationSend = val;
+                        DatabaseHelper().deleteUser();
+                        DatabaseHelper().insertUser(actualUser);
+                        FirebaseDatabaseHelper().updateUser();
+                      });
+                    },
                   ),
                   Text(
-                    "subtitlellllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll",
+                    "Push notification that you received in case you are entering a polluted area",
                     style: TextStyle(
                       //fontSize: 12.0,
                       color: Colors.grey,
@@ -181,6 +188,9 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                   ),
                 ],
               ),
+           //  Todo AnimatedContainer(
+
+         //     ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -194,14 +204,21 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SwitchListTile(
-                    activeColor: Colors.purple,
+                    activeColor:Theme.of(context).brightness == Brightness.light ? Color(0xFF6488E4) : Theme.of(context).accentColor,
                     contentPadding: const EdgeInsets.all(0),
-                    value: true,
+                    value: actualUser.notificationReward ,
                     title: Text("Received reward's notification "),
-                    onChanged: (val) {},
+                    onChanged: (val) {
+                      setState(() {
+                        actualUser.notificationReward = val;
+                        DatabaseHelper().deleteUser();
+                        DatabaseHelper().insertUser(actualUser);
+                        FirebaseDatabaseHelper().updateUser();
+                      });
+                    },
                   ),
                   Text(
-                    "subtitlellllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll",
+                    "Push notification received if you complete a challenge",
                     style: TextStyle(
                       //fontSize: 12.0,
                       color: Colors.grey,
@@ -211,27 +228,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                 ],
               ),
 
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SwitchListTile(
-                    activeColor: Colors.purple,
-                    contentPadding: const EdgeInsets.all(0),
-                    value: true,
-                    title: Text("Received App Updates"),
-                    onChanged: null,
-                  ),
 
-                  Text(
-                    "subtitlellllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll",
-                    style: TextStyle(
-                      //fontSize: 12.0,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
 
               const SizedBox(height: 60.0),
             ],
@@ -245,7 +242,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
             height: 80,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: Colors.purple,
+              color: Colors.blue,
               shape: BoxShape.circle,
             ),
           ),
@@ -258,8 +255,9 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
               FontAwesomeIcons.powerOff,
               color: Colors.white,
             ),
-            onPressed: () {
-              //log out
+            onPressed: () async {
+              await DatabaseHelper().insertDailyData();
+              print("Close app");
             },
           ),
         )

@@ -62,6 +62,28 @@ class DailyUnitData {
     return _co.getValues();
   }
 
+
+  void setPM10Values(double data, int hour) {
+     _pm10.setDataAverage(data, hour);
+  }
+  void setPM25Values(double data, int hour) {
+    _pm25.setDataAverage(data, hour);
+  }
+  void setNO2Values(double data, int hour) {
+    _no2.setDataAverage(data, hour);
+  }
+  void setSO2Values(double data, int hour) {
+    _so2.setDataAverage(data, hour);
+  }
+  void setO3Values(double data, int hour) {
+    _o3.setDataAverage(data, hour);
+  }
+  void setCOValues(double data, int hour) {
+    _co.setDataAverage(data, hour);
+  }
+
+
+
   Future<List<InstantData>> setSensorsDataAverage(DatabaseHelper db, int hour, double ulat, double ulong, int utol) async {
     bool bpm10 = false;
     bool bpm25 = false;

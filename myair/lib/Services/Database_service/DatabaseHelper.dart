@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Modules/UserAccount.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
@@ -40,7 +42,15 @@ class DatabaseHelper {
   String so2 = 'so2';
   String o3 = 'o3';
   String co = 'co';
+  String ns = 'notificationSend';
+  String nr = 'notificationReward'; /// 0 (false) and 1 (true).
 
+
+  String dataTable = 'Data';
+  String dataId = 'dataId';
+  String agent = 'agent';
+  String hour = 'hour';
+  String value = 'value';
 
   DatabaseHelper._createInstance(); // Named constructor to create instance of DatabaseHelper;
 
@@ -76,12 +86,11 @@ class DatabaseHelper {
   }
 
   void _createDb(Database db, int newVersion) async {
-
     await db.execute('CREATE TABLE $sensorTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colSensor TEXT, $colUnit TEXT, '
         '$colidUnit TEXT, $colLat TEXT, $colLng TEXT, $colName TEXT, $colUOM TEXT, $colStart TEXT, $colStop TEXT)');
     await db.execute('CREATE TABLE $userTable($userId INTEGER PRIMARY KEY AUTOINCREMENT, $userIdFirebase TEXT,$firstName TEXT, '
-        '$lastName TEXT, $email TEXT, $password TEXT, $image TEXT, $pm10 TEXT, $pm25 TEXT, $no2 TEXT, $so2 TEXT, $o3 TEXT, $co TEXT)');
-
+        '$lastName TEXT, $email TEXT, $password TEXT, $image TEXT, $pm10 TEXT, $pm25 TEXT, $no2 TEXT, $so2 TEXT, $o3 TEXT, $co TEXT,$ns TEXT,$nr TEXT)');
+    await db.execute('CREATE TABLE $dataTable($dataId INTEGER PRIMARY KEY AUTOINCREMENT, $agent TEXT,$hour TEXT, $value TEXT)');
   }
 
   // Fetch operation
@@ -97,6 +106,12 @@ class DatabaseHelper {
 
     var result = await db.rawQuery('SELECT * FROM $userTable order by $userId');
     print(result.length);
+    return result;
+  }
+
+  Future<List<Map<String, dynamic>>> getData() async {
+    Database db = await this.database;
+    var result = await db.rawQuery('SELECT * FROM $dataTable order by $dataId');
     return result;
   }
 
@@ -116,11 +131,41 @@ class DatabaseHelper {
     return result;
   }
 
-  // Delete all objects
+  Future<void> insertDailyData() async {
+    Database db = await this.database;
+    deleteData();
+    var pm10 = DailyUnitData().getPM10Values();
+    var pm25 = DailyUnitData().getPM25Values();
+    var no2 = DailyUnitData().getNO2Values();
+    var so2 = DailyUnitData().getSO2Values();
+    var o3 = DailyUnitData().getO3Values();
+    var co = DailyUnitData().getCOValues();
+    for(var index = 0; index < 24; index++){
+      await db.insert(dataTable, mapData(pm10.value.elementAt(index),index, "pm10"));
+      await db.insert(dataTable, mapData(pm25.value.elementAt(index),index, "pm25"));
+      await db.insert(dataTable, mapData(no2.value.elementAt(index),index, "no2"));
+      await db.insert(dataTable, mapData(so2.value.elementAt(index),index, "so2"));
+      await db.insert(dataTable, mapData(o3.value.elementAt(index),index, "o3"));
+      await db.insert(dataTable, mapData(co.value.elementAt(index),index, "co"));
+    }
+  }
+  Map<String, dynamic> mapData(double value, int hour, String agent){
+    var map = Map<String, dynamic>();
+    map[this.agent] = agent;
+    map[this.hour] = hour;
+    map[this.value] = value;
+    return map;
+  }
   Future<int> deleteSensor() async {
     var db = await this.database;
 
     int result = await db.rawDelete('DELETE FROM $sensorTable');
+    return result;
+  }
+  Future<int> deleteData() async {
+    var db = await this.database;
+
+    int result = await db.rawDelete('DELETE FROM $dataTable');
     return result;
   }
 
@@ -160,6 +205,8 @@ class DatabaseHelper {
     return result;
   }
 
+
+
   // Get the 'Map List' and convert to 'Object List'
   Future<List<SensorModule>> getSensorList() async {
     var sensorMapList = await getSensorMapList(); // Get 'Map List' from database
@@ -177,7 +224,7 @@ class DatabaseHelper {
     var user = await getUser(); // Get 'Map List' from database
     print("------" + user.length.toString());
     if(user.length > 0) {
-      UserAccount account = UserAccount("firstName", "lastName", "email", "password", "",[]) ;
+      UserAccount account = UserAccount("firstName", "lastName", "email", "password", "",[],true,true) ;
       print(user.length);
       account.fromMapObject(user.elementAt(0));
       return account;
@@ -185,6 +232,56 @@ class DatabaseHelper {
     print("Return null");
     return null;
   }
+
+  void getDailyData() async {
+    var data_list= await getData(); // Get 'Map List' from database
+    if(data_list.length > 0) {
+      data_list.forEach((data) {
+        switch(data[agent]) {
+          case "pm10": {
+            DailyUnitData().setPM10Values(double.parse(data[value]), int.parse(data[hour]));
+            print(data[value].toString() + " " + data[hour].toString());
+          }
+          break;
+          case "pm25": {
+            DailyUnitData().setPM25Values(double.parse(data[value]), int.parse(data[hour]));
+          }
+          break;
+          case "no2": {
+            DailyUnitData().setNO2Values(double.parse(data[value]), int.parse(data[hour]));
+          }
+          break;
+          case "so2": {
+            DailyUnitData().setSO2Values(double.parse(data[value]), int.parse(data[hour]));
+          }
+          break;
+          case "o3": {
+            DailyUnitData().setO3Values(double.parse(data[value]), int.parse(data[hour]));
+          }
+          break;
+          case "co": {
+            DailyUnitData().setCOValues(double.parse(data[value]), int.parse(data[hour]));
+          }
+          break;
+          default: {
+            print("error in data extracted");
+          }
+          break;
+        }
+      });
+    }
+
+    /*return [
+      [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
+      [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
+      [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
+      [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
+      [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
+      [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
+    ];**/
+  }
+
+
 
 // Get the sensor list closed to the user
   Future<List<SensorModule>> getSensorListClosedtoUser(double ulatitude, double ulongitude, int utolerance) async {

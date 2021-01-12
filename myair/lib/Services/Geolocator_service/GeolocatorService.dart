@@ -101,11 +101,21 @@ class GeolocationView{
         kInfo.value.elementAt(4).value.amount,
         kInfo.value.elementAt(5).value.amount);
 
-
-      for (var i = 0; i < kInfo.value.length; i++)
-        kInfo.value.elementAt(i).value.amount > Limits.elementAt(i)
-            ? this._notifications.pushNotification()
-            : null;
+      if(actualUser.notificationSend)
+      {
+        for (var i = 0; i < kInfo.value.length; i++)
+          kInfo.value.elementAt(i).value.amount > Limits.elementAt(i)
+              ? this._notifications.pushNotification()
+              : null;
+      }
+      if(actualUser.notificationReward)
+      {
+        PollutantAgent().get_pm10_notify() || PollutantAgent().get_pm25_notify() ||
+            PollutantAgent().get_so2_notify() ||PollutantAgent().get_no2_notify() ||
+            PollutantAgent().get_o3_notify() ||PollutantAgent().get_co_notify()
+              ? this._notifications.pushNotificationReward()
+              : null;
+      }
     }
   }
 }

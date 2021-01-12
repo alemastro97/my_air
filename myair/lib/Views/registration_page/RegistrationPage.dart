@@ -152,7 +152,7 @@ class _RegistrationPage extends State<RegistrationPage>{
                                     onTap: () async {
                                     //  logged = true;
                                       FirebaseDatabaseHelper d = FirebaseDatabaseHelper();
-                                      var b = await d.saveUser(new UserAccount(firstController.text,lastController.text,emailController.text,passController.text,'',[100,50,400,500,240,10]));
+                                      var b = await d.saveUser(new UserAccount(firstController.text,lastController.text,emailController.text,passController.text,'',[100,50,400,500,240,10],true,true));
                                       DatabaseHelper().getUser();
                                       b ?
                                       Navigator.pushReplacementNamed(context, '/HomePage')

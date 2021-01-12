@@ -26,7 +26,7 @@ class DailySensorData {
     return sum;
   }
 
-   setDataAverage(double average, int hour)  {
+   void setDataAverage(double average, int hour)  {
     this._values.value[hour] = this._values.value[hour] == 0.0 ? average : (this._values.value[hour] + average) / 2;
   }
 

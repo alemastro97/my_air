@@ -7,9 +7,9 @@ class UserAccount {
   String password;
   String img;
   List<int> notificationLimits;
-
-  // final User userdu;
-  // userAccount(this.userdu);
+  bool notificationSend;
+  bool notificationReward;
+///Mapping for FireBase
   Map<String, dynamic> toJson() {
     return {
       "firstname": this.firstName,
@@ -23,23 +23,27 @@ class UserAccount {
       "so2": notificationLimits.elementAt(3),
       "o3": notificationLimits.elementAt(4),
       "co": notificationLimits.elementAt(5),
+      "notificationSend" : this.notificationSend,
+      "notificationReward": this.notificationReward
     };
   }
 
   UserAccount(String firstName, String lastName, String email, String password,
-      String img, List<int> notificationLimits) {
+      String img, List<int> notificationLimits, bool notificationSend, bool notificationReward) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.password = password;
     this.img = img;
     this.notificationLimits = notificationLimits;
+    this.notificationSend = notificationSend;
+    this.notificationReward = notificationReward;
   }
 
   setFId(String id) {
     firebaseId = id;
   }
-
+///Mapping for local database
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
     map['userId'] = 1;
@@ -55,9 +59,11 @@ class UserAccount {
     map['so2'] = notificationLimits.elementAt(3);
     map['o3'] = notificationLimits.elementAt(4);
     map['co'] = notificationLimits.elementAt(5);
+    map['notificationSend'] = notificationSend.toString();
+    map['notificationReward'] = notificationReward.toString();
     return map;
   }
-
+///Mapping when i retrieve the user from the local database
   fromMapObject(Map<String, dynamic> map) {
     firebaseId = map['firebaseId'];
     print(firebaseId);
@@ -79,9 +85,16 @@ class UserAccount {
       int.parse(map['o3']),
       int.parse(map['co'])
     ];
+    notificationSend = map["notificationSend"] == "true" ? true : false;
+    notificationReward = map["notificationReward"] == "true" ? true : false;
   }
 
   void setLimits(List<int> list) {
     this.notificationLimits = list;
+  }
+
+  void setNotification(bool notificationSend,bool notificationReward) {
+    this.notificationSend = notificationSend;
+    this.notificationReward = notificationReward;
   }
 }

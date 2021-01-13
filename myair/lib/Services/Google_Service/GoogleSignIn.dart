@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:intl/intl.dart';
 import 'package:myair/Modules/UserAccount.dart';
 import 'package:myair/Services/Database_service/FirebaseDatabaseHelper.dart';
 import 'package:myair/main.dart';
@@ -46,7 +47,7 @@ class GoogleSignInProvider extends ChangeNotifier {
       var namesur = x.displayName.split(" ");
       var b = ( await http.get(x.photoURL)).bodyBytes;
       var image   = b!= null ?  base64Encode(b):"";
-      actualUser = new UserAccount(namesur.elementAt(0), namesur.elementAt(1), x.email, "",image,[100,50,400,500,240,10], true,true);
+      actualUser = new UserAccount(namesur.elementAt(0), namesur.elementAt(1), x.email, "",image,[100,50,400,500,240,10], true,true,DateFormat('MM-dd').format(DateTime.now()),0,true,0);
       FirebaseDatabaseHelper().saveGoogleUser(actualUser);
     }
   }

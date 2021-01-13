@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Modules/UserAccount.dart';
 import 'package:sqflite/sqflite.dart';
@@ -44,7 +45,10 @@ class DatabaseHelper {
   String co = 'co';
   String ns = 'notificationSend';
   String nr = 'notificationReward'; /// 0 (false) and 1 (true).
-
+  String lastLog = 'lastLog';
+  String hourSafe = 'hourSafe';
+  String wf = 'weeklyMissionFailed';
+  String counter = 'counter';
 
   String dataTable = 'Data';
   String dataId = 'dataId';
@@ -89,7 +93,8 @@ class DatabaseHelper {
     await db.execute('CREATE TABLE $sensorTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colSensor TEXT, $colUnit TEXT, '
         '$colidUnit TEXT, $colLat TEXT, $colLng TEXT, $colName TEXT, $colUOM TEXT, $colStart TEXT, $colStop TEXT)');
     await db.execute('CREATE TABLE $userTable($userId INTEGER PRIMARY KEY AUTOINCREMENT, $userIdFirebase TEXT,$firstName TEXT, '
-        '$lastName TEXT, $email TEXT, $password TEXT, $image TEXT, $pm10 TEXT, $pm25 TEXT, $no2 TEXT, $so2 TEXT, $o3 TEXT, $co TEXT,$ns TEXT,$nr TEXT)');
+        '$lastName TEXT, $email TEXT, $password TEXT, $image TEXT, $pm10 TEXT, $pm25 TEXT, $no2 TEXT, $so2 TEXT, $o3 TEXT, $co TEXT,$ns TEXT,$nr TEXT'
+        ', $lastLog TEXT, $hourSafe TEXT, $wf TEXT,$counter TEXT)');
     await db.execute('CREATE TABLE $dataTable($dataId INTEGER PRIMARY KEY AUTOINCREMENT, $agent TEXT,$hour TEXT, $value TEXT)');
   }
 
@@ -224,12 +229,11 @@ class DatabaseHelper {
     var user = await getUser(); // Get 'Map List' from database
     print("------" + user.length.toString());
     if(user.length > 0) {
-      UserAccount account = UserAccount("firstName", "lastName", "email", "password", "",[],true,true) ;
+      UserAccount account = UserAccount("firstName", "lastName", "email", "password", "",[],true,true,DateFormat('MM-dd').format(DateTime.now()),0,true,0) ;
       print(user.length);
       account.fromMapObject(user.elementAt(0));
       return account;
     }
-    print("Return null");
     return null;
   }
 

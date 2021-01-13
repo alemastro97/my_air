@@ -64,7 +64,7 @@ class Notifications {
       'push_messages: 1',
       'push_messages: push_messages',
       'push_messages: A new Flutter project',
-      importance: Importance.max,
+      importance: Importance.low,
       priority: Priority.low,
       showWhen: false,
       enableVibration: true,

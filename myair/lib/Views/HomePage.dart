@@ -34,6 +34,7 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    //actualUser.checkWeeklyChallenges();
     final pages = <Widget>[
       ChartPage(),
       MapPage(),
@@ -44,6 +45,7 @@ class HomePageState extends State<HomePage> {
     return  ThemeSwitchingArea(child: FutureBuilder(
       future: changeTopImage(),
       builder:(BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        actualUser.checkWeeklyChallenges();
           return Scaffold(
             extendBody: true,
             body: pages[index],

@@ -1,3 +1,7 @@
+import 'package:intl/intl.dart';
+import 'package:myair/Services/Database_service/DatabaseHelper.dart';
+import 'package:myair/Services/Database_service/FirebaseDatabaseHelper.dart';
+
 class UserAccount {
   //final user = FirebaseAuth.instance.currentUser;
   String firebaseId;
@@ -9,7 +13,14 @@ class UserAccount {
   List<int> notificationLimits;
   bool notificationSend;
   bool notificationReward;
-///Mapping for FireBase
+  String lastLog;
+
+  ///Last login made
+  int counter;
+  int hourSafe;
+  bool weeklyMissionFailed;
+
+  ///Mapping for FireBase
   Map<String, dynamic> toJson() {
     return {
       "firstname": this.firstName,
@@ -23,13 +34,19 @@ class UserAccount {
       "so2": notificationLimits.elementAt(3),
       "o3": notificationLimits.elementAt(4),
       "co": notificationLimits.elementAt(5),
-      "notificationSend" : this.notificationSend,
-      "notificationReward": this.notificationReward
+      "notificationSend": this.notificationSend,
+      "notificationReward": this.notificationReward,
+      "lastLog": this.lastLog,
+      "hourSafe": this.hourSafe,
+      "weeklyMissionFailed": this.weeklyMissionFailed,
+      "counter": this.counter
     };
   }
 
   UserAccount(String firstName, String lastName, String email, String password,
-      String img, List<int> notificationLimits, bool notificationSend, bool notificationReward) {
+      String img, List<int> notificationLimits, bool notificationSend,
+      bool notificationReward, String lastLog, int hourSafe,
+      bool weeklyMissionFailed, int counter) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
@@ -38,12 +55,17 @@ class UserAccount {
     this.notificationLimits = notificationLimits;
     this.notificationSend = notificationSend;
     this.notificationReward = notificationReward;
+    this.lastLog = lastLog;
+    this.hourSafe = hourSafe;
+    this.weeklyMissionFailed = weeklyMissionFailed;
+    this.counter = counter;
   }
 
   setFId(String id) {
     firebaseId = id;
   }
-///Mapping for local database
+
+  ///Mapping for local database
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
     map['userId'] = 1;
@@ -61,9 +83,14 @@ class UserAccount {
     map['co'] = notificationLimits.elementAt(5);
     map['notificationSend'] = notificationSend.toString();
     map['notificationReward'] = notificationReward.toString();
+    map['lastLog'] = this.lastLog;
+    map['hourSafe'] = this.hourSafe.toString();
+    map['weeklyMissionFailed'] = this.weeklyMissionFailed.toString();
+    map['counter'] = this.counter.toString();
     return map;
   }
-///Mapping when i retrieve the user from the local database
+
+  ///Mapping when i retrieve the user from the local database
   fromMapObject(Map<String, dynamic> map) {
     firebaseId = map['firebaseId'];
     print(firebaseId);
@@ -87,14 +114,52 @@ class UserAccount {
     ];
     notificationSend = map["notificationSend"] == "true" ? true : false;
     notificationReward = map["notificationReward"] == "true" ? true : false;
+    this.lastLog = map['lastLog'];
+    this.hourSafe = int.parse(map['hourSafe']);
+    this.weeklyMissionFailed =
+    map['weeklyMissionFailed'] == "true" ? true : false;
+    this.counter = int.parse(map['counter']);
   }
 
   void setLimits(List<int> list) {
     this.notificationLimits = list;
   }
 
-  void setNotification(bool notificationSend,bool notificationReward) {
+  void setNotification(bool notificationSend, bool notificationReward) {
     this.notificationSend = notificationSend;
     this.notificationReward = notificationReward;
+  }
+
+  void setWeeklyChallenges(String lastLog, int hourSafe, bool wf, int counter) {
+    this.lastLog = lastLog;
+    this.hourSafe = hourSafe;
+    this.weeklyMissionFailed = wf;
+    this.counter = counter;
+  }
+
+  void checkWeeklyChallenges() {
+    var firstLog = lastLog.split("-");
+    DateTime date = DateTime(DateTime.now().year, int.parse(firstLog[0]), int.parse(firstLog[1]));
+    var streak = DateTime.now().difference(date).inDays;
+    if(counter == streak - 1) {
+      counter = 1 + streak;
+    }else{counter = 1; lastLog = DateFormat('MM-dd').format(DateTime.now());}
+    DatabaseHelper().deleteUser();
+    DatabaseHelper().insertUser(this);
+    FirebaseDatabaseHelper().updateUser();
+  }
+
+  void sethourSafe(int i) {
+    if(this.hourSafe<=3000){
+      this.hourSafe += i;
+      DatabaseHelper().deleteUser();
+      DatabaseHelper().insertUser(this);
+      FirebaseDatabaseHelper().updateUser();
+    }
+  }
+
+  reset() {
+    this.hourSafe = 0;
+    this.weeklyMissionFailed = true;
   }
 }

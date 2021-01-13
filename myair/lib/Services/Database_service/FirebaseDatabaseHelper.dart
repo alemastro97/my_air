@@ -75,6 +75,9 @@ class FirebaseDatabaseHelper{
             (value['co'])
           ]);
           u.setNotification(value['notificationSend'], value['notificationReward']);
+          u.setWeeklyChallenges( value['lastLog'],
+              value['hourSafe'],
+              value['weeklyMissionFailed'],value['counter']);
         }
       });
     }
@@ -120,7 +123,11 @@ class FirebaseDatabaseHelper{
             (value['co'])
           ],
             (value['notificationSend']),
-            (value['notificationReward']));
+            (value['notificationReward']),
+              value['lastLog'],
+              value['hourSafe'],
+              value['weeklyMissionFailed'],
+          value['counter']);
           u.setFId(key.toString());
           DatabaseHelper d = DatabaseHelper();
           d.insertUser(u);

@@ -5,6 +5,7 @@ import 'package:flutter/painting.dart';
 import 'package:myair/Modules/DailySensorData.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Modules/PollutantAgent.dart';
+import 'package:myair/main.dart';
 
 import 'ActiveReward.dart';
 
@@ -96,27 +97,31 @@ class RewardPageWidget extends StatelessWidget{
               ),
               subheading('Weekly achievements'),
               SizedBox(height: 5.0),
+              Row(
+                children: [
+                  ActiveReward(
+                    cardColor: Color(0xFFE46472),
+                    loadingPercent: actualUser.hourSafe / 3000,
+                    title: 'My air is better',
+                    subtitle: 'Breathe in clean air for a total of 100 hours',
+                  ),
+                ],
+              ),
+//              SizedBox(width: 20.0),
               Column(
                 children: [
                   Row(
                     children: <Widget>[
                       ActiveReward(
                         cardColor: Color(0xFF309397),
-                        loadingPercent: 0.25,
+                        loadingPercent: actualUser.counter/7,
                         title: 'Daily Access',
                         subtitle: 'Log in for 7 days in a row',
                       ),
                       SizedBox(width: 20.0),
                       ActiveReward(
-                        cardColor: Color(0xFFE46472),
-                        loadingPercent: 0.6,
-                        title: 'My air is better',
-                        subtitle: 'Breathe in clean air for a total of 100 hours',
-                      ),
-                      SizedBox(width: 20.0),
-                      ActiveReward(
                         cardColor: Color(0xFFF9BE7C),
-                        loadingPercent: 0.45,
+                        loadingPercent: actualUser.weeklyMissionFailed ? DateTime.now().weekday/7 : 0.0,
                         title: 'Don\'t touch the bottom',
                         subtitle: 'Never enter highly polluted areas',
                       ),
@@ -124,41 +129,6 @@ class RewardPageWidget extends StatelessWidget{
                   ), ///Weekly achievements
                   ]),
 
-
-              Row(
-                    children: <Widget>[
-                      ActiveReward(
-                        cardColor: Color(0xFF309397),
-                        loadingPercent: 0.25,
-                        title: 'Medical App',
-                        subtitle: '9 hours progress',
-                      ),
-                      SizedBox(width: 20.0),
-                      ActiveReward(
-                        cardColor: Color(0xFFE46472),
-                        loadingPercent: 0.6,
-                        title: 'Making History Notes',
-                        subtitle: '20 hours progress',
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      ActiveReward(
-                        cardColor:  Color(0xFFF9BE7C),
-                        loadingPercent: 0.45,
-                        title: 'Sports App',
-                        subtitle: '5 hours progress',
-                      ),
-                      SizedBox(width: 20.0),
-                      ActiveReward(
-                        cardColor: Color(0xFF6488E4),
-                        loadingPercent: 0.9,
-                        title: 'Online Flutter Course',
-                        subtitle: '23 hours progress',
-                      ),
-                    ],
-                  ),
 
 
                 ],

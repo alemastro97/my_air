@@ -2,6 +2,7 @@ import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/Views/HomePage.dart';
 import 'package:myair/Widgets/Opening_page_widgets/LogoWidget.dart';
@@ -152,7 +153,7 @@ class _RegistrationPage extends State<RegistrationPage>{
                                     onTap: () async {
                                     //  logged = true;
                                       FirebaseDatabaseHelper d = FirebaseDatabaseHelper();
-                                      var b = await d.saveUser(new UserAccount(firstController.text,lastController.text,emailController.text,passController.text,'',[100,50,400,500,240,10],true,true));
+                                      var b = await d.saveUser(new UserAccount(firstController.text,lastController.text,emailController.text,passController.text,'',[100,50,400,500,240,10],true,true,DateFormat('MM-dd').format(DateTime.now()),0,true,0));
                                       DatabaseHelper().getUser();
                                       b ?
                                       Navigator.pushReplacementNamed(context, '/HomePage')

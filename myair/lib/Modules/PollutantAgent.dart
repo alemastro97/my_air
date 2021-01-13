@@ -1,4 +1,7 @@
 
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:myair/main.dart';
+
 class PollutantAgent {
   ///Average of the daily aqi of the day until an hour
   double _pm10_value;
@@ -35,6 +38,13 @@ class PollutantAgent {
   bool _so2_notify;
   bool _o3_notify;
   bool _co_notify;
+
+  bool _pm10_already_notify;
+  bool _pm25_already_notify;
+  bool _no2_already_notify;
+  bool _so2_already_notify;
+  bool _o3_already_notify;
+  bool _co_already_notify;
   ///Actual day and hour
   int day;
   int hour;
@@ -74,6 +84,12 @@ class PollutantAgent {
     this._o3_rw=0.0;
     this._co_rw=0.0;
 
+    this._pm10_already_notify = false;
+    this._pm25_already_notify = false;
+    this._no2_already_notify = false;
+    this._so2_already_notify= false;
+    this._o3_already_notify= false;
+    this._co_already_notify= false;
 
     this._pm10_notify=false;
     this._pm25_notify=false;
@@ -183,61 +199,63 @@ class PollutantAgent {
 
   // Return the nofy status and reset it
   bool get_pm10_notify() {
-    bool value;
-
-    value = this._pm10_notify;
-    this._pm10_notify = false;
-
+    bool value = false;
+  if(!_pm10_already_notify) {
+      value = this._pm10_notify;
+      _pm10_already_notify = true;
+    }
     return value;
   }
 
   // Return the nofy status and reset it
   bool get_pm25_notify() {
-    bool value;
+    bool value = false;
+    if(!_pm25_already_notify) {
+      value = this._pm25_notify;
+      _pm25_already_notify = true;
+    }
 
-    value = this._pm25_notify;
-    this._pm25_notify = false;
 
     return value;
   }
 
   // Return the nofy status and reset it
   bool get_no2_notify() {
-    bool value;
-
-    value = this._no2_notify;
-    this._no2_notify = false;
-
+    bool value = false;
+    if(!_no2_already_notify) {
+      value = this._no2_notify;
+      _no2_already_notify = true;
+    }
     return value;
   }
 
   // Return the nofy status and reset it
   bool get_so2_notify() {
-    bool value;
-
-    value = this._so2_notify;
-    this._so2_notify = false;
-
+    bool value = false;
+    if(!_so2_already_notify) {
+      value = this._so2_notify;
+      _so2_already_notify = true;
+    }
     return value;
   }
 
   // Return the nofy status and reset it
   bool get_o3_notify() {
-    bool value;
-
-    value = this._o3_notify;
-    this._o3_notify = false;
-
+    bool value = false;
+    if(!_o3_already_notify) {
+      value = this._o3_notify;
+      _o3_already_notify = true;
+    }
     return value;
   }
 
   // Return the nofy status and reset it
   bool get_co_notify() {
-    bool value;
-
-    value = this._co_notify;
-    this._co_notify = false;
-
+    bool value = false;
+    if(!_co_already_notify) {
+      value = this._co_notify;
+      _co_already_notify = true;
+    }
     return value;
   }
 
@@ -245,6 +263,8 @@ class PollutantAgent {
 
     //
     if (day != this.day) {
+      DateTime.now().weekday == 1 ? actualUser.reset() : null;
+
       _pm10_bck = _pm10_value;
       _pm25_bck = _pm25_value;
       _no2_bck = _no2_value;
@@ -265,6 +285,20 @@ class PollutantAgent {
       _so2_rw = 0;
       _o3_rw = 0;
       _co_rw = 0;
+
+      this._pm10_already_notify = false;
+      this._pm25_already_notify = false;
+      this._no2_already_notify = false;
+      this._so2_already_notify= false;
+      this._o3_already_notify= false;
+      this._co_already_notify= false;
+
+      _pm10_notify = false;
+      _pm25_notify = false;
+      _no2_notify = false;
+      _so2_notify = false;
+      _o3_notify = false;
+      _co_notify = false;
 
       this.day = day;
     }
@@ -333,41 +367,50 @@ class PollutantAgent {
     this._co_rw = this._co_rw + this._co_value;
 
     // Notify if a cycle has been done
-    if (this._pm10_rw  >= _pm10_limit) {
-      this._pm10_rw = 0;
-      _pm10_notify = true;
+
+      if (this._pm10_rw >= _pm10_limit) {
+        this._pm10_rw = _pm10_limit;
+        if(!_pm10_notify) {  _pm10_notify = true;
+      }
+    }
+    // Notify if a cycle has been done
+
+      if (this._pm25_rw >= _pm25_limit) {
+        this._pm25_rw = _pm25_limit;
+        if(!_pm25_notify)  { _pm25_notify = true;
+      }
     }
 
     // Notify if a cycle has been done
-    if (this._pm25_rw  >= _pm25_limit) {
-      this._pm25_rw = 0;
-      _pm25_notify = true;
+
+      if (this._no2_rw >= _no2_limit) {
+        this._no2_rw = _no2_limit;
+        if(!_no2_notify)   {    _no2_notify = true;
+      }
     }
 
     // Notify if a cycle has been done
-    if (this._no2_rw  >= _no2_limit) {
-      this._no2_rw = 0;
-      _no2_notify = true;
+
+      if (this._so2_rw >= _so2_limit) {
+        this._so2_rw = _so2_limit;
+        if(!_so2_notify)   { _so2_notify = true;
+      }
+    }
+    // Notify if a cycle has been done
+      if (this._o3_rw >= _o3_limit) {
+        this._o3_rw = _o3_limit;
+
+        if(!_o3_notify)   { _o3_notify = true;
+      }
     }
 
     // Notify if a cycle has been done
-    if (this._so2_rw  >= _so2_limit) {
-      this._so2_rw = 0;
-      _so2_notify = true;
-    }
 
-    // Notify if a cycle has been done
-    if (this._o3_rw  >= _o3_limit) {
-      this._o3_rw = 0;
-      _o3_notify = true;
+      if (this._co_rw >= _co_limit) {
+        this._co_rw = _co_limit;
+        if(_co_notify)  {_co_notify = true;
+      }
     }
-
-    // Notify if a cycle has been done
-    if (this._co_rw  >= _co_limit) {
-      this._co_rw = 0;
-      _co_notify = true;
-    }
-
   }
 
   // pm10 index update

@@ -98,6 +98,7 @@ initialization() async {
   databaseHelper.getDailyData();
   //databaseHelper.deleteDB();
   actualUser = await databaseHelper.getUserAccount();
+
   sensorList = await databaseHelper.getSensorList();
   GoogleSignInProvider().logout();
   if(sensorList.length == 0){

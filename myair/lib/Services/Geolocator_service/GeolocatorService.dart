@@ -103,14 +103,23 @@ class GeolocationView{
         kInfo.value.elementAt(3).value.amount,
         kInfo.value.elementAt(4).value.amount,
         kInfo.value.elementAt(5).value.amount);
-
+      int aqi = PollutantAgent().getAqi(
+          kInfo.value.elementAt(0).value.amount,
+          kInfo.value.elementAt(1).value.amount,
+          kInfo.value.elementAt(2).value.amount,
+          kInfo.value.elementAt(3).value.amount,
+          kInfo.value.elementAt(4).value.amount,
+          kInfo.value.elementAt(5).value.amount);
+      if(150 > aqi){actualUser.sethourSafe(1);}
+      else{if(aqi > 400){actualUser.weeklyMissionFailed = false;}}
       if(actualUser.notificationSend)
       {
         for (var i = 0; i < kInfo.value.length; i++)
-          kInfo.value.elementAt(i).value.amount > Limits.elementAt(i)
-              ? this._notifications.pushNotification()
-              : null;
-      }
+        if(  kInfo.value.elementAt(i).value.amount > actualUser.notificationLimits.elementAt(i)) {
+          this._notifications.pushNotification();
+          print("Notifiaaaaaaaa");
+        }}
+      //Todo controllare perchè lancai solo uan notifica
       if(actualUser.notificationReward)
       {
         PollutantAgent().get_pm10_notify() || PollutantAgent().get_pm25_notify() ||

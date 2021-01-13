@@ -151,7 +151,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                       child: Card(
                         elevation: 4,
                         child: AnimatedSwitcher(
-                          duration: Duration(milliseconds: 300),
+                          duration: Duration(milliseconds: 700),
                           transitionBuilder:
                               (Widget child, Animation<double> animation) =>
                                   ScaleTransition(
@@ -310,7 +310,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                   ),*/
 
 
-//TODO make change password
+
 
               const SizedBox(height: 20.0),
               Text(
@@ -479,83 +479,92 @@ class _OpenPasswordState extends State<OpenPassword>{
           ),
         ),
         Expanded(
-          child: TextField(
-            controller: passOldController,
-            enableSuggestions: false,
-            autocorrect: false,
-            obscureText: true,
-            keyboardType: TextInputType.text,
-            decoration: error ? new InputDecoration(
-              filled: true,
-              fillColor: Colors.white,
-              border: new OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
-              hintText: 'Old Password',
-              errorText: 'Password doesn\'t matching',
-              //labelText: 'Email',
+          child: Padding(
+            padding: const EdgeInsets.only(left:8.0, right: 8.0,bottom: 8.0),
+            child: TextField(
+              controller: passOldController,
+              enableSuggestions: false,
+              autocorrect: false,
+              obscureText: true,
+              keyboardType: TextInputType.text,
+              decoration: error ? new InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border: new OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                hintText: 'Old Password',
+                errorText: 'Password doesn\'t matching',
+                //labelText: 'Email',
 
-            ): new InputDecoration(
-              filled: true,
-              fillColor: Colors.white,
-              border: new OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
-              hintText: 'Old Password',
-              // labelText: 'Email',
+              ): new InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border: new OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                hintText: 'Old Password',
+                // labelText: 'Email',
 
+              ),
             ),
           ),
         ),
         Expanded(
-          child: TextField(
-            controller: passNewController,
-            enableSuggestions: false,
-            autocorrect: false,
-            obscureText: true,
-            keyboardType: TextInputType.text,
-            decoration: error_2 ? new InputDecoration(
-              filled: true,
-              fillColor: Colors.white,
-              border: new OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
-              hintText: 'New Password',
-              errorText: 'Passwords don\'t matching',
-              //labelText: 'Email',
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: passNewController,
+              enableSuggestions: false,
+              autocorrect: false,
+              obscureText: true,
+              keyboardType: TextInputType.text,
+              decoration: error_2 ? new InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border: new OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                hintText: 'New Password',
+                errorText: 'Passwords don\'t matching',
+                //labelText: 'Email',
 
-            ): new InputDecoration(
-              filled: true,
-              fillColor: Colors.white,
-              border: new OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
-              hintText: 'New Password',
-              // labelText: 'Email',
+              ): new InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border: new OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                hintText: 'New Password',
+                // labelText: 'Email',
 
+              ),
             ),
           ),
         ),
         Expanded(
-          child: TextField(
-            controller: passNewCController,
-            enableSuggestions: false,
-            autocorrect: false,
-            obscureText: true,
-            keyboardType: TextInputType.text,
-            decoration: error_2 ? new InputDecoration(
-              filled: true,
-              fillColor: Colors.white,
-              border: new OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
-              hintText: 'New Password Confirmation',
-              errorText: ' ',
-              //labelText: 'Email',
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: passNewCController,
+              enableSuggestions: false,
+              autocorrect: false,
+              obscureText: true,
+              keyboardType: TextInputType.text,
+              decoration: error_2 ? new InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border: new OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                hintText: 'New Password Confirmation',
+                errorText: ' ',
+                //labelText: 'Email',
 
-            ): new InputDecoration(
-              filled: true,
-              fillColor: Colors.white,
-              border: new OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
-              hintText: 'New Password Confirmation',
-              // labelText: 'Email',
+              ): new InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border: new OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                hintText: 'New Password Confirmation',
+                // labelText: 'Email',
 
+              ),
             ),
           ),
         ),
@@ -588,7 +597,7 @@ class _OpenPasswordState extends State<OpenPassword>{
                   // padding: EdgeInsets.symmetric( ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 3),
-                    color: Theme.of(context).backgroundColor,
+                    color: Theme.of(context).brightness == Brightness.light ? Color(0xFF6488E4) : Theme.of(context).accentColor,
                   ),
 
                   child: Center(
@@ -596,7 +605,10 @@ class _OpenPasswordState extends State<OpenPassword>{
                       fit: BoxFit.fitHeight,
                       child: Text(
                         'Change Password',
-                        style: TextStyle(fontWeight: FontWeight.bold, ),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).brightness == Brightness.light? Colors.white : Theme.of(context).textTheme
+                        ),
                       ),
                     ),
                   ),

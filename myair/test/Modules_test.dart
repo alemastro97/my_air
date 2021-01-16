@@ -7,6 +7,7 @@ import 'package:myair/Modules/Sensor.dart';
 import 'package:myair/Modules/SensorData.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:latlong/latlong.dart';
+import 'package:myair/Views/Reward_page/RewardPage.dart';
 import 'package:myair/Widgets/Reward_page_widgets/RewardPageWidget.dart';
 import 'package:myair/main.dart';
 
@@ -451,16 +452,12 @@ void main() {
 
   });
 
-  group('Widget test -', () {
+  group('Widget test1 -', () {
     // logged_in_widget test
-    testWidgets('Widget test ', (WidgetTester tester) async {
+    testWidgets('Widget test1 ', (WidgetTester tester) async {
       // Find all widgets needed
       final addObject = find.byKey(ValueKey("reward"));
-
-      await tester.pumpWidget(MaterialApp(home: RewardPageWidget()));
-
-
-
+       await tester.pumpWidget(MaterialApp(home: RewardPage()));
     });
   });
 }

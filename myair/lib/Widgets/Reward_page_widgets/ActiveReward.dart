@@ -19,7 +19,6 @@ class ActiveReward extends StatelessWidget {
     return Expanded(
       flex: 1,
       child: Container(
-
         margin: EdgeInsets.symmetric(vertical: 10.0),
         padding: EdgeInsets.all(15.0),
         //height: MediaQuery.of(context).size.height,
@@ -35,6 +34,7 @@ class ActiveReward extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: CircularPercentIndicator(
+                key: Key("reward"),
                 animation: true,
                 radius: 75.0,
                 percent: loadingPercent,

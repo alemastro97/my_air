@@ -7,8 +7,8 @@ import 'package:myair/Modules/Sensor.dart';
 import 'package:myair/Modules/SensorData.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:latlong/latlong.dart';
-import 'package:myair/Services/Database_service/DatabaseHelper.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:myair/Widgets/Reward_page_widgets/RewardPageWidget.dart';
+import 'package:myair/main.dart';
 
 void main() {
   group('Sensor data checking -', () {
@@ -112,8 +112,7 @@ void main() {
           "5823",
           "Milano - viale Liguria",
           "539",
-          "45.443857653564926",
-          "9.167944501742676",
+          new LatLng(45.443857653564926,9.167944501742676),
           "Monossido di Carbonio",
           "mg/m³",
           "1991-10-20T00:00:00.000",
@@ -123,8 +122,7 @@ void main() {
           "6328",
           "Milano - viale Marche",
           "501",
-          "45.49631644365102",
-          "9.190933555313624",
+          new LatLng(45.49631644365102,9.190933555313624),
           "Ossidi di Azoto",
           "µg/m³",
           "1980-09-18T00:00:00.000",
@@ -134,8 +132,7 @@ void main() {
           "10458",
           "Bertonico",
           "1266",
-          "45.23349364130374",
-          "9.666250375296032",
+          new LatLng(45.23349364130374,9.666250375296032),
           "Biossido di Azoto",
           "µg/m³",
           "2009-08-03T00:00:00.000",
@@ -145,8 +142,7 @@ void main() {
           "10437",
           "Sondrio - via Paribelli",
           "1264",
-          "46.167852440665115",
-          "9.879209924469903",
+          new LatLng(46.167852440665115,9.879209924469903),
           "Ozono",
           "µg/m³",
           "2009-01-04T00:00:00.000",
@@ -156,8 +152,7 @@ void main() {
           "12695",
           "Sondrio - via Paribelli",
           "1264",
-          "46.167852440665115",
-          "9.879209924469903",
+          new LatLng(46.167852440665115,9.879209924469903),
           "Piombo",
           "ng/m³",
           "2008-04-01T00:00:00.000",
@@ -182,11 +177,12 @@ void main() {
     });
   });
 
-  group('Quality air index group -', () {
+  group('Quality air checking -', () {
     // One one value received for each sensor
     test('One value received for each sensor ', () {
-      PollutantAgent pa = new PollutantAgent(1, 2, 3, 4, 5, 6);
-
+      //PollutantAgent pa = new PollutantAgent(1, 2, 3, 4, 5, 6);
+      PollutantAgent pa = new PollutantAgent();
+      pa.initialize(1, 2, 3, 4, 5, 6);
       pa.set_values(
           1,
           2,
@@ -220,8 +216,9 @@ void main() {
     // Two values received for each sensor
     test(
         'Two values received for each sensor and the hour,day dont change', () {
-      PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
-
+      //PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
+      PollutantAgent pa = new PollutantAgent();
+      pa.initialize(1, 2, 3, 4, 5, 6);
       pa.set_values(
           1,
           2,
@@ -263,9 +260,10 @@ void main() {
 
     // Two values received for each sensor
     test(
-        'Two values received for each sensor and the hour changed, the day dont changed', () {
-      PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
-
+        'Two values received for each sensor and the hour change, the day dont change', () {
+      //PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
+      PollutantAgent pa = new PollutantAgent();
+      pa.initialize(1, 2, 3, 4, 5, 6);
       pa.set_values(
           1,
           2,
@@ -306,9 +304,10 @@ void main() {
     });
 
     // One one value received for each sensor
-    test('Two values received for each sensor and the hour,day changed', () {
-      PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
-
+    test('Two values received for each sensor and the hour,day change', () {
+      //PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
+      PollutantAgent pa = new PollutantAgent();
+      pa.initialize(1, 2, 3, 4, 5, 6);
       pa.set_values(
           1,
           2,
@@ -357,8 +356,9 @@ void main() {
     // Reward: Two values received for each sensor
     test(
         'Reward: Two values received for each sensor and the hour,day dont change', () {
-      PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
-
+      //PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
+      PollutantAgent pa = new PollutantAgent();
+      pa.initialize(1, 2, 3, 4, 5, 6);
       pa.set_values(
           1,
           2,
@@ -394,9 +394,10 @@ void main() {
 
     // Reward: Two vwlues received for each sensor and the hour changed
     test(
-        'Reward: Two values received for each sensor and the hour changed, the day dont changed', () {
-      PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
-
+        'Reward: Two values received for each sensor and the hour changes, the day dont changes', () {
+      //PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
+      PollutantAgent pa = new PollutantAgent();
+      pa.initialize(1, 2, 3, 4, 5, 6);
       pa.set_values(1,2,15,18,150,370,250,29);
       pa.set_values(2,2,150,20,50,400,90,28);
       print("PM10 index: " + pa.get_pm10_rw().toString());
@@ -415,9 +416,11 @@ void main() {
     });
 
     // Reward: No Notifications of the termination of the cycle for pm10
-    test('Reward: Notifications', ()
+    test('Reward: No Notifications of the termination of the cycle for pm10', ()
     {
-      PollutantAgent pa = PollutantAgent(6, 1, 2, 3, 4, 5);
+      //PollutantAgent pa = PollutantAgent(6, 1, 2, 3, 4, 5);
+      PollutantAgent pa = new PollutantAgent();
+      pa.initialize(1, 2, 3, 4, 5, 6);
       pa.set_values(1,2,15,18,150,370,250,29);
       pa.set_values(1,2,15,18,150,370,250,29);
       pa.set_values(1,2,15,18,150,370,250,29);
@@ -428,10 +431,12 @@ void main() {
       expect(pa.get_pm10_notify(),false);
     });
 
-    // Reward: No Notifications of the termination of the cycle for pm10
-    test('Reward: Notifications', ()
+    // Reward: Notifications of the termination of the cycle for pm10
+    test('Reward: c-Notifications of the termination of the cycle for pm10', ()
     {
-      PollutantAgent pa = PollutantAgent(6, 1, 2, 3, 4, 5);
+      //PollutantAgent pa = PollutantAgent(6, 1, 2, 3, 4, 5);
+      PollutantAgent pa = new PollutantAgent();
+      pa.initialize(1, 2, 3, 4, 5, 6);
       pa.set_values(1,2,15,18,150,370,250,29);
       pa.set_values(1,2,15,18,150,370,250,29);
       pa.set_values(1,2,15,18,150,370,250,29);
@@ -448,20 +453,13 @@ void main() {
 
   group('Widget test -', () {
     // logged_in_widget test
-    testWidgets('Logged_in_widget test ', (WidgetTester tester) async {
+    testWidgets('Widget test ', (WidgetTester tester) async {
+      // Find all widgets needed
+      final addObject = find.byKey(ValueKey("reward"));
 
-      // Find all the widget needed
-      final addField = find.byKey(ValueKey("Test"));
-      final addButton = find.byKey(ValueKey("Test"));
+      await tester.pumpWidget(MaterialApp(home: RewardPageWidget()));
 
-      //execute the actual  test
-      //await tester.pumpWidget(MaterialApp(home: Home()));
-      await tester.enterText(addField, "Testing ....");
-      await tester.tap(addButton);
-      await tester.pump();
 
-      // Cehck outputs
-      expect(find.text("Make widget testing"), findsOneWidget);
 
     });
   });

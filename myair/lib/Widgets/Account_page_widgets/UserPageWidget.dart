@@ -54,9 +54,7 @@ class _UserPageWidgetState extends State<UserPageWidget>{
             ],
           ),
         ),
-
-
-          ],
+      ],
     );
     var themeSwitcher = ThemeSwitcher(builder: (context){
 
@@ -82,8 +80,6 @@ class _UserPageWidgetState extends State<UserPageWidget>{
             ),
 
           );
-
-
     });
     var header = Padding(
         padding: const EdgeInsets.all(8.0),
@@ -144,7 +140,6 @@ class _UserPageWidgetState extends State<UserPageWidget>{
                           hasNavigation: false,
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -152,7 +147,6 @@ class _UserPageWidgetState extends State<UserPageWidget>{
             ],
           ),
         );
-
   }
 }
 

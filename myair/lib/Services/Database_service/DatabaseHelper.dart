@@ -1,4 +1,4 @@
-import 'package:flutter/services.dart';
+
 import 'package:intl/intl.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Modules/UserAccount.dart';
@@ -11,11 +11,11 @@ import 'dart:math' as Math;
 
 import '../../Modules/Sensor.dart';
 
-
 class DatabaseHelper {
 
   static DatabaseHelper _databaseHelper; //Singleton DatabaseHelper
   static Database _database;
+
 ///DATABASE TABLES
   String sensorTable = 'sensor_table';
   String colId = 'id';
@@ -193,6 +193,7 @@ class DatabaseHelper {
     print(result.toString());
     return result;
   }
+
   // Get number of objects in database
   Future<int> getCountSensor() async{
     Database db = await this.database;
@@ -209,8 +210,6 @@ class DatabaseHelper {
     int result = Sqflite.firstIntValue(x);
     return result;
   }
-
-
 
   // Get the 'Map List' and convert to 'Object List'
   Future<List<SensorModule>> getSensorList() async {
@@ -237,6 +236,7 @@ class DatabaseHelper {
     return null;
   }
 
+  // Get Daily data
   void getDailyData() async {
     var data_list= await getData(); // Get 'Map List' from database
     if(data_list.length > 0) {
@@ -274,20 +274,9 @@ class DatabaseHelper {
         }
       });
     }
-
-    /*return [
-      [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
-      [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
-      [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
-      [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
-      [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
-      [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
-    ];**/
   }
 
-
-
-// Get the sensor list closed to the user
+/* Get the sensor list closed to the user?????????????????????????????NOT USED !
   Future<List<SensorModule>> getSensorListClosedtoUser(double ulatitude, double ulongitude, int utolerance) async {
     var sensorMapList = await getSensorMapList(); // Get 'Map List' from database
     int count = sensorMapList.length; // Count the number of map entries in the db
@@ -324,6 +313,6 @@ class DatabaseHelper {
     double distance = Math.sqrt(x * x + y * y) * R;
 
     return distance;
-  }
+  } */
 
 }

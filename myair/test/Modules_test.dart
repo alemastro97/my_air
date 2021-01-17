@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/intl.dart';
 import 'package:myair/Modules/DailySensorData.dart';
 import 'package:myair/Modules/PollutantAgent.dart';
 import 'package:myair/Modules/SensorListData.dart';
@@ -7,7 +8,9 @@ import 'package:myair/Modules/Sensor.dart';
 import 'package:myair/Modules/SensorData.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:latlong/latlong.dart';
+import 'package:myair/Modules/UserAccount.dart';
 import 'package:myair/Views/Reward_page/RewardPage.dart';
+import 'package:myair/Widgets/Reward_page_widgets/ActiveReward.dart';
 import 'package:myair/Widgets/Reward_page_widgets/RewardPageWidget.dart';
 import 'package:myair/main.dart';
 
@@ -452,12 +455,42 @@ void main() {
 
   });
 
-  group('Widget test1 -', () {
+  group('Widget test . reward', () {
     // logged_in_widget test
     testWidgets('Widget test1 ', (WidgetTester tester) async {
-      // Find all widgets needed
-      final addObject = find.byKey(ValueKey("reward"));
-       await tester.pumpWidget(MaterialApp(home: RewardPage()));
+
+      actualUser = new UserAccount("aristide", "bordoli", "aristide.bordoli@mail.polimi.it", "","",[100,50,400,500,240,10], true,true,DateFormat('MM-dd').format(DateTime.now()),0,true,0);
+
+      PollutantAgent p = PollutantAgent();
+      p.initialize(2,100,100,100,100,100);
+
+      await tester.pumpWidget(MaterialApp(home: RewardPage()));
+
+      final value = find.text('PM10');
+      print (value.description);
+
+     /* var testlist = tester.elementList(find.byType(ActiveReward));
+      for (value in testlist) {
+        print(value);
+      }
+*/
+      expect(find.toString(), findsWidgets);
     });
+
+    testWidgets('Login ', (WidgetTester tester) async {
+
+      await tester.pumpWidget(MaterialApp(home: RewardPage()));
+
+      final value = find.text('PM10');
+      print (value.description);
+
+      /* var testlist = tester.elementList(find.byType(ActiveReward));
+      for (value in testlist) {
+        print(value);
+      }
+*/
+      expect(find.toString(), findsWidgets);
+    });
+
   });
 }

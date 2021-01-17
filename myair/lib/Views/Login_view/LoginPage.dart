@@ -1,19 +1,17 @@
 
-import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myair/Modules/UserAccount.dart';
 import 'package:myair/Services/Database_service/FirebaseDatabaseHelper.dart';
 import 'package:myair/Widgets/Opening_page_widgets/LogoWidget.dart';
 
-import 'package:myair/main.dart';
 class LoginPage extends StatefulWidget{
   _LoginPage createState() => _LoginPage();
 }
+
 class _LoginPage extends State<LoginPage>{
   TextEditingController emailController = new TextEditingController();
-
   TextEditingController passController = new TextEditingController();
+
   var error = false;
 
   @override
@@ -140,6 +138,7 @@ class _LoginPage extends State<LoginPage>{
                                           child: Text(
                                             'Login',
                                             style: TextStyle(fontWeight: FontWeight.bold, ),
+                                            key: Key('LoginButton'),
                                           ),
                                         ),
                                       ),

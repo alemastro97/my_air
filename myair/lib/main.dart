@@ -18,6 +18,8 @@ import 'package:myair/Modules/Sensor.dart';
 
 import 'Services/Google_Service/GoogleSignIn.dart';
 import 'Views/Permission_view/PermissionPage.dart';
+
+// kInfo data
 var kInfo = ValueNotifier<List<ValueNotifier<InfoPollution>>>(
     [
       ValueNotifier(InfoPollution('PM10', amount: 23.0)),
@@ -28,14 +30,20 @@ var kInfo = ValueNotifier<List<ValueNotifier<InfoPollution>>>(
       ValueNotifier(InfoPollution('CO', amount: 12.0))
     ]
 );
+
+// Sensor list
 List<SensorModule> sensorList = [];
+
 //bool logged = false ;
 UserAccount actualUser = null;
 bool permissions = false;
 int nU = 0;
 var x;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // DB for user management
   await Firebase.initializeApp();
 
   runApp(MyApp());
@@ -50,13 +58,18 @@ class MyApp extends StatefulWidget{
 class _MyAppState extends State<MyApp> {
   static final String title = 'Google SignIn';
   var _start;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    // App initialization
     initialization();
+
     _start = false;
   }
+
   @override
   Widget build(BuildContext context) {
 
@@ -87,35 +100,44 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-initialization() async {
-  permissions = await GeolocationView().checkPermissions();
-  DatabaseHelper databaseHelper = DatabaseHelper();
-  DailyUnitData d = DailyUnitData();
+  // App initialization
+  initialization() async {
+    permissions = await GeolocationView().checkPermissions();
 
-  d.initializeValues();
-  PollutantAgent p = PollutantAgent();
-  p.initialize(2,100,100,100,100,100);
-  databaseHelper.getDailyData();
-  //databaseHelper.deleteDB();
-  actualUser = await databaseHelper.getUserAccount();
+    DatabaseHelper databaseHelper = DatabaseHelper();
 
-  sensorList = await databaseHelper.getSensorList();
-  GoogleSignInProvider().logout();
-  if(sensorList.length == 0){
-    await fetchSensorsFromAPI();
+    DailyUnitData d = DailyUnitData();
+    d.initializeValues();
+
+    PollutantAgent p = PollutantAgent();
+    p.initialize(2,100,100,100,100,100);
+
+    databaseHelper.getDailyData();
+    //databaseHelper.deleteDB();
+    actualUser = await databaseHelper.getUserAccount();
+
+    // get sensor list saved in the db?????????????????????????????
+    // TODO verificare perchè chiamata due volte
     sensorList = await databaseHelper.getSensorList();
-  }
+    GoogleSignInProvider().logout();
 
-  /*await*/ GeolocationView().getCurrentLocation(); ///Todo Starting geolocator thread
-  setState(() {
-    _start = true;
-  });
-}
+    // if sensors not present in the db then call api to fetch them
+    if(sensorList.length == 0){
+      await fetchSensorsFromAPI();
+      sensorList = await databaseHelper.getSensorList();
+    }
+
+    /*await*/ GeolocationView().getCurrentLocation(); ///Todo Starting geolocator thread
+    setState(() {
+      _start = true;
+    });
+  }
 }
 
 class SplashScreen extends StatefulWidget {
   _SplashScreen createState() => _SplashScreen();
 }
+
 class _SplashScreen extends State<SplashScreen> with TickerProviderStateMixin {
 
   @override
@@ -143,7 +165,6 @@ class _SplashScreen extends State<SplashScreen> with TickerProviderStateMixin {
                      controller: AnimationController(vsync: this, duration: const Duration(milliseconds: 1200)),
                    )
                  ),
-
               ],
             ),
           ),

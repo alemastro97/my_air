@@ -6,6 +6,7 @@ import 'package:myair/Widgets/Home_page_statistics_widgets/InfoList.dart';
 
 import '../../main.dart';
 
+// List of the items related to Actual Air Pollution
 class AgentListWidget extends StatelessWidget{
   const AgentListWidget({Key key,}) : super(key:key);
 
@@ -17,44 +18,10 @@ class AgentListWidget extends StatelessWidget{
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           for(var item in kInfo.value)
-            InfoList(text: item.value.name,index: kInfo.value.indexOf(item),),
+            InfoList(text: item.value.name,index: kInfo.value.indexOf(item),), // items description and color
         ],
       ),
     );
   }
 
 }
-/*Flexible(
-      child: Container(
-        child:Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ///Pollution Fields
-            Expanded(
-              flex: 9,
-              child: Container(
-                child:Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    for(var column = 0; column < kInfo.length/2; column ++)
-                      Expanded(
-                        flex: 1,
-                        child: Row(
-                          children: <Widget>[
-                            for(var row = 0; row < 2; row ++)
-                              Expanded(
-                                flex:1,
-                                child:InfoList(text: kInfo.elementAt(column*2 + row).name,index: column*2 + row,),
-                              ),
-                          ],
-                        ),
-                      ),
-
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    )*/

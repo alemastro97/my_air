@@ -102,22 +102,26 @@ class _MyAppState extends State<MyApp> {
 
   // App initialization
   initialization() async {
+    // Geolocation permission management
     permissions = await GeolocationView().checkPermissions();
 
+    // Database for sensor, user and data tables
     DatabaseHelper databaseHelper = DatabaseHelper();
 
+    // Data management
     DailyUnitData d = DailyUnitData();
     d.initializeValues();
 
+    // Reward management
     PollutantAgent p = PollutantAgent();
     p.initialize(2,100,100,100,100,100);
 
     databaseHelper.getDailyData();
-    //databaseHelper.deleteDB();
+
+    // Get actual user
     actualUser = await databaseHelper.getUserAccount();
 
-    // get sensor list saved in the db?????????????????????????????
-    // TODO verificare perchè chiamata due volte
+    // get sensor list saved in the db
     sensorList = await databaseHelper.getSensorList();
     GoogleSignInProvider().logout();
 
@@ -138,6 +142,7 @@ class SplashScreen extends StatefulWidget {
   _SplashScreen createState() => _SplashScreen();
 }
 
+// Splash management during app startup
 class _SplashScreen extends State<SplashScreen> with TickerProviderStateMixin {
 
   @override

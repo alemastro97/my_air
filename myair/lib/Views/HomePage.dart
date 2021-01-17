@@ -24,13 +24,11 @@ class HomePage extends StatefulWidget {
 
   @override
   HomePageState createState() => HomePageState();
-
 }
 
 class HomePageState extends State<HomePage> {
   int index = 4;
   Io.File top_image = null;
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +40,7 @@ class HomePageState extends State<HomePage> {
       UserPage(changeTopImage: changeTopImage),
       HomeStatisticsPage(),
     ];
+
     return  ThemeSwitchingArea(child: FutureBuilder(
       future: changeTopImage(),
       builder:(BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -58,9 +57,7 @@ class HomePageState extends State<HomePage> {
               ),]
             ),
             bottomNavigationBar: TabBarMaterialWidget(
-              index: index,
               onChangedTab: onChangedTab,
-
             ),
             floatingActionButton: FloatingActionButton(
               child: Icon(Icons.home_outlined),

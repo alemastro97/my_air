@@ -203,6 +203,7 @@ class DatabaseHelper {
     return result;
   }
 
+  // Get number of users
   Future<int> getCountUser() async{
     Database db = await this.database;
 
@@ -224,6 +225,7 @@ class DatabaseHelper {
     return sensorList;
   }
 
+  // Get user account
   Future<UserAccount> getUserAccount() async {
     var user = await getUser(); // Get 'Map List' from database
     print("------" + user.length.toString());

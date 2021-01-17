@@ -6,7 +6,6 @@ import 'package:myair/Modules/PollutantAgent.dart';
 import 'package:myair/Views/Home_page_views/InfoView.dart';
 import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
 
-
 import '../../main.dart';
 import 'AgentListWidget.dart';
 import 'GridAgentWidget.dart';
@@ -73,8 +72,7 @@ class GraphWidget extends StatelessWidget{
                               ),
                             ),
                             ///List of agents + graph
-                            Flexible(
-                              flex: 8,
+                            Flexible(flex: 8,
                               child: Row (
                                 children: <Widget>[
                                   ///List of agents
@@ -174,7 +172,7 @@ class GraphWidget extends StatelessWidget{
                                                           widthFactor: 0.9,
                                                           child: Container(
                                                             decoration: BoxDecoration(
-                                                              shape: BoxShape.circle,
+                                                              shape: BoxShape.rectangle,
                                                             ),
                                                             child: CircleAvatar(
 

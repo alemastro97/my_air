@@ -36,29 +36,20 @@ class AgentInfoWidget extends StatelessWidget{
                 children: <Widget>[
                   Flexible(
                     child: Container(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width / 30,
+                      width: MediaQuery.of(context).size.width / 30,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: kNeumorphicColors.elementAt(index %
-                            kNeumorphicColors.length),
+                        color: kNeumorphicColors.elementAt(index % kNeumorphicColors.length),
                       ),
                     ),
                   ),
                   Expanded(
                       child:
                       Container(
-                        padding: EdgeInsets.all(MediaQuery
-                            .of(context)
-                            .size
-                            .width / 100),
+                        padding: EdgeInsets.all(MediaQuery.of(context).size.width / 100),
                         child: FittedBox(
                           fit: BoxFit.fitHeight,
-                          child: Text(
-                            value
-                                .name,
+                          child: Text(value.name,
                           ),
                         ),
                       )),
@@ -82,8 +73,8 @@ class AgentInfoWidget extends StatelessWidget{
                                     child: CustomPaint(
                                       child: Center(),
                                       foregroundPainter: AgentPieChart(
-                                        width: constraint.maxWidth * 0.4,
                                         info: kInfo.value,
+                                        width: constraint.maxWidth * 0.4,
                                         index: index,
                                       ),
                                     ),
@@ -98,7 +89,6 @@ class AgentInfoWidget extends StatelessWidget{
                                           .brightness == Brightness.light
                                           ? Color.fromRGBO(255, 255, 255, 1)
                                           : Color(0xFF373737),
-                                      //Color.fromRGBO(193, 214, 233, 1),
                                       shape: BoxShape.circle,
                                       boxShadow: [
                                         BoxShadow(
@@ -120,7 +110,6 @@ class AgentInfoWidget extends StatelessWidget{
                                               ? Colors.black.withOpacity(1)
                                               : Colors.white.withOpacity(1),
                                         ),
-
                                       ],
                                     ),
                                     child: Stack(

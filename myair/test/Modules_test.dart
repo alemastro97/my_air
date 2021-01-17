@@ -75,9 +75,9 @@ void main() {
         print(st.getValues());
       }
 
-      List<double> values = st.getValues().value;
+      List<double> values = st.getValues() as List<double>;
 
-      expect((values[hour] * 1000).round() / 1000, 0.78);
+      expect((values[hour] * 1000).round() / 1000, 0.779);
     });
 
     // Save the average in the right position of the Sensor data array
@@ -457,45 +457,24 @@ void main() {
 
   group('Widget test . reward', () {
     // logged_in_widget test
-    testWidgets('Widget test reward', (WidgetTester tester) async {
+    testWidgets('Widget test1 ', (WidgetTester tester) async {
 
       actualUser = new UserAccount("aristide", "bordoli", "aristide.bordoli@mail.polimi.it", "","",[100,50,400,500,240,10], true,true,DateFormat('MM-dd').format(DateTime.now()),0,true,0);
 
       PollutantAgent p = PollutantAgent();
       p.initialize(2,100,100,100,100,100);
 
-      Widget reward = buildWidget();
-    // print("-");
+      await tester.pumpWidget(MaterialApp(home: RewardPage()));
 
-      await tester.pumpWidget(reward);
-      await tester.pump();
-      var firstActiveReward = find.descendant(
-        of: find.byType(Row),
-        matching: find.byType(ActiveReward),
-      ).evaluate().whereType<ActiveReward>().first;
-      print("-----------------------------" + firstActiveReward.toString());
-      print(firstActiveReward.title);
-      //expect(, "PM10");
+      final value = find.text('PM10');
+      print (value.description);
 
-     // await tester.pumpWidget(MaterialApp(home: RewardPage()));
-
-  //    final value = find.text('PM10');
-  //    //print (value.description);
-
-     //var testlist = tester.elementList(find.byType(ActiveReward));
-     //var first = testlist.elementAt(0);
-    // var widget = first.renderObject.data;
-    // var test = find.descendant(
-     //  of: find.byType(Row),
-     //  matching: find.byType(ActiveReward),
-     //).evaluate().whereType<ActiveReward>().first;
-   //  var first = find.descendant(of: find.byType(ActiveReward)).evaluate().toList()[0].widget;
-    // print(test);
-      //for (var value in testlist) {
-       // value;
-      //}
-
-     // expect(find.toString(), findsWidgets);
+     /* var testlist = tester.elementList(find.byType(ActiveReward));
+      for (value in testlist) {
+        print(value);
+      }
+*/
+      expect(find.toString(), findsWidgets);
     });
 
     testWidgets('Login ', (WidgetTester tester) async {
@@ -509,144 +488,9 @@ void main() {
       for (value in testlist) {
         print(value);
       }
-*/    expect(1,1);
-     // expect(find.toString(), findsWidgets);
+*/
+      expect(find.toString(), findsWidgets);
     });
 
   });
 }
-
-Widget buildWidget() {
-  subheading(String s) {
-    Text subheading(String title) {
-      return Text(
-        title,
-        style: TextStyle(
-          // color: LightColors.kDarkBlue,
-            fontSize: 20.0,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 1.2),
-      );
-    }
-  Widget build(BuildContext context) {
-    //DailyUnitData d = DailyUnitData();
-    return  Container(
-      color: Colors.transparent,
-      padding: EdgeInsets.symmetric(
-          horizontal: 20.0, vertical: 10.0),
-      child: ListView(
-        scrollDirection: Axis.vertical,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              subheading('Quality Air Achievements'),
-              SizedBox(height: 5.0),
-              Column(
-                children: [
-                  Row(
-                    children: <Widget>[
-                      ActiveReward(
-                        cardColor: Color(0xFF6488E4),
-                        loadingPercent: PollutantAgent().get_pm10_rw()/PollutantAgent().get_pm10_limit(),
-                        title: 'PM10',
-                        subtitle: 'reward calculation',
-                      ),
-                      SizedBox(width: 20.0),
-                      ActiveReward(
-                        cardColor: Color(0xFF6488E4),
-                        loadingPercent:  PollutantAgent().get_pm25_rw()/PollutantAgent().get_pm25_limit(),
-                        title: 'PM2.5',
-                        subtitle: 'reward calculation',
-                      ),
-                    ],
-                  ), Row(
-                    children: <Widget>[
-                      //    Text(PollutantAgent().get_pm10_rw().toString()),
-
-                      ActiveReward(
-                        cardColor: Color(0xFF6488E4),
-                        loadingPercent:  PollutantAgent().get_no2_rw()/PollutantAgent().get_no2_limit(),
-                        title: 'NO2',
-                        subtitle: 'reward calculation',
-                      ),
-                      SizedBox(width: 20.0),
-                      ActiveReward(
-                        cardColor: Color(0xFF6488E4),
-                        loadingPercent:  PollutantAgent().get_so2_rw()/PollutantAgent().get_so2_limit(),
-                        title: 'SO2',
-                        subtitle: 'reward calculation',
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      //    Text(PollutantAgent().get_pm10_rw().toString()),
-
-                      ActiveReward(
-                        cardColor: Color(0xFF6488E4),
-                        loadingPercent: PollutantAgent().get_o3_rw()/PollutantAgent().get_o3_limit(),
-                        title: 'O3',
-                        subtitle: 'reward calculation',
-                      ),
-                      SizedBox(width: 20.0),
-                      ActiveReward(
-                        cardColor: Color(0xFF6488E4),
-                        loadingPercent: PollutantAgent().get_co_rw()/PollutantAgent().get_co_limit(),
-                        title: 'CO',
-                        subtitle: 'reward calculation',
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              subheading('Weekly achievements'),
-              SizedBox(height: 5.0),
-              Row(
-                children: [
-                  ActiveReward(
-                    cardColor: Color(0xFFE46472),
-                    loadingPercent: actualUser.hourSafe / 3000,
-                    title: 'My air is better',
-                    subtitle: 'Breathe in clean air for a total of 100 hours',
-                  ),
-                ],
-              ),
-//              SizedBox(width: 20.0),
-              Column(
-                  children: [
-                    Row(
-                      children: <Widget>[
-                        ActiveReward(
-                          cardColor: Color(0xFF309397),
-                          loadingPercent: actualUser.counter/7,
-                          title: 'Daily Access',
-                          subtitle: 'Log in for 7 days in a row',
-                        ),
-                        SizedBox(width: 20.0),
-                        ActiveReward(
-                          cardColor: Color(0xFFF9BE7C),
-                          loadingPercent: actualUser.weeklyMissionFailed ? DateTime.now().weekday/7 : 0.0,
-                          title: 'Don\'t touch the bottom',
-                          subtitle: 'Never enter highly polluted areas',
-                        ),
-                      ],
-                    ), ///Weekly achievements
-                  ]),
-
-
-
-            ],
-          ),
-        ],
-      ),
-
-    );
-  }
-
-
-
-}
-
-}
-

@@ -99,7 +99,7 @@ void main() {
     test('Sensors close to the user', () async {
       double ulat = 45.443857653564926;
       double ulong = 9.167944501742676;
-      int utol = 10000;
+      int utol = 100000;
       SensorModule sensor;
       SensorModule sensor1 = SensorModule(
           121,
@@ -312,24 +312,8 @@ void main() {
       //PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
       PollutantAgent pa = new PollutantAgent();
       pa.initialize(1, 2, 3, 4, 5, 6);
-      pa.set_values(
-          1,
-          2,
-          15,
-          18,
-          150,
-          370,
-          250,
-          29);
-      pa.set_values(
-          2,
-          3,
-          150,
-          20,
-          50,
-          400,
-          90,
-          28);
+      pa.set_values(1,2,15,18,150,370,250,29);
+      pa.set_values(2,3,150,20,50,400,90,28);
       print("PM10 index: " + pa.get_pm10_value().toString());
       print("PM10 index bck: " + pa.get_pm10_bck().toString());
       print("PM25 index: " + pa.get_pm25_value().toString());

@@ -7,21 +7,38 @@ import 'dart:math' as Math;
 Future<List<SensorModule>> getSensorListClosedtoUser(List<SensorModule> sl, double ulatitude, double ulongitude, int utolerance) async {
   int count = sl.length; // Count the number of map entries in the db
 
-  List<SensorModule> sensorList = List<SensorModule>();
-  SensorModule sensor;
-  var distanceMeters, distanceMeters2;
+  List<SensorModule> sensorList = [];
+  List<SensorItem> sensorListOrdered = [];
+
+  SensorItem item;
+
+  var distanceMeters;
   var lat, lng;
+  int i,j;
 
   print("Checking DB sensors (" + count.toString() + ")");
 
-  for (sensor in sl) {
-    lat = sensor.position.latitude;
-    lng =sensor.position.longitude;
+  for (j = 0; j < sl.length; j++) {
+    lat = sl[j].position.latitude;
+    lng = sl[j].position.longitude;
     distanceMeters = Geolocator.distanceBetween(ulatitude, ulongitude, lat, lng);
-    distanceMeters2 = getDistance(ulatitude, ulongitude, lat, lng);
 
     if (distanceMeters < utolerance) {
-      sensorList.add(sensor);
+      item = SensorItem(sl[j].sensor, distanceMeters);
+      item.distance = distanceMeters;
+      print(item.sensor + "-" + item.distance.toString());
+      sensorListOrdered.add(item);
+    }
+  }
+
+  sensorListOrdered.sort((a, b) => a.distance.compareTo(b.distance));
+  for (i = 0; i < sensorListOrdered.length; i++) {
+    print(sensorListOrdered[i].sensor + "-" + sensorListOrdered[i].distance.toString());
+    for (j = 0; j < sl.length; j++) {
+      if (sl[j].sensor == sensorListOrdered[i].sensor) {
+        sensorList.add(sl[j]);
+        break;
+      }
     }
   }
 
@@ -35,4 +52,14 @@ double getDistance(double lat1, lon1, lat2, lon2) {
   double distance = Math.sqrt(x * x + y * y) * R;
 
   return distance;
+}
+
+class SensorItem {
+  String sensor;
+  double distance;
+
+  SensorItem(String sensor,double distance) {
+    this.sensor = sensor;
+    this.distance = distance;
+  }
 }

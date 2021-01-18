@@ -58,6 +58,7 @@ class HomePageState extends State<HomePage> {
             ),
             bottomNavigationBar: TabBarMaterialWidget(
               onChangedTab: onChangedTab,
+              index: index,
             ),
             floatingActionButton: FloatingActionButton(
               child: Icon(Icons.home_outlined),

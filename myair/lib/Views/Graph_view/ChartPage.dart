@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
+import 'package:myair/Widgets/ChartPage_widgets/AnimatedChart.dart';
 import 'package:myair/Widgets/ChartPage_widgets/ChartCardWidget.dart';
 
 import '../../main.dart';
@@ -14,7 +15,10 @@ class ChartPage extends StatelessWidget{
      backgroundColor: Theme.of(context).brightness == Brightness.light ? Color.fromRGBO(193, 214, 233, 1) :  Color(0xFF212121),
      body: SafeArea(
        child:ListView(
-         children: <Widget> [ for(var index = 0; index < kInfo.value.length; index++)
+
+         children: <Widget> [
+           AnimatedChart(),
+           for(var index = 0; index < kInfo.value.length; index++)
            ChartCardWidget(
                index:index,
                data: index == 0 ? DailyUnitData().getPM10Values()

@@ -31,6 +31,7 @@ Future<List<SensorModule>> getSensorListClosedtoUser(List<SensorModule> sl, doub
     }
   }
 
+  // Sorting
   sensorListOrdered.sort((a, b) => a.distance.compareTo(b.distance));
   for (i = 0; i < sensorListOrdered.length; i++) {
     print(sensorListOrdered[i].sensor + "-" + sensorListOrdered[i].distance.toString());

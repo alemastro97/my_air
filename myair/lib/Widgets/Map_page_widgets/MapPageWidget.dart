@@ -124,7 +124,7 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
 
           mapController: mapController,
         ),
-        if(displayCaps)StationInfoWidget(actualStation: currentlySelectedPin),
+
        // SearchableDropdownWidget (stationIdList: stationIdList, recenter : recenterMap),
 
         //search menu background
@@ -145,19 +145,24 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
 
 
         Padding(
-    padding: const EdgeInsets.only(left: 10.0,top: 10.0),
-          child: ClipOval(
-
-            child: Material(
-              color: Theme.of(context).brightness == Brightness.light ? Colors.white : Theme.of(context).backgroundColor,
-              // button color
-              child: InkWell(
-                splashColor: Colors.white, // inkwell color
-                child: SizedBox(height: realH(71),width: realH(71), child: Icon(Icons.my_location)),
-                onTap: () {recenterMap(null);},
+          padding: const EdgeInsets.only(left: 10.0,top: 10.0),
+          child: Align(alignment:Alignment.topCenter,child:Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ClipOval(
+                child: Material(
+                  color: Theme.of(context).brightness == Brightness.light ? Colors.white : Theme.of(context).backgroundColor,
+                  // button color
+                  child: InkWell(
+                    splashColor: Colors.white, // inkwell color
+                    child: SizedBox(height: realH(71),width: realH(71), child: Icon(Icons.my_location)),
+                    onTap: () {recenterMap(null);},
+                  ),
+                ),
               ),
-            ),
-          ),
+                if(displayCaps) SizedBox(height: realH(71),width: realH(300), child:StationInfoWidget(actualStation: currentlySelectedPin))
+            ],
+          ),),
         ),
 
         //search back

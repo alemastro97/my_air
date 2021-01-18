@@ -172,7 +172,7 @@ class GraphWidget extends StatelessWidget{
                                                           widthFactor: 0.9,
                                                           child: Container(
                                                             decoration: BoxDecoration(
-                                                              shape: BoxShape.rectangle,
+                                                              shape: BoxShape.circle,
                                                             ),
                                                             child: CircleAvatar(
 

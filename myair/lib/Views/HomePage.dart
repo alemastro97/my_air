@@ -57,6 +57,7 @@ class HomePageState extends State<HomePage> {
               ),]
             ),
             bottomNavigationBar: TabBarMaterialWidget(
+           //   index: index,
               onChangedTab: onChangedTab,
             ),
             floatingActionButton: FloatingActionButton(
@@ -64,6 +65,7 @@ class HomePageState extends State<HomePage> {
               onPressed: () => onChangedTab(4),
             ),
             floatingActionButtonLocation:
+
                 FloatingActionButtonLocation.miniCenterDocked,
           );
         },

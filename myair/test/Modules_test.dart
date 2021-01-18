@@ -178,6 +178,8 @@ void main() {
       for (sensor in sensorList) {
         print(sensor.sensor);
       }
+
+      expect(sensorList.length, 6);
     });
   });
 
@@ -439,9 +441,9 @@ void main() {
 
   });
 
-  group('Widget test . reward', () {
+  group('Widget test: presence of ActiveReward widget in reward page', () {
     // logged_in_widget test
-    testWidgets('Widget test1 ', (WidgetTester tester) async {
+    testWidgets('Test presence of ActiveReward in reward page', (WidgetTester tester) async {
 
       actualUser = new UserAccount("aristide", "bordoli", "aristide.bordoli@mail.polimi.it", "","",[100,50,400,500,240,10], true,true,DateFormat('MM-dd').format(DateTime.now()),0,true,0);
 
@@ -450,31 +452,12 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(home: RewardPage()));
 
-      final value = find.text('PM10');
-      print (value.description);
-
-     /* var testlist = tester.elementList(find.byType(ActiveReward));
-      for (value in testlist) {
+      var testlist = tester.elementList(find.byType(ActiveReward));
+      for (var value in testlist) {
         print(value);
       }
-*/
-      expect(find.toString(), findsWidgets);
+
+      expect(find.byType(ActiveReward),findsWidgets);
     });
-
-    testWidgets('Login ', (WidgetTester tester) async {
-
-      await tester.pumpWidget(MaterialApp(home: RewardPage()));
-
-      final value = find.text('PM10');
-      print (value.description);
-
-      /* var testlist = tester.elementList(find.byType(ActiveReward));
-      for (value in testlist) {
-        print(value);
-      }
-*/
-      expect(find.toString(), findsWidgets);
-    });
-
   });
 }

@@ -26,7 +26,6 @@ Future<List<SensorModule>> getSensorListClosedtoUser(List<SensorModule> sl, doub
     if (distanceMeters < utolerance) {
       item = SensorItem(sl[j].sensor, distanceMeters);
       item.distance = distanceMeters;
-      print(item.sensor + "-" + item.distance.toString());
       sensorListOrdered.add(item);
     }
   }
@@ -34,10 +33,10 @@ Future<List<SensorModule>> getSensorListClosedtoUser(List<SensorModule> sl, doub
   // Sorting
   sensorListOrdered.sort((a, b) => a.distance.compareTo(b.distance));
   for (i = 0; i < sensorListOrdered.length; i++) {
-    print(sensorListOrdered[i].sensor + "-" + sensorListOrdered[i].distance.toString());
     for (j = 0; j < sl.length; j++) {
       if (sl[j].sensor == sensorListOrdered[i].sensor) {
         sensorList.add(sl[j]);
+        print(sensorListOrdered[i].sensor + "-" + sensorListOrdered[i].distance.toString());
         break;
       }
     }

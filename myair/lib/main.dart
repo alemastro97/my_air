@@ -117,7 +117,7 @@ class _MyAppState extends State<MyApp> {
     p.initialize(2,100,100,100,100,100);
 
     databaseHelper.getDailyData();
-
+    d.getPM10Values().value.forEach((element) {print("------"+element.toString());});
     // Get actual user
     actualUser = await databaseHelper.getUserAccount();
 

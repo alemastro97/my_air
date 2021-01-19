@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
+import 'package:myair/Widgets/ChartPage_widgets/LineChart.dart';
 import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -16,7 +17,8 @@ import 'BarChart.dart';
 class ChartCardWidget extends StatefulWidget{
   final data;
   final int index;
-  const ChartCardWidget({Key key,  this.index, ValueListenable<List<double>> this.data}) : super(key: key);
+  final Function changeContainer;
+  const ChartCardWidget({Key key,  this.index, ValueListenable<List<double>> this.data, this.changeContainer}) : super(key: key);
 
   _ChartCardWidgetState createState() => _ChartCardWidgetState();
 
@@ -31,14 +33,21 @@ class _ChartCardWidgetState extends State<ChartCardWidget>{
   Widget build(BuildContext context) {
     _height == 0 ? _height =  MediaQuery.of(context).size.height/7 : null;
     _myAnimatedWidget == null ? _myAnimatedWidget = MinimizePreview(index: widget.index, data: widget.data): null;
-    return  AnimatedContainer(
+    return
+       GestureDetector(onTap: (){
+         setState(() {
+           _height == MediaQuery.of(context).size.height/7 ?  _height =  MediaQuery.of(context).size.width : _height = MediaQuery.of(context).size.height/7;
+           _height == MediaQuery.of(context).size.height/7 ?  _myAnimatedWidget = MinimizePreview(index: widget.index, data: widget.data) : _myAnimatedWidget = ExpandedPreview(index: widget.index,  data: widget.data);
+           widget.changeContainer(_height);
+         });
+       },child:AnimatedContainer(
       height: _height,
       duration: Duration(milliseconds: 200),
       padding: EdgeInsets.all(MediaQuery.of(context).size.width/100),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width/30),//color:  Theme.of(context).cardTheme.color,
       ),
-      child: GestureDetector(
+
         child:Card(
           elevation: 1,
           child: AnimatedSwitcher(
@@ -48,13 +57,7 @@ class _ChartCardWidgetState extends State<ChartCardWidget>{
           ),
         ),
 
-        onTap: (){
-          setState(() {
-            _height == MediaQuery.of(context).size.height/7 ?  _height =  MediaQuery.of(context).size.width : _height = MediaQuery.of(context).size.height/7;
-            _height == MediaQuery.of(context).size.height/7 ?  _myAnimatedWidget = MinimizePreview(index: widget.index, data: widget.data) : _myAnimatedWidget = ExpandedPreview(index: widget.index,  data: widget.data);
 
-          });
-        },
       ),
     );
   }
@@ -95,7 +98,7 @@ class MinimizePreview extends StatelessWidget{
                ),
 
                Text(
-                 kInfo.value.elementAt(index).value.amount.toString(),
+                 "Actual average value:" + kInfo.value.elementAt(index).value.amount.toStringAsFixed(2).toString(),
                ),/// TODO Medium Value
              ],
            ),
@@ -114,11 +117,19 @@ class MinimizePreview extends StatelessWidget{
   }
 
 }
-
-class ExpandedPreview extends StatelessWidget{
+class  ExpandedPreview extends StatefulWidget{
   final data;
   final int index;
   const ExpandedPreview({Key key, this.index, this.data}) : super(key: key);
+  _ExpandedPreviewState createState() => _ExpandedPreviewState();
+}
+class _ExpandedPreviewState extends State<ExpandedPreview>{
+  //bool _bar;
+  @override
+  void initState() {
+  //  _bar = true;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -131,26 +142,50 @@ class ExpandedPreview extends StatelessWidget{
             flex: 1,
             child: Column(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: FittedBox(
-                    fit: BoxFit.fitHeight,
-                    child: Text(
-                      kInfo.value.elementAt(index).value.name,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
+                Stack(
+                  children: [
+                    Center(
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: FittedBox(
+                              fit: BoxFit.fitHeight,
+                              child: Text(
+                                kInfo.value.elementAt(widget.index).value.name,
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: FittedBox(
+                              fit: BoxFit.fitHeight,
+                              child: Text(
+                                "24 Hours • Exposure",
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      ),
+                    /*  ButtonTheme(
+                        shape: CircleBorder(),
+                        minWidth: MediaQuery.of(context).size.width / 20,
+                        height: MediaQuery.of(context).size.width / 20,
+                        child: RaisedButton(
+                          onPressed: () {
+                            setState(() {
+                              _bar = !_bar;
+                            });
+                          },
+                          child: Icon(Icons.swap_horiz_outlined),
+                        ),
+                      ),
+                      */
+                    ],
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: FittedBox(
-                    fit: BoxFit.fitHeight,
-                    child: Text(
-                      "24 Hours • Exposure",
-                    ),
-                  ),
-                ),
                 Expanded(
                   flex: 3,
                   child: BarChart(data: value,),
@@ -161,7 +196,7 @@ class ExpandedPreview extends StatelessWidget{
         ],
       );
     },
-    valueListenable: this.data,
+    valueListenable: this.widget.data,
     );
   }
 

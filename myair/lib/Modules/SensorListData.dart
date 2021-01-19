@@ -36,7 +36,7 @@ Future<List<SensorModule>> getSensorListClosedtoUser(List<SensorModule> sl, doub
     for (j = 0; j < sl.length; j++) {
       if (sl[j].sensor == sensorListOrdered[i].sensor) {
         sensorList.add(sl[j]);
-        print(sensorListOrdered[i].sensor + "-" + sensorListOrdered[i].distance.toString());
+       // print(sensorListOrdered[i].sensor + "-" + sensorListOrdered[i].distance.toString());
         break;
       }
     }

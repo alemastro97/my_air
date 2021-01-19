@@ -10,7 +10,8 @@ class SliderAgent extends StatefulWidget{
   final min = 0;
   final max;
   final index;
-   SliderAgent({Key key, this.max, this.index}) : super(key: key);
+  final change;
+   SliderAgent({Key key, this.max, this.index, this.change}) : super(key: key);
   _SliderAgentState createState() => _SliderAgentState();
 }
 class _SliderAgentState extends State<SliderAgent>{
@@ -28,9 +29,16 @@ class _SliderAgentState extends State<SliderAgent>{
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("Set values to send notification's value about " + kInfo.value.elementAt(widget.index).value.name),
+          Text("Set values to send notification's about " + kInfo.value.elementAt(widget.index).value.name),
 
-          Slider(
+    SliderTheme(
+    data: SliderTheme.of(context).copyWith(
+    disabledActiveTrackColor: Colors.grey[400],
+    disabledInactiveTrackColor: Colors.grey[100],
+    disabledThumbColor: Colors.grey[400],
+    ),
+    child:Slider(
+
             value: rating,
             max: widget.max,
             min: 0.0,
@@ -52,18 +60,21 @@ class _SliderAgentState extends State<SliderAgent>{
                 :
             10
             ,
-            onChanged: (newRating){
-              setState(() {
-                rating = newRating;
-              });
-            },
+            onChanged: widget.change ? (newRating){
+
+                  setState(() {
+                    rating = newRating;
+                  });
+
+              }: null,
+
             onChangeEnd: (newRating){
               actualUser.notificationLimits[widget.index] = newRating.toInt();
               DatabaseHelper().deleteUser();
               DatabaseHelper().insertUser(actualUser);
               FirebaseDatabaseHelper().updateUser();
             },
-          )
+          )),
         ],
       )
 

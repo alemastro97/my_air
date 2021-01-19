@@ -35,75 +35,72 @@ class AnimatedChartState extends State<AnimatedChart> {
   }
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-          color: const Color(0xff81e5cd),
-          child: Stack(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    Text(
-                      'Trend of the last 24 hours',
-                      style: TextStyle(
-                          color: const Color(0xff0f4a3c), fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 4,
-                    ),
-                   Text(
-                      'The height is based on the limits set by ARPA',
-                      style: TextStyle(
-                          color: const Color(0xff379982), fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 38,
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: BarChart(
-                          isPlaying ? randomData() : mainBarData(),
-                          swapAnimationDuration: animDuration,
-                        ),
+    return AspectRatio(
+      aspectRatio: 1,
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        color: const Color(0xff81e5cd),
+        child: Stack(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Text(
+                    'Trend of the last 24 hours',
+                    style: TextStyle(
+                        color: const Color(0xff0f4a3c), fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                 Text(
+                    'The height is based on the limits set by ARPA',
+                    style: TextStyle(
+                        color: const Color(0xff379982), fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 38,
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: BarChart(
+                        isPlaying ? randomData() : mainBarData(),
+                        swapAnimationDuration: animDuration,
                       ),
                     ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                  ],
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  icon: Icon(
+                    isPlaying ? Icons.pause : Icons.play_arrow,
+                    color: const Color(0xff0f4a3c),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isPlaying = !isPlaying;
+                      if (isPlaying) {
+                        refreshState();
+                      }
+                    });
+                  },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    icon: Icon(
-                      isPlaying ? Icons.pause : Icons.play_arrow,
-                      color: const Color(0xff0f4a3c),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        isPlaying = !isPlaying;
-                        if (isPlaying) {
-                          refreshState();
-                        }
-                      });
-                    },
-                  ),
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
@@ -163,28 +160,35 @@ class AnimatedChartState extends State<AnimatedChart> {
             tooltipBgColor: Colors.blueGrey,
             getTooltipItem: (group, groupIndex, rod, rodIndex) {
               String weekDay;
+              double value;
               switch (group.x.toInt()) {
                 case 0:
                   weekDay = 'PM10';
+                 value = DailyUnitData().getPM10Values().value.elementAt(hour);
                   break;
                 case 1:
                   weekDay = 'PM2.5';
+                  value = DailyUnitData().getPM25Values().value.elementAt(hour);
                   break;
                 case 2:
                   weekDay = 'NO2';
+                  value = DailyUnitData().getNO2Values().value.elementAt(hour);
                   break;
                 case 3:
                   weekDay = 'SO2';
+                  value = DailyUnitData().getSO2Values().value.elementAt(hour);
                   break;
                 case 4:
                   weekDay = 'O3';
+                  value = DailyUnitData().getO3Values().value.elementAt(hour);               
                   break;
                 case 5:
                   weekDay = 'CO';
+                  value = DailyUnitData().getCOValues().value.elementAt(hour);
                   break;
               }
               return BarTooltipItem(
-                  weekDay + '\n' + (((rod.y * Limits.elementAt(group.x.toInt()))/20.0).toStringAsFixed(2)).toString(), TextStyle(color: Colors.yellow));
+                  weekDay + '\n' + value.toStringAsFixed(2).toString()/*(((rod.y * Limits.elementAt(group.x.toInt()))/20.0).toStringAsFixed(2)).toString()*/, TextStyle(color: Colors.yellow));
             }),
         touchCallback: (barTouchResponse) {
           setState(() {
@@ -203,7 +207,7 @@ class AnimatedChartState extends State<AnimatedChart> {
         bottomTitles: SideTitles(
           showTitles: true,
           getTextStyles: (value) =>
-          const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+          const TextStyle(color: Color(0xff0f4a3c), fontWeight: FontWeight.bold, fontSize: 14),
           margin: 16,
           getTitles: (double value) {
             switch (value.toInt()) {

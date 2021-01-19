@@ -110,6 +110,7 @@ class GeolocationView{
           kInfo.value.elementAt(3).value.amount,
           kInfo.value.elementAt(4).value.amount,
           kInfo.value.elementAt(5).value.amount);
+      d.getPM10Values().value.forEach((element) {print("------"+element.toString());});
       if(150 > aqi){actualUser.sethourSafe(1);}
       else{if(aqi > 400){actualUser.weeklyMissionFailed = false;}}
       if(actualUser.notificationSend)

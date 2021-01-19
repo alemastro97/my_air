@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Widgets/ChartPage_widgets/AnimatedChart.dart';
 import 'package:myair/Widgets/ChartPage_widgets/ChartCardWidget.dart';
+import 'package:myair/Widgets/ChartPage_widgets/ScrollableTabBar.dart';
 
 import '../../main.dart';
 
@@ -14,26 +15,27 @@ class ChartPage extends StatelessWidget{
    return Scaffold(
      backgroundColor: Theme.of(context).brightness == Brightness.light ? Color.fromRGBO(193, 214, 233, 1) :  Color(0xFF212121),
      body: SafeArea(
-       child:ListView(
+       child:Padding(
+         padding: const EdgeInsets.all(8.0),
+         child: ListView(
 
-         children: <Widget> [
-           AnimatedChart(),
-           for(var index = 0; index < kInfo.value.length; index++)
-           ChartCardWidget(
-               index:index,
-               data: index == 0 ? DailyUnitData().getPM10Values()
-                   :
-               index == 1 ? DailyUnitData().getPM25Values()
-                   :
-               index == 2 ? DailyUnitData().getNO2Values()
-                   :
-               index == 3 ? DailyUnitData().getSO2Values()
-                   :
-               index == 4 ? DailyUnitData().getO3Values()
-                   :
-               DailyUnitData().getCOValues()),
-         ],
+           children: <Widget> [
+             AnimatedChart(),
+             SizedBox(height: MediaQuery.of(context).size.height/40,),
+           Text(
+             "Overview of your day",
+             style: TextStyle(
+               // color: LightColors.kDarkBlue,
+                 fontSize: 20.0,
+                 fontWeight: FontWeight.w700,
+                 letterSpacing: 1.2),
+           ),
 
+             ScrollableTabBar(),
+             SizedBox(height: MediaQuery.of(context).size.height/20,),
+           ],
+
+         ),
        ),
        )
      );

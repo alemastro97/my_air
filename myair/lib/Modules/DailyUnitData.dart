@@ -198,8 +198,6 @@ class DailyUnitData {
 
     return sensorData;
   }
-
-
 }
 
 // Average calculation for the data retrieved for a sensor

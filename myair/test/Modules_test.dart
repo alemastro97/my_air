@@ -16,14 +16,12 @@ import 'package:myair/main.dart';
 
 void main() {
   group('Sensor data checking -', () {
-    // 24 equal values, no hour = actual hour
-    test('24 equals values, no hour = actual hour ', () {
+    // Same value for the 24h-array
+    test('Test 01', () {
       List<SensorData> data_sensor = [];
       SensorData sensordata;
 
-      sensordata = new SensorData(
-          1, 'sensor01', '2020-12-26T00:00:00,000', '0.84', 'state1',
-          'operator1');
+      sensordata = new SensorData(1, 'sensor01', '2020-12-26T00:00:00,000', '0.84', 'state1','operator1');
       for (int i = 0; i < 24; i++) {
         data_sensor.add(sensordata);
       }
@@ -34,20 +32,20 @@ void main() {
       expect(result, 0.84);
     });
 
-    // 24 equal values, one hour = actual hour
-    // Set sensordata2 hour to the actual hour in order to run correctly the test
-    test('24 equals values, no hour = actual hour ', () {
+    // Different value only for the position of the hour of the test
+    // Set the value according the hour of the test
+    test('Test 02', () {
       List<SensorData> data_sensor = [];
       SensorData sensordata1, sensordata2;
       sensordata1 = new SensorData(
           1, 'sensor01', '2020-12-26T01:00:00,000', '0.84', 'state1',
           'operator1');
-      sensordata2 = new SensorData(
-          1, 'sensor01', '2020-12-26T19:00:00,000', '0.78', 'state1',
+      sensordata2 = new SensorData( //<------------ Set the value according the hour of the test
+          1, 'sensor01', '2020-12-26T22:00:00,000', '0.78', 'state1',
           'operator1');
 
       for (int i = 0; i < 24; i++) {
-        if (i == 4) {
+        if (i == 22) { // <------------ Set the value according the hour of the test
           data_sensor.add(sensordata2);
         }
         else {
@@ -57,7 +55,7 @@ void main() {
 
       double result = actualAverage(data_sensor);
 
-      expect(result, 0.8376923076923076);
+      expect(result, 0.8335714285714285);
     });
 
     // Average calculus

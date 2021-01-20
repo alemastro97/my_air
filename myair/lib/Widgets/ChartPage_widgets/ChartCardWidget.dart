@@ -99,7 +99,7 @@ class MinimizePreview extends StatelessWidget{
 
                Text(
                  "Actual average value:" + kInfo.value.elementAt(index).value.amount.toStringAsFixed(2).toString(),
-               ),/// TODO Medium Value
+               ),
              ],
            ),
          ),

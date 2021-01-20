@@ -34,6 +34,7 @@ class Notifications {
       priority: Priority.high,
       showWhen: false,
       enableVibration: true,
+      playSound: true,
       largeIcon: DrawableResourceAndroidBitmap('app_icon'),
     );
     const iOSPlatformChannelSpecifics = IOSNotificationDetails(
@@ -50,15 +51,18 @@ class Notifications {
         .resolvePlatformSpecificImplementation<
     AndroidFlutterLocalNotificationsPlugin>()
         ?.getActiveNotifications();
-    activeNotifications.length > 0 ? null :
-    await flutterLocalNotificationsPlugin.show(
-        0, 'MyAir', 'You have entered a polluted area', platformChannelSpecifics,
-        payload: 'item x');
+    bool launched = false;
+    activeNotifications.forEach((element) {if(element.channelId == 'push_messages: 0') launched = true;});
+  if(!launched) {
+      await flutterLocalNotificationsPlugin.show(0, 'MyAir',
+          'You have entered a polluted area', platformChannelSpecifics,
+          payload: 'item x');
+  }
   }
 
 
   Future<void> pushNotificationReward() async {
-
+    print("Notifiaaaaaaaa");
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
     AndroidNotificationDetails(
       'push_messages: 1',
@@ -69,6 +73,7 @@ class Notifications {
       showWhen: false,
       enableVibration: true,
       largeIcon: DrawableResourceAndroidBitmap('app_icon'),
+
     );
     const iOSPlatformChannelSpecifics = IOSNotificationDetails(
       // sound: 'a_long_cold_sting.wav',
@@ -84,10 +89,12 @@ class Notifications {
         .resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin>()
         ?.getActiveNotifications();
-    activeNotifications.length > 0 ? null :
-    await flutterLocalNotificationsPlugin.show(
-        1, 'MyAir', 'You have completed a challenge', platformChannelSpecifics,
-        payload: 'item x');
+    bool launched = false;
+    activeNotifications.forEach((element) {if(element.channelId == 'push_messages: 1') launched = true;});
+    if(!launched) {   await flutterLocalNotificationsPlugin.show(1, 'MyAir',
+          'You have completed a challenge', platformChannelSpecifics,
+          payload: 'item x');
+   }
   }
 
 

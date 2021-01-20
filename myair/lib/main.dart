@@ -61,7 +61,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     // App initialization
@@ -114,7 +113,7 @@ class _MyAppState extends State<MyApp> {
 
     // Reward management
     PollutantAgent p = PollutantAgent();
-    p.initialize(2,100,100,100,100,100);
+    p.initialize(1,100,100,100,100,100);
 
     databaseHelper.getDailyData();
     d.getPM10Values().value.forEach((element) {print("------"+element.toString());});
@@ -131,7 +130,7 @@ class _MyAppState extends State<MyApp> {
       sensorList = await databaseHelper.getSensorList();
     }
 
-    /*await*/ GeolocationView().getCurrentLocation(); ///Todo Starting geolocator thread
+    await GeolocationView().getCurrentLocation();
     setState(() {
       _start = true;
     });

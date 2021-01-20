@@ -49,8 +49,6 @@ class GeolocationView{
       permission = await Geolocator.requestPermission();
       if (permission != LocationPermission.whileInUse &&
           permission != LocationPermission.always) {
-  //      print("Deny");
-//        permissions = false;
         return false;
       }
     }
@@ -64,9 +62,6 @@ class GeolocationView{
 
   GeolocationView._internal(){ this._notifications.initNotifications();timer = Timer.periodic(Duration(seconds: 30), (Timer t) => getCurrentLocation());}
 
-//  void dispose(){
-//    timer?.cancel();
-//  }
 
   // Get the current location and set the actual values
   // Called every two minutes
@@ -95,7 +90,7 @@ class GeolocationView{
         print(
             "_________________________________________________________________________________________________________________");
       }
-
+   //   static const platform = const MethodChannel(name)
       PollutantAgent().set_values(DateTime.now().hour,DateTime.now().day,
           kInfo.value.elementAt(0).value.amount,
         kInfo.value.elementAt(1).value.amount,
@@ -118,11 +113,11 @@ class GeolocationView{
         for (var i = 0; i < kInfo.value.length; i++)
         if(  kInfo.value.elementAt(i).value.amount > actualUser.notificationLimits.elementAt(i)) {
           this._notifications.pushNotification();
-          print("Notifiaaaaaaaa");
+
         }}
-      //Todo controllare perchè lancai solo uan notifica
       if(actualUser.notificationReward)
       {
+
         PollutantAgent().get_pm10_notify() || PollutantAgent().get_pm25_notify() ||
             PollutantAgent().get_so2_notify() ||PollutantAgent().get_no2_notify() ||
             PollutantAgent().get_o3_notify() ||PollutantAgent().get_co_notify()

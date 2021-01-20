@@ -200,9 +200,9 @@ class PollutantAgent {
   // Return the nofy status and reset it
   bool get_pm10_notify() {
     bool value = false;
-  if(!_pm10_already_notify) {
+    if(!_pm10_already_notify) {
       value = this._pm10_notify;
-      _pm10_already_notify = true;
+      if(value)_pm10_already_notify = true;
     }
     return value;
   }
@@ -212,7 +212,7 @@ class PollutantAgent {
     bool value = false;
     if(!_pm25_already_notify) {
       value = this._pm25_notify;
-      _pm25_already_notify = true;
+      if(value)  _pm25_already_notify = true;
     }
 
 
@@ -224,7 +224,7 @@ class PollutantAgent {
     bool value = false;
     if(!_no2_already_notify) {
       value = this._no2_notify;
-      _no2_already_notify = true;
+      if(value) _no2_already_notify = true;
     }
     return value;
   }
@@ -234,7 +234,7 @@ class PollutantAgent {
     bool value = false;
     if(!_so2_already_notify) {
       value = this._so2_notify;
-      _so2_already_notify = true;
+      if(value)  _so2_already_notify = true;
     }
     return value;
   }
@@ -244,7 +244,7 @@ class PollutantAgent {
     bool value = false;
     if(!_o3_already_notify) {
       value = this._o3_notify;
-      _o3_already_notify = true;
+      if(value) _o3_already_notify = true;
     }
     return value;
   }
@@ -254,7 +254,7 @@ class PollutantAgent {
     bool value = false;
     if(!_co_already_notify) {
       value = this._co_notify;
-      _co_already_notify = true;
+      if(value) _co_already_notify = true;
     }
     return value;
   }

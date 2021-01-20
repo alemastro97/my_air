@@ -82,20 +82,7 @@ class  _ChangeImageState extends State<ChangeImage>{
                       ),
                     ),
                   ),
-                ), /*Align(
-                            alignment: Alignment.bottomRight,
-                            child: Container(
-                             // width:( MediaQuery.of(context).size.height)/10,
-                              decoration:
-                              BoxDecoration(color: Theme.of(context).accentColor,
-                                  shape: BoxShape.circle
-                              ),
-                              child: Placeholder(),
-                            ),
-                          )//////Icon(
-                            LineAwesomeIcons.pen,
-                            color: kDarkPrimaryColor,
-                          ),*/
+                ),
               ),),
 
           ],
@@ -107,24 +94,14 @@ class  _ChangeImageState extends State<ChangeImage>{
     );
   }
    _getImage() async {
-    print("Entro in get Omage");
     widget.changeTopImage();
     if(actualUser.img != '') {
-      print("--------------------"+actualUser.img.toString());
       imageCache.clear();
       imageCache.clearLiveImages();
        _image = await writeImageTemp(actualUser.img, 'image');
     }
   }
 
-  /*Future<void> adjustImage() async{
-    Io.File toAdjustFile = _image;
-    br.Image toAdjust = br.decodeImage(toAdjustFile.readAsBytesSync());
-    toAdjust = br.adjustColor(toAdjust, contrast: _contrast, brightness: _brightness, exposure: _exposure);
-    setState(() {
-      _imageWidget = Image.memory(br.encodeJpg(toAdjust));
-    });
-  }*/
 //Todo capire come fare update senza ricaricare tutto
 //TODO cambiare anche top image
   _imgFromCamera() async {

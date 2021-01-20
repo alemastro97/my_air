@@ -208,7 +208,6 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
         builder: (ctx) => GestureDetector(
           onTap: () {
             setState(() {
-              //TODO insert station values
               displayCaps = true;
               currentlySelectedPin.locationName=Station.unit;
               currentlySelectedPin.location = Station.position;

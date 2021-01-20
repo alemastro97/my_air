@@ -75,7 +75,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children :<Widget> [
                       CircleAvatar(
-                        backgroundImage: new AssetImage('assets/images/blank_profile.png'),//Todo insert user image
+                        backgroundImage: new AssetImage('assets/images/blank_profile.png'),
                       ),
                     Flexible(
                       child: Container(  child:!_modified ?
@@ -207,9 +207,6 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                   ),
                 ],
               ),
-           //  Todo AnimatedContainer(
-
-         //     ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[

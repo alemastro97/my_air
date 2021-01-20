@@ -9,17 +9,50 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <TextView style="@style/WidgetButtonVerticalSpace" />
+
+
+
+
 
     <TextView
         android:id="@+id/appwidget_text"
-        style="@style/WidgetTextView.Big" />
+        style="@style/WidgetTextView.Big"
+        android:text="Air Quality Index"/>
+
+
+    <LinearLayout
+        android:layout_width="211dp"
+        android:layout_height="223dp">
+
+        <RelativeLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="347dp">
+
+            <ProgressBar
+                android:id="@+id/AQIprogressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="202dp"
+                android:layout_height="210dp"
+                android:background="@drawable/circle_shape_aqi"
+                android:indeterminate="false"
+                android:max="500"
+                android:progress="140"
+                android:progressDrawable="@drawable/circle_shape_aqi_fill"
+
+                />
+
+
+            android:text="65" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
 
     <TextView
-        style="@style/WidgetTextView"
-        android:text="Something" />
 
-    <TextView style="@style/WidgetButtonVerticalSpace" />
+        android:layout_width="wrap_content"
+        android:layout_height="8dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,7 +100,7 @@
                 android:background="@drawable/circle_shape"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:max="100"
-                android:progress="65"
+                android:progress="75"
                 tools:ignore="DuplicateIds" />
 
 
@@ -84,10 +117,10 @@
             <TextView
                 style="@style/WidgetButtonText"
 
-                android:text="AQI" />
+                android:text="CO" />
 
             <ProgressBar
-                android:id="@+id/AQIprogressBar"
+                android:id="@+id/COprogressBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -104,10 +137,14 @@
 
     </LinearLayout>
 
-    <TextView style="@style/WidgetButtonVerticalSpace" />
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="32dp" />
 
     <TextView
         android:id="@+id/coffee_quote"
-        style="@style/WidgetQuote" />
+        style="@style/WidgetQuote"
+        android:text="Data retrieved by ARPA Databases"/>
 
 </LinearLayout>

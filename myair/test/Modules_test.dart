@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
@@ -11,7 +12,6 @@ import 'package:latlong/latlong.dart';
 import 'package:myair/Modules/UserAccount.dart';
 import 'package:myair/Views/Reward_page/RewardPage.dart';
 import 'package:myair/Widgets/Reward_page_widgets/ActiveReward.dart';
-import 'package:myair/Widgets/Reward_page_widgets/RewardPageWidget.dart';
 import 'package:myair/main.dart';
 
 void main() {
@@ -27,7 +27,6 @@ void main() {
       }
 
       double result = actualAverage(data_sensor);
-      print('Result: ' + result.toString());
 
       expect(result, 0.84);
     });
@@ -59,27 +58,21 @@ void main() {
     });
 
     // Average calculus
-    test('Average calculus', () {
+    test('Test 03', () {
       double sensor_value = 0.78;
-      int hour = DateTime
-          .now()
-          .hour;
+      int hour = DateTime.now().hour;
 
       DailySensorData st = DailySensorData();
 
       for (int i = 0; i < 10; i++) {
         st.setDataAverage(sensor_value, hour);
-
-        print(st.getValues());
       }
 
-      List<double> values = st.getValues() as List<double>;
-
-      expect((values[hour] * 1000).round() / 1000, 0.779);
+      expect((st.getValue(hour) * 1000).round() / 1000, 0.78);
     });
 
-    // Save the average in the right position of the Sensor data array
-    test('Average in the right position', () {
+    // Sum of the values in the array
+    test('Test 04', () {
       double average = 0.5;
 
       DailySensorData st = DailySensorData();
@@ -90,11 +83,11 @@ void main() {
         average = average + 0.1;
       }
 
-      expect((st.getSum() * 10).round() / 10, 19.8);
+      expect((st.getSum() * 10).round() / 10, 39.6);
     });
 
-    // Save the average in the right position of the Sensor data array
-    test('Sensors close to the user', () async {
+    // Looking for the sensor closed to users in a range of 100 Km
+    test('Test 05', () async {
       double ulat = 45.443857653564926;
       double ulong = 9.167944501742676;
       int utol = 100000;
@@ -171,20 +164,95 @@ void main() {
       List<SensorModule> sensorList = await getSensorListClosedtoUser(
           slAll, ulat, ulong, utol);
 
-      print("Numero di sensori: " + sensorList.length.toString());
-
-      for (sensor in sensorList) {
-        print(sensor.sensor);
-      }
-
       expect(sensorList.length, 6);
+    });
+
+  // Looking for the sensor closed to users in a range of 10 Km
+    test('Test 06', () async {
+      double ulat = 45.443857653564926;
+      double ulong = 9.167944501742676;
+      int utol = 10000;
+      SensorModule sensor;
+      SensorModule sensor1 = SensorModule(
+        121,
+        "5718",
+        "Magenta",
+        "546",
+        new LatLng(45.462415791106615, 8.880210433125571),
+        "Ozono",
+        "µg/m³",
+        "1995-07-29T00:00:00.000",
+        null);
+      SensorModule sensor2 = SensorModule(
+        464,
+        "5823",
+        "Milano - viale Liguria",
+        "539",
+        new LatLng(45.443857653564926,9.167944501742676),
+        "Monossido di Carbonio",
+        "mg/m³",
+        "1991-10-20T00:00:00.000",
+        null);
+      SensorModule sensor3 = SensorModule(
+        24,
+        "6328",
+        "Milano - viale Marche",
+        "501",
+        new LatLng(45.49631644365102,9.190933555313624),
+        "Ossidi di Azoto",
+        "µg/m³",
+        "1980-09-18T00:00:00.000",
+        null);
+      SensorModule sensor4 = SensorModule(
+        90,
+        "10458",
+        "Bertonico",
+        "1266",
+        new LatLng(45.23349364130374,9.666250375296032),
+        "Biossido di Azoto",
+        "µg/m³",
+        "2009-08-03T00:00:00.000",
+        null);
+      SensorModule sensor5 = SensorModule(
+        81,
+        "10437",
+        "Sondrio - via Paribelli",
+        "1264",
+        new LatLng(46.167852440665115,9.879209924469903),
+        "Ozono",
+        "µg/m³",
+        "2009-01-04T00:00:00.000",
+        null);
+      SensorModule sensor6 = SensorModule(
+        71,
+        "12695",
+        "Sondrio - via Paribelli",
+        "1264",
+        new LatLng(46.167852440665115,9.879209924469903),
+        "Piombo",
+        "ng/m³",
+        "2008-04-01T00:00:00.000",
+        null);
+
+      List<SensorModule> slAll = [];
+      slAll.add(sensor1);
+      slAll.add(sensor2);
+      slAll.add(sensor3);
+      slAll.add(sensor4);
+      slAll.add(sensor5);
+      slAll.add(sensor6);
+
+      List<SensorModule> sensorList = await getSensorListClosedtoUser(
+        slAll, ulat, ulong, utol);
+
+      expect(sensorList.length, 2);
     });
   });
 
-  group('Quality air checking -', () {
+  group('Rewarding and notification', () {
+
     // One one value received for each sensor
-    test('One value received for each sensor ', () {
-      //PollutantAgent pa = new PollutantAgent(1, 2, 3, 4, 5, 6);
+    test('Test 07', () {
       PollutantAgent pa = new PollutantAgent();
       pa.initialize(1, 2, 3, 4, 5, 6);
       pa.set_values(
@@ -196,31 +264,17 @@ void main() {
           370,
           250,
           29);
-      print("PM10 index: " + pa.get_pm10_value().toString());
-      print("PM10 index bck: " + pa.get_pm10_bck().toString());
-      print("PM25 index: " + pa.get_pm25_value().toString());
-      print("PM25 index bck: " + pa.get_pm25_bck().toString());
-      print("NO2 index: " + pa.get_no2_value().toString());
-      print("NO2 index bck: " + pa.get_no2_bck().toString());
-      print("O3 index: " + pa.get_o3_value().toString());
-      print("O3 index bck: " + pa.get_o3_bck().toString());
-      print("SO2 index: " + pa.get_so2_value().toString());
-      print("SO2 index bck: " + pa.get_so2_bck().toString());
-      print("CO index: " + pa.get_co_value().toString());
-      print("CO index bck: " + pa.get_co_bck().toString());
 
       expect(pa.get_pm10_value(), 1.00);
       expect(pa.get_pm25_value(), 0.8);
       expect(pa.get_no2_value(), 0.6);
       expect(pa.get_so2_value(), 0.4);
       expect(pa.get_o3_value(), 0.2);
-      expect(pa.get_co_value(), 0.6);
+      expect(pa.get_co_value(), 0.2);
     });
 
-    // Two values received for each sensor
-    test(
-        'Two values received for each sensor and the hour,day dont change', () {
-      //PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
+    // Two values received for each sensor in order to test the sum of all of them
+    test('Test 08', () {
       PollutantAgent pa = new PollutantAgent();
       pa.initialize(1, 2, 3, 4, 5, 6);
       pa.set_values(
@@ -241,30 +295,18 @@ void main() {
           400,
           90,
           28);
-      print("PM10 index: " + pa.get_pm10_value().toString());
-      print("PM10 index bck: " + pa.get_pm10_bck().toString());
-      print("PM25 index: " + pa.get_pm25_value().toString());
-      print("PM25 index bck: " + pa.get_pm25_bck().toString());
-      print("NO2 index: " + pa.get_no2_value().toString());
-      print("NO2 index bck: " + pa.get_no2_bck().toString());
-      print("O3 index: " + pa.get_o3_value().toString());
-      print("O3 index bck: " + pa.get_o3_bck().toString());
-      print("SO2 index: " + pa.get_so2_value().toString());
-      print("SO2 index bck: " + pa.get_so2_bck().toString());
-      print("CO index: " + pa.get_co_value().toString());
-      print("CO index bck: " + pa.get_co_bck().toString());
 
       expect(pa.get_pm10_value(), 1.00);
       expect(pa.get_pm25_value(), 0.8);
       expect(pa.get_no2_value(), 0.6);
       expect(pa.get_so2_value(), 0.4);
       expect(pa.get_o3_value(), 0.2);
-      expect(pa.get_co_value(), 0.6);
+      expect(pa.get_co_value(), 0.2);
+
     });
 
     // Two values received for each sensor
-    test(
-        'Two values received for each sensor and the hour change, the day dont change', () {
+    test('Test 09', () {
       //PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
       PollutantAgent pa = new PollutantAgent();
       pa.initialize(1, 2, 3, 4, 5, 6);
@@ -308,7 +350,7 @@ void main() {
     });
 
     // One one value received for each sensor
-    test('Two values received for each sensor and the hour,day change', () {
+    test('Test 10', () {
       //PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
       PollutantAgent pa = new PollutantAgent();
       pa.initialize(1, 2, 3, 4, 5, 6);
@@ -342,8 +384,7 @@ void main() {
     });
 
     // Reward: Two values received for each sensor
-    test(
-        'Reward: Two values received for each sensor and the hour,day dont change', () {
+    test('Test 11', () {
       //PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
       PollutantAgent pa = new PollutantAgent();
       pa.initialize(1, 2, 3, 4, 5, 6);

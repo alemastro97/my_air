@@ -123,8 +123,6 @@ class PollutantAgent {
     return _co_limit;
   }
 
-
-
   double get_pm10_value() {
     return _pm10_value;
   }
@@ -214,7 +212,6 @@ class PollutantAgent {
       value = this._pm25_notify;
       _pm25_already_notify = true;
     }
-
 
     return value;
   }

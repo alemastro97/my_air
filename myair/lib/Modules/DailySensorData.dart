@@ -16,6 +16,10 @@ class DailySensorData {
     return _values;
   }
 
+  double getValue(int pos) {
+    return _values.value[pos];
+  }
+
   double getSum() {
     double sum = 0;
 

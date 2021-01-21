@@ -251,7 +251,7 @@ void main() {
 
   group('Rewarding and notification', () {
 
-    // One one value received for each sensor
+    // One value received for each sensor
     test('Test 07', () {
       PollutantAgent pa = new PollutantAgent();
       pa.initialize(1, 2, 3, 4, 5, 6);
@@ -273,8 +273,8 @@ void main() {
       expect(pa.get_co_value(), 0.2);
     });
 
-    // Two values received for each sensor in order to test the sum of all of them
-    test('Test 08', () {
+    // Two values received for each sensor in order to test the average
+    test('Test  08', () {
       PollutantAgent pa = new PollutantAgent();
       pa.initialize(1, 2, 3, 4, 5, 6);
       pa.set_values(
@@ -305,9 +305,8 @@ void main() {
 
     });
 
-    // Two values received for each sensor
+    // Two values received for each sensor in order to test the average
     test('Test 09', () {
-      //PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
       PollutantAgent pa = new PollutantAgent();
       pa.initialize(1, 2, 3, 4, 5, 6);
       pa.set_values(
@@ -328,64 +327,38 @@ void main() {
           400,
           90,
           28);
-      print("PM10 index: " + pa.get_pm10_value().toString());
-      print("PM10 index bck: " + pa.get_pm10_bck().toString());
-      print("PM25 index: " + pa.get_pm25_value().toString());
-      print("PM25 index bck: " + pa.get_pm25_bck().toString());
-      print("NO2 index: " + pa.get_no2_value().toString());
-      print("NO2 index bck: " + pa.get_no2_bck().toString());
-      print("O3 index: " + pa.get_o3_value().toString());
-      print("O3 index bck: " + pa.get_o3_bck().toString());
-      print("SO2 index: " + pa.get_so2_value().toString());
-      print("SO2 index bck: " + pa.get_so2_bck().toString());
-      print("CO index: " + pa.get_co_value().toString());
-      print("CO index bck: " + pa.get_co_bck().toString());
 
       expect(pa.get_pm10_value(), 0.6);
       expect(pa.get_pm25_value(), 0.8);
       expect(pa.get_no2_value(), 0.7);
       expect(pa.get_so2_value(), 0.4);
       expect(pa.get_o3_value(), 0.5);
-      expect(pa.get_co_value(), 0.6);
+      expect(pa.get_co_value(), 0.2);
     });
 
-    // One one value received for each sensor
+    // Test of the backup of data when day changes
     test('Test 10', () {
-      //PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
       PollutantAgent pa = new PollutantAgent();
       pa.initialize(1, 2, 3, 4, 5, 6);
       pa.set_values(1,2,15,18,150,370,250,29);
       pa.set_values(2,3,150,20,50,400,90,28);
-      print("PM10 index: " + pa.get_pm10_value().toString());
-      print("PM10 index bck: " + pa.get_pm10_bck().toString());
-      print("PM25 index: " + pa.get_pm25_value().toString());
-      print("PM25 index bck: " + pa.get_pm25_bck().toString());
-      print("NO2 index: " + pa.get_no2_value().toString());
-      print("NO2 index bck: " + pa.get_no2_bck().toString());
-      print("O3 index: " + pa.get_o3_value().toString());
-      print("O3 index bck: " + pa.get_o3_bck().toString());
-      print("SO2 index: " + pa.get_so2_value().toString());
-      print("SO2 index bck: " + pa.get_so2_bck().toString());
-      print("CO index: " + pa.get_co_value().toString());
-      print("CO index bck: " + pa.get_co_bck().toString());
 
       expect(pa.get_pm10_bck(), 1.00);
       expect(pa.get_pm25_bck(), 0.8);
       expect(pa.get_no2_bck(), 0.6);
       expect(pa.get_so2_bck(), 0.4);
       expect(pa.get_o3_bck(), 0.2);
-      expect(pa.get_co_bck(), 0.6);
+      expect(pa.get_co_bck(), 0.2);
       expect(pa.get_pm10_value(), 0.2);
       expect(pa.get_pm25_value(), 0.8);
       expect(pa.get_no2_value(), 0.8);
       expect(pa.get_so2_value(), 0.4);
       expect(pa.get_o3_value(), 0.8);
-      expect(pa.get_co_value(), 0.6);
+      expect(pa.get_co_value(), 0.2);
     });
 
     // Reward: Two values received for each sensor
     test('Test 11', () {
-      //PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
       PollutantAgent pa = new PollutantAgent();
       pa.initialize(1, 2, 3, 4, 5, 6);
       pa.set_values(
@@ -406,50 +379,35 @@ void main() {
           400,
           90,
           28);
-      print("PM10 index: " + pa.get_pm10_rw().toString());
-      print("PM25 index: " + pa.get_pm25_rw().toString());
-      print("NO2 index: " + pa.get_no2_rw().toString());
-      print("O3 index: " + pa.get_o3_rw().toString());
-      print("SO2 index: " + pa.get_so2_rw().toString());
-      print("CO index: " + pa.get_co_rw().toString());
 
       expect(pa.get_pm10_rw(), 1.00);
-      expect(pa.get_pm25_rw(), 0.8);
-      expect(pa.get_no2_rw(), 0.6);
-      expect(pa.get_so2_rw(), 0.4);
-      expect(pa.get_o3_rw(), 0.2);
-      expect(pa.get_co_rw(), 0.6);
+      expect(pa.get_pm25_rw(), 1.6);
+      expect(pa.get_no2_rw(), 1.2);
+      expect(pa.get_so2_rw(), 0.8);
+      expect(pa.get_o3_rw(), 0.4);
+      expect(pa.get_co_rw(), 0.4);
     });
 
-    // Reward: Two vwlues received for each sensor and the hour changed
-    test(
-        'Reward: Two values received for each sensor and the hour changes, the day dont changes', () {
-      //PollutantAgent pa = PollutantAgent(1, 2, 3, 4, 5, 6);
+    // Reward: Two values received for each sensor. The hour changed
+    test('Test 12', () {
       PollutantAgent pa = new PollutantAgent();
       pa.initialize(1, 2, 3, 4, 5, 6);
       pa.set_values(1,2,15,18,150,370,250,29);
       pa.set_values(2,2,150,20,50,400,90,28);
-      print("PM10 index: " + pa.get_pm10_rw().toString());
-      print("PM25 index: " + pa.get_pm25_rw().toString());
-      print("NO2 index: " + pa.get_no2_rw().toString());
-      print("O3 index: " + pa.get_o3_rw().toString());
-      print("SO2 index: " + pa.get_so2_rw().toString());
-      print("CO index: " + pa.get_co_rw().toString());
 
-      expect(pa.get_pm10_rw(), 1.60);
+      expect(pa.get_pm10_rw(), 1.00);
       expect(pa.get_pm25_rw(), 1.60);
-      expect(pa.get_no2_rw(), 1.30);
+      expect(pa.get_no2_rw(), 1.2999999999999998);
       expect(pa.get_so2_rw(), 0.80);
       expect(pa.get_o3_rw(), 0.70);
-      expect(pa.get_co_rw(), 1.20);
+      expect(pa.get_co_rw(), 0.40);
     });
 
-    // Reward: No Notifications of the termination of the cycle for pm10
-    test('Reward: No Notifications of the termination of the cycle for pm10', ()
+    // Reward: Notifications of the termination of the cycle for pm10
+    test('Test 13', ()
     {
-      //PollutantAgent pa = PollutantAgent(6, 1, 2, 3, 4, 5);
       PollutantAgent pa = new PollutantAgent();
-      pa.initialize(1, 2, 3, 4, 5, 6);
+      pa.initialize(5, 2, 3, 4, 5, 6);
       pa.set_values(1,2,15,18,150,370,250,29);
       pa.set_values(1,2,15,18,150,370,250,29);
       pa.set_values(1,2,15,18,150,370,250,29);
@@ -457,24 +415,21 @@ void main() {
       pa.set_values(1,2,15,18,150,370,250,29);
 
       expect(pa.get_pm10_rw(),5);
-      expect(pa.get_pm10_notify(),false);
+      expect(pa.get_pm10_notify(),true);
     });
 
-    // Reward: Notifications of the termination of the cycle for pm10
-    test('Reward: c-Notifications of the termination of the cycle for pm10', ()
+    // Reward: No notifications of the termination of the cycle for pm10
+    test('Test 14', ()
     {
       //PollutantAgent pa = PollutantAgent(6, 1, 2, 3, 4, 5);
       PollutantAgent pa = new PollutantAgent();
-      pa.initialize(1, 2, 3, 4, 5, 6);
-      pa.set_values(1,2,15,18,150,370,250,29);
-      pa.set_values(1,2,15,18,150,370,250,29);
+      pa.initialize(5, 2, 3, 4, 5, 6);
       pa.set_values(1,2,15,18,150,370,250,29);
       pa.set_values(1,2,15,18,150,370,250,29);
       pa.set_values(1,2,15,18,150,370,250,29);
       pa.set_values(1,2,15,18,150,370,250,29);
 
-      expect(pa.get_pm10_rw(),0);
-      expect(pa.get_pm10_notify(),true);
+      expect(pa.get_pm10_rw(),4);
       expect(pa.get_pm10_notify(),false);
     });
 
@@ -482,7 +437,7 @@ void main() {
 
   group('Widget test: presence of ActiveReward widget in reward page', () {
     // logged_in_widget test
-    testWidgets('Test presence of ActiveReward in reward page', (WidgetTester tester) async {
+    testWidgets('Test 15', (WidgetTester tester) async {
 
       actualUser = new UserAccount("aristide", "bordoli", "aristide.bordoli@mail.polimi.it", "","",[100,50,400,500,240,10], true,true,DateFormat('MM-dd').format(DateTime.now()),0,true,0);
 
@@ -492,11 +447,8 @@ void main() {
       await tester.pumpWidget(MaterialApp(home: RewardPage()));
 
       var testlist = tester.elementList(find.byType(ActiveReward));
-      for (var value in testlist) {
-        print(value);
-      }
 
-      expect(find.byType(ActiveReward),findsWidgets);
+      expect(find.byType(ActiveReward),findsNWidgets(9));
     });
   });
 }

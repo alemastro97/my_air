@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Modules/PollutantAgent.dart';
+import 'package:myair/Services/Database_service/FirebaseDatabaseHelper.dart';
 import 'package:myair/Views/HomePage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:myair/Views/ProfilePage.dart';
@@ -106,7 +107,7 @@ class _MyAppState extends State<MyApp> {
 
     // Database for sensor, user and data tables
     DatabaseHelper databaseHelper = DatabaseHelper();
-
+    FirebaseDatabaseHelper().getShadowUserAccount();
     // Data management
     DailyUnitData d = DailyUnitData();
     d.initializeValues();
@@ -130,7 +131,7 @@ class _MyAppState extends State<MyApp> {
       sensorList = await databaseHelper.getSensorList();
     }
 
-    await GeolocationView().getCurrentLocation();
+    /*await*/ GeolocationView().getCurrentLocation();
     setState(() {
       _start = true;
     });

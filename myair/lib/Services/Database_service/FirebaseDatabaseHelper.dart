@@ -146,4 +146,16 @@ class FirebaseDatabaseHelper{
     await dbRefCheck.child(actualUser.firebaseId).set(actualUser.toJson());
   }
 
+  Future<String> getShadowUserAccount() async {
+    String credentials ="";
+    var dbRefCheck = databaseReference.child('systemCredentials/');
+    DataSnapshot us = await dbRefCheck.once();
+    Map<dynamic,dynamic> values = us.value;
+    if (values != null){
+      values.forEach((key, value) {
+        credentials = value['email'] + "/" + value['password'];
+      });
+    }
+    return credentials;
+  }
 }

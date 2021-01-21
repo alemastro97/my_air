@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/Services/Google_Service/GoogleSignIn.dart';
+import 'package:myair/Views/Help&Support_view/HelpSupportPage.dart';
 import 'package:myair/Views/Privacy_view/PrivacyView.dart';
 import 'package:myair/Views/Settings_view/SettingsPage.dart';
 import 'package:provider/provider.dart';
@@ -33,11 +34,12 @@ class ProfileListItem  extends StatelessWidget{
               final provider =
               GoogleSignInProvider().logout();
               DatabaseHelper().deleteUser();
-              print("ss");
               Navigator.pushReplacementNamed(context, '/Login');
             }
             break;
             case 'Privacy':{Navigator.of(context).push(createRoute(privacyView()));}
+            break;
+            case 'Help & Support':{Navigator.of(context).push(createRoute(HelpSupportView()));}
             break;
             case 'Settings' : {Navigator.of(context).push(createRoute(SettingsPage(setname: setName)));}
             break;//SettingsView

@@ -97,7 +97,6 @@ class DailyUnitData {
 
     List<SensorModule> slAll = await db.getSensorList();
     List<SensorModule> sensorList = await getSensorListClosedtoUser(slAll, ulat, ulong, utol);
-    //Todo sort vicinanza
     List<InstantData> sensorData = [];
 
     for (sensor in sensorList) {

@@ -30,6 +30,7 @@ public final class GeneratedPluginRegistrant {
     flutterEngine.getPlugins().add(new com.baseflow.permissionhandler.PermissionHandlerPlugin());
     flutterEngine.getPlugins().add(new bsi.iceman.searchable_dropdown.SearchableDropdownPlugin());
     flutterEngine.getPlugins().add(new com.tekartik.sqflite.SqflitePlugin());
+    flutterEngine.getPlugins().add(new io.flutter.plugins.urllauncher.UrlLauncherPlugin());
       com.example.user_location.UserLocationPlugin.registerWith(shimPluginRegistry.registrarFor("com.example.user_location.UserLocationPlugin"));
   }
 }

@@ -28,12 +28,15 @@ class ProfileListItem  extends StatelessWidget{
     return Padding(
       padding: const EdgeInsets.symmetric(vertical:10.0,horizontal:40.0),
       child: GestureDetector(
-        onTap: (){
+        onTap: () async {
           switch(text){
             case 'Logout':{
-              final provider =
-              GoogleSignInProvider().logout();
-              DatabaseHelper().deleteUser();
+              await DatabaseHelper().deleteUser();
+              try{
+                GoogleSignInProvider().logout();
+              }on Exception catch(_){}
+
+
               Navigator.pushReplacementNamed(context, '/Login');
             }
             break;

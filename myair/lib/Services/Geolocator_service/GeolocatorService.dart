@@ -1,84 +1,77 @@
 import 'dart:async';
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong/latlong.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Modules/PollutantAgent.dart';
-import 'package:myair/Services/Arpa_service/SensorDataRetriever.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
-
-import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
-import 'package:myair/Widgets/Home_page_statistics_widgets/AgentPieChart.dart';
 import 'package:myair/Widgets/Pop_Up_Notification/notification.dart';
 
-import '../../main.dart';
+import 'package:myair/main.dart';
 
 Timer timer;
 
 class GeolocationView{
-  // ignore: non_constant_identifier_names
-  LatLng user_position;
-  DailyUnitData d =  new DailyUnitData();
+
+  LatLng userPosition; // Actual user position
+  DailyUnitData d =  new DailyUnitData(); //Take the reference of daily unit data
   static final GeolocationView _geolocationView = GeolocationView._internal();
-  final Notifications _notifications =  Notifications();
-  factory GeolocationView() {
+  final Notifications _notifications =  Notifications(); // Create the notification class
 
-    return _geolocationView;
+  //We handle it as a SINGLETON
+  factory GeolocationView() {return _geolocationView;}
 
-  }
+  //Allows us to check if the local permissions are enabled on the device,
+  // if they are not, the procedure doesn't start
   Future<bool> checkPermissions() async {
-  print("");
     bool serviceEnabled;
     LocationPermission permission;
-
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    //check if GPS is working on the device
     if (!serviceEnabled) {
-
       return false;
     }
-
+    //Check if the location permissions are enabled
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.deniedForever) {
-     // permissions = false;
       return false;
     }
-
+    //Check the status of the permission
     if (permission == LocationPermission.denied) {
+      //Request to set the location permissions on always
       permission = await Geolocator.requestPermission();
       if (permission != LocationPermission.whileInUse &&
           permission != LocationPermission.always) {
         return false;
       }
     }
-    //permissions = true;
     return true;
-    //  return await Geolocator.getCurrentPosition();
-  }
-  LatLng getLastUserposition(){
-    return user_position;
   }
 
-  GeolocationView._internal(){ this._notifications.initNotifications();timer = Timer.periodic(Duration(seconds: 30), (Timer t) => getCurrentLocation());}
+  //user position getter
+  LatLng getLastUserPosition(){return userPosition;}
+
+  //Starts the time that call the function every 30 seconds
+  GeolocationView._internal(){
+    this._notifications.initNotifications();
+    timer = Timer.periodic(Duration(seconds: 30), (Timer t) => getCurrentLocation());
+  }
 
 
   // Get the current location and set the actual values
-  // Called every two minutes
+  // Called every 30 seconds
   getCurrentLocation() async{
-  //  await checkPermissions();
     if (permissions){
-      final geoposition = await Geolocator.getCurrentPosition(
+      final geoPosition = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
-      user_position = new LatLng(geoposition.latitude, geoposition.longitude);
+      userPosition = new LatLng(geoPosition.latitude, geoPosition.longitude);
 
-      var instantData = await d.setSensorsDataAverage(
+      await d.setSensorsDataAverage(
           DatabaseHelper(),
           DateTime.now().hour,
-          geoposition.latitude,
-          geoposition.longitude,
+          geoPosition.latitude,
+          geoPosition.longitude,
           50000);
-
+/*
       for (var item in instantData) {
 
         print(" -------------------------------------------" +
@@ -89,7 +82,7 @@ class GeolocationView{
         print(item.sensor);
         print(
             "_________________________________________________________________________________________________________________");
-      }
+      }*/
    //   static const platform = const MethodChannel(name)
       PollutantAgent().set_values(DateTime.now().hour,DateTime.now().day,
           kInfo.value.elementAt(0).value.amount,
@@ -105,7 +98,7 @@ class GeolocationView{
           kInfo.value.elementAt(3).value.amount,
           kInfo.value.elementAt(4).value.amount,
           kInfo.value.elementAt(5).value.amount);
-      d.getPM10Values().value.forEach((element) {print("------"+element.toString());});
+    //  d.getPM10Values().value.forEach((element) {print("------"+element.toString());});
       if(150 > aqi){actualUser.sethourSafe(1);}
       else{if(aqi > 400){actualUser.weeklyMissionFailed = false;}}
       if(actualUser.notificationSend)

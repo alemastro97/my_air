@@ -72,12 +72,15 @@ class _PermissionPageWidgetState extends State<PermissionPageWidget> with Widget
                          children: [
                            Expanded(
                              flex: 2,
-                             child: Text(
-                               "Your current location will be displayed on the map and used to retrieve accurate data regarding pollution in your area\n"
-                                   "Please turn on the option of permanent location",
-                               textAlign: TextAlign.center,
-                               style: TextStyle(
-                                 color: Colors.white,
+                             child: FittedBox(
+                               fit: BoxFit.contain,
+                               child: Text(
+                                 "Your current location will be displayed on the map and used to retrieve accurate data regarding pollution in your area\n"
+                                     "Please turn on the option of permanent location",
+                                 textAlign: TextAlign.center,
+                                 style: TextStyle(
+                                   color: Colors.white,
+                                 ),
                                ),
                              ),
                            ),

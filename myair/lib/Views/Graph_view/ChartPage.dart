@@ -1,17 +1,18 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Widgets/ChartPage_widgets/AnimatedChart.dart';
-import 'package:myair/Widgets/ChartPage_widgets/ChartCardWidget.dart';
+import 'package:intl/intl.dart';
 import 'package:myair/Widgets/ChartPage_widgets/ScrollableTabBar.dart';
 
 import '../../main.dart';
 
 class ChartPage extends StatelessWidget{
+  List<Pollution> hoursSorter = [];
   @override
   Widget build(BuildContext context) {
-   // DailyUnitData dd = DailyUnitData();
+    _generateDate();
+    print("----------------"+hoursSorter.length.toString());
    return Scaffold(
      backgroundColor: Theme.of(context).brightness == Brightness.light ? Color.fromRGBO(193, 214, 233, 1) :  Color(0xFF212121),
      body: SafeArea(
@@ -31,7 +32,7 @@ class ChartPage extends StatelessWidget{
                  letterSpacing: 1.2),
            ),
 
-             ScrollableTabBar(),
+             ScrollableTabBar(hourSorted: hoursSorter,),
              SizedBox(height: MediaQuery.of(context).size.height/20,),
            ],
 
@@ -40,11 +41,20 @@ class ChartPage extends StatelessWidget{
        )
      );
   }
-//TODO inserire _generate data qui e dimezzare i lavori
+  _generateDate(){
+      var date = new DateTime.now();
+      for(var i = date.hour + 1; i < 24; i++){
+        hoursSorter.add(new Pollution(DateFormat('MM-dd  kk:00').format(date.subtract(Duration(hours:  date.hour + (24 - i)))), 0.0, Colors.teal));
+      }
+      for(var i = 0; i <= date.hour; i++){
+        hoursSorter.add(new Pollution(DateFormat('MM-dd  kk:00').format(date.subtract(Duration(hours: date.hour - i))), 0.0, Colors.teal));
+      }
+  }
 }
-/*ListView.separated(
-itemCount: kInfo.length,
-itemBuilder:(_,index) => //TODO use average
-ChartCardWidget(index:index),
-separatorBuilder: (context, index) => Divider( ),
-),*/
+
+class Pollution {
+  Pollution( this.hour, this.value,this.color);
+   String hour;
+   double value;
+   Color color;
+}

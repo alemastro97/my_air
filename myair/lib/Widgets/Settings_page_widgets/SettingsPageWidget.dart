@@ -74,9 +74,6 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children :<Widget> [
-                      CircleAvatar(
-                        backgroundImage: new AssetImage('assets/images/blank_profile.png'),
-                      ),
                     Flexible(
                       child: Container(  child:!_modified ?
                         Text(
@@ -176,7 +173,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
-                  color: Colors.indigo,
+                  color: Theme.of(context).brightness == Brightness.light ? Colors.indigo : Theme.of(context).accentColor,
                 ),
               ),
 
@@ -326,7 +323,7 @@ class _OpenPasswordState extends State<OpenPassword>{
           child: ListTile(
             leading: Icon(
               Icons.lock_outline,
-              color: Colors.purple,
+              //color: Colors.purple,
             ),
             title: Text("Change Password"),
             trailing: Icon(Icons.keyboard_arrow_down),
@@ -485,13 +482,15 @@ class ClosePassword extends StatelessWidget{
   const ClosePassword({Key key, this.flip}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(
-        Icons.lock_outline,
-        color: Colors.purple,
+    return Flexible(
+      child: ListTile(
+        leading: Icon(
+          Icons.lock_outline,
+         // color: Colors.purple,
+        ),
+        title: Text("Change Password"),
+        trailing: Icon(Icons.keyboard_arrow_right),
       ),
-      title: Text("Change Password"),
-      trailing: Icon(Icons.keyboard_arrow_right),
     );
   }
 }

@@ -61,7 +61,10 @@ class _SendMailFromLocalHostState extends State<SendMailFromLocalHost>{
           Expanded(
             flex: 1,
             child: IconButton(
-              onPressed: (){FocusScope.of(context).unfocus();sendEmail(textController.text);},
+              onPressed: (){
+                FocusScope.of(context).unfocus();
+                sendEmail(textController.text);
+                },
               icon: Icon(Icons.email),
             ),
           ),

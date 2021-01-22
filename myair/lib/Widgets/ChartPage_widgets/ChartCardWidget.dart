@@ -3,11 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:myair/Modules/DailyUnitData.dart';
-import 'package:myair/Widgets/ChartPage_widgets/LineChart.dart';
-import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:myair/Views/Graph_view/ChartPage.dart';
 
 import 'package:myair/Widgets/ChartPage_widgets/BarChartPreview.dart';
 
@@ -18,7 +14,8 @@ class ChartCardWidget extends StatefulWidget{
   final data;
   final int index;
   final Function changeContainer;
-  const ChartCardWidget({Key key,  this.index, ValueListenable<List<double>> this.data, this.changeContainer}) : super(key: key);
+  final List<Pollution> hourSorted;
+  const ChartCardWidget({Key key,  this.index, ValueListenable<List<double>> this.data, this.changeContainer, this.hourSorted}) : super(key: key);
 
   _ChartCardWidgetState createState() => _ChartCardWidgetState();
 
@@ -32,12 +29,12 @@ class _ChartCardWidgetState extends State<ChartCardWidget>{
   @override
   Widget build(BuildContext context) {
     _height == 0 ? _height =  MediaQuery.of(context).size.height/7 : null;
-    _myAnimatedWidget == null ? _myAnimatedWidget = MinimizePreview(index: widget.index, data: widget.data): null;
+    _myAnimatedWidget == null ? _myAnimatedWidget = MinimizePreview(index: widget.index, data: widget.data,hourSorted: widget.hourSorted): null;
     return
        GestureDetector(onTap: (){
          setState(() {
            _height == MediaQuery.of(context).size.height/7 ?  _height =  MediaQuery.of(context).size.width : _height = MediaQuery.of(context).size.height/7;
-           _height == MediaQuery.of(context).size.height/7 ?  _myAnimatedWidget = MinimizePreview(index: widget.index, data: widget.data) : _myAnimatedWidget = ExpandedPreview(index: widget.index,  data: widget.data);
+           _height == MediaQuery.of(context).size.height/7 ?  _myAnimatedWidget = MinimizePreview(index: widget.index, data: widget.data,hourSorted: widget.hourSorted,) : _myAnimatedWidget = ExpandedPreview(index: widget.index,  data: widget.data,hourSorted: widget.hourSorted,);
            widget.changeContainer(_height);
          });
        },child:AnimatedContainer(
@@ -64,14 +61,15 @@ class _ChartCardWidgetState extends State<ChartCardWidget>{
 
 }
 
+
 class MinimizePreview extends StatelessWidget{
   final int index;
   final data;
-  const MinimizePreview({Key key, this.index, this.data}) : super(key: key);
+  final List<Pollution>hourSorted;
+  const MinimizePreview({Key key, this.index, this.data, this.hourSorted}) : super(key: key);
   @override
   Widget build(BuildContext context) {
    return Row(
-     // mainAxisSize: MainAxisSize.max,
      mainAxisAlignment: MainAxisAlignment.spaceBetween,
      children: <Widget>[
        Expanded(
@@ -106,21 +104,36 @@ class MinimizePreview extends StatelessWidget{
        ),
     ValueListenableBuilder(
     builder:(BuildContext context, List<double> value, Widget child){
+      _generateData(value);
     return Expanded(
          flex:1,
-         child:BarChartPreview(data: value,),
+         child:BarChartPreview(data:hourSorted,),
        );},
       valueListenable: this.data,
     ),
      ],
    );
   }
-
+   _generateData (List<double> data){
+    var date = new DateTime.now();
+//    print("HOUR LENGHT" +widget.hourSorted.lenght.toString());
+    for(var i = 0; i < hourSorted.length; i++){
+      print(i);
+      if(i + date.hour < hourSorted.length -1)
+      hourSorted.elementAt(i).value = data.elementAt(i + date.hour + 1);
+      else hourSorted.elementAt(i).value = data.elementAt(i -((24 - date.hour)-1));
+    //dataSource.add(new Pollution(DateFormat('MM-dd  kk:00').format(date.subtract(Duration(hours:  date.hour + (24 - i)))), data.elementAt(date.hour + (24 - i)), Colors.teal));
+    }
+ //   for(var i = 0; i <= date.hour; i++){
+    //dataSource.add(new Pollution(DateFormat('MM-dd  kk:00').format(date.subtract(Duration(hours: date.hour - i))), data.elementAt(i), Colors.teal));
+ //   }
+  }
 }
 class  ExpandedPreview extends StatefulWidget{
+  final List<Pollution> hourSorted;
   final data;
   final int index;
-  const ExpandedPreview({Key key, this.index, this.data}) : super(key: key);
+  const ExpandedPreview({Key key, this.index, this.data, this.hourSorted}) : super(key: key);
   _ExpandedPreviewState createState() => _ExpandedPreviewState();
 }
 class _ExpandedPreviewState extends State<ExpandedPreview>{
@@ -134,6 +147,7 @@ class _ExpandedPreviewState extends State<ExpandedPreview>{
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       builder:(BuildContext context, List<double> value, Widget child){
+        _generateData(value);
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -170,25 +184,11 @@ class _ExpandedPreviewState extends State<ExpandedPreview>{
                         ],
                       ),
                       ),
-                    /*  ButtonTheme(
-                        shape: CircleBorder(),
-                        minWidth: MediaQuery.of(context).size.width / 20,
-                        height: MediaQuery.of(context).size.width / 20,
-                        child: RaisedButton(
-                          onPressed: () {
-                            setState(() {
-                              _bar = !_bar;
-                            });
-                          },
-                          child: Icon(Icons.swap_horiz_outlined),
-                        ),
-                      ),
-                      */
                     ],
                   ),
                 Expanded(
                   flex: 3,
-                  child: BarChart(data: value,),
+                  child: BarChart(data: widget.hourSorted,),
                 ),
               ],
             ),
@@ -199,6 +199,25 @@ class _ExpandedPreviewState extends State<ExpandedPreview>{
     valueListenable: this.widget.data,
     );
   }
+  _generateData (List<double> data){
+    var date = new DateTime.now();
+//    print("HOUR LENGHT" +widget.hourSorted.lenght.toString());
+    for(var index = 0; index < data.length ; index++) print( index.toString() + "" + data.elementAt(index).toString());
+    for(var i = 0; i < widget.hourSorted.length; i++){
 
+      if(i + date.hour < widget.hourSorted.length -1) {
+        widget.hourSorted.elementAt(i).value =
+            data.elementAt(i + date.hour + 1);
+      } else {
+        widget.hourSorted.elementAt(i).value =
+            data.elementAt(i - ((24 - date.hour) - 1));
+      }
+      print("" + widget.hourSorted.elementAt(i).hour +  " " + widget.hourSorted.elementAt(i).value.toString());
+      //dataSource.add(new Pollution(DateFormat('MM-dd  kk:00').format(date.subtract(Duration(hours:  date.hour + (24 - i)))), data.elementAt(date.hour + (24 - i)), Colors.teal));
+    }
+    //   for(var i = 0; i <= date.hour; i++){
+    //dataSource.add(new Pollution(DateFormat('MM-dd  kk:00').format(date.subtract(Duration(hours: date.hour - i))), data.elementAt(i), Colors.teal));
+    //   }
+  }
 }
 /* */

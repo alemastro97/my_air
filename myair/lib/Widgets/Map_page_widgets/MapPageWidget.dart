@@ -81,7 +81,7 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
         avatarPath: 'assets/Map-Pin.png',
         location: new LatLng(0,0),
         locationName: 'Default',
-        labelColor: Colors.black
+    //    labelColor: Colors.black
     );
     displayCaps = false;
     //mapController.move(GeolocationView().getLastUserposition(),10);
@@ -104,7 +104,7 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
       children: [
         new FlutterMap(
           options: MapOptions(
-            center: GeolocationView().getLastUserposition(),
+            center: GeolocationView().getLastUserPosition(),
             zoom: 15.0,
             maxZoom: 17.0,
             minZoom: 10.0,
@@ -187,7 +187,7 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
         currentlySelectedPin.location = station.position;
         mapController.move(station.position , 17.0);
       }else{
-        mapController.move(GeolocationView().getLastUserposition(), 15.0);
+        mapController.move(GeolocationView().getLastUserPosition(), 15.0);
       }
     });
   }

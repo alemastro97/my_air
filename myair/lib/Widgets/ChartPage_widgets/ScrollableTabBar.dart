@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
+import 'package:myair/Views/Graph_view/ChartPage.dart';
 
 import '../../main.dart';
 import 'ChartCardWidget.dart';
 
 class ScrollableTabBar extends StatefulWidget{
+  final List<Pollution> hourSorted;
+
+  const ScrollableTabBar({Key key, this.hourSorted}) : super(key: key);
   @override
   _ScrollableTabBarState createState() =>  _ScrollableTabBarState();
 }
@@ -25,7 +29,7 @@ class _ScrollableTabBarState extends State<ScrollableTabBar> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
-
+      print("sddsdsdsdsdsdsd"+widget.hourSorted.length.toString());
     if( _height == 0.0)  _height = MediaQuery.of(context).size.height / 7;
 
     return Column(
@@ -71,6 +75,7 @@ class _ScrollableTabBarState extends State<ScrollableTabBar> with SingleTickerPr
               children: <Widget>[
             for (var index = 0; index < kInfo.value.length; index++)
               ChartCardWidget(
+                  hourSorted: widget.hourSorted,
                   index: index,
                   changeContainer: changeDimensionContainer,
                   data: index == 0

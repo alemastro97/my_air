@@ -31,14 +31,14 @@ class _SliderAgentState extends State<SliderAgent>{
         children: <Widget>[
           Text("Set values to send notification's about " + kInfo.value.elementAt(widget.index).value.name),
 
-    SliderTheme(
-    data: SliderTheme.of(context).copyWith(
-    disabledActiveTrackColor: Colors.grey[400],
-    disabledInactiveTrackColor: Colors.grey[100],
-    disabledThumbColor: Colors.grey[400],
-    ),
+        SliderTheme(
+         data: SliderTheme.of(context).copyWith(
+           disabledActiveTrackColor: Colors.grey[400],
+           disabledInactiveTrackColor: Colors.grey[100],
+           disabledThumbColor: Colors.grey[400],
+          ),
     child:Slider(
-
+            activeColor: Theme.of(context).brightness == Brightness.light ? null : Theme.of(context).accentColor,
             value: rating,
             max: widget.max,
             min: 0.0,

@@ -34,6 +34,17 @@ class RewardPageWidget extends StatelessWidget{
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               subheading('Quality Air Achievements'),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "These rewards are calculated based on how long you will be in clean areas. The longer you stay the more points you will earn",
+                  style: TextStyle(
+                    //fontSize: 12.0,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
               SizedBox(height: 5.0),
               Column(
                 children: [
@@ -43,14 +54,14 @@ class RewardPageWidget extends StatelessWidget{
                         cardColor: Color(0xFF6488E4),
                         loadingPercent: PollutantAgent().get_pm10_rw()/PollutantAgent().get_pm10_limit(),
                         title: 'PM10',
-                        subtitle: 'reward calculation',
+                         subtitle:  ' ',
                       ),
                       SizedBox(width: 20.0),
                       ActiveReward(
                         cardColor: Color(0xFF6488E4),
                         loadingPercent:  PollutantAgent().get_pm25_rw()/PollutantAgent().get_pm25_limit(),
                         title: 'PM2.5',
-                        subtitle: 'reward calculation',
+                         subtitle: ' ',
                       ),
                     ],
                   ), Row(
@@ -61,14 +72,14 @@ class RewardPageWidget extends StatelessWidget{
                         cardColor: Color(0xFF6488E4),
                         loadingPercent:  PollutantAgent().get_no2_rw()/PollutantAgent().get_no2_limit(),
                         title: 'NO2',
-                        subtitle: 'reward calculation',
+                       subtitle: ' ',
                       ),
                       SizedBox(width: 20.0),
                       ActiveReward(
                         cardColor: Color(0xFF6488E4),
                         loadingPercent:  PollutantAgent().get_so2_rw()/PollutantAgent().get_so2_limit(),
                         title: 'SO2',
-                        subtitle: 'reward calculation',
+                         subtitle: ' ',
                       ),
                     ],
                   ),
@@ -80,14 +91,14 @@ class RewardPageWidget extends StatelessWidget{
                         cardColor: Color(0xFF6488E4),
                         loadingPercent: PollutantAgent().get_o3_rw()/PollutantAgent().get_o3_limit(),
                         title: 'O3',
-                        subtitle: 'reward calculation',
+                       subtitle: ' ',
                       ),
                       SizedBox(width: 20.0),
                       ActiveReward(
                         cardColor: Color(0xFF6488E4),
                         loadingPercent: PollutantAgent().get_co_rw()/PollutantAgent().get_co_limit(),
                         title: 'CO',
-                        subtitle: 'reward calculation',
+                        subtitle: ' ',
                       ),
                     ],
                   ),

@@ -26,7 +26,7 @@ class _RegistrationPage extends State<RegistrationPage>{
 
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+     resizeToAvoidBottomInset: false,
     body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -173,9 +173,12 @@ class _RegistrationPage extends State<RegistrationPage>{
                                       ),
 
                                       child: Center(
-                                        child: Text(
-                                          'SignUp',
-                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                        child: FittedBox(
+                                          fit: BoxFit.fitHeight,
+                                          child: Text(
+                                            'SignUp',
+                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                          ),
                                         ),
                                       ),
                                           //Center(child: FittedBox(fit: BoxFit.fitHeight,child: Text("Sign up"), )),

@@ -107,25 +107,12 @@ class _UserPageWidgetState extends State<UserPageWidget>{
               Expanded(
                 flex: 7,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 15.0,bottom: 90.0),
+                  padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height/20),
                   child: Column(
                     children: <Widget>[
+                     // Spacer(),
                       Expanded(
-                        flex: 1 ,
-                        child: ProfileListItem(
-                          icon: LineAwesomeIcons.user_shield,
-                          text: 'Privacy',
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1 ,
-                        child: ProfileListItem(
-                          icon: LineAwesomeIcons.question_circle,
-                          text: 'Help & Support',
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1 ,
+                        flex: 2 ,
                         child: ProfileListItem(
                           icon: LineAwesomeIcons.cog,
                           text: 'Settings',
@@ -133,13 +120,21 @@ class _UserPageWidgetState extends State<UserPageWidget>{
                         ),
                       ),
                       Expanded(
-                        flex: 1 ,
+                        flex: 2 ,
+                        child: ProfileListItem(
+                          icon: LineAwesomeIcons.question_circle,
+                          text: 'Help & Support',
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2 ,
                         child:   ProfileListItem(
                           icon: LineAwesomeIcons.alternate_sign_out,
                           text: 'Logout',
                           hasNavigation: false,
                         ),
                       ),
+                      Spacer(flex: 3,),
                     ],
                   ),
                 ),

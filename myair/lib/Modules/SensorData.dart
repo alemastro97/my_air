@@ -1,15 +1,17 @@
 // Sensor data class
 class SensorData {
 
-  int _id; ///ID in the internal database
-  String _sensor; ///ID of the sensor in the ARPA DB
+  int _id;  //ID in the internal database
+  String _sensor; //ID of the sensor in the ARPA DB
   String _timestamp;
   String _value;
   String _state;
   String _operator;
 
+  //Construct
   SensorData(this._id, this._sensor, this._timestamp, this._value, this._state, this._operator);
 
+  //Getters
   int get id => _id;
   String get sensor => _sensor;
   String get timestamp => _timestamp;
@@ -17,22 +19,19 @@ class SensorData {
   String get state => _state;
   String get operator => _operator;
 
+  //Setters
   set sensor(String newSensor) {
     this._sensor = newSensor;
   }
-
   set timestamp(String newTimestamp) {
     this._timestamp = newTimestamp;
   }
-
   set value(String newValue) {
     this._value = newValue;
   }
-
   set state(String newState) {
     this._state = newState;
   }
-
   set operator(String newOperator) {
     this._operator = newOperator;
   }
@@ -63,6 +62,7 @@ class SensorData {
     _operator = map['operator'];
   }
 
+  //Extract data from the JSON by Firebase
   SensorData.fromJson(Map<String, dynamic> json) {
     _sensor = json['idsensore'];
     _timestamp = json['data'];

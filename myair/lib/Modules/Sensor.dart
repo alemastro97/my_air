@@ -2,18 +2,21 @@ import 'package:latlong/latlong.dart';
 // Sensor class
 class SensorModule {
 
-  int _id; ///Id in the local database
-  String _sensor; ///Id of the sensor
-  String _unit; ///Station name
-  String _idunit; ///station id
+  int _id;  //Id in the local database
+  String _sensor; //Id of the sensor
+  String _unit; //Station name
+  String _idunit; //station id
   LatLng _position;
-  String _name; ///Name of the pollutant agent measured
-  String _uom; ///Unit of Measurement
+  String _name; //Name of the pollutant agent measured
+  String _uom; //Unit of Measurement
   String _start;
   String _stop;
-//TODO delete the stop parameter
+
+  //Constructor
   SensorModule(this._id, this._sensor, this._unit, this._idunit, this._position, this._name, this._uom, this._start, this._stop);
 
+
+  //Getter
   int get id => _id;
   String get sensor => _sensor;
   String get unit => _unit;
@@ -24,41 +27,34 @@ class SensorModule {
   String get start => _start;
   String get stop => _stop;
 
+  // Setter
   set sensor(String newSensor) {
     this._sensor = newSensor;
   }
-
   set unit(String newUnit) {
     this._unit = newUnit;
   }
-
   set idunit(String newidUnit) {
     this._idunit = newidUnit;
   }
-
   set position(LatLng newPosition) {
     this._position= newPosition;
   }
-
   set name(String newName) {
     this._name = newName;
   }
-
   set uom(String newuom) {
     this._uom = newuom;
   }
-
   set start(String newStart) {
     this._start = newStart;
   }
-
   set stop(String newStop) {
     this._stop = newStop;
   }
 
   // Convert a Sensor object into a Map object
   Map<String, dynamic> toMap() {
-
     var map = Map<String, dynamic>();
     if (id != null) {
       map['id'] = _id;
@@ -89,8 +85,8 @@ class SensorModule {
     _stop = map['stop'];
   }
 
+  // Extract data from the JSON sent by Firebase
   SensorModule.fromJson(Map<String, dynamic> json) {
-
     _sensor = json['idsensore'];
     _idunit = json['idstazione'];
     _unit = json['nomestazione'];

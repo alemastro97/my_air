@@ -5,7 +5,6 @@ import 'dart:math' as Math;
 
 // Get the sensor list closed to the user
 Future<List<SensorModule>> getSensorListClosedtoUser(List<SensorModule> sl, double ulatitude, double ulongitude, int utolerance) async {
-  int count = sl.length; // Count the number of map entries in the db
 
   List<SensorModule> sensorList = [];
   List<SensorItem> sensorListOrdered = [];
@@ -15,8 +14,6 @@ Future<List<SensorModule>> getSensorListClosedtoUser(List<SensorModule> sl, doub
   var distanceMeters;
   var lat, lng;
   int i,j;
-
-  print("Checking DB sensors (" + count.toString() + ")");
 
   for (j = 0; j < sl.length; j++) {
     lat = sl[j].position.latitude;
@@ -36,7 +33,6 @@ Future<List<SensorModule>> getSensorListClosedtoUser(List<SensorModule> sl, doub
     for (j = 0; j < sl.length; j++) {
       if (sl[j].sensor == sensorListOrdered[i].sensor) {
         sensorList.add(sl[j]);
-       // print(sensorListOrdered[i].sensor + "-" + sensorListOrdered[i].distance.toString());
         break;
       }
     }
@@ -54,6 +50,7 @@ double getDistance(double lat1, lon1, lat2, lon2) {
   return distance;
 }
 
+//Temporary Class used to store the id of the sensor and its distance from the user
 class SensorItem {
   String sensor;
   double distance;

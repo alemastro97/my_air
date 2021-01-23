@@ -3,7 +3,7 @@ import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/Services/Database_service/FirebaseDatabaseHelper.dart';
 
 class UserAccount {
-  //final user = FirebaseAuth.instance.currentUser;
+
   String firebaseId;
   String firstName;
   String lastName;
@@ -13,14 +13,14 @@ class UserAccount {
   List<int> notificationLimits;
   bool notificationSend;
   bool notificationReward;
-  String lastLog;
+  String lastLog; // Date in which the challenge of log 7 days in a row is started
 
-  ///Last login made
+  //Last login made
   int counter;
   int hourSafe;
   bool weeklyMissionFailed;
 
-  ///Mapping for FireBase
+  //Mapping for FireBase
   Map<String, dynamic> toJson() {
     return {
       "firstname": this.firstName,
@@ -43,6 +43,7 @@ class UserAccount {
     };
   }
 
+  //Constructor
   UserAccount(String firstName, String lastName, String email, String password,
       String img, List<int> notificationLimits, bool notificationSend,
       bool notificationReward, String lastLog, int hourSafe,
@@ -61,11 +62,12 @@ class UserAccount {
     this.counter = counter;
   }
 
+  //Setter of the firebase id(we make it subsequently because we had to first create the user, save it and only after that we can get the Key)
   setFId(String id) {
     firebaseId = id;
   }
 
-  ///Mapping for local database
+  //Mapping for local database
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
     map['userId'] = 1;
@@ -90,7 +92,7 @@ class UserAccount {
     return map;
   }
 
-  ///Mapping when i retrieve the user from the local database
+  //Mapping when i retrieve the user from the local database
   fromMapObject(Map<String, dynamic> map) {
     firebaseId = map['firebaseId'];
     print(firebaseId);
@@ -121,15 +123,18 @@ class UserAccount {
     this.counter = int.parse(map['counter']);
   }
 
+  //Setter for the notifications limits (customized by the user in the Setting Page)
   void setLimits(List<int> list) {
     this.notificationLimits = list;
   }
 
+  //Setter for the notifications(if we can send it or not), Setting Page
   void setNotification(bool notificationSend, bool notificationReward) {
     this.notificationSend = notificationSend;
     this.notificationReward = notificationReward;
   }
 
+  //Setter for what concern the weekly challenges of the user, used in RewardPage
   void setWeeklyChallenges(String lastLog, int hourSafe, bool wf, int counter) {
     this.lastLog = lastLog;
     this.hourSafe = hourSafe;
@@ -137,18 +142,25 @@ class UserAccount {
     this.counter = counter;
   }
 
+  //Check the situation of the weekly challenges
   void checkWeeklyChallenges() {
+    //Split the last login of the user to have day and month -> lastLog has the format MM-dd
     var firstLog = lastLog.split("-");
+    //Create a DateTime type of the last user login
     DateTime date = DateTime(DateTime.now().year, int.parse(firstLog[0]), int.parse(firstLog[1]));
+    //Get the difference between actual date and the last login date
     var streak = DateTime.now().difference(date).inDays;
+    //If the IF-STATEMENT is true means that the user has log in yesterday
     if(counter == streak - 1) {
       counter = 1 + streak;
-    }else{counter = 1; lastLog = DateFormat('MM-dd').format(DateTime.now());}
+    }else{counter = 1; lastLog = DateFormat('MM-dd').format(DateTime.now());} // Otherwise reset the challenge
+    //Update data
     DatabaseHelper().deleteUser();
     DatabaseHelper().insertUser(this);
     FirebaseDatabaseHelper().updateUser();
   }
 
+  //Update the challenge in which the user stays 100h in a safety place
   void sethourSafe(int i) {
     if(this.hourSafe<=3000){
       this.hourSafe += i;
@@ -158,6 +170,7 @@ class UserAccount {
     }
   }
 
+  //Start of the new week
   reset() {
     this.hourSafe = 0;
     this.weeklyMissionFailed = true;

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/Services/Google_Service/GoogleSignIn.dart';
 import 'package:myair/Views/Help&Support_view/HelpSupportPage.dart';
-import 'package:myair/Views/Privacy_view/PrivacyView.dart';
 import 'package:myair/Views/Settings_view/SettingsPage.dart';
 
 class ProfileListItem  extends StatelessWidget{
@@ -33,8 +32,6 @@ class ProfileListItem  extends StatelessWidget{
               DatabaseHelper().deleteUser();
               Navigator.pushReplacementNamed(context, '/Login');
             }
-            break;
-            case 'Privacy':{Navigator.of(context).push(createRoute(privacyView()));}
             break;
             case 'Help & Support':{Navigator.of(context).push(createRoute(HelpSupportView()));}
             break;

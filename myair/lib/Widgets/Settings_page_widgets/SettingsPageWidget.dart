@@ -482,14 +482,21 @@ class ClosePassword extends StatelessWidget{
   const ClosePassword({Key key, this.flip}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: ListTile(
-        leading: Icon(
-          Icons.lock_outline,
-         // color: Colors.purple,
+    return  Padding(
+      padding: EdgeInsets.all(MediaQuery.of(context).size.width/100),
+      child: Container(
+
+        child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children:<Widget>[
+              Icon(
+                Icons.lock_outline,
+                // color: Colors.purple,
+              ),
+              Flexible(child: FractionallySizedBox(heightFactor:0.5,child: FittedBox(fit:BoxFit.contain,child: Text("Change Password")))), Icon(Icons.keyboard_arrow_right),]
+
         ),
-        title: Text("Change Password"),
-        trailing: Icon(Icons.keyboard_arrow_right),
       ),
     );
   }

@@ -84,12 +84,8 @@ class  _ChangeImageState extends State<ChangeImage>{
                   ),
                 ),
               ),),
-
           ],
         ),
-
-
-
       );},
     );
   }
@@ -125,6 +121,7 @@ class  _ChangeImageState extends State<ChangeImage>{
       FirebaseDatabaseHelper().updateUser();
     });
   }
+
   Future<Io.File> writeImageTemp(String base64Image, String imageName) async {
     final dir = await getTemporaryDirectory();
     await dir.create(recursive: true);
@@ -132,6 +129,7 @@ class  _ChangeImageState extends State<ChangeImage>{
     await tempFile.writeAsBytes(base64.decode(base64Image));
     return tempFile;
   }
+
   void _showPicker(context) {
     showModalBottomSheet(
         context: context,

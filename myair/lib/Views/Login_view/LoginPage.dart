@@ -17,7 +17,7 @@ class _LoginPage extends State<LoginPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     // resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

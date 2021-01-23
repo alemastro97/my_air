@@ -41,6 +41,7 @@ class ChartPage extends StatelessWidget{
        )
      );
   }
+
   _generateDate(){
       var date = new DateTime.now();
       for(var i = date.hour + 1; i < 24; i++){

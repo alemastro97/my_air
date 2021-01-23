@@ -3,14 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:myair/Constants/theme_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/Services/Google_Service/GoogleSignIn.dart';
 import 'package:myair/Views/Help&Support_view/HelpSupportPage.dart';
 import 'package:myair/Views/Privacy_view/PrivacyView.dart';
 import 'package:myair/Views/Settings_view/SettingsPage.dart';
-import 'package:provider/provider.dart';
-
 
 class ProfileListItem  extends StatelessWidget{
   final IconData icon;
@@ -28,15 +25,12 @@ class ProfileListItem  extends StatelessWidget{
     return Padding(
       padding: const EdgeInsets.symmetric(vertical:10.0,horizontal:40.0),
       child: GestureDetector(
-        onTap: () async {
+        onTap: (){
           switch(text){
             case 'Logout':{
-              await DatabaseHelper().deleteUser();
-              try{
-                GoogleSignInProvider().logout();
-              }on Exception catch(_){}
-
-
+              final provider =
+              GoogleSignInProvider().logout();
+              DatabaseHelper().deleteUser();
               Navigator.pushReplacementNamed(context, '/Login');
             }
             break;

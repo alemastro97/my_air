@@ -66,8 +66,6 @@ class RewardPageWidget extends StatelessWidget{
                     ],
                   ), Row(
                     children: <Widget>[
-                      //    Text(PollutantAgent().get_pm10_rw().toString()),
-
                       ActiveReward(
                         cardColor: Color(0xFF6488E4),
                         loadingPercent:  PollutantAgent().get_no2_rw()/PollutantAgent().get_no2_limit(),
@@ -85,8 +83,6 @@ class RewardPageWidget extends StatelessWidget{
                   ),
                   Row(
                     children: <Widget>[
-                      //    Text(PollutantAgent().get_pm10_rw().toString()),
-
                       ActiveReward(
                         cardColor: Color(0xFF6488E4),
                         loadingPercent: PollutantAgent().get_o3_rw()/PollutantAgent().get_o3_limit(),
@@ -137,14 +133,10 @@ class RewardPageWidget extends StatelessWidget{
                     ],
                   ), ///Weekly achievements
                   ]),
-
-
-
                 ],
               ),
-              ],
+            ],
           ),
-
     );
   }
 

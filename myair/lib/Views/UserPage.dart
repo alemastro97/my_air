@@ -3,13 +3,13 @@ import 'package:myair/Widgets/Account_page_widgets/UserPageWidget.dart';
 import 'package:flutter/material.dart';
 
 class UserPage extends StatelessWidget {
-  var changeTopImage;
+  //var changeTopImage;
 
-  UserPage({ Key key, this.changeTopImage,}) : super (key: key);
+  UserPage({ Key key,/* this.changeTopImage,*/}) : super (key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
 
-    body: UserPageWidget(changeTopImage: changeTopImage),
+    body: UserPageWidget(/*changeTopImage: changeTopImage*/),
   );
 }

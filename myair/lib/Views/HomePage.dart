@@ -37,25 +37,25 @@ class HomePageState extends State<HomePage> {
       ChartPage(),
       MapPage(),
       RewardPage(),
-      UserPage(changeTopImage: changeTopImage),
+      UserPage(/*changeTopImage: changeTopImage*/),
       HomeStatisticsPage(),
     ];
+    actualUser.checkWeeklyChallenges();
+    return  ThemeSwitchingArea(child: //FutureBuilder(
+   //   future: changeTopImage(),
+   //   builder:(BuildContext context, AsyncSnapshot<dynamic> snapshot) {
 
-    return  ThemeSwitchingArea(child: FutureBuilder(
-      future: changeTopImage(),
-      builder:(BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        actualUser.checkWeeklyChallenges();
-          return Scaffold(
+           Scaffold(
             extendBody: true,
             body: pages[index],
             appBar: AppBar(
               title: Text("MyAir"),
               automaticallyImplyLeading: false,
-              actions:[Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:top_image != null ? CircleAvatar(backgroundImage:   new FileImage(top_image)) : CircleAvatar(backgroundImage: new AssetImage('assets/images/blank_profile.png'), ),
-              ),]
-            ),
+          //    actions:[Padding(
+           //     padding: const EdgeInsets.all(8.0),
+         //       child:top_image != null ? CircleAvatar(backgroundImage:   new FileImage(top_image)) : CircleAvatar(backgroundImage: new AssetImage('assets/images/blank_profile.png'), ),
+       //       ),]
+           ),
             bottomNavigationBar: TabBarMaterialWidget(
            //   index: index,
               onChangedTab: onChangedTab,
@@ -68,19 +68,19 @@ class HomePageState extends State<HomePage> {
             floatingActionButtonLocation:
 
                 FloatingActionButtonLocation.miniCenterDocked,
-          );
-        },
-      ));
+          ),
+  //      },
+  //    )
+  );
 
 }
-  Future<Io.File> writeImageTemp(String base64Image, String imageName) async {
+ /* Future<Io.File> writeImageTemp(String base64Image, String imageName) async {
     final dir = await getTemporaryDirectory();
     await dir.create(recursive: true);
     final tempFile = Io.File(path.join(dir.path, imageName));
     await tempFile.writeAsBytes(base64.decode(base64Image));
     return tempFile;
   }
-
   Future<void> changeTopImage() async {
 
   //  setState(() async {
@@ -88,7 +88,8 @@ class HomePageState extends State<HomePage> {
       imageCache.clearLiveImages();
       top_image = await writeImageTemp(actualUser.img, 'image');
   //  });
-  }
+  }*/
+
   void onChangedTab(int index) {
     setState(() {
       this.index = index;

@@ -10,10 +10,10 @@ import 'package:myair/Widgets/Account_page_widgets/ProfileListItem.dart';
 import 'package:myair/main.dart';
 
 class UserPageWidget extends StatefulWidget{
-  final Function  changeTopImage;
+  //7final Function  changeTopImage;
   UserPageWidget( {
     Key key,
-    this.changeTopImage,
+ //   this.changeTopImage,
   }) : super (key: key);
 
   _UserPageWidgetState createState() => _UserPageWidgetState();
@@ -42,7 +42,7 @@ class _UserPageWidgetState extends State<UserPageWidget>{
           flex: 6,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ChangeImage(changeTopImage: widget.changeTopImage),
+            child: ChangeImage(/*changeTopImage: widget.changeTopImage*/),
           ),
         ),
         Expanded(

@@ -15,12 +15,12 @@ import 'package:image/image.dart' as br;
 
 import '../../main.dart';
 class ChangeImage extends StatefulWidget {
-  final Function changeTopImage;
+ // final Function changeTopImage;
 
 
   ChangeImage({
     Key key,
-    this.changeTopImage,
+   // this.changeTopImage,
   }) : super (key: key);
 
 
@@ -90,7 +90,7 @@ class  _ChangeImageState extends State<ChangeImage>{
     );
   }
    _getImage() async {
-    widget.changeTopImage();
+   // widget.changeTopImage();
     if(actualUser.img != '') {
       imageCache.clear();
       imageCache.clearLiveImages();

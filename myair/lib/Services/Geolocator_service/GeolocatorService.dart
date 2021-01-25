@@ -6,9 +6,8 @@ import 'package:myair/Modules/PollutantAgent.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/Widgets/Pop_Up_Notification/notification.dart';
 import 'package:myair/main.dart';
+import 'package:myair/Services/RemoteView/RemoteViewUpdater.dart';
 
-
-import 'package:flutter/services.dart';
 
 Timer timer;
 
@@ -73,8 +72,7 @@ class GeolocationView{
           geoPosition.latitude,
           geoPosition.longitude,
           50000);
-   //   static const platform = const MethodChannel(name)
-      PollutantAgent().set_values(DateTime.now().hour,DateTime.now().day,
+     PollutantAgent().set_values(DateTime.now().hour,DateTime.now().day,
           kInfo.value.elementAt(0).value.amount,
         kInfo.value.elementAt(1).value.amount,
         kInfo.value.elementAt(2).value.amount,
@@ -91,25 +89,11 @@ class GeolocationView{
           kInfo.value.elementAt(3).value.amount,
           kInfo.value.elementAt(4).value.amount,
           kInfo.value.elementAt(5).value.amount);
-    //  d.getPM10Values().value.forEach((element) {print("------"+element.toString());});
-      //-----------------------------------------------------------------------------------------------------------------------------------
-      /*    /*(Put it as value of the class)static */const platform = const MethodChannel('com.example.myair/homeWidget');
-      //await platform.invokeMethod('updateHomeWidget');
-      try {
-        /*await*/ platform.invokeMethod(
-            'updateHomeWidget',
-            {
-              'PM10': kInfo.value.elementAt(0).value.amount.toString(),
-              'PM2.5': kInfo.value.elementAt(0).value.amount.toString(),
-              'CO': kInfo.value.elementAt(5).value.amount.toString(),
-              'AQI':aqi.toString()});
-        // print("PM10000000000000000000000000000" + pm10.toString());
-      } on PlatformException catch (e) {
-        // ignore: unnecessary_statements
-        "Failed to update the screen widget: '${e.message}'.";
-      }
-      *///-----------------------------------------------------------------------------------------------------------------------------------
-
+      RemoteViewUpdater().updateRemoteView(
+          kInfo.value.elementAt(0).value.amount.round().toString(),
+          kInfo.value.elementAt(1).value.amount.round().toString(),
+          kInfo.value.elementAt(5).value.amount.round().toString(),
+          aqi.round().toString());
       if(150 > aqi){actualUser.sethourSafe(1);}
       else{if(aqi > 400){actualUser.weeklyMissionFailed = false;}}
       if(actualUser.notificationSend)

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myair/Modules/Unit.dart';
-import 'package:myair/helper/ui_helper.dart';
 
 import 'SearchBackWidget.dart';
 
@@ -32,8 +31,8 @@ class SearchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: realH(80.0),
-      right: realW((68.0 - 320) - (68.0 * currentExplorePercent) + (347 - 68.0) * currentSearchPercent),
+      bottom: 80.0/  815.0 * MediaQuery.of(context).size.height,
+      right: (((68.0 - 320) - (68.0 * currentExplorePercent) + (347 - 68.0) * currentSearchPercent)  /  375.0 * MediaQuery.of(context).size.width),
       child: GestureDetector(
         onTap: () {
           animateSearch(!isSearchOpen);
@@ -44,17 +43,17 @@ class SearchWidget extends StatelessWidget {
          _dispatchSearchOffset();
         },
         child: Container(
-          width: realW(320),
-          height: realH(71),
+          width: 320/  815.0 * MediaQuery.of(context).size.width,
+          height: 71 /  815.0 * MediaQuery.of(context).size.height,
           alignment: Alignment.centerLeft,
-          padding: EdgeInsets.symmetric(horizontal: realW(17)),
+          padding: EdgeInsets.symmetric(horizontal:  (17 /  375.0 * MediaQuery.of(context).size.width)),
           child: currentSearchPercent != 1.0 ?
 
          Opacity(
            opacity: 1.0 - currentSearchPercent,
            child: Icon(
                   Icons.search,
-                  size: realW(34),
+                  size:  (34 /  375.0 * MediaQuery.of(context).size.width),
                 ), )
           :
                 SearchBackWidget(
@@ -69,9 +68,9 @@ class SearchWidget extends StatelessWidget {
 
           decoration: BoxDecoration(
               color: Theme.of(context).brightness == Brightness.light ? Colors.white : Theme.of(context).backgroundColor,
-              borderRadius: BorderRadius.all(Radius.circular(realW(36))),
+              borderRadius: BorderRadius.all(Radius.circular( (36 /  375.0 * MediaQuery.of(context).size.width))),
               boxShadow: [
-                BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.3), blurRadius: realW(36)),
+                BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.3), blurRadius:  (36 /  375.0 * MediaQuery.of(context).size.width)),
               ])),
     ));
   }

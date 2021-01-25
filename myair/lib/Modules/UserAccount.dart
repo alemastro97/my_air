@@ -175,4 +175,17 @@ class UserAccount {
     this.hourSafe = 0;
     this.weeklyMissionFailed = true;
   }
+
+  //Update Of the user image in all the databases
+  Future<void> updateUserImg(String img) async {
+    await DatabaseHelper().setImg(this.email,img);
+    FirebaseDatabaseHelper().updateUser();
+  }
+
+  //Update Of the user in all the databases
+  Future<void> updateUser() async {
+    DatabaseHelper().deleteUser();
+    DatabaseHelper().insertUser(this);
+    FirebaseDatabaseHelper().updateUser();
+  }
 }

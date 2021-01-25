@@ -36,9 +36,9 @@ var kInfo = ValueNotifier<List<ValueNotifier<InfoPollution>>>(
 List<SensorModule> sensorList = [];
 
 //bool logged = false ;
-UserAccount actualUser = null;
+UserAccount actualUser;
 bool permissions = false;
-int nU = 0;
+//int nU = 0;
 var x;
 
 void main() async {
@@ -117,7 +117,6 @@ class _MyAppState extends State<MyApp> {
     p.initialize(1,100,100,100,100,100);
 
     databaseHelper.getDailyData();
-    d.getPM10Values().value.forEach((element) {print("------"+element.toString());});
     // Get actual user
     actualUser = await databaseHelper.getUserAccount();
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myair/Modules/Unit.dart';
 import 'package:myair/Widgets/Map_page_widgets/SearchableDropdownWidget.dart';
-import 'package:myair/helper/ui_helper.dart';
+
 
 class SearchBackWidget extends StatelessWidget {
   final double currentSearchPercent;
@@ -20,10 +20,10 @@ class SearchBackWidget extends StatelessWidget {
       child: Opacity(
         opacity: currentSearchPercent,
         child:*/ Container(
-          width: realW(320),
-          height: realH(71),
+          width: (320 /  375.0 * MediaQuery.of(context).size.width),
+          height: (71 /  815.0 * MediaQuery.of(context).size.height),
           alignment: Alignment.centerLeft,
-          padding: EdgeInsets.only(left: realW(17)),
+          padding: EdgeInsets.only(left:  (17 /  375.0 * MediaQuery.of(context).size.width)),
           child: Row(
             children: <Widget>[
               InkWell(
@@ -34,13 +34,13 @@ class SearchBackWidget extends StatelessWidget {
                   scale: currentSearchPercent,
                   child: Icon(
                     Icons.arrow_back,
-                    size: realW(34),
+                    size:  (34 /  375.0 * MediaQuery.of(context).size.width),
                   ),
                 ),
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: realW(30.0)),
+                  padding: EdgeInsets.symmetric(horizontal: (30.0 /  375.0 * MediaQuery.of(context).size.width)),
                   child: SearchableDropdownWidget (stationIdList: stationIdList, recenter : recenter)
                 ),
               )

@@ -4,18 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
-import 'package:myair/Services/Database_service/FirebaseDatabaseHelper.dart';
 import 'package:myair/Widgets/Home_page_statistics_widgets/AgentPieChart.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Widgets/Settings_page_widgets/SliderAgent.dart';
-import '../../main.dart';
+import 'package:myair/main.dart';
 
 class SettingsPageWidget extends StatefulWidget{
-  final setname;
-
-  const SettingsPageWidget({Key key, this.setname}) : super(key: key);
   @override
   _SettingsPageWidgetState createState() => _SettingsPageWidgetState();
 }
@@ -107,16 +101,15 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                               onTap: () {
                                 setState(() {
                                   _modified = !_modified;
-                                  var listnamesur =
-                                      nameController.text.split(" ");
-                                  actualUser.firstName =
-                                      listnamesur.elementAt(0);
-                                  actualUser.lastName =
-                                      listnamesur.elementAt(1);
-                                  DatabaseHelper().deleteUser();
-                                  DatabaseHelper().insertUser(actualUser);
-                                  FirebaseDatabaseHelper().updateUser();
-                                  widget.setname();
+                                  if(_modified){nameController.text = "";}
+                                  else{
+                                    var modifiedNameSurname = nameController.text.split(" ");
+                                    actualUser.firstName =
+                                        modifiedNameSurname.elementAt(0);
+                                    actualUser.lastName =
+                                        modifiedNameSurname.elementAt(1);
+                                  }
+                                  actualUser.updateUser();
                                 });
                               },
                               child: Icon(
@@ -140,7 +133,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
                         MediaQuery.of(context).size.width /
-                            30), //color:  Theme.of(context).cardTheme.color,
+                            30),
                   ),
                   child: Center(
                     child: GestureDetector(
@@ -159,7 +152,6 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                           _myAnimatedWidget),
                         ),
                       ),onTap: (){
-                        print("sssssssss");
                       flip();
                     },
                     ),
@@ -188,9 +180,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                     onChanged: (val) {
                       setState(() {
                         actualUser.notificationSend = val;
-                        DatabaseHelper().deleteUser();
-                        DatabaseHelper().insertUser(actualUser);
-                        FirebaseDatabaseHelper().updateUser();
+                        actualUser.updateUser();
                       });
                     },
                   ),
@@ -224,9 +214,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
                     onChanged: (val) {
                       setState(() {
                         actualUser.notificationReward = val;
-                        DatabaseHelper().deleteUser();
-                        DatabaseHelper().insertUser(actualUser);
-                        FirebaseDatabaseHelper().updateUser();
+                        actualUser.updateUser();
                       });
                     },
                   ),
@@ -430,9 +418,7 @@ class _OpenPasswordState extends State<OpenPassword>{
                   if(passOldController.text == actualUser.password)
                     {if(passNewCController.text == passNewController.text){
                           actualUser.password = passNewCController.text;
-                          DatabaseHelper().deleteUser();
-                          DatabaseHelper().insertUser(actualUser);
-                          FirebaseDatabaseHelper().updateUser();
+                          actualUser.updateUser();
                           widget.flip();
                     }else{
                       setState(() {

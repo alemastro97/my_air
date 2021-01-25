@@ -1,9 +1,12 @@
 package com.example.myair
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
+import android.content.Intent
+import android.util.Log
 import androidx.annotation.NonNull
-import io.flutter.Log
-import io.flutter.plugin.common.MethodChannel
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugin.common.MethodChannel
 
 class MainActivity: FlutterActivity() {
     private val CHANNEL = "com.example.myair/homeWidget"
@@ -15,18 +18,39 @@ class MainActivity: FlutterActivity() {
             // Note: this method is invoked on the main thread.
             call, result ->
             if (call.method == "updateHomeWidget") {
-                val PM10 = call.argument<String>("PM10");
-                val PM25 = call.argument<String>("PM2.5");
-                val CO = call.argument<String>("CO");
-                val AQI = call.argument<String>("AQI");
-                //__android_log_print(ANDROID_LOG_DEBUG, "LOG_TAG", "Need to print :  %s", PM10);
-                //result.success(PM10);
-//Call method
-                // if (batteryLevel != -1) {
-                //    result.success(batteryLevel)
-                //  } else {
-                //       result.error("UNAVAILABLE", "Battery level not available.", null)
-                //   }
+                val PM10 = call.argument<String>("PM10")
+                val PM25 = call.argument<String>("PM2.5")
+                val CO = call.argument<String>("CO")
+                val AQI = call.argument<String>("AQI")
+                val intent = Intent(this, HomeWidgetProvider::class.java)
+                intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+                val ids: IntArray = AppWidgetManager.getInstance(application).getAppWidgetIds(ComponentName(getApplication(), HomeWidgetProvider::class.java))
+                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+                if (PM10 != null) {
+                    if (PM25 != null) {
+                        if (CO != null) {
+                            if (AQI != null) {
+
+                                intent.putExtra("PM10", PM10.toInt())
+                                intent.putExtra("PM25", PM25.toInt())
+                                intent.putExtra("CO", CO.toInt())
+                                intent.putExtra("AQI", AQI.toInt())
+                                Log.i("in", "sssssssAQI" + intent.getIntExtra("AQI", 10))
+                                Log.i("in", "sssssssPM10" + intent.getIntExtra("PM10", 10))
+                                Log.i("in", "sssssssPM25" + intent.getIntExtra("PM25", 10))
+                                Log.i("in", "sssssssCO" + intent.getIntExtra("CO", 10))
+                            }
+                        }
+                    }
+                }
+                // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
+                // since it seems the onUpdate() is only fired on that:
+                // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
+                // since it seems the onUpdate() is only fired on that:
+
+
+                sendBroadcast(intent)
+
             } else {
                 result.notImplemented()
             }

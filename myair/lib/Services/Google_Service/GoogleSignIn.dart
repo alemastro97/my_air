@@ -54,9 +54,10 @@ class GoogleSignInProvider extends ChangeNotifier {
 
   void logout() async {
     print('logout entered');
+    if( isSigningIn ){
       await googleSignIn.disconnect().whenComplete(() async {
         FirebaseAuth.instance.signOut();
       });
-
+    }
   }
 }

@@ -3,15 +3,12 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:myair/Modules/Unit.dart';
 
 import 'package:latlong/latlong.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
-import 'package:myair/Widgets/Map_page_widgets/SearchBackWidget.dart';
 import 'package:myair/Widgets/Map_page_widgets/SearchWidget.dart';
-import 'package:myair/helper/ui_helper.dart';
 import 'package:user_location/user_location.dart';
 import 'package:myair/Modules/PinModule.dart';
 import 'package:myair/Services/Geolocator_service/GeolocatorService.dart';
@@ -89,9 +86,6 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
   }
   @override
   Widget build(BuildContext context) {
-
-    screenWidth = MediaQuery.of(context).size.width;
-    screenHeight = MediaQuery.of(context).size.height;
    userLocationOptions = UserLocationOptions(
      updateMapLocationOnPositionChange: false,
      showMoveToCurrentLocationFloatingActionButton:false,
@@ -155,12 +149,12 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
                   // button color
                   child: InkWell(
                     splashColor: Colors.white, // inkwell color
-                    child: SizedBox(height: realH(71),width: realH(71), child: Icon(Icons.my_location)),
+                    child: SizedBox(height: (71 /  815.0 * MediaQuery.of(context).size.height),width:( 71 /  815.0 * MediaQuery.of(context).size.height), child: Icon(Icons.my_location)),
                     onTap: () {recenterMap(null);},
                   ),
                 ),
               ),
-                if(displayCaps) SizedBox(height: realH(71),width: realH(300), child:StationInfoWidget(actualStation: currentlySelectedPin))
+                if(displayCaps) SizedBox(height: (71 /  815.0 * MediaQuery.of(context).size.height),width: (300 /  815.0 * MediaQuery.of(context).size.height), child:StationInfoWidget(actualStation: currentlySelectedPin))
             ],
           ),),
         ),

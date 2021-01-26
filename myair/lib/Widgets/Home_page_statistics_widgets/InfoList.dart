@@ -1,45 +1,49 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myair/Constants/pollution_graph_constants.dart';
-import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
 
 class InfoList extends StatelessWidget{
-  const InfoList({
-    Key key,@required this.index,@required this.text,
-  }) : super(key:key);
 
   final  int index;
   final String text;
 
+  const InfoList({
+    Key key,@required this.index,@required this.text,
+  }) : super(key:key);
+
+  //It defines the circle with the color for each agent and its name
   @override
   Widget build(BuildContext context) {
-  return  Flexible(
-    child:Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Flexible(
-          child:Container(
-            width: MediaQuery.of(context).size.width/30,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: kNeumorphicColors.elementAt( index % kNeumorphicColors.length),
+    return  Flexible(
+      child:Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          //Box with the colored pointer for the agent
+          Flexible(
+            child:Container(
+              width: MediaQuery.of(context).size.width/30,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: kNeumorphicColors.elementAt( index % kNeumorphicColors.length),
+              ),
             ),
           ),
-        ),
-        Expanded(
-            child:
-            Container(
-              padding: EdgeInsets.all(MediaQuery.of(context).size.width/100),
-              child: FittedBox(
-                fit: BoxFit.fitHeight,
-                child: Text(
-                  text.capitalize() ,
+
+          //Name of the agent
+          Expanded(
+              child:
+              Container(
+                padding: EdgeInsets.all(MediaQuery.of(context).size.width/100),
+                child: FittedBox(
+                  fit: BoxFit.fitHeight,
+                  child: Text(
+                    text.capitalize(),
+                  ),
                 ),
-              ),
-            )),
-      ],
-    ),
-  );
+              )),
+        ],
+      ),
+    );
   }
 
 }

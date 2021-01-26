@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
+//Reward completion indicator
 class ActiveReward extends StatelessWidget {
-  final Color cardColor;
-  final double loadingPercent;
+  final Color cardColor; //Color of the card
+  final double loadingPercent; //Percentage of the indicator
   final String title;
   final String subtitle;
 
@@ -21,7 +22,6 @@ class ActiveReward extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10.0),
         padding: EdgeInsets.all(15.0),
-        //height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           color: cardColor,
           borderRadius: BorderRadius.circular(40.0),
@@ -55,7 +55,6 @@ class ActiveReward extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                   // fontSize: 14.0,
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
                   ),
@@ -63,7 +62,6 @@ class ActiveReward extends StatelessWidget {
                 Text(
                   subtitle,
                   style: TextStyle(
-                   //fontSize: 12.0,
                     color: Colors.white54,
                     fontWeight: FontWeight.w400,
                   ),

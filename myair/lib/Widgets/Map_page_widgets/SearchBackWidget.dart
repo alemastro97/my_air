@@ -14,40 +14,36 @@ class SearchBackWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return/*Positioned(
-      bottom: realH(80),
-      right: realW(27),
-      child: Opacity(
-        opacity: currentSearchPercent,
-        child:*/ Container(
-          width: (320 /  375.0 * MediaQuery.of(context).size.width),
-          height: (71 /  815.0 * MediaQuery.of(context).size.height),
-          alignment: Alignment.centerLeft,
-          padding: EdgeInsets.only(left:  (17 /  375.0 * MediaQuery.of(context).size.width)),
-          child: Row(
-            children: <Widget>[
-              InkWell(
-                onTap: () {
-                  animateSearch(false);
-                },
-                child: Transform.scale(
-                  scale: currentSearchPercent,
-                  child: Icon(
-                    Icons.arrow_back,
-                    size:  (34 /  375.0 * MediaQuery.of(context).size.width),
-                  ),
-                ),
+    return Container(
+      //Positioning of the widget based on a relative measure
+      width: (320 /  375.0 * MediaQuery.of(context).size.width),
+      height: (71 /  815.0 * MediaQuery.of(context).size.height),
+      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.only(left:  (17 /  375.0 * MediaQuery.of(context).size.width)),
+      child: Row(
+        children: <Widget>[
+          InkWell(
+            onTap: () {
+              animateSearch(false);
+            },
+            child: Transform.scale(
+              scale: currentSearchPercent,
+              child: Icon( // Go back to close the search option
+                Icons.arrow_back,
+                size:  (34 /  375.0 * MediaQuery.of(context).size.width),
               ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: (30.0 /  375.0 * MediaQuery.of(context).size.width)),
-                  child: SearchableDropdownWidget (stationIdList: stationIdList, recenter : recenter)
-                ),
-              )
-            ],
+            ),
           ),
+          Expanded(
+            child: Padding( // showing the station searcher
+                padding: EdgeInsets.symmetric(horizontal: (30.0 /  375.0 * MediaQuery.of(context).size.width)),
+                child: SearchableDropdownWidget (stationIdList: stationIdList, recenter : recenter)
+            ),
+          )
+        ],
+      ),
       //  ),
-     // ),
+      // ),
     );
   }
 }

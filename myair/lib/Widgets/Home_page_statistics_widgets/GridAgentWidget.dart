@@ -1,11 +1,9 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
-import 'package:myair/Widgets/Home_page_statistics_widgets/AgentPieChart.dart';
 
-import '../../main.dart';
-import 'AgentInfoWidget.dart';
+import 'package:myair/main.dart';
+import 'package:myair/Widgets/Home_page_statistics_widgets/AgentInfoWidget.dart';
 
 class GridAgentWidget extends StatelessWidget{
   @override

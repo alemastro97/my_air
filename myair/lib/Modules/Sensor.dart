@@ -1,4 +1,6 @@
 import 'package:latlong/latlong.dart';
+
+import 'package:myair/Modules/Unit.dart';
 // Sensor class
 class SensorModule {
 
@@ -98,4 +100,19 @@ class SensorModule {
 
   }
 
+  //Given a set of sensor it sort them in a list of station unit
+  List<Unit> retrieveUnit(List<SensorModule> sensor){
+    var idUnit = "";
+    List<Unit> unitList = List();
+    Unit unit;
+    for (var sensorItem in sensor) {
+      if (idUnit != sensorItem.idunit) {
+        unit = new Unit(sensorItem.id, sensorItem.unit, sensorItem.idunit, new LatLng(sensorItem.position.latitude, sensorItem.position.longitude));
+        unitList.add(unit);
+      }
+      idUnit = unit.idunit;
+    }
+    return unitList;
+
+  }
 }

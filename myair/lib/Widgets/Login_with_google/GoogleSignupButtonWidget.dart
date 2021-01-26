@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:myair/Services/Google_Service/GoogleSignIn.dart';
 import 'package:provider/provider.dart';
-/*Button of google login in the login page*/
+
+import 'package:myair/Services/Google_Service/GoogleSignIn.dart';
+
+//Button of google login in the login page
 class GoogleSignupButtonWidget extends StatelessWidget {
+
+  //Creation of the button
   @override
   Widget build(BuildContext context) => Container(
     width: MediaQuery.of(context).size.width/1.5,
@@ -24,7 +29,8 @@ class GoogleSignupButtonWidget extends StatelessWidget {
       borderSide: BorderSide(color: Colors.black),
       textColor: Colors.black,
       icon: FaIcon(FontAwesomeIcons.google, color: Colors.red),
-      onPressed: () {
+
+      onPressed: () { //Get the context of the GoogleSignInProvider and call the function to logged in
         final provider =
         Provider.of<GoogleSignInProvider>(context, listen: false);
         provider.login();

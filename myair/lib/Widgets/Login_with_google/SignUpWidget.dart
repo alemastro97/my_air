@@ -1,17 +1,22 @@
-import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
+
+import 'package:bordered_text/bordered_text.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:myair/Views/login_view/LoginPage.dart';
 import 'package:myair/Views/registration_page/RegistrationPage.dart';
 import 'package:myair/Widgets/Login_with_google/GoogleSignupButtonWidget.dart';
 
 class SignUpWidget extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+
     return Stack(
       fit: StackFit.expand,
       children: [
-        Container(
+
+        Container( //Definition of a container in order to set up a background
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/login_background.png"),
@@ -21,6 +26,7 @@ class SignUpWidget extends StatelessWidget {
           child: Column(
             children: [
               Spacer(),
+              //Title of the page
               Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
@@ -41,7 +47,11 @@ class SignUpWidget extends StatelessWidget {
                 ),
               ),
               Spacer(),
+
+              //Definition of the google sign in
               GoogleSignupButtonWidget(),
+
+              //Sign up button, when it is pushed send you in the registration page
               Container(
                 width: MediaQuery.of(context).size.width / 1.5,
                 padding: EdgeInsets.all(4),
@@ -66,7 +76,7 @@ class SignUpWidget extends StatelessWidget {
                 ),
               ),
 
-              //SizedBox(height: 10),
+              //TextButton in case the user is already registered
               TextButton(
                   child: RichText(
                     text: TextSpan(
@@ -79,7 +89,7 @@ class SignUpWidget extends StatelessWidget {
                               style: new TextStyle(color: Colors.blue)),
                         ]),
                   ),
-                  onPressed: () {
+                  onPressed: () {//Send to the Login page
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => LoginPage()),
@@ -94,4 +104,3 @@ class SignUpWidget extends StatelessWidget {
   }
 }
 
-TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);

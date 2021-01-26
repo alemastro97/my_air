@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+
 import 'package:myair/Modules/Unit.dart';
+
 import 'package:searchable_dropdown/searchable_dropdown.dart';
 
 class SearchableDropdownWidget extends StatefulWidget {
+
   final List<Unit> stationIdList;
+
+  //Function reference to the setState of MapPageWidget in order to recenter the map position to the station selected
   final Function recenter;
+
+  //Constructor
   SearchableDropdownWidget({Key key, this.stationIdList, this.recenter}): super (key: key);
+
   @override
   _SearchableDropdownWidget createState() => _SearchableDropdownWidget();
 }
@@ -17,24 +25,24 @@ class _SearchableDropdownWidget extends State<SearchableDropdownWidget> {
   @override
   void initState() {
     var stationIdList = widget.stationIdList;
-    stationIdList.map((Station) =>{
+    //Creation of the item of the list based on the station name
+    stationIdList.map((station) =>{
       items.add(
         DropdownMenuItem(
-          child: Text(
-              Station.unit,
-
-          ),
-          value: Station.unit//new LatLng(double.parse(Station.lat),double.parse(Station.lng)),
-
+            child: Text(
+              station.unit,
+            ),
+            //Value used to find the station selected
+            value: station.unit
         ),
       )
     }).toList();
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
-   return SingleChildScrollView(
+    return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child:Container(
         color: Theme.of(context).brightness == Brightness.light ? Colors.white : Theme.of(context).backgroundColor,
@@ -45,6 +53,7 @@ class _SearchableDropdownWidget extends State<SearchableDropdownWidget> {
               SizedBox(
                 height: 5,
               ),
+              //Default plugin widget
               SearchableDropdown.single(
                 menuBackgroundColor: Theme.of(context).brightness == Brightness.light ? Colors.white : Theme.of(context).backgroundColor,
                 items: items,
@@ -65,9 +74,11 @@ class _SearchableDropdownWidget extends State<SearchableDropdownWidget> {
     );
   }
 
+  //get coordinates of the station referred by the name
   Unit getCoordinates(String stationName){
     for (var station in widget.stationIdList) {
       if(station.unit == stationName) return station;
     }
+    return null;
   }
 }

@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
 import 'package:myair/Widgets/Home_page_statistics_widgets/InfoList.dart';
 
-import '../../main.dart';
+import 'package:myair/main.dart';
 
 // List of the items related to Actual Air Pollution
 class AgentListWidget extends StatelessWidget{
@@ -12,8 +10,8 @@ class AgentListWidget extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
 
+    return Container(
       child:Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -22,6 +20,7 @@ class AgentListWidget extends StatelessWidget{
         ],
       ),
     );
+
   }
 
 }

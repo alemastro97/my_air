@@ -7,6 +7,8 @@ import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Widgets/Home_page_statistics_widgets/AgentPieChart.dart';
 
 class AnimatedChart extends StatefulWidget {
+
+  //List of the colors that changes during the visualization
   final List<Color> availableColors = [
     Colors.purpleAccent,
     Colors.yellow,
@@ -21,18 +23,21 @@ class AnimatedChart extends StatefulWidget {
 }
 
 class AnimatedChartState extends State<AnimatedChart> {
+
   int hour = 0;
+  int touchedIndex;
+  bool isPlaying = false;
+
   final Color barBackgroundColor = const Color(0xff72d8bf);
   final Duration animDuration = const Duration(milliseconds: 250);
 
-  int touchedIndex;
-
-  bool isPlaying = false;
+  //Initial state in which we set the actual hour
   @override
   void initState() {
     hour = DateTime.now().hour;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
@@ -134,24 +139,28 @@ class AnimatedChartState extends State<AnimatedChart> {
 
   List<BarChartGroupData> showingGroups() => List.generate(6, (i) {
     switch (i) {
-
       case 0:
-        return makeGroupData(0, (DailyUnitData().getPM10Values().value.elementAt(hour)*20.0/Limits.elementAt(i)), isTouched: i == touchedIndex);
+        return makeGroupData(0,standardization(DailyUnitData().getPM10Values().value.elementAt(hour),i), isTouched: i == touchedIndex);
       case 1:
-        return makeGroupData(1, (DailyUnitData().getPM25Values().value.elementAt(hour)*20.0/Limits.elementAt(i)), isTouched: i == touchedIndex);
+        return makeGroupData(1,standardization(DailyUnitData().getPM25Values().value.elementAt(hour),i) , isTouched: i == touchedIndex);
       case 2:
-        return makeGroupData(2,DailyUnitData().getNO2Values().value.elementAt(hour)*20.0/Limits.elementAt(i), isTouched: i == touchedIndex);
+        return makeGroupData(2, standardization(DailyUnitData().getNO2Values().value.elementAt(hour),i), isTouched: i == touchedIndex);
       case 3:
-        return makeGroupData(3,DailyUnitData().getSO2Values().value.elementAt(hour)*20.0/Limits.elementAt(i), isTouched: i == touchedIndex);
+        return makeGroupData(3,standardization(DailyUnitData().getSO2Values().value.elementAt(hour),i), isTouched: i == touchedIndex);
       case 4:
-        return makeGroupData(4,DailyUnitData().getO3Values().value.elementAt(hour)*20.0/Limits.elementAt(i), isTouched: i == touchedIndex);
+        return makeGroupData(4,standardization(DailyUnitData().getO3Values().value.elementAt(hour),i), isTouched: i == touchedIndex);
       case 5:
-        return makeGroupData(5, DailyUnitData().getCOValues().value.elementAt(hour)*20.0/Limits.elementAt(i), isTouched: i == touchedIndex);
+        return makeGroupData(5,standardization(DailyUnitData().getCOValues().value.elementAt(hour),i) , isTouched: i == touchedIndex);
 
       default:
         return null;
     }
   });
+
+  double standardization(double agent, int index){
+    if(agent > Limits.elementAt(index)){return 20.0;}
+    else{return agent*20.0/Limits.elementAt(index);}
+  }
 
   BarChartData mainBarData() {
     return BarChartData(
@@ -223,7 +232,6 @@ class AnimatedChartState extends State<AnimatedChart> {
                 return 'O3';
               case 5:
                 return 'CO';
-
               default:
                 return '';
             }
@@ -282,22 +290,22 @@ class AnimatedChartState extends State<AnimatedChart> {
       barGroups: List.generate(6, (i) {
         switch (i) {
           case 0:
-            return makeGroupData(0, (DailyUnitData().getPM10Values().value.elementAt(hour)*20.0/Limits.elementAt(i)),
+            return makeGroupData(0, standardization(DailyUnitData().getPM10Values().value.elementAt(hour),i),
                 barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
           case 1:
-            return makeGroupData(1,  (DailyUnitData().getPM25Values().value.elementAt(hour)*20.0/Limits.elementAt(i)),
+            return makeGroupData(1, standardization (DailyUnitData().getPM25Values().value.elementAt(hour),i),
                 barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
           case 2:
-            return makeGroupData(2,  (DailyUnitData().getNO2Values().value.elementAt(hour)*20.0/Limits.elementAt(i)),
+            return makeGroupData(2,  standardization(DailyUnitData().getNO2Values().value.elementAt(hour),i),
                 barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
           case 3:
-            return makeGroupData(3, (DailyUnitData().getSO2Values().value.elementAt(hour)*20.0/Limits.elementAt(i)),
+            return makeGroupData(3, standardization(DailyUnitData().getSO2Values().value.elementAt(hour),i),
                 barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
           case 4:
-            return makeGroupData(4,(DailyUnitData().getO3Values().value.elementAt(hour)*20.0/Limits.elementAt(i)),
+            return makeGroupData(4,standardization(DailyUnitData().getO3Values().value.elementAt(hour),i),
                 barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
           case 5:
-            return makeGroupData(5, (DailyUnitData().getCOValues().value.elementAt(hour)*20.0/Limits.elementAt(i)),
+            return makeGroupData(5, standardization(DailyUnitData().getCOValues().value.elementAt(hour),i),
                 barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
 
           default:

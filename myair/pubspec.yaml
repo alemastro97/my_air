@@ -35,15 +35,18 @@ dependencies:
   mailer: ^3.2.1 #there is also the way to use url_launcher but we want to make the email and the support anonymous
   toast: ^0.1.5 #email sended
 
-  #Account
+  # Account
     #ChangeImage
   image_picker: ^0.6.7+17 #used to get the picture from the camera/gallery
   path_provider: any #used to manipulate the file that contains the image of the user
     #UserPageWidget
   animated_theme_switcher: ^1.0.5 #used to change the theme of the app
 
-
+  # Chart Page
+    # Bar Chart Card
   syncfusion_flutter_charts: ^18.3.53
+
+
   # google sign in
 
   firebase_auth: ^0.18.3

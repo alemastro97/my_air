@@ -1,12 +1,13 @@
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myair/Services/Google_Service/GoogleSignIn.dart';
-import 'package:flutter/material.dart';
 import 'package:myair/Widgets/Login_with_google/SignUpWidget.dart';
+import 'package:myair/Views/HomePage.dart';
+
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
-import 'HomePage.dart';
-
+//like a router that check if the user has logged with a google account and in case it fire it in the hoem page
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -16,7 +17,6 @@ class ProfilePage extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           final provider = Provider.of<GoogleSignInProvider>(context);
-
           if (provider.isSigningIn) {
             return buildLoading();
           } else if (snapshot.hasData) {
@@ -32,7 +32,6 @@ class ProfilePage extends StatelessWidget {
     fit: StackFit.expand,
 
     children: [
-      //CustomPaint(painter: BackgroundPainter()),
       Container(
         decoration: BoxDecoration(
           image: DecorationImage(

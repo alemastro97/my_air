@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
+//Main tabBar of the application
 class TabBarMaterialWidget extends StatefulWidget {
-  final int index;
-  final ValueChanged<int> onChangedTab;
 
+  final int index; //Index of the page selected
+  final ValueChanged<int> onChangedTab; //Reference function
+
+  //Constructor
   const TabBarMaterialWidget({
     @required this.index,
     @required this.onChangedTab,
@@ -12,16 +15,21 @@ class TabBarMaterialWidget extends StatefulWidget {
 
   @override
   _TabBarMaterialWidgetState createState() => _TabBarMaterialWidgetState();
+
 }
 
 class _TabBarMaterialWidgetState extends State<TabBarMaterialWidget> {
+
   @override
   Widget build(BuildContext context) {
+
+    //Home button
     final placeholder = Opacity(
       opacity: 0,
       child: IconButton(icon: Icon(Icons.home_outlined), onPressed: null),
     );
 
+    //TabBar with all the possible pages
     return BottomAppBar(
       shape: CircularNotchedRectangle(),
       notchMargin: 8,

@@ -7,16 +7,16 @@ final FirebaseDatabase db = new FirebaseDatabase(); //.child('users');
 final databaseReference = db.reference();
 
 class FirebaseDatabaseHelper{
-  static FirebaseDatabaseHelper _FirebaseDb_gesture; //Singleton DatabaseHelper
+  static FirebaseDatabaseHelper _firebaseDatabaseGesture; //Singleton DatabaseHelper
 
   FirebaseDatabaseHelper._createInstance(); // Named constructor to create instance of DatabaseHelper;
 
   factory FirebaseDatabaseHelper() {
 
-    if (_FirebaseDb_gesture == null) {
-      _FirebaseDb_gesture = FirebaseDatabaseHelper._createInstance(); // this is execute only once, singleton object
+    if (_firebaseDatabaseGesture == null) {
+      _firebaseDatabaseGesture = FirebaseDatabaseHelper._createInstance(); // this is execute only once, singleton object
     }
-    return _FirebaseDb_gesture;
+    return _firebaseDatabaseGesture;
   }
 
   Future<bool> saveUser(UserAccount u)  async {

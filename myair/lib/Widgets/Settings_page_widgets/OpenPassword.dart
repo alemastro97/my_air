@@ -5,17 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:myair/main.dart';
 
 class OpenPassword extends StatefulWidget{
-  final Function flip;
 
+  final Function flip; //Reference to the function in PasswordChanger to call the setState on the container and "open" or "close" it
+
+  //Constructor
   const OpenPassword({Key key, this.flip}) : super(key: key);
+
+  @override
   _OpenPasswordState createState() => _OpenPasswordState();
+
 }
 class _OpenPasswordState extends State<OpenPassword>{
-  TextEditingController passOldController = new TextEditingController();
-  TextEditingController passNewController = new TextEditingController();
-  TextEditingController passNewCController = new TextEditingController();
-  var error = false;
-  var error_2 = false;
+
+  //All the controller for the 3 textView of the password
+  TextEditingController passOldController = new TextEditingController(); //Old Password TextView Controller
+  TextEditingController passNewController = new TextEditingController(); //New Password TextView Controller
+  TextEditingController passNewCController = new TextEditingController(); //New Password Again TextView Controller
+
+  var errorNoOldPassword = false;
+  var errorNotEquals = false;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,13 +33,14 @@ class _OpenPasswordState extends State<OpenPassword>{
           child: ListTile(
             leading: Icon(
               Icons.lock_outline,
-              //color: Colors.purple,
             ),
             title: Text("Change Password"),
-            trailing: Icon(Icons.keyboard_arrow_down),
-
+            trailing: Icon(Icons.keyboard_arrow_down), //Inversion of the arrow
           ),
         ),
+        //Form Started
+
+        //Old password insertion
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left:8.0, right: 8.0,bottom: 8.0),
@@ -40,27 +50,26 @@ class _OpenPasswordState extends State<OpenPassword>{
               autocorrect: false,
               obscureText: true,
               keyboardType: TextInputType.text,
-              decoration: error ? new InputDecoration(
+              //If the password is not the old one show an error otherwise nothing
+              decoration: errorNoOldPassword ? new InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
                 border: new OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0))),
                 hintText: 'Old Password',
                 errorText: 'Password doesn\'t matching',
-                //labelText: 'Email',
-
               ): new InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
                 border: new OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0))),
                 hintText: 'Old Password',
-                // labelText: 'Email',
-
               ),
             ),
           ),
         ),
+
+        //Insertion of the new password
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -70,23 +79,19 @@ class _OpenPasswordState extends State<OpenPassword>{
               autocorrect: false,
               obscureText: true,
               keyboardType: TextInputType.text,
-              decoration: error_2 ? new InputDecoration(
+              decoration: errorNotEquals ? new InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
                 border: new OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0))),
                 hintText: 'New Password',
                 errorText: 'Passwords don\'t matching',
-                //labelText: 'Email',
-
               ): new InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
                 border: new OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0))),
                 hintText: 'New Password',
-                // labelText: 'Email',
-
               ),
             ),
           ),
@@ -100,27 +105,25 @@ class _OpenPasswordState extends State<OpenPassword>{
               autocorrect: false,
               obscureText: true,
               keyboardType: TextInputType.text,
-              decoration: error_2 ? new InputDecoration(
+              decoration: errorNotEquals ? new InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
                 border: new OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0))),
                 hintText: 'New Password Confirmation',
                 errorText: ' ',
-                //labelText: 'Email',
-
               ): new InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
                 border: new OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0))),
                 hintText: 'New Password Confirmation',
-                // labelText: 'Email',
-
               ),
             ),
           ),
         ),
+
+        //Button for the confirmation of the new password
         Expanded( child:Container(
           child: Center(
             child: FractionallySizedBox(
@@ -128,24 +131,23 @@ class _OpenPasswordState extends State<OpenPassword>{
               widthFactor: 2 / 3,
               child: GestureDetector(
                 onTap: () async {
-                  if(passOldController.text == actualUser.password)
-                  {if(passNewCController.text == passNewController.text){
-                    actualUser.password = passNewCController.text;
-                    actualUser.updateUser();
-                    widget.flip();
-                  }else{
-                    setState(() {
-                      error_2 = true;
-                    });}}
-                  else
-                    setState(() {
-                      error = true;
-                    });
-                },
-                child: Container(
+                  if (passOldController.text == actualUser.password) {
+                      if (passNewCController.text == passNewController.text) {
+                        actualUser.password = passNewCController.text;
+                        actualUser.updateUser();
+                        widget.flip();
+                      } else {
+                        setState(() {
+                          errorNotEquals = true;
+                        });
+                      }
+                    } else
+                      setState(() {
+                        errorNoOldPassword = true;
+                      });
+                  },
+                  child: Container(
                   padding: EdgeInsets.all(MediaQuery.of(context).size.width/30),
-                  //  margin: EdgeInsets.symmetric( ).copyWith(),
-                  // padding: EdgeInsets.symmetric( ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 3),
                     color: Theme.of(context).brightness == Brightness.light ? Color(0xFF6488E4) : Theme.of(context).accentColor,

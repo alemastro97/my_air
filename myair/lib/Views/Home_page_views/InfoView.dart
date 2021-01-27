@@ -26,19 +26,15 @@ class InfoView extends StatelessWidget {
                 "AQI, or Air Quality Index, is a system for reporting the severity of air quality levels in relatable terms to the public. The index ranges from 0 to 500, where high index values indicate higher levels of air pollution and higher potential for adverse healt effects. Any value larger than 300, for example, is considered to be hazardous, while an AQI value of 0-50, on the other hand, represents good air quality",
               ),
             ),
-
             Card(elevation: 1.0,
-
                 child:Row(
-
                   children: <Widget>[
                     Expanded(
                       flex: 1,
                       child: new Container(
-                        height: MediaQuery.of(context).size.height/8,// padding:  EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/10),
+                        height: MediaQuery.of(context).size.height/8,
                           decoration: new BoxDecoration(
                               shape: BoxShape.rectangle,
-
                           ),
                       child: Padding(
                         padding:  EdgeInsets.all( MediaQuery.of(context).size.width/50),
@@ -46,10 +42,8 @@ class InfoView extends StatelessWidget {
 
                                 fit: BoxFit.fill,
                                 image: AssetImage('assets/images/PollutionIcons/Good.png')
-
                         ),
                       ),),),
-
                     Expanded(
                       flex: 3,
                       child: Column(
@@ -73,25 +67,21 @@ class InfoView extends StatelessWidget {
                   ],
                 )
             ),
-
             Card(elevation: 1.0,
                 child:Row(
                   children: <Widget>[
                     Expanded(
                       flex: 1,
                       child: new Container(
-                        height: MediaQuery.of(context).size.height/8,// padding:  EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/10),
+                        height: MediaQuery.of(context).size.height/8,
                         decoration: new BoxDecoration(
                           shape: BoxShape.rectangle,
-
                         ),
                         child: Padding(
                           padding:  EdgeInsets.all( MediaQuery.of(context).size.width/50),
                           child: Image(
-
                               fit: BoxFit.fill,
                               image: AssetImage('assets/images/PollutionIcons/Moderate.png')
-
                           ),
                         ),),),
                     Expanded(
@@ -109,7 +99,6 @@ class InfoView extends StatelessWidget {
                             padding: EdgeInsets.all(MediaQuery.of(context).size.width/50),
                             child:Text(
                               "Sensitive individuals should avoid outdoor activiy as they may experience respiratory symptoms",
-
                             ),
                           ),
                         ],
@@ -118,17 +107,15 @@ class InfoView extends StatelessWidget {
                   ],
                 )
             ),
-
             Card(elevation: 1.0,
                 child:Row(
                   children: <Widget>[
                     Expanded(
                       flex: 1,
                       child: new Container(
-                        height: MediaQuery.of(context).size.height/8,// padding:  EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/10),
+                        height: MediaQuery.of(context).size.height/8,
                         decoration: new BoxDecoration(
                           shape: BoxShape.rectangle,
-
                         ),
                         child: Padding(
                           padding:  EdgeInsets.all( MediaQuery.of(context).size.width/50),
@@ -136,7 +123,6 @@ class InfoView extends StatelessWidget {
 
                               fit: BoxFit.fill,
                               image: AssetImage('assets/images/PollutionIcons/UnhealthyForSensitiveGroups.png')
-
                           ),
                         ),),),
                     Expanded(
@@ -154,7 +140,6 @@ class InfoView extends StatelessWidget {
                             padding: EdgeInsets.all(MediaQuery.of(context).size.width/50),
                             child:Text(
                               "General public and sensitive individuals in particular are at risk to experience irritation and respiratory problems",
-
                             ),
                           ),
                         ],
@@ -163,25 +148,21 @@ class InfoView extends StatelessWidget {
                   ],
                 )
             ),
-
             Card(elevation: 1.0,
                 child:Row(
                   children: <Widget>[
                     Expanded(
                       flex: 1,
                       child: new Container(
-                        height: MediaQuery.of(context).size.height/8,// padding:  EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/10),
+                        height: MediaQuery.of(context).size.height/8,
                         decoration: new BoxDecoration(
                           shape: BoxShape.rectangle,
-
                         ),
                         child: Padding(
                           padding:  EdgeInsets.all( MediaQuery.of(context).size.width/50),
                           child: Image(
-
                               fit: BoxFit.fill,
                               image: AssetImage('assets/images/PollutionIcons/Unhealthy.png')
-
                           ),
                         ),),),
                     Expanded(
@@ -199,7 +180,6 @@ class InfoView extends StatelessWidget {
                             padding: EdgeInsets.all(MediaQuery.of(context).size.width/50),
                             child:Text(
                               "Increased lielihood of adverse effects and aggravation to the heart and lungs among general public - particularly for sensitive groups",
-
                             ),
                           ),
                         ],
@@ -208,7 +188,6 @@ class InfoView extends StatelessWidget {
                   ],
                 )
             ),
-
             Card(
                 elevation: 1.0,
                 child:Row(
@@ -216,18 +195,15 @@ class InfoView extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: new Container(
-                        height: MediaQuery.of(context).size.height/8,// padding:  EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/10),
+                        height: MediaQuery.of(context).size.height/8,
                         decoration: new BoxDecoration(
                           shape: BoxShape.rectangle,
-
                         ),
                         child: Padding(
                           padding:  EdgeInsets.all( MediaQuery.of(context).size.width/50),
                           child: Image(
-
                               fit: BoxFit.fill,
                               image: AssetImage('assets/images/PollutionIcons/VeryUnhealthy.png')
-
                           ),
                         ),),),
                     Expanded(
@@ -245,7 +221,6 @@ class InfoView extends StatelessWidget {
                             padding: EdgeInsets.all(MediaQuery.of(context).size.width/50),
                             child:Text(
                               "General public will be noticeably affected. Sensitive groups will experience reduced endurance in activities. These individuals should remain indoors and restrict activities.",
-
                             ),
                           ),
                         ],
@@ -260,18 +235,15 @@ class InfoView extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: new Container(
-                    height: MediaQuery.of(context).size.height/8,// padding:  EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/10),
+                    height: MediaQuery.of(context).size.height/8,
                     decoration: new BoxDecoration(
                       shape: BoxShape.rectangle,
-
                     ),
                     child: Padding(
                       padding:  EdgeInsets.all( MediaQuery.of(context).size.width/50),
                       child: Image(
-
                           fit: BoxFit.fill,
                           image: AssetImage('assets/images/PollutionIcons/Hazardous.png')
-
                       ),
                     ),),),
                 Expanded(
@@ -289,7 +261,6 @@ class InfoView extends StatelessWidget {
                         padding: EdgeInsets.all(MediaQuery.of(context).size.width/50),
                           child:Text(
                             "General public and sensitive groups are at high risk to experience strong irritations and adverse health affects that could trigger other illnesses. Everyone should avoid exercise and remain indoors",
-                       //     maxLines:5,
                           ),
                       ),
                     ],
@@ -299,130 +270,7 @@ class InfoView extends StatelessWidget {
             )
           ),
           ],
-        ),/* ListView(
-          children: [
-            ///Incipit
-           Container(
-             child: AutoSizeText(
-                  "AQI, or Air Quality Index, is a system for reporting the severity of air quality levels in relatable terms to the public. The index ranges from 0 to 500, where high index values indicate higher levels of air pollution and higher potential for adverse healt effects. Any value larger than 300, for example, is considered to be hazardous, while an AQI value of 0-50, on the other hand, represents good air quality",
-                ),
-           ),
-
-            ///0-50
-            Card(
-              elevation: 1.0,
-              child: Column(
-                children: [
-                  AutoSizeText(
-                    "0 - 50 Good",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  AutoSizeText(
-                    "Air quality is satisfactory and poses liitle or no risk. Ventilating your home is recommended",
-                  ),
-                ],
-              ),
-            ),
-            ///51-100
-            Card(
-              elevation: 1.0,
-              child: Column(
-                children: [
-                  AutoSizeText(
-                    "51 - 100 Moderate",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  AutoSizeText(
-                    "Sensitive individuals should avoid outdoor activiy as they may experience respiratory symptoms",
-                  ),
-                ],
-              ),
-            ),
-            ///101-150
-            Card(
-            elevation: 1.0,
-            child: Column(
-              children: [
-                AutoSizeText(
-                  "101 - 150 Unhealty for sensitive groups",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                AutoSizeText(
-                  "General public and sensitive individuals in particular are at risk to experience irritation and respiratory problems",
-                ),
-              ],
-            ),
-            ),
-            ///151-200
-            Card(
-            elevation: 1.0,
-            child: Column(
-              children: [
-                AutoSizeText(
-                  "151 - 200 Unhealthy",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                AutoSizeText(
-                  "Increased lielihood of adverse effects and aggravation to the heart and lungs among general public - particularly for sensitive groups",
-                ),
-              ],
-            ),
-            ),
-            ///201-300
-            Card(
-            elevation: 1.0,
-            child: Column(
-              children: [
-                AutoSizeText(
-                  "201 - 300 Very Unhealthy",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                AutoSizeText(
-                  "General public will be noticeably affected. Sensitive groups will experience reduced endurance in activities. These individuals should remain indoors and restrict activities.",
-                ),
-              ],
-            ),
-            ),
-            ///301-500
-            Card(
-            elevation: 1.0,
-            child: Row(
-              children: [
-                Flexible(
-                  flex: 1,
-                  child: Container(
-
-
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.red,
-                    ),
-                  ),
-                ),
-                Flexible(
-                  flex: 3,
-                  child: Container(
-                    child: Column(
-                      children: [
-                         Text(
-                            "301 - 500 Hazardous",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-
-                        Expanded(
-                          child: Text(
-                            "General public and sensitive groups are at high risk to experience strong irritations and adverse health affects that could trigger other illnesses. Everyone should avoid exercise and remain indoors",
-                            maxLines:5,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),),
-          ],
-        ),*/
+        ),
       ),
     );
   }

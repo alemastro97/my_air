@@ -119,7 +119,7 @@ class MinimizePreview extends StatelessWidget{
                FittedBox( //Fitted box in order to scale the text based on the height of the device
                  fit: BoxFit.fitHeight,
                  child: Text(
-                   "Actual average value:" + kInfo.value.elementAt(index).value.amount.toStringAsFixed(2).toString(),
+                   "Actual value:" + kInfo.value.elementAt(index).value.amount.toStringAsFixed(2).toString(),
                  ),
                ),
              ],

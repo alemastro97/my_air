@@ -65,7 +65,7 @@ class GeolocationView{
       final geoPosition = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       userPosition = new LatLng(geoPosition.latitude, geoPosition.longitude);
-
+      print(userPosition.latitude.toString() + " " + userPosition.longitude.toString());
       await d.setSensorsDataAverage(
           DatabaseHelper(),
           DateTime.now().hour,

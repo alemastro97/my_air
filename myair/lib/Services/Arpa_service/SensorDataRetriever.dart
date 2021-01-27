@@ -11,7 +11,6 @@ Future<List<SensorData>> fetchSensorDataFromAPI(String idsensore,int duration) a
   // The part after the wait is asynchronous
   //final endpoint = 'https://www.dati.lombardia.it/resource/nicp-bhqi.json?idsensore=';
   //final endpoint = 'https://www.dati.lombardia.it/resource/nicp-bhqi.json?';
-  print(idsensore);
   final endpoint = 'https://www.dati.lombardia.it/resource/nicp-bhqi.json?';
   // The control is release from the function and other thread can be run
   // When we have the response function can be resumed
@@ -27,20 +26,14 @@ Future<List<SensorData>> fetchSensorDataFromAPI(String idsensore,int duration) a
   var sensorclause = '&idsensore=' + idsensore;
   var validationclause = '&stato=%27VA%27&\$order=data%20DESC';
   var connectionString = endpoint + whereclause + sensorclause + validationclause;
-  print ('Connection string for data:' + connectionString);
-
   var response =  await http.get(connectionString);
 
   if (response.statusCode == 200) {
     List<SensorData> sensorDataList = List<SensorData>();
-
     var sensorsJson = json.decode(response.body);
-
     for (var sensorJson in sensorsJson) {
-
       sensorDataList.add(SensorData.fromJson(sensorJson));
     }
-    //if (sensorDataList.length == 0)  sensorDataList =   await fetchSensorDataFromAPI(idsensore,duration + 24);
     if (sensorDataList.length < 24) {
       var x = await fetchSensorDataFromAPI(idsensore, duration + 24);
       x.length != 0 ? sensorDataList = x : null;

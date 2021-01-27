@@ -35,10 +35,6 @@ class MainActivity: FlutterActivity() {
                                 intent.putExtra("PM25", PM25.toInt())
                                 intent.putExtra("CO", CO.toInt())
                                 intent.putExtra("AQI", AQI.toInt())
-                                Log.i("in", "sssssssAQI" + intent.getIntExtra("AQI", 10))
-                                Log.i("in", "sssssssPM10" + intent.getIntExtra("PM10", 10))
-                                Log.i("in", "sssssssPM25" + intent.getIntExtra("PM25", 10))
-                                Log.i("in", "sssssssCO" + intent.getIntExtra("CO", 10))
                             }
                         }
                     }

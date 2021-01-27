@@ -65,7 +65,7 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
   Widget build(BuildContext context) {
     //Definition of the user option in order to recenter the map and create the markers
     userLocationOptions = UserLocationOptions(
-      updateMapLocationOnPositionChange: false,
+      updateMapLocationOnPositionChange: true,
       showMoveToCurrentLocationFloatingActionButton:false,
       context: context,
       mapController: mapController,

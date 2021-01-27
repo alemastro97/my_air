@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:myair/Constants/pollution_graph_constants.dart';
-import 'package:myair/Modules/info_pollution.dart';
+import 'package:myair/Modules/InfoPollution.dart';
 
 
 

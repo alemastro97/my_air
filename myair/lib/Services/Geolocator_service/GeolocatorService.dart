@@ -7,7 +7,7 @@ import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/Widgets/Pop_Up_Notification/notification.dart';
 import 'package:myair/main.dart';
 import 'package:myair/Services/RemoteView/RemoteViewUpdater.dart';
-
+import 'package:myair/Modules/ActualData.dart';
 
 Timer timer;
 
@@ -73,33 +73,33 @@ class GeolocationView{
           geoPosition.longitude,
           50000);
      PollutantAgent().set_values(DateTime.now().hour,DateTime.now().day,
-          kInfo.value.elementAt(0).value.amount,
-        kInfo.value.elementAt(1).value.amount,
-        kInfo.value.elementAt(2).value.amount,
-        kInfo.value.elementAt(3).value.amount,
-        kInfo.value.elementAt(4).value.amount,
-        kInfo.value.elementAt(5).value.amount);
+         ActualValue().getActualData().value.elementAt(0).value.amount,
+         ActualValue().getActualData().value.elementAt(1).value.amount,
+         ActualValue().getActualData().value.elementAt(2).value.amount,
+         ActualValue().getActualData().value.elementAt(3).value.amount,
+         ActualValue().getActualData().value.elementAt(4).value.amount,
+         ActualValue().getActualData().value.elementAt(5).value.amount);
 
 
 
       int aqi = PollutantAgent().getAqi(
-          kInfo.value.elementAt(0).value.amount,
-          kInfo.value.elementAt(1).value.amount,
-          kInfo.value.elementAt(2).value.amount,
-          kInfo.value.elementAt(3).value.amount,
-          kInfo.value.elementAt(4).value.amount,
-          kInfo.value.elementAt(5).value.amount);
+          ActualValue().getActualData().value.elementAt(0).value.amount,
+          ActualValue().getActualData().value.elementAt(1).value.amount,
+          ActualValue().getActualData().value.elementAt(2).value.amount,
+          ActualValue().getActualData().value.elementAt(3).value.amount,
+          ActualValue().getActualData().value.elementAt(4).value.amount,
+          ActualValue().getActualData().value.elementAt(5).value.amount);
       RemoteViewUpdater().updateRemoteView(
-          kInfo.value.elementAt(0).value.amount.round().toString(),
-          kInfo.value.elementAt(1).value.amount.round().toString(),
-          kInfo.value.elementAt(5).value.amount.round().toString(),
+          ActualValue().getActualData().value.elementAt(0).value.amount.round().toString(),
+          ActualValue().getActualData().value.elementAt(1).value.amount.round().toString(),
+          ActualValue().getActualData().value.elementAt(5).value.amount.round().toString(),
           aqi.round().toString());
       if(150 > aqi){actualUser.sethourSafe(1);}
       else{if(aqi > 400){actualUser.weeklyMissionFailed = false;}}
       if(actualUser.notificationSend)
       {
-        for (var i = 0; i < kInfo.value.length; i++)
-        if(  kInfo.value.elementAt(i).value.amount > actualUser.notificationLimits.elementAt(i)) {
+        for (var i = 0; i < ActualValue().getActualData().value.length; i++)
+        if(  ActualValue().getActualData().value.elementAt(i).value.amount > actualUser.notificationLimits.elementAt(i)) {
           this._notifications.pushNotification();
 
         }}

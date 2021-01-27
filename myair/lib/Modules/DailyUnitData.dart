@@ -1,13 +1,14 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:myair/Modules/SensorData.dart';
-import 'package:myair/Modules/info_pollution.dart';
+import 'package:myair/Modules/InfoPollution.dart';
 import 'package:myair/Services/Arpa_service/SensorDataRetriever.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
-import 'package:myair/main.dart';
 import 'package:myair/Modules/DailySensorData.dart';
 import 'package:myair/Modules/Sensor.dart';
 import 'package:myair/Modules/SensorListData.dart';
+
+import 'package:myair/Modules/ActualData.dart';
 
 class DailyUnitData {
   // array last 24h averages
@@ -89,7 +90,7 @@ class DailyUnitData {
           //Agent founded
           bpm10 = true;
           //Set the array that contains the last measured value
-          kInfo.value.elementAt(0).value = new InfoPollution("PM10", amount: average);
+          ActualValue().setActualDataById(0, new InfoPollution("PM10", amount: average));
         }
       }
 
@@ -105,8 +106,8 @@ class DailyUnitData {
           //Agent founded
           bpm25 = true;
           //Set the array that contains the last measured value
-          kInfo.value.elementAt(1).value = new InfoPollution("PM2.5", amount: average);
-        }
+          ActualValue().setActualDataById(1, new InfoPollution("PM2.5", amount: average));
+          }
       }
 
       if ((sensor.name.contains("Biossido di Azoto")) && (bno2 == false)) {
@@ -121,7 +122,7 @@ class DailyUnitData {
           //Agent founded
           bno2 = true;
           //Set the array that contains the last measured value
-          kInfo.value.elementAt(2).value = new InfoPollution("NO2", amount: average);
+          ActualValue().setActualDataById(2, new InfoPollution("NO2", amount: average));
         }
       }
 
@@ -137,7 +138,7 @@ class DailyUnitData {
           //Agent founded
           bso2 = true;
           //Set the array that contains the last measured value
-          kInfo.value.elementAt(3).value = new InfoPollution("SO2", amount: average);
+          ActualValue().setActualDataById(3, new InfoPollution("SO2", amount: average));
         }
       }
 
@@ -153,7 +154,7 @@ class DailyUnitData {
           //Agent founded
           bo3 = true;
           //Set the array that contains the last measured value
-          kInfo.value.elementAt(4).value = new InfoPollution("O3", amount: average);
+          ActualValue().setActualDataById(4, new InfoPollution("O3", amount: average));
         }
       }
 
@@ -169,7 +170,7 @@ class DailyUnitData {
           //Agent founded
           co = true;
           //Set the array that contains the last measured value
-          kInfo.value.elementAt(5).value = new InfoPollution("CO", amount: average);
+          ActualValue().setActualDataById(5, new InfoPollution("CO", amount: average));
         }
       }
       //Check if we take all the values

@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:myair/Modules/ActualData.dart';
 import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/Services/Database_service/FirebaseDatabaseHelper.dart';
 import 'package:myair/main.dart';
@@ -39,7 +40,7 @@ class _SliderAgentState extends State<SliderAgent>{
       children: <Widget>[
         //Title of the slider
         Text("Set values to send notification's about " +
-            kInfo.value.elementAt(widget.index).value.name),
+            ActualValue().getActualData().value.elementAt(widget.index).value.name),
         //Slider
         SliderTheme(
           //Slider colors in case it is disabled

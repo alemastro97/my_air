@@ -21,6 +21,12 @@ class BarChart extends StatelessWidget{
           child:SfCartesianChart( // Cartesian chart that shows the trend of th last 24 hours
               plotAreaBorderColor: Colors.transparent,
               enableAxisAnimation: true,
+              //Enables the tooltip for all the series
+              tooltipBehavior: TooltipBehavior(
+                header: 'Bar Chart Value',
+                  enable: true,
+                  tooltipPosition: TooltipPosition.auto
+              ),
               primaryXAxis:CategoryAxis(interval: 6,), //Interval between the values
               series: <ChartSeries>[
                 ColumnSeries<Pollution, String>(
@@ -28,6 +34,7 @@ class BarChart extends StatelessWidget{
                     xValueMapper: (Pollution p, _) => p.hour,
                     yValueMapper: (Pollution p, _) => p.value,
                     pointColorMapper: (Pollution data, _) => data.color,
+                  enableTooltip: true,
                 )
               ]
           ),

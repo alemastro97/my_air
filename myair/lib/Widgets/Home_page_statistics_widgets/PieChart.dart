@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:myair/Constants/pollution_graph_constants.dart';
-import 'package:myair/Modules/info_pollution.dart';
+import 'package:myair/Modules/InfoPollution.dart';
 
 //Main pie chart creation
 class PieChart extends CustomPainter {

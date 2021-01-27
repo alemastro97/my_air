@@ -1,10 +1,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:myair/Modules/ActualData.dart';
 
 import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Views/Graph_view/ChartPage.dart';
-import 'package:myair/main.dart';
 import 'package:myair/Widgets/ChartPage_widgets/ChartCardWidget.dart';
 
 class ScrollableTabBar extends StatefulWidget{
@@ -73,7 +73,7 @@ class _ScrollableTabBarState extends State<ScrollableTabBar> with SingleTickerPr
           child: TabBarView(
               controller: _controller,
               children: <Widget>[
-            for (var index = 0; index < kInfo.value.length; index++)
+            for (var index = 0; index < ActualValue().getActualData().value.length; index++)
               ChartCardWidget( // settings of the right data on which stay tuned
                   hourSorted: widget.hourSorted,
                   index: index,

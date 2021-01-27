@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:myair/Modules/ActualData.dart';
 import 'package:myair/Views/Graph_view/ChartPage.dart';
 
 import 'package:myair/Widgets/ChartPage_widgets/BarChartPreview.dart';
@@ -105,7 +106,7 @@ class MinimizePreview extends StatelessWidget{
                FittedBox( //Fitted box in order to scale the text based on the height of the device
                  fit: BoxFit.fitHeight,
                  child: Text(
-                   kInfo.value.elementAt(index).value.name,
+                   ActualValue().getActualData().value.elementAt(index).value.name,
                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                  ),
                ),
@@ -119,7 +120,7 @@ class MinimizePreview extends StatelessWidget{
                FittedBox( //Fitted box in order to scale the text based on the height of the device
                  fit: BoxFit.fitHeight,
                  child: Text(
-                   "Actual value:" + kInfo.value.elementAt(index).value.amount.toStringAsFixed(2).toString(),
+                   "Actual value:" + ActualValue().getActualData().value.elementAt(index).value.amount.toStringAsFixed(2).toString(),
                  ),
                ),
              ],
@@ -188,7 +189,7 @@ class _ExpandedPreviewState extends State<ExpandedPreview>{
                             child: FittedBox(
                               fit: BoxFit.fitHeight,
                               child: Text(
-                                kInfo.value.elementAt(widget.index).value.name,
+                                ActualValue().getActualData().value.elementAt(widget.index).value.name,
                                 style:
                                     TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                               ),

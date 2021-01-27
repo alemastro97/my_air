@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myair/Constants/pollution_graph_constants.dart';
-import 'package:myair/Modules/info_pollution.dart';
+import 'package:myair/Modules/ActualData.dart';
+import 'package:myair/Modules/InfoPollution.dart';
 import 'package:myair/Widgets/Home_page_statistics_widgets/AgentPieChart.dart';
 
-import 'package:myair/main.dart';
 
 class AgentInfoWidget extends StatelessWidget {
   final int index;
@@ -85,7 +85,7 @@ class AgentInfoWidget extends StatelessWidget {
                                     child: CustomPaint(
                                       child: Center(),
                                       foregroundPainter: AgentPieChart(
-                                        info: kInfo.value,
+                                        info: ActualValue().getActualData().value,
                                         width: constraint.maxWidth * 0.4,
                                         index: index,
                                       ),
@@ -166,7 +166,7 @@ class AgentInfoWidget extends StatelessWidget {
               ],
             );
           },
-          valueListenable: kInfo.value.elementAt(index), //Listened value, every time it change it rewrite the widget
+          valueListenable: ActualValue().getActualData().value.elementAt(index), //Listened value, every time it change it rewrite the widget
         ),
       ),
     );

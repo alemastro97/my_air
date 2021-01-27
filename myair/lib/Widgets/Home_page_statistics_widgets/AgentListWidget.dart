@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:myair/Modules/ActualData.dart';
 import 'package:myair/Widgets/Home_page_statistics_widgets/InfoList.dart';
 
-import 'package:myair/main.dart';
 
 // List of the items related to Actual Air Pollution
 class AgentListWidget extends StatelessWidget{
@@ -15,8 +15,8 @@ class AgentListWidget extends StatelessWidget{
       child:Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          for(var item in kInfo.value)
-            InfoList(text: item.value.name,index: kInfo.value.indexOf(item),), // items description and color
+          for(var item in ActualValue().getActualData().value)
+            InfoList(text: item.value.name,index: ActualValue().getActualData().value.indexOf(item),), // items description and color
         ],
       ),
     );

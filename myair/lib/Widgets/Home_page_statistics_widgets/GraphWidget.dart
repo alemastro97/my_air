@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:myair/main.dart';
+import 'package:myair/Modules/ActualData.dart';
 import 'package:myair/Modules/PollutantAgent.dart';
 import 'package:myair/Views/Home_page_views/InfoView.dart';
 import 'package:myair/Widgets/Home_page_statistics_widgets/PieChart.dart';
@@ -20,7 +20,7 @@ class GraphWidget extends StatelessWidget{
   Widget build(BuildContext context) {
 
     MediaQueryData _mediaQuery = MediaQuery.of(context);
-    _aqi = PollutantAgent().getAqi(kInfo.value.elementAt(0).value.amount,kInfo.value.elementAt(1).value.amount,kInfo.value.elementAt(2).value.amount, kInfo.value.elementAt(3).value.amount, kInfo.value.elementAt(4).value.amount, kInfo.value.elementAt(5).value.amount);
+    _aqi = PollutantAgent().getAqi(ActualValue().getActualData().value.elementAt(0).value.amount,ActualValue().getActualData().value.elementAt(1).value.amount,ActualValue().getActualData().value.elementAt(2).value.amount, ActualValue().getActualData().value.elementAt(3).value.amount, ActualValue().getActualData().value.elementAt(4).value.amount, ActualValue().getActualData().value.elementAt(5).value.amount);
 
     return Scaffold(
       //Set up of the background based on the app theme
@@ -125,7 +125,7 @@ class GraphWidget extends StatelessWidget{
                                                         width: constraint
                                                             .maxWidth *
                                                             0.5,
-                                                        info: kInfo.value,
+                                                        info: ActualValue().getActualData().value,
                                                       ),
                                                     ),
                                                   ),

@@ -94,8 +94,16 @@ class GeolocationView{
           ActualValue().getActualData().value.elementAt(1).value.amount.round().toString(),
           ActualValue().getActualData().value.elementAt(5).value.amount.round().toString(),
           aqi.round().toString());
-      if(150 > aqi){actualUser.sethourSafe(1);}
-      else{if(aqi > 400){actualUser.weeklyMissionFailed = false;}}
+
+      if(actualUser != null){
+        if (150 > aqi) {
+          await actualUser.sethourSafe(1);
+        } else {
+          if (aqi > 400) {
+            actualUser.weeklyMissionFailed = false;
+          }
+        }
+
       if(actualUser.notificationSend)
       {
         for (var i = 0; i < ActualValue().getActualData().value.length; i++)
@@ -112,7 +120,7 @@ class GeolocationView{
               ? this._notifications.pushNotificationReward()
               : null;
       }
-    }
+    }}
   }
 }
 

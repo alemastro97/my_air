@@ -143,7 +143,7 @@ class UserAccount {
   }
 
   //Check the situation of the weekly challenges
-  void checkWeeklyChallenges() {
+  Future<void> checkWeeklyChallenges() async {
     //Split the last login of the user to have day and month -> lastLog has the format MM-dd
     var firstLog = lastLog.split("-");
     //Create a DateTime type of the last user login
@@ -155,17 +155,17 @@ class UserAccount {
       counter = 1 + streak;
     }else{counter = 1; lastLog = DateFormat('MM-dd').format(DateTime.now());} // Otherwise reset the challenge
     //Update data
-    DatabaseHelper().deleteUser();
-    DatabaseHelper().insertUser(this);
+    await DatabaseHelper().deleteUser();
+    await DatabaseHelper().insertUser(this);
     FirebaseDatabaseHelper().updateUser();
   }
 
   //Update the challenge in which the user stays 100h in a safety place
-  void sethourSafe(int i) {
+  Future<void> sethourSafe(int i) async {
     if(this.hourSafe<=3000){
       this.hourSafe += i;
-      DatabaseHelper().deleteUser();
-      DatabaseHelper().insertUser(this);
+      await DatabaseHelper().deleteUser();
+      await DatabaseHelper().insertUser(this);
       FirebaseDatabaseHelper().updateUser();
     }
   }
@@ -184,8 +184,8 @@ class UserAccount {
 
   //Update Of the user in all the databases
   Future<void> updateUser() async {
-    DatabaseHelper().deleteUser();
-    DatabaseHelper().insertUser(this);
+    await DatabaseHelper().deleteUser();
+    await DatabaseHelper().insertUser(this);
     FirebaseDatabaseHelper().updateUser();
   }
 }

@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:myair/Constants/pollution_graph_constants.dart';
 import 'package:myair/Modules/InfoPollution.dart';
 
@@ -16,7 +17,7 @@ class PieChart extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-
+    var  sweepRadian = 0.0;
     Offset center = Offset(size.width / 2, size.height / 2); // Definition of the center of the chart
     double radius = min(size.width / 2, size.height / 2); //Definition of the radius
 
@@ -29,10 +30,31 @@ class PieChart extends CustomPainter {
 
     double startRadian = -pi / 2;
 
+    //Closing the circle
+    //startRadian += sweepRadian;
+    paint.color = Color.fromRGBO(192,192,192, 1);
+    paint.strokeWidth =  width /4;
+    canvas.drawArc(
+      Rect.fromCircle(center: center,radius: radius),
+      startRadian,
+      2*pi - startRadian,
+      false,
+      paint,
+    );
+    paint.color = Colors.white;
+    paint.strokeWidth =  width /6;
+    canvas.drawArc(
+      Rect.fromCircle(center: center,radius: radius),
+      startRadian,
+      2*pi - startRadian,
+      false,
+      paint,
+    );
+    paint.strokeWidth =  width /2;
     //Loop on all the actual value
     for (var index = 0; index < info.length; index++) {
       final currentAgent = info.elementAt(index);
-      final sweepRadian = currentAgent.value.amount / total * 2 * pi;
+      sweepRadian = currentAgent.value.amount / total * 2 * pi;
       paint.color = kNeumorphicColors.elementAt(index % info.length);
       canvas.drawArc(
         Rect.fromCircle(center: center, radius: radius),
@@ -43,6 +65,9 @@ class PieChart extends CustomPainter {
       );
       startRadian += sweepRadian;
     }
+
+
+
   }
 
   @override

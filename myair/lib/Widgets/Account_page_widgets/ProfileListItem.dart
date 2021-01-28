@@ -6,6 +6,7 @@ import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/Services/Google_Service/GoogleSignIn.dart';
 import 'package:myair/Views/Help&Support_view/HelpSupportPage.dart';
 import 'package:myair/Views/Settings_view/SettingsPage.dart';
+import 'package:myair/main.dart';
 
 //Button of the Account page
 class ProfileListItem extends StatelessWidget {
@@ -26,8 +27,10 @@ class ProfileListItem extends StatelessWidget {
             //Logout button: delete the user from the database and its google account (if one is present)
             case 'Logout':
               {
-                GoogleSignInProvider().logout();
+                actualUser = null;
                 await DatabaseHelper().deleteUser();
+                GoogleSignInProvider().logout();
+
                 Navigator.pushReplacementNamed(context, '/Login');
               }
               break;

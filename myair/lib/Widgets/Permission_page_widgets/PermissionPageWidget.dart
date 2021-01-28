@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -73,32 +74,27 @@ class _PermissionPageWidgetState extends State<PermissionPageWidget> with Widget
                     children: <Widget>[
                       LogoImport(),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Divider(),
-                      ),
+                       padding: const EdgeInsets.symmetric(horizontal:8.0),
+                       child: Divider(),
+                     ),
                       Flexible(
                         flex: 1,
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.only(right:8.0,bottom:8.0,left:8.0),
                           child: Column(
                             children: [
                               Expanded(
-                                flex: 2,
-                                child: FittedBox(
-
-                                  fit: BoxFit.fill,
-                                  child: Text(
-                                    "Your current location will be displayed on the map and used to retrieve accurate data regarding pollution in your area\n"
-                                        "Please turn on the option of permanent location",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-
-                                      color: Colors.white,
-                                    ),
+                                flex:2,
+                                child: AutoSizeText(
+                                  "Your current location will be displayed on the map and used to retrieve accurate data regarding pollution in your area."
+                                      "Please turn on the option of permanent location",
+                                  textAlign: TextAlign.start,
+                                  maxLines: 5,
+                                  style: TextStyle(
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
-                              //  Divider(),
                               Expanded(
                                 child: GestureDetector(
                                   onTap: () async {

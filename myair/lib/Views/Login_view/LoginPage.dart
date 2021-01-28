@@ -6,7 +6,7 @@ import 'package:myair/Widgets/Login_page_widgets/LoginPageWidget.dart';
 class LoginPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) => Scaffold(
-    resizeToAvoidBottomPadding: false,
+    resizeToAvoidBottomPadding: true,
     body: LoginPageWidget(),
   );
 }

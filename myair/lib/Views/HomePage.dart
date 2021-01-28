@@ -4,7 +4,7 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 
 import 'package:myair/main.dart';
 import 'package:myair/Widgets/TabBarMaterialWidget.dart';
-import 'package:myair/Views/UserPage.dart';
+import 'package:myair/Views/AccountPage.dart';
 import 'package:myair/Views/Graph_view/ChartPage.dart';
 import 'package:myair/Views/Reward_page/RewardPage.dart';
 import 'package:myair/Views/MapPage.dart';
@@ -29,7 +29,7 @@ class HomePageState extends State<HomePage> {
       ChartPage(),
       MapPage(),
       RewardPage(),
-      UserPage(),
+      AccountPage(),
       HomeStatisticsPage(),
     ];
 

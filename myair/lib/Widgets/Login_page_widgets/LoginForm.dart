@@ -36,7 +36,6 @@ class _LoginFormState extends State<LoginForm> {
               decoration: errorCredentials
                   ? new InputDecoration(
                   isDense: true,                      // Added this
-                //  contentPadding: EdgeInsets.all(8),
                       filled: true,
                       fillColor: Colors.white,
                       border: new OutlineInputBorder(

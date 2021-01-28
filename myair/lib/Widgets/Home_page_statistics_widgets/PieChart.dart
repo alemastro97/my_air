@@ -25,7 +25,7 @@ class PieChart extends CustomPainter {
       ..strokeWidth = width / 2;
 
     double total = 0;
-    info.forEach((expense) => total += expense.value.amount);
+    Limits.forEach((expense) => total += expense);
 
     double startRadian = -pi / 2;
 

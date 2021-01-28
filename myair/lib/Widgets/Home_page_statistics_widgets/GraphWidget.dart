@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -183,27 +182,33 @@ class GraphWidget extends StatelessWidget{
                                                           child: Container(
                                                             decoration: BoxDecoration(
                                                               shape: BoxShape.circle,
-                                                            ),
-                                                            child: CircleAvatar(
+                                                              image: DecorationImage(
+                                                                  image: _aqi >= 0 && _aqi <= 50
+                                                                      ? AssetImage(
+                                                                    'assets/images/PollutionIcons/Good.png',
+                                                                  )
+                                                                      : (_aqi >= 51 &&
+                                                                      _aqi <=
+                                                                          100
+                                                                      ? AssetImage(
+                                                                    'assets/images/PollutionIcons/Moderate.png',
+                                                                  )
+                                                                      : (_aqi >= 101 &&
+                                                                      _aqi <= 150
+                                                                      ?AssetImage('assets/images/PollutionIcons/UnhealthyForSensitiveGroups.png',
+                                                                  )
+                                                                      : (_aqi >= 151 && _aqi <= 200
+                                                                      ? AssetImage('assets/images/PollutionIcons/Unhealthy.png',
+                                                                  )
+                                                                      : (_aqi >= 201 && _aqi <= 300
+                                                                      ? AssetImage('assets/images/PollutionIcons/VeryUnhealthy.png',
+                                                                  )
+                                                                      : AssetImage('assets/images/PollutionIcons/Hazardous.png',
+                                                                  ))))),
 
-                                                              //  fit: BoxFit.fill,
-                                                              backgroundImage: _aqi >= 0 && _aqi <= 50
-                                                                  ? AssetImage(
-                                                                  'assets/images/PollutionIcons/Good.png')
-                                                                  : (_aqi >= 51 &&
-                                                                  _aqi <=
-                                                                      100
-                                                                  ? AssetImage(
-                                                                  'assets/images/PollutionIcons/Moderate.png')
-                                                                  : (_aqi >= 101 &&
-                                                                  _aqi <= 150
-                                                                  ? AssetImage('assets/images/PollutionIcons/UnhealthyForSensitiveGroups.png')
-                                                                  : (_aqi >= 151 && _aqi <= 200
-                                                                  ? AssetImage('assets/images/PollutionIcons/Unhealthy.png')
-                                                                  : (_aqi >= 201 && _aqi <= 300
-                                                                  ? AssetImage('assets/images/PollutionIcons/VeryUnhealthy.png')
-                                                                  : AssetImage('assets/images/PollutionIcons/Hazardous.png'))))),
+                                                                  fit: BoxFit.contain),
                                                             ),
+
                                                           ),
                                                         ),
                                                       ),

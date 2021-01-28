@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -65,7 +66,7 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
   Widget build(BuildContext context) {
     //Definition of the user option in order to recenter the map and create the markers
     userLocationOptions = UserLocationOptions(
-      updateMapLocationOnPositionChange: true,
+      updateMapLocationOnPositionChange: false,
       showMoveToCurrentLocationFloatingActionButton:false,
       context: context,
       mapController: mapController,
@@ -110,24 +111,47 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
 
         //Top widget of the page -> center user location and station values
         Padding(
-          padding: const EdgeInsets.only(left: 10.0,top: 10.0),
-          child: Align(alignment:Alignment.topCenter,child:Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ClipOval(
-                child: Material(
-                  color: Theme.of(context).brightness == Brightness.light ? Colors.white : Theme.of(context).backgroundColor,
-                  // button color
-                  child: InkWell(
-                    splashColor: Colors.white, // inkwell color
-                    child: SizedBox(height: (71 /  815.0 * MediaQuery.of(context).size.height),width:( 71 /  815.0 * MediaQuery.of(context).size.height), child: Icon(Icons.my_location)),
-                    onTap: () {recenterMap(null);},
-                  ),
+          padding: const EdgeInsets.only(left: 10.0, top: 10.0),
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child:
+                      Container(
+                    decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                        color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.white
+                          : Theme.of(context).backgroundColor,),
+                      child: MaterialButton(
+                          shape: CircleBorder(),
+                            // button color
+                            child: InkWell(
+                              splashColor: Colors.white, // inkwell color
+                              child: SizedBox(
+                                  height:
+                                  (71 / 815.0 * MediaQuery.of(context).size.height),
+                                  width:
+                                  (71 / 815.0 * MediaQuery.of(context).size.height),
+                                  child: Icon(Icons.my_location)),
+                              onTap: () {
+                                recenterMap(null);
+                              },
+                            ),
+                          ),
+                      )
+                    ),
+                    if (displayCaps)
+                      Expanded(flex:3,child: StationInfoWidget(  actualStation: currentlySelectedPin))else Expanded(flex: 3,child: Container(width: 0.0,height: 0.0,),)
+                  ],
                 ),
-              ),
-              if(displayCaps) SizedBox(height: (71 /  815.0 * MediaQuery.of(context).size.height),width: (300 /  815.0 * MediaQuery.of(context).size.height), child:StationInfoWidget(actualStation: currentlySelectedPin))
-            ],
-          ),),
+
+              ],
+            ),),
         ),
 
       ],
@@ -145,6 +169,7 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
         currentlySelectedPin.locationName = station.unit;
         currentlySelectedPin.location = station.position;
         mapController.move(station.position , 17.0);
+        animateSearch(false);
       }else{
         mapController.move(GeolocationView().getLastUserPosition(), 15.0); //-> the one related to the user
       }
@@ -159,7 +184,6 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
           width: 80.0,
           height: 80.0,
           point: Station.position,
-          //anchorPos: anchorPos,
           builder: (ctx) => GestureDetector(
             onTap: () {
               setState(() {
@@ -182,7 +206,7 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
   }
 
   //Animation function for what concern the movement of the search widget
-  get currentSearchPercent => max(0.0, min(1.0, offsetSearch / (347 - 68.0)));
+  get currentSearchPercent => max(0.0, min(1.0, offsetSearch / (6*MediaQuery.of(context).size.width/7)));
   get currentExplorePercent => max(0.0, min(1.0, offsetExplore / (760.0 - 122.0)));
   void animateSearch(bool open) {
     animationControllerSearch = AnimationController(
@@ -190,7 +214,7 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
             milliseconds: 1 + (800 * (isSearchOpen ? currentSearchPercent : (1 - currentSearchPercent))).toInt()),
         vsync: this);
     curve = CurvedAnimation(parent: animationControllerSearch, curve: Curves.ease);
-    animation = Tween(begin: offsetSearch, end: open ? 347.0 - 68.0 : 0.0).animate(curve)
+    animation = Tween(begin: offsetSearch, end: open ? MediaQuery.of(context).size.width/7 - MediaQuery.of(context).size.width : 0.0).animate(curve)
       ..addListener(() {
         setState(() {
           offsetSearch = animation.value;
@@ -208,8 +232,8 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
     offsetSearch -= details.delta.dx;
     if (offsetSearch < 0) {
       offsetSearch = 0;
-    } else if (offsetSearch > (347 - 68.0)) {
-      offsetSearch = 347 - 68.0;
+    } else if (offsetSearch >= (6*MediaQuery.of(context).size.width/7)) {
+      offsetSearch = (6*MediaQuery.of(context).size.width / 7);
     }
     setState(() {});
   }

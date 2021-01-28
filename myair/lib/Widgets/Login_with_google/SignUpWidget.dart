@@ -77,24 +77,30 @@ class SignUpWidget extends StatelessWidget {
               ),
 
               //TextButton in case the user is already registered
-              TextButton(
-                  child: RichText(
-                    text: TextSpan(
-                        style: TextStyle(color: Colors.black, fontSize: 16),
-                        children: <TextSpan>[
-                          new TextSpan(
-                              text: 'Are you already registered? Go to the '),
-                          new TextSpan(
-                              text: 'Login',
-                              style: new TextStyle(color: Colors.blue)),
-                        ]),
-                  ),
-                  onPressed: () {//Send to the Login page
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
-                    );
-                  }),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: TextButton(
+                      child: RichText(
+                        text: TextSpan(
+                            style: TextStyle(color: Colors.black, fontSize: 16),
+                            children: <TextSpan>[
+                              new TextSpan(
+                                  text: 'Are you already registered? Go to the '),
+                              new TextSpan(
+                                  text: 'Login',
+                                  style: new TextStyle(color: Colors.blue)),
+                            ]),
+                      ),
+                      onPressed: () {//Send to the Login page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                        );
+                      }),
+                ),
+              ),
               Spacer(),
             ],
           ),

@@ -85,12 +85,14 @@ class _PermissionPageWidgetState extends State<PermissionPageWidget> with Widget
                               Expanded(
                                 flex: 2,
                                 child: FittedBox(
-                                  fit: BoxFit.contain,
+
+                                  fit: BoxFit.fill,
                                   child: Text(
                                     "Your current location will be displayed on the map and used to retrieve accurate data regarding pollution in your area\n"
                                         "Please turn on the option of permanent location",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
+
                                       color: Colors.white,
                                     ),
                                   ),
@@ -109,13 +111,20 @@ class _PermissionPageWidgetState extends State<PermissionPageWidget> with Widget
                                       children: [
                                         Divider(),
                                         //If the user click this text is redirect to the system settings of the app
-                                        Text(
-                                          "Go to App Settings",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
+                                        Flexible(
+                                          child: ClipRect(
+                                            child: FittedBox(
+                                              fit: BoxFit.contain,
+                                              child: Text(
+                                                "Go to App Settings",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -134,12 +143,19 @@ class _PermissionPageWidgetState extends State<PermissionPageWidget> with Widget
                                     child: Column(
                                       children: [
                                         Divider(),
-                                        Text(
-                                          "Don't Allow",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
+                                        Flexible(
+                                          child: ClipRect(
+                                            child: FittedBox(
+                                              fit: BoxFit.contain,
+                                              child: Text(
+                                                "Don't Allow",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  //fontSize: 14,
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ],

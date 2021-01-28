@@ -16,7 +16,7 @@ class SearchBackWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       //Positioning of the widget based on a relative measure
-      width: (320 /  375.0 * MediaQuery.of(context).size.width),
+      width:MediaQuery.of(context).size.width,
       height: (71 /  815.0 * MediaQuery.of(context).size.height),
       alignment: Alignment.centerLeft,
       padding: EdgeInsets.only(left:  (17 /  375.0 * MediaQuery.of(context).size.width)),
@@ -36,7 +36,7 @@ class SearchBackWidget extends StatelessWidget {
           ),
           Expanded(
             child: Padding( // showing the station searcher
-                padding: EdgeInsets.symmetric(horizontal: (30.0 /  375.0 * MediaQuery.of(context).size.width)),
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
                 child: SearchableDropdownWidget (stationIdList: stationIdList, recenter : recenter)
             ),
           )

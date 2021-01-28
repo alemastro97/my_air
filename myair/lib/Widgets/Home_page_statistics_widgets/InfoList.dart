@@ -33,7 +33,7 @@ class InfoList extends StatelessWidget{
           Expanded(
               child:
               Container(
-                padding: EdgeInsets.all(MediaQuery.of(context).size.width/100),
+                padding: EdgeInsets.only(top:MediaQuery.of(context).size.width/100,left:MediaQuery.of(context).size.width/100,right:MediaQuery.of(context).size.width/100),
                 child: FittedBox(
                   fit: BoxFit.fitHeight,
                   child: Text(

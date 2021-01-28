@@ -19,7 +19,20 @@ class _UserPageWidgetState extends State<UserPageWidget>{
   //Constant data used to auto generate buttons with a loop
   List<IconData> icons = [LineAwesomeIcons.cog,LineAwesomeIcons.question_circle,LineAwesomeIcons.alternate_sign_out];
   List<String> buttonNames = ['Settings', 'Help & Support', 'Logout'];
-
+  var first;
+  var last;
+  @override
+  initState(){
+    super.initState();
+    first = actualUser.firstName;
+    last =  actualUser.lastName;
+  }
+  changeUsername(){
+    setState(() {
+      first = actualUser.firstName;
+      last =  actualUser.lastName;
+    });
+  }
   @override
   Widget build(BuildContext context){
 
@@ -40,7 +53,7 @@ class _UserPageWidgetState extends State<UserPageWidget>{
           child: Column(
             children: <Widget>[
               //Personal data
-              Expanded(flex: 1,child: FractionallySizedBox(widthFactor: 0.7,child:FittedBox(fit: BoxFit.contain,child: Text(actualUser.firstName + " " + actualUser.lastName , style: kTitleTextStyle)),),),
+              Expanded(flex: 1,child: FractionallySizedBox(widthFactor: 0.7,child:FittedBox(fit: BoxFit.contain,child: Text(first + " " + last, style: kTitleTextStyle)),),),
               //Email
               Expanded(flex: 1,child: FractionallySizedBox(widthFactor: 0.7,child: FittedBox(fit: BoxFit.contain,child: Text(actualUser.email.toString(), style: kCaptionTextStyle)),),),
             ],
@@ -109,6 +122,7 @@ class _UserPageWidgetState extends State<UserPageWidget>{
                     child: ProfileListItem(
                       icon: icons.elementAt(index),
                       text: buttonNames.elementAt(index),
+                      setName: changeUsername,
                     ),
                   ),
                   Spacer(

@@ -39,12 +39,12 @@ class _RegistrationPageWidgetState extends State<RegistrationPageWidget>{
                 children: <Widget>[
                   LogoImport(),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(top: 8.0),
                     child: Divider(),
                   ),
                   Expanded(flex: 2,child:
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(left:8.0,right:8.0,bottom:8.0),
                     child: RegistrationForm(),
                   ),
                   ),

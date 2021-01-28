@@ -62,11 +62,14 @@ class AnimatedChartState extends State<AnimatedChart> {
                   const SizedBox(
                     height: 4,
                   ),
-                 Text(
-                    'The height is based on the limits set by ARPA',
-                    style: TextStyle(
-                        color: const Color(0xff379982), fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
+                 FittedBox(
+                   fit: BoxFit.fitHeight,
+                   child: Text(
+                      'The height is based on the limits set by ARPA',
+                      style: TextStyle(
+                          color: const Color(0xff379982), fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                 ),
                   const SizedBox(
                     height: 38,
                   ),

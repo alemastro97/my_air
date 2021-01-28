@@ -37,13 +37,12 @@ class SearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _width = MediaQuery.of(context).size.width;
     return Positioned( // Position the widget in the right part in order to show only the left part with the lens icon
-        bottom: 80.0 / 815.0 * MediaQuery.of(context).size.height,
-        right: (((68.0 - 320) -
-            (68.0 * currentExplorePercent) +
-            (347 - 68.0) * currentSearchPercent) /
-            375.0 *
-            MediaQuery.of(context).size.width),
+        bottom:MediaQuery.of(context).size.height/5,
+        right: ((( MediaQuery.of(context).size.width/7 - MediaQuery.of(context).size.width) -
+            (MediaQuery.of(context).size.width/7 * currentExplorePercent) +
+            (MediaQuery.of(context).size.width - MediaQuery.of(context).size.width/7) * currentSearchPercent) ),
         //Starting the dragging
         child: GestureDetector(
           onTap: () {
@@ -56,11 +55,11 @@ class SearchWidget extends StatelessWidget {
           },
 
           child: Container(
-              width: 320 / 815.0 * MediaQuery.of(context).size.width,
+              width: _width,
               height: 71 / 815.0 * MediaQuery.of(context).size.height,
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.symmetric(
-                  horizontal: (17 / 375.0 * MediaQuery.of(context).size.width)),
+                horizontal: (17 / 375.0 * MediaQuery.of(context).size.width)),
               child: currentSearchPercent != 1.0 //until the drag isn't finished it displays only the icon
                   ? Opacity(
                 opacity: 1.0 - currentSearchPercent,

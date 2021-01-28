@@ -29,8 +29,11 @@ class _SearchableDropdownWidget extends State<SearchableDropdownWidget> {
     stationIdList.map((station) =>{
       items.add(
         DropdownMenuItem(
-            child: Text(
-              station.unit,
+            child: FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Text(
+                station.unit,
+              ),
             ),
             //Value used to find the station selected
             value: station.unit
@@ -50,9 +53,6 @@ class _SearchableDropdownWidget extends State<SearchableDropdownWidget> {
           scrollDirection: Axis.vertical,
           child: Column(
             children:[
-              SizedBox(
-                height: 5,
-              ),
               //Default plugin widget
               SearchableDropdown.single(
                 menuBackgroundColor: Theme.of(context).brightness == Brightness.light ? Colors.white : Theme.of(context).backgroundColor,

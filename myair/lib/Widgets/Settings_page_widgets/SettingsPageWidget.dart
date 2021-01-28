@@ -15,6 +15,9 @@ import 'package:myair/main.dart';
 import 'package:myair/Widgets/Settings_page_widgets/SliderAgent.dart';
 
 class SettingsPageWidget extends StatefulWidget{
+  final Function setName;
+
+  const SettingsPageWidget({Key key, this.setName}) : super(key: key);
   @override
   _SettingsPageWidgetState createState() => _SettingsPageWidgetState();
 }
@@ -59,7 +62,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget>{
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
 
-                NameChanger(),
+                NameChanger(setName: widget.setName),
                 const SizedBox(height: 10.0),
 
                 PasswordChanger(),

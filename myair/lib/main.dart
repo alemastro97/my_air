@@ -31,7 +31,7 @@ var x;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  print("start");
   // DB for user management
   await Firebase.initializeApp();
 
@@ -90,13 +90,16 @@ class _MyAppState extends State<MyApp> {
 
   // App initialization
   initialization() async {
+
+    DailyUnitData().initializeValues();
+    ActualValue().initializeValues();
+
     // Geolocation permission management
     permissions = await GeolocationView().checkPermissions();
 
     FirebaseDatabaseHelper().getShadowUserAccount();
     // Data management
-    DailyUnitData().initializeValues();
-    ActualValue().initializeValues();
+
     // Reward management
     PollutantAgent p = PollutantAgent();
     p.initialize(1,100,100,100,100,100);

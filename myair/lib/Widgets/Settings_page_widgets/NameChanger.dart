@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import '../../main.dart';
 
 class NameChanger extends StatefulWidget{
+  final Function setName;
 
+  const NameChanger({Key key, this.setName}) : super(key: key);
   @override
   _NameChanger createState() => _NameChanger();
 
@@ -28,7 +30,7 @@ TextEditingController nameController = new TextEditingController(); // Textfield
   Widget build(BuildContext context) {
     return  //Change name container
       Container(
-        height:MediaQuery.of(context).size.height/13,
+       // height:MediaQuery.of(context).size.height/13,
         width: MediaQuery.of(context).size.width,
         child: Card(
 
@@ -59,6 +61,8 @@ TextEditingController nameController = new TextEditingController(); // Textfield
                         controller: nameController,
                         keyboardType: TextInputType.text,
                         decoration: new InputDecoration(
+                          isDense: true,                      // Added this
+                          contentPadding: EdgeInsets.all(8),
                           filled: true,
                           fillColor: Colors.white,
                           border: new OutlineInputBorder(
@@ -71,30 +75,58 @@ TextEditingController nameController = new TextEditingController(); // Textfield
                     ),
                     ),
                   ),
-                  GestureDetector(
+                  !_modified ? GestureDetector(
                     onTap: () { // Check the status of the container by the_modified value
-                      setState(() {
-                        _modified = !_modified;
-                        if(_modified){nameController.text = "";} // If it enter in this if means that the user wants modifies its name
-                        else{
-                          var modifiedNameSurname = nameController.text.split(" "); // Get the text in the text view and split that
-                          actualUser.firstName =
-                              modifiedNameSurname.elementAt(0);
-                          actualUser.lastName =
-                              modifiedNameSurname.elementAt(1);
-                        }
-                        actualUser.updateUser();
-                      });
+                      onTapFunction();
                     },
                     child: Icon(
-                      Icons.edit,
+                       Icons.edit,
                       color: Colors.white,
                     ),
-                  ),
+                  ): Row(
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () { // Check the status of the container by the_modified value
+                          onTapFunction();
+                        },
+                        child: Icon(
+                          Icons.save_outlined,
+                          color: Colors.white,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () { // Check the status of the container by the_modified value
+                          nameController.text = "";
+                          onTapFunction();
+                        },
+                        child: Icon(
+                          Icons.delete_outline_rounded,
+                          color: Colors.white,
+                        ),
+                      )
+                    ],
+                  )
                 ]),
           ),
         ),
       );
   }
-
+  onTapFunction(){
+    setState(() {
+      _modified = !_modified;
+      if(_modified){nameController.text = "";} // If it enter in this if means that the user wants modifies its name
+      else{
+        if(nameController.text != ""){
+          var modifiedNameSurname = nameController.text.split(
+              " "); // Get the text in the text view and split that
+          actualUser.firstName =
+              modifiedNameSurname.elementAt(0);
+          actualUser.lastName =
+              modifiedNameSurname.elementAt(1);
+          actualUser.updateUser();
+          widget.setName();
+        }
+      }
+    });
+  }
 }

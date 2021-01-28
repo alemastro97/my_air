@@ -12,7 +12,6 @@ class ProfileListItem extends StatelessWidget {
   final IconData icon;
   final text;
   final Function setName; // Function used by the settings page to update the name of the user
-
   //Constructor
   const ProfileListItem({Key key, this.icon, this.text, this.setName})
       : super(key: key);
@@ -22,13 +21,13 @@ class ProfileListItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
       child: GestureDetector(
-        onTap: () {
+        onTap: () async {
           switch (text) {
             //Logout button: delete the user from the database and its google account (if one is present)
             case 'Logout':
               {
                 GoogleSignInProvider().logout();
-                DatabaseHelper().deleteUser();
+                await DatabaseHelper().deleteUser();
                 Navigator.pushReplacementNamed(context, '/Login');
               }
               break;
@@ -41,7 +40,7 @@ class ProfileListItem extends StatelessWidget {
             case 'Settings':
               {
                 Navigator.of(context)
-                    .push(createRoute(SettingsPage()));
+                    .push(createRoute(SettingsPage(setName: setName)));
               }
               break;
             default:

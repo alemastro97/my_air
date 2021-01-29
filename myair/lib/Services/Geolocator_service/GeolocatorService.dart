@@ -7,7 +7,7 @@ import 'package:myair/Services/Database_service/DatabaseHelper.dart';
 import 'package:myair/Widgets/Pop_Up_Notification/notification.dart';
 import 'package:myair/main.dart';
 import 'package:myair/Services/RemoteView/RemoteViewUpdater.dart';
-import 'package:myair/Modules/ActualData.dart';
+import 'package:myair/Modules/ActualValue.dart';
 
 Timer timer;
 

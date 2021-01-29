@@ -8,7 +8,7 @@ import 'package:myair/Modules/DailySensorData.dart';
 import 'package:myair/Modules/Sensor.dart';
 import 'package:myair/Modules/SensorListData.dart';
 
-import 'package:myair/Modules/ActualData.dart';
+import 'package:myair/Modules/ActualValue.dart';
 
 class DailyUnitData {
   // array last 24h averages

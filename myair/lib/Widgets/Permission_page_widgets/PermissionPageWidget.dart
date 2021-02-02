@@ -42,7 +42,7 @@ class _PermissionPageWidgetState extends State<PermissionPageWidget> with Widget
 
   @override
   Widget build(BuildContext context) {
-    GeolocationView().checkPermissions();
+    GeolocationService().checkPermissions();
     print("£");
     return SafeArea(
       child: Container(

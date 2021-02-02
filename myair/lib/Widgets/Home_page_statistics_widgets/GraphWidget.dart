@@ -125,6 +125,7 @@ class GraphWidget extends StatelessWidget{
                                                             .maxWidth *
                                                             0.5,
                                                         info: ActualValue().getActualData().value,
+                                                        light:(Theme.of(context).brightness == Brightness.light)
                                                       ),
                                                     ),
                                                   ),

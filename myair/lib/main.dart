@@ -2,7 +2,7 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:myair/Modules/ActualData.dart';
+import 'package:myair/Modules/ActualValue.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:myair/Modules/PollutantAgent.dart';
 import 'package:myair/Services/Database_service/FirebaseDatabaseHelper.dart';
@@ -95,14 +95,12 @@ class _MyAppState extends State<MyApp> {
     ActualValue().initializeValues();
 
     // Geolocation permission management
-    permissions = await GeolocationView().checkPermissions();
+    permissions = await GeolocationService().checkPermissions();
 
-    FirebaseDatabaseHelper().getShadowUserAccount();
-    // Data management
+    //FirebaseDatabaseHelper().getShadowUserAccount();
 
     // Reward management
-    PollutantAgent p = PollutantAgent();
-    p.initialize(1,100,100,100,100,100);
+    PollutantAgent().initialize(1,100,100,100,100,100);
 
     DatabaseHelper().getDailyData();
     // Get actual user
@@ -118,7 +116,7 @@ class _MyAppState extends State<MyApp> {
       sensorList = await DatabaseHelper().getSensorList();
     }
 
-    /*await*/ GeolocationView().getCurrentLocation();
+    /*await */GeolocationService().getCurrentLocation();
     setState(() {
       _start = true;
     });

@@ -11,15 +11,15 @@ import 'package:myair/Modules/ActualValue.dart';
 
 Timer timer;
 
-class GeolocationView{
+class GeolocationService{
 
   LatLng userPosition; // Actual user position
   DailyUnitData d =  new DailyUnitData(); //Take the reference of daily unit data
-  static final GeolocationView _geolocationView = GeolocationView._internal();
+  static final GeolocationService _geolocationView = GeolocationService._internal();
   final Notifications _notifications =  Notifications(); // Create the notification class
 
   //We handle it as a SINGLETON
-  factory GeolocationView() {return _geolocationView;}
+  factory GeolocationService() {return _geolocationView;}
 
   //Allows us to check if the local permissions are enabled on the device,
   // if they are not, the procedure doesn't start
@@ -52,7 +52,7 @@ class GeolocationView{
   LatLng getLastUserPosition(){return userPosition;}
 
   //Starts the time that call the function every 30 seconds
-  GeolocationView._internal(){
+  GeolocationService._internal(){
     this._notifications.initNotifications();
     timer = Timer.periodic(Duration(seconds: 30), (Timer t) => getCurrentLocation());
   }
@@ -81,7 +81,6 @@ class GeolocationView{
          ActualValue().getActualData().value.elementAt(5).value.amount);
 
 
-
       int aqi = PollutantAgent().getAqi(
           ActualValue().getActualData().value.elementAt(0).value.amount,
           ActualValue().getActualData().value.elementAt(1).value.amount,
@@ -89,6 +88,7 @@ class GeolocationView{
           ActualValue().getActualData().value.elementAt(3).value.amount,
           ActualValue().getActualData().value.elementAt(4).value.amount,
           ActualValue().getActualData().value.elementAt(5).value.amount);
+
       RemoteViewUpdater().updateRemoteView(
           ActualValue().getActualData().value.elementAt(0).value.amount.round().toString(),
           ActualValue().getActualData().value.elementAt(1).value.amount.round().toString(),
@@ -103,7 +103,6 @@ class GeolocationView{
             actualUser.weeklyMissionFailed = false;
           }
         }
-
       if(actualUser.notificationSend)
       {
         for (var i = 0; i < ActualValue().getActualData().value.length; i++)

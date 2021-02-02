@@ -190,8 +190,8 @@ class DatabaseHelper {
   // Delete table data
   Future<int> deleteUser() async {
     var db = await this.database;
-    int result;
-    if (await this.getCountUser() == 1){
+    int result = await this.getCountUser();
+    if (result == 1){
        result = await db.rawDelete('DELETE FROM $userTable');
     }else {
       result = 0;

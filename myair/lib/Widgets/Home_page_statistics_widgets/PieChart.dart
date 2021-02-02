@@ -1,4 +1,5 @@
 
+
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
@@ -9,8 +10,10 @@ import 'package:myair/Modules/InfoPollution.dart';
 
 //Main pie chart creation
 class PieChart extends CustomPainter {
+  final bool light;
 
-  PieChart({@required this.info, @required this.width});
+
+  PieChart({@required this.info, @required this.width, this.light});
 
   final List<ValueNotifier<InfoPollution>> info;
   final double width;
@@ -41,7 +44,7 @@ class PieChart extends CustomPainter {
       false,
       paint,
     );
-    paint.color = Colors.white;
+    paint.color = light ? Colors.white : Color(0xFF373737);
     paint.strokeWidth =  width /6;
     canvas.drawArc(
       Rect.fromCircle(center: center,radius: radius),

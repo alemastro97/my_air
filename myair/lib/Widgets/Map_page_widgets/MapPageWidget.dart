@@ -78,7 +78,7 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
         //Flutter map -> google map was paid
         new FlutterMap(
           options: MapOptions(
-            center: GeolocationView().getLastUserPosition(),
+            center: GeolocationService().getLastUserPosition(),
             zoom: 15.0, //Starting zoom
             maxZoom: 17.0, //Max zoom of the map
             minZoom: 10.0, //Minimum zoom of the map
@@ -171,7 +171,7 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
         mapController.move(station.position , 17.0);
         animateSearch(false);
       }else{
-        mapController.move(GeolocationView().getLastUserPosition(), 15.0); //-> the one related to the user
+        mapController.move(GeolocationService().getLastUserPosition(), 15.0); //-> the one related to the user
       }
     });
   }
@@ -207,14 +207,16 @@ class MapPageWidgetState extends State <MapPageWidget> with TickerProviderStateM
 
   //Animation function for what concern the movement of the search widget
   get currentSearchPercent => max(0.0, min(1.0, offsetSearch / (6*MediaQuery.of(context).size.width/7)));
-  get currentExplorePercent => max(0.0, min(1.0, offsetExplore / (760.0 - 122.0)));
+  get currentExplorePercent => max(0.0, min(1.0, offsetExplore / (6*MediaQuery.of(context).size.width/7)));
   void animateSearch(bool open) {
-    animationControllerSearch = AnimationController(
-        duration: Duration(
-            milliseconds: 1 + (800 * (isSearchOpen ? currentSearchPercent : (1 - currentSearchPercent))).toInt()),
-        vsync: this);
+    animationControllerSearch = AnimationController(duration: Duration(milliseconds: 1 + (800 * (isSearchOpen ? currentSearchPercent : (1 - currentSearchPercent))).toInt()),vsync: this);
     curve = CurvedAnimation(parent: animationControllerSearch, curve: Curves.ease);
-    animation = Tween(begin: offsetSearch, end: open ? MediaQuery.of(context).size.width/7 - MediaQuery.of(context).size.width : 0.0).animate(curve)
+    animation = Tween(
+        begin: offsetSearch,
+        end: open ?
+        6*MediaQuery.of(context).size.width / 7
+            :
+        0.0).animate(curve)
       ..addListener(() {
         setState(() {
           offsetSearch = animation.value;

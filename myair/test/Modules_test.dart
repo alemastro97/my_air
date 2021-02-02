@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
+import 'package:myair/Modules/ActualValue.dart';
 import 'package:myair/Modules/DailySensorData.dart';
 import 'package:myair/Modules/PollutantAgent.dart';
 import 'package:myair/Modules/SensorListData.dart';
@@ -10,8 +11,20 @@ import 'package:myair/Modules/SensorData.dart';
 import 'package:myair/Modules/DailyUnitData.dart';
 import 'package:latlong/latlong.dart';
 import 'package:myair/Modules/UserAccount.dart';
+import 'package:myair/Views/Graph_view/ChartPage.dart';
+import 'package:myair/Views/Home_page_views/HomeStatisticsPage.dart';
 import 'package:myair/Views/Reward_page/RewardPage.dart';
+import 'package:myair/Views/Settings_view/SettingsPage.dart';
+import 'package:myair/Widgets/ChartPage_widgets/AnimatedChart.dart';
+import 'package:myair/Widgets/ChartPage_widgets/BarChartPreview.dart';
+import 'package:myair/Widgets/ChartPage_widgets/ChartCardWidget.dart';
+import 'package:myair/Widgets/ChartPage_widgets/ScrollableTabBar.dart';
+import 'package:myair/Widgets/Home_page_statistics_widgets/AgentInfoWidget.dart';
+import 'package:myair/Widgets/Home_page_statistics_widgets/AgentPieChart.dart';
+import 'package:myair/Widgets/Home_page_statistics_widgets/GridAgentWidget.dart';
 import 'package:myair/Widgets/Reward_page_widgets/ActiveReward.dart';
+import 'package:myair/Widgets/Settings_page_widgets/SettingsPageWidget.dart';
+import 'package:myair/Widgets/Settings_page_widgets/SliderAgent.dart';
 import 'package:myair/main.dart';
 
 void main() {
@@ -435,7 +448,7 @@ void main() {
 
   });
 
-  group('Widget test: presence of ActiveReward widget in reward page', () {
+  group('Widget tes', () {
     // logged_in_widget test
     testWidgets('Test 15', (WidgetTester tester) async {
 
@@ -446,9 +459,45 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(home: RewardPage()));
 
-      var testlist = tester.elementList(find.byType(ActiveReward));
 
       expect(find.byType(ActiveReward),findsNWidgets(9));
     });
+    testWidgets('Test 16', (WidgetTester tester) async {
+
+      actualUser = new UserAccount("aristide", "bordoli", "aristide.bordoli@mail.polimi.it", "","",[100,50,400,500,240,10], true,true,DateFormat('MM-dd').format(DateTime.now()),0,true,0);
+
+      ActualValue().initializeValues();
+      await tester.pumpWidget(MaterialApp(home: SettingsPage()));
+
+
+      expect(find.byType(SliderAgent),findsNWidgets(6));
+    });
+
+    testWidgets('Test 17', (WidgetTester tester) async {
+      DailyUnitData().initializeValues();
+      ActualValue().initializeValues();
+
+      await tester.pumpWidget(MaterialApp(home: ChartPage()));
+
+      expect(find.byType(AnimatedChart),findsNWidgets(1));
+    });
+
+    testWidgets('Test 18', (WidgetTester tester) async {
+      ActualValue().initializeValues();
+
+      await tester.pumpWidget(MaterialApp(home: HomeStatisticsPage()));
+
+      expect( find.byType(GridAgentWidget),findsNWidgets(1));
+    });
+
+    testWidgets('Test 19', (WidgetTester tester) async {
+      ActualValue().initializeValues();
+
+      await tester.pumpWidget(MaterialApp(home: HomeStatisticsPage()));
+
+      expect( find.byType(AgentInfoWidget),findsNWidgets(6));
+    });
   });
+
+
 }

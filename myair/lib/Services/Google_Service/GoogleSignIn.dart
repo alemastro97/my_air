@@ -42,17 +42,17 @@ class GoogleSignInProvider extends ChangeNotifier {
 
       await FirebaseAuth.instance.signInWithCredential(credential);
 
-      isSigningIn = false;
-      var x =  FirebaseAuth.instance.currentUser;
-      var namesur = x.displayName.split(" ");
-      var b = ( await http.get(x.photoURL)).bodyBytes;
-      var image   = b!= null ?  base64Encode(b):"";
-      actualUser = new UserAccount(namesur.elementAt(0), namesur.elementAt(1), x.email, "",image,[100,50,400,500,240,10], true,true,DateFormat('MM-dd').format(DateTime.now()),0,true,0);
-      FirebaseDatabaseHelper().saveGoogleUser(actualUser);
+     isSigningIn = false;
+    //  var x =  FirebaseAuth.instance.currentUser;
+    //  var namesur = x.displayName.split(" ");
+    //  var b = ( await http.get(x.photoURL)).bodyBytes;
+   //   var image   = b!= null ?  base64Encode(b):"";
+   //   actualUser = new UserAccount(namesur.elementAt(0), namesur.elementAt(1), x.email, "",image,[100,50,400,500,240,10], true,true,DateFormat('MM-dd').format(DateTime.now()),0,true,0);
+    //  FirebaseDatabaseHelper().saveGoogleUser(actualUser);
     }
   }
 
-  void logout() async {
+  Future<void> logout() async {
     print('logout entered');
     if( isSigningIn ){
       await googleSignIn.disconnect().whenComplete(() async {

@@ -34,7 +34,7 @@ class HomePageState extends State<HomePage> {
     ];
 
     //At the opening of the app
-    actualUser.checkWeeklyChallenges();
+    //actualUser.checkWeeklyChallenges();
 
     return  ThemeSwitchingArea(
       child: Scaffold(

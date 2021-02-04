@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:myair/Constants/theme_constants.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +29,17 @@ class ProfileListItem extends StatelessWidget {
             //Logout button: delete the user from the database and its google account (if one is present)
             case 'Logout':
               {
+                print("qui");
                 actualUser = null;
+                print("qui1");
                 await DatabaseHelper().deleteUser();
-                GoogleSignInProvider().logout();
+
+                if( await GoogleSignIn().isSignedIn() ){
+                  await GoogleSignIn().disconnect().whenComplete(() async {
+                    FirebaseAuth.instance.signOut();
+                  });
+                }
+                //await GoogleSignInProvider().logout();
 
                 Navigator.pushReplacementNamed(context, '/Login');
               }

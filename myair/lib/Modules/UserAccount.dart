@@ -60,6 +60,7 @@ class UserAccount {
     this.hourSafe = hourSafe;
     this.weeklyMissionFailed = weeklyMissionFailed;
     this.counter = counter;
+    this.checkWeeklyChallenges();
   }
 
   //Setter of the firebase id(we make it subsequently because we had to first create the user, save it and only after that we can get the Key)
@@ -178,6 +179,7 @@ class UserAccount {
 
   //Update Of the user image in all the databases
   Future<void> updateUserImg(String img) async {
+    this.img = img;
     await DatabaseHelper().setImg(this.email,img);
     FirebaseDatabaseHelper().updateUser();
   }

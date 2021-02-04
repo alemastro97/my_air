@@ -90,7 +90,7 @@ class _MyAppState extends State<MyApp> {
 
   // App initialization
   initialization() async {
-
+    await GoogleSignInProvider().logout();
     DailyUnitData().initializeValues();
     ActualValue().initializeValues();
 

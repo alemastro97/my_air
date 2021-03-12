@@ -1,4 +1,4 @@
-# my_air
+# My Air
 This repo contains the code and the data used in order to develop and present My Air. This is an application developed for the Design and Implementation Course held at the Politecnico di Milano in the school year 2020/2021.
 
 #Objective:

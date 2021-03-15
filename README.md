@@ -12,7 +12,9 @@ User profiling and gaming reward.
 ![image](https://user-images.githubusercontent.com/56479838/111175742-0254a100-85a9-11eb-9e68-366d550eebbb.png)
 ![image](https://user-images.githubusercontent.com/56479838/111175776-084a8200-85a9-11eb-8894-335df99e6f8d.png)
 ![image](https://user-images.githubusercontent.com/56479838/111175795-0c769f80-85a9-11eb-8493-ca3dea67d63b.png)
+
 We have also implemented the ability to change the theme of the app based on the user's preference:
+
 ![image](https://user-images.githubusercontent.com/56479838/111175806-100a2680-85a9-11eb-95d1-2cf03b0b0774.png)
 ![image](https://user-images.githubusercontent.com/56479838/111175824-13051700-85a9-11eb-96ea-f0a5425a4763.png)
 ![image](https://user-images.githubusercontent.com/56479838/111175839-17c9cb00-85a9-11eb-8179-985425e8225b.png)

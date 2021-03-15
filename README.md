@@ -8,6 +8,8 @@ A mobile app for vulnerable people able to detect hazardous pollution concentrat
 The application will make the data collected by satellites more readable and will provide citizens with air quality information.
 User profiling and gaming reward.
 
+### Application Screens
+
 ![image](https://user-images.githubusercontent.com/56479838/111174640-e270ad80-85a7-11eb-9074-a8c669cdb8b4.png)
 ![image](https://user-images.githubusercontent.com/56479838/111175706-f9fc6600-85a8-11eb-8726-8b8533709a58.png)
 ![image](https://user-images.githubusercontent.com/56479838/111175742-0254a100-85a9-11eb-9e68-366d550eebbb.png)
